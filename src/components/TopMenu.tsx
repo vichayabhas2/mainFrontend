@@ -28,6 +28,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
+              <TopMenuItem title="Home" pageRef="/" />
             </div>
           </div>
         );
@@ -48,6 +49,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
+              <TopMenuItem title="Home" pageRef="/" />
             </div>
           </div>
         );
@@ -70,6 +72,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
+              <TopMenuItem title="Home" pageRef="/" />
             </div>
           </div>
         );
@@ -90,6 +93,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
+              <TopMenuItem title="Home" pageRef="/" />
             </div>
           </div>
         );
@@ -111,6 +115,7 @@ export default async function TopMenu() {
         </Link>
         <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
           <TopMenuItem title="Register" pageRef="/signup" />
+          <TopMenuItem title="Home" pageRef="/" />
         </div>
       </div>
     );
