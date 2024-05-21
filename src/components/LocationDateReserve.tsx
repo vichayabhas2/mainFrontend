@@ -1,24 +1,36 @@
-'use client'
+"use client";
 
+import { DatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Select, Menu, MenuItem } from "@mui/material";
+import { InterCampFront } from "../../intreface";
+import { useRef, useState } from "react";
+import staffRegisterCamp from "@/libs/camp/staffRegister";
+import SelectTemplate from "./SelectTemplate";
 
-import {DatePicker} from "@mui/x-date-pickers"
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { Select, Menu, MenuItem } from "@mui/material"
-import { InterCampFront } from "../../intreface"
-import { useRef, useState } from "react"
-import staffRegisterCamp from "@/libs/camp/staffRegister"
-
-
-export default function LocationDateReserve({partMap,token}:{partMap:Map<string,string>,token:string}){
-    const userRef=useRef('')
-    const choices:string[]=[]
-    partMap.forEach((v:string,k:string)=>{
-        choices.push(k)
-    })
-    const [partName,setPartName]=useState<string|null>(null)
-    return(
-        <div className=" rounded-lg ">
+export default function LocationDateReserve({
+  partMap,
+  token,
+}: {
+  partMap: Map<string, string>;
+  token: string;
+}) {
+  const userRef = useRef("");
+  const choices: string[] = [];
+  partMap.forEach((v: string, k: string) => {
+    choices.push(k);
+  });
+  const [partName, setPartName] = useState<string | null>(null);
+  return (
+    <SelectTemplate
+      mapIn={partMap}
+      select={(partId: string) => {
+        staffRegisterCamp(partId, token);
+      }}
+    />
+  );
+} /*<div className=" rounded-lg ">
             <Select variant="standard" name="location" id="location" onChange={(e)=>setPartName(e.target.value as string)}
             className="h-[2em] w-[200px]">
                 {choices.map((choice:string)=>{
@@ -49,7 +61,4 @@ export default function LocationDateReserve({partMap,token}:{partMap:Map<string,
 
 
 
-        </div>
-
-    )
-}/**/
+        </div>*/

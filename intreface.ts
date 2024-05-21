@@ -34,7 +34,7 @@ export interface InterBaanBack {
     boySleepPlaceId: string | null,
     girlSleepPlaceId: string | null,
     nomalPlaceId: string | null,
-    mapShertManageIdByUserId:Map<string,string>
+    mapShertManageIdByUserId: Map<string, string>
 }
 export interface InterBuilding {
     id: string,
@@ -91,11 +91,11 @@ export interface InterCampBack {
     nongPaidIds: string[],
     nongInterviewIds: Map<string, string>,                            ////////////////////////////////i
     registerModel: 'noPaid' | 'noInterview' | 'all',
-    havePeto: boolean,
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
     logoUrl: string,
-    mapShertManageIdByUserId:Map<string,string>,
-    registerSheetLink:string,
-    peeLock:boolean
+    mapShertManageIdByUserId: Map<string, string>,
+    registerSheetLink: string,
+    peeLock: boolean
 }
 export interface InterCampStyle {
     id: string,
@@ -151,7 +151,7 @@ export interface InterPartBack {
     actionPlanIds: string[],
     workItemIds: string[],
     placeId: string | null,
-    mapShertManageIdByUserId:Map<string,string>
+    mapShertManageIdByUserId: Map<string, string>
 }
 export interface InterPartNameContainer {
     id: string,
@@ -286,7 +286,7 @@ export interface InterBaanFront {
     boySleepPlaceId: string | null,
     girlSleepPlaceId: string | null,
     nomalPlaceId: string | null,
-    mapShertManageIdByUserId:MyMap[]
+    mapShertManageIdByUserId: MyMap[]
 }
 
 export interface InterCampFront {
@@ -337,11 +337,11 @@ export interface InterCampFront {
     nongPaidIds: string[],
     nongInterviewIds: MyMap[],                            ////////////////////////////////i
     registerModel: 'noPaid' | 'noInterview' | 'all',
-    havePeto: boolean,
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
     logoUrl: string,
-    mapShertManageIdByUserId:MyMap[],
-    registerSheetLink:string,
-    peeLock:boolean
+    mapShertManageIdByUserId: MyMap[],
+    registerSheetLink: string,
+    peeLock: boolean
 }
 export interface InterPartFront {
     id: string,
@@ -364,7 +364,7 @@ export interface InterPartFront {
     actionPlanIds: string[],
     workItemIds: string[],
     placeId: string | null,
-    mapShertManageIdByUserId:MyMap[]
+    mapShertManageIdByUserId: MyMap[]
 }
 export interface MyMap {
     key: string,
@@ -397,9 +397,19 @@ export interface UpdateCamp {
     allDone: boolean,
     lockChangePickup: boolean,
     pictureUrls: string[],
-    logoUrl:string,
+    logoUrl: string,
     dateStart: Date,
     dateEnd: Date,
-    registerSheetLink:string,
-    peeLock:boolean
+    registerSheetLink: string,
+    peeLock: boolean
+}
+export interface CreateCamp {
+    nameId: string,
+    round: number,
+    dateStart: Date,
+    dateEnd: Date,
+    boardIds: string[],
+    registerModel: 'noPaid' | 'noInterview' | 'all',
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
+
 }

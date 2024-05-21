@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-export default function signupPage() {
+export default function updateProfilePage() {
   const userRef = useRef("");
   const router = useRouter();
   const { data: session } = useSession();
@@ -28,7 +28,7 @@ export default function signupPage() {
 
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-medium">Register</div>
+      <div className="text-4xl font-medium">Update Profile </div>
 
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">

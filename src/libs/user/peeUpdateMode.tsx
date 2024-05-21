@@ -2,7 +2,7 @@ import { backendUrl, userPath } from "@/components/setup";
 import { InterUser } from "../../../intreface";
 export default async function peeUpdateMode(
   token: string,
-  mode: "peep" | "nong",
+  mode: "pee" | "nong",
   fillter: string[]
 ) {
   const response = await fetch(`${backendUrl}/${userPath}/updateMode`, {

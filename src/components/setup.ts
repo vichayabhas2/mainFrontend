@@ -166,7 +166,7 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         nongPaidIds,
         nongInterviewIds,                            ////////////////////////////////i
         registerModel,
-        havePeto,
+        memberStructre,
         mapShertManageIdByUserId,
         logoUrl,
         registerSheetLink,
@@ -217,7 +217,7 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         dataLock,
         dateEnd,
         dateStart,
-        havePeto,
+        memberStructre,
         workItemIds,
         songIds,
         id,

@@ -57,61 +57,17 @@ export default async function HospitalDetailPage({
     } else if (myMapToMapString(campDetail.nongPassIds).has(user.id)) {
     } else if (myMapToMapString(campDetail.peePassIds).has(user.id)) {
     } else if (myMapToMapString(campDetail.nongInterviewIds).has(user.id)) {
+    } else if (campDetail.open && user.role == "nong") {
+      console.log(user.role);
+      return <NongRegisterPage camp={campDetail} token={token} />;
+    } else if (!campDetail.peeLock && user.role != "nong") {
+      console.log("pee");
+      console.log(user.role);
+      return <LocationDateReserve partMap={partMap} token={token} />;
     } else {
-      switch (campDetail.memberStructre) {
-        case "nong->highSchool,pee->1year,peto->2upYear": {
-          if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
-          } else if (!campDetail.peeLock && user.role != "nong") {
-            return <LocationDateReserve partMap={partMap} token={token} />;
-          } else {
-            alert("this camp is close");
-            return <PushToCamps />;
-          }
-        }
-        case "nong->1year,pee->2upYear": {
-          if (campDetail.open && user.role == "pee") {
-            console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
-          } else if (
-            !campDetail.peeLock &&
-            (user.role == "peto" || user.role == "admin")
-          ) {
-            return <LocationDateReserve partMap={partMap} token={token} />;
-          } else {
-            alert("this camp is close");
-            return <PushToCamps />;
-          }
-        }
-        case "nong->highSchool,pee->2upYear": {
-          if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
-          } else if (
-            !campDetail.peeLock &&
-            (user.role == "peto" || user.role == "admin")
-          ) {
-            return <LocationDateReserve partMap={partMap} token={token} />;
-          } else {
-            alert("this camp is close");
-            return <PushToCamps />;
-          }
-        }
-        case "nong->highSchool,pee->allYear": {
-          if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
-          } else if (!campDetail.peeLock && user.role != "nong") {
-            return <LocationDateReserve partMap={partMap} token={token} />;
-          } else {
-            alert("this camp is close");
-            return <PushToCamps />;
-          }
-        }
-      }
+      alert("this camp is close");
+      return <PushToCamps />;
     }
-
     return (
       <main className="text-center p-5">
         <div>
