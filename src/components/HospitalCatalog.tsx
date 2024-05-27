@@ -1,22 +1,21 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { InterCampFront } from "../../intreface";
 import Card from "./Card";
 import Link from "next/link";
 
-
-
-export default async function HospitalCatalog({
+export default function HospitalCatalog({
   hospitalsJson,
   mapName,
-  onRating
+
 }: {
-  hospitalsJson: Promise<InterCampFront[]>;
-  mapName:Promise<Map<string,string>>,
-  onRating:Function
+  hospitalsJson: InterCampFront[];
+  mapName: Map<string, string>;
+
 }) {
-  const mapred=await mapName
-
-
-  const hospitalsJsonReady = await hospitalsJson;
+  const mapred = mapName;
+  const router = useRouter();
+  const hospitalsJsonReady = hospitalsJson;
   return (
     <>
       <div
@@ -29,7 +28,7 @@ export default async function HospitalCatalog({
           alignContent: "space-around",
         }}
       >
-        {hospitalsJsonReady.map((camp:InterCampFront) => (
+        {hospitalsJsonReady.map((camp: InterCampFront) => (
           <div className={`w-full h-auto my-${5}`}>
             {/* <Link href={`/hospital/${hospitalItem.id}`}> */}
             <Card
@@ -37,7 +36,9 @@ export default async function HospitalCatalog({
               link={`/camp/${camp.id}`}
               imgSrc={camp.logoUrl}
               id={camp.id}
-              onRating={onRating}
+              onRating={() => {
+                router.push(`/camp/${camp.id}`);
+              }}
             />{" "}
             {/* </Link> */}
           </div>

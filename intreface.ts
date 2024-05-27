@@ -6,7 +6,8 @@ export interface IntreActionPlan {
     start: Date,
     end: Date,
     headId: string,
-    body: string
+    body: string,
+    _id:string
 }
 export interface InterBaanBack {
     id: string,
@@ -34,14 +35,16 @@ export interface InterBaanBack {
     boySleepPlaceId: string | null,
     girlSleepPlaceId: string | null,
     nomalPlaceId: string | null,
-    mapShertManageIdByUserId: Map<string, string>
+    mapShertManageIdByUserId: Map<string, string>,
+    _id:string
 }
 export interface InterBuilding {
     id: string,
     name: string,
     placeIds: string[],
     actionPlanIds: string[],
-    fridayActIds: string[]
+    fridayActIds: string[],
+    _id:string
 }
 export interface InterCampBack {
     id: string,
@@ -91,17 +94,20 @@ export interface InterCampBack {
     nongPaidIds: string[],
     nongInterviewIds: Map<string, string>,                            ////////////////////////////////i
     registerModel: 'noPaid' | 'noInterview' | 'all',
-    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear' | 'allYearMix',
     logoUrl: string,
     mapShertManageIdByUserId: Map<string, string>,
     registerSheetLink: string,
-    peeLock: boolean
+    peeLock: boolean,
+    outRoundIds: string[],
+    _id:string,
+    campName:string
 }
 export interface InterCampStyle {
     id: string,
     refId: string,
-    types: 'camp' | 'baan'
-
+    types: 'camp' | 'baan',
+    _id:string
 }
 export interface InterFrydayAct {
     id: string,
@@ -110,16 +116,19 @@ export interface InterFrydayAct {
     staffId: string[],
     limit: number,
     studentId: string[],
-    placeId: string
+    placeId: string,
+    _id:string
 }
 export interface InterHelthIsue {
     id: string,
-    userId: string
+    userId: string,
+    _id:string
 }
 export interface InterNameContainer {
     id: string,
     campIds: string[],
-    name: string
+    name: string,
+    _id:string
 }
 export interface InterNongCampBack {
     id: string,
@@ -127,6 +136,7 @@ export interface InterNongCampBack {
     baanId: string,
     nongIds: string[],
     nongShertManageIds: string[],
+    _id:string
     //mapNongCampIdByUserId: Map<string, string>
 }
 export interface InterPartBack {
@@ -151,13 +161,15 @@ export interface InterPartBack {
     actionPlanIds: string[],
     workItemIds: string[],
     placeId: string | null,
-    mapShertManageIdByUserId: Map<string, string>
+    mapShertManageIdByUserId: Map<string, string>,
+    _id:string
 }
 export interface InterPartNameContainer {
     id: string,
     campIds: string[],
     name: string,
-    partIds: string[]
+    partIds: string[],
+    _id:string
 }
 export interface InterPeeCamp {
     id: string,
@@ -165,6 +177,7 @@ export interface InterPeeCamp {
     partId: string,
     baanId: string, peeIds: string[],
     peeShertManageIds: string[],
+    _id:string
 
 }
 export interface InterPetoCamp {
@@ -172,7 +185,8 @@ export interface InterPetoCamp {
     campId: string,
     partId: string,
     petoShertManageIds: string,
-    petoIds: string[]
+    petoIds: string[],
+    _id:string
 }
 export interface InterPlace {
     id: string,
@@ -187,6 +201,7 @@ export interface InterPlace {
     sleepCap: number,
     actCap: number,
     studyCap: number,
+    _id:string
 }
 export interface InterShertManage {
     id: string,
@@ -195,7 +210,8 @@ export interface InterShertManage {
     campModelId: string,
     role: 'nong' | 'pee' | 'peto',
     recive: number,
-    recived: number
+    recived: number,
+    _id:string
 }
 export interface InterSong {
     id: string,
@@ -205,39 +221,42 @@ export interface InterSong {
     auther: string,
     time: TimeRanges,
     link: string,
-    userLikeIds: string[]
+    userLikeIds: string[],
+    _id:string
 }
 export interface InterUser {
-    id: string,
-    name: string,
-    lastname: string,
-    nickname: string,
-    email: string,//updateable
-    password: string,
+    id: string,//                          id ของ mongodb
+    name: string,//                        ชื่อจริง
+    lastname: string,//                    นามสกุล
+    nickname: string,//                    ชื่อเล่น
+    email: string,//updateable             email
+    password: string,//                    รหัสผ่าน
     resetPasswordToken: string,
     resetPasswordExpire: Date,
-    studentId: string | null,
-    gender: 'Male' | 'Female',
-    shertSize: 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL',//updateable spacial
-    helthIsueId: string | null,
-    haveBottle: boolean,
-    mode: 'nong' | 'pee',//updateable pee only
-    nongCampIds: string[],
-    peeCampIds: string[],
-    petoCampIds: string[],
-    group: 'A' | 'B' | 'C' | 'Dog' | 'E' | 'F' | 'G' | 'H' | 'J' | 'K' | 'L' | 'M' | 'N' | 'P' | 'Q' | 'R' | 'S' | 'T' | null,
-    role: 'pee' | 'nong' | 'admin' | 'peto',
-    filterIds: string[],//updateable   pee only
-    registerIds: string[],
-    authorizeIds: string[],
-    fridayActIds: string[],
-    fridayActEn: boolean,
-    fridayAuth: boolean,
-    likeSongIds: string[],
-    shertManageIds: string[],
-    createdAt: Date,
-    tel: string,   // updateable
-    linkHash: string//updateable   pee only
+    studentId: string | null,//            รหัสประจำตัวนิสิต
+    gender: 'Male' | 'Female',//           เพศ
+    shertSize: 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL',//ขนาดเสื้อ
+    helthIsueId: string | null,//          รหัสปัญหาสุขภาพ
+    haveBottle: boolean,//                 มีกระติกน้ำหรือไม่
+    mode: 'nong' | 'pee',//                การมองเห็นของพี่
+    nongCampIds: string[],//               เคยเป็นน้องค่ายอะไรบ้าง
+    peeCampIds: string[],//                เคยเป็นพี่บ้านค่ายอะไรบ้าง
+    petoCampIds: string[],//               เคยเป็นพี่ปีโตค่ายอะไรบ้าง
+    group: 'A' | 'B' | 'C' | 'Dog' | 'E' | 'F' | 'G' | 'H' | 'J' | 'K' | 'L' | 'M' | 'N' | 'P' | 'Q' | 'R' | 'S' | 'T' | null,//กรุปของนิสิต
+    role: 'pee' | 'nong' | 'admin' | 'peto',//บทบาท
+    filterIds: string[],//                 
+    registerIds: string[],//               
+    authorizeIds: string[],//              ได้รับอนุญาตให้จัดการค่ายอะไรบ้าง
+    fridayActIds: string[],//              ลง friday activity อะไรบ้าง
+    fridayActEn: boolean,//                ได้รับอนุญาติให้ลง friday activity หรือไม่
+    fridayAuth: boolean,//                 ได้รับอนุญาติให้จัดการ friday activity หรือไม่
+    likeSongIds: string[],//               ชอบเพลงอะไรบ้าง
+    shertManageIds: string[],//            เป็นสมาชิกค่ายอะไรบ้าง
+    createdAt: Date,//
+    tel: string,   //                      เบอร์โทรศัพท์
+    linkHash: string,//                    รหัสการเข้าถึงลิ้งในการทำงาน default 'null'
+    citizenId: string,//                     รหัสประจำตัวประชาชน
+    _id:string
 }
 export interface InterWorkingItem {
     id: string,
@@ -247,7 +266,9 @@ export interface InterWorkingItem {
     partId: string,
     campId: string,
     linkOutIds: string[],
-    fromId: string
+    fromId: string,
+    createBy:string,
+    _id:string
 }
 export interface InterSize {
     id: string | null,
@@ -256,7 +277,8 @@ export interface InterSize {
     sizeL: number,
     sizeXL: number,
     sizeXXL: number,
-    size3XL: number
+    size3XL: number,
+
 }
 
 //////////////////////////////////////////////////////////
@@ -286,7 +308,8 @@ export interface InterBaanFront {
     boySleepPlaceId: string | null,
     girlSleepPlaceId: string | null,
     nomalPlaceId: string | null,
-    mapShertManageIdByUserId: MyMap[]
+    mapShertManageIdByUserId: MyMap[],
+    _id:string
 }
 
 export interface InterCampFront {
@@ -337,11 +360,14 @@ export interface InterCampFront {
     nongPaidIds: string[],
     nongInterviewIds: MyMap[],                            ////////////////////////////////i
     registerModel: 'noPaid' | 'noInterview' | 'all',
-    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear' | 'allYearMix',
     logoUrl: string,
     mapShertManageIdByUserId: MyMap[],
     registerSheetLink: string,
-    peeLock: boolean
+    peeLock: boolean,
+    outRoundIds: string[],
+    _id:string,
+    campName:string
 }
 export interface InterPartFront {
     id: string,
@@ -364,7 +390,8 @@ export interface InterPartFront {
     actionPlanIds: string[],
     workItemIds: string[],
     placeId: string | null,
-    mapShertManageIdByUserId: MyMap[]
+    mapShertManageIdByUserId: MyMap[],
+    _id:string
 }
 export interface MyMap {
     key: string,
@@ -377,7 +404,8 @@ export interface InterLostAndFound {
     detail: string,
     userId: string,
     placeId: string | null,
-    buildingId: string | null
+    buildingId: string | null,
+    _id:string
 }
 export interface Register {
     name: string,
@@ -388,7 +416,8 @@ export interface Register {
     gender: 'Male' | 'Female',
     shertSize: 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL',
     haveBottle: boolean,
-    tel: string
+    tel: string,
+    citizenId: string
 }
 export interface UpdateCamp {
     dataLock: boolean,
@@ -410,6 +439,6 @@ export interface CreateCamp {
     dateEnd: Date,
     boardIds: string[],
     registerModel: 'noPaid' | 'noInterview' | 'all',
-    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear',
+    memberStructre: 'nong->highSchool,pee->1year,peto->2upYear' | 'nong->highSchool,pee->2upYear' | 'nong->1year,pee->2upYear' | 'nong->highSchool,pee->allYear' | 'allYearMix',
 
 }

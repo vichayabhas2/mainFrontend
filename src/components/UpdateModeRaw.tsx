@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
 import peeUpdateMode from "@/libs/user/peeUpdateMode";
+import { Input } from "@mui/material";
 
 export default function UpdateModeRaw({
   session,
@@ -26,7 +27,7 @@ export default function UpdateModeRaw({
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">mode</label>
-          <input
+          <Input
             type="radio"
             id="bottle"
             value={"male"}
@@ -34,7 +35,7 @@ export default function UpdateModeRaw({
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">พี่</label>
-          <input
+          <Input
             type="radio"
             id="bottle"
             value={"female"}

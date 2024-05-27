@@ -1,6 +1,6 @@
 "use client";
 import userSignup from "@/libs/user/userSignup";
-import { TextField } from "@mui/material";
+import { Input, TextField } from "@mui/material";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
@@ -17,6 +17,7 @@ export default function signupPage() {
   >(null);
   const [gender, setGender] = useState<"Male" | "Female" | null>(null);
   const [haveBottle, setHaveBottle] = useState<boolean | null>(null);
+  const [citizenId,setCitizenId]=useState<string|null>(null)
 
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
@@ -78,8 +79,17 @@ export default function signupPage() {
           />
         </div>
         <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">รหัสประจำตัวประชาชน</label>
+          <TextField
+            name="citizenId"
+            id="citizenId"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setCitizenId(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">เพศ</label>
-          <input
+          <Input
             type="radio"
             id="gender"
             value={"male"}
@@ -87,7 +97,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">ชาย</label>
-          <input
+          <Input
             type="radio"
             id="gender"
             value={"female"}
@@ -100,7 +110,7 @@ export default function signupPage() {
           <label className="w-2/5 text-2xl text-slate-200">
             เลือกขนาดเสื้อ
           </label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"s"}
@@ -108,7 +118,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">S</label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"m"}
@@ -116,7 +126,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">M</label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"l"}
@@ -124,7 +134,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">L</label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"xl"}
@@ -132,7 +142,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">XL</label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"xxl"}
@@ -140,7 +150,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">XXL</label>
-          <input
+          <Input
             type="radio"
             id="shertSize"
             value={"3xl"}
@@ -153,7 +163,7 @@ export default function signupPage() {
           <label className="w-2/5 text-2xl text-slate-200">
             มีกระติกน้ำหรือไม่
           </label>
-          <input
+          <Input
             type="radio"
             id="bottle"
             value={"male"}
@@ -161,7 +171,7 @@ export default function signupPage() {
             className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
           />
           <label className="w-2/5 text-2xl text-slate-200">มี</label>
-          <input
+          <Input
             type="radio"
             id="bottle"
             value={"female"}
@@ -188,7 +198,8 @@ export default function signupPage() {
                 gender &&
                 lastname &&
                 nickname &&
-                haveBottle != null
+                haveBottle != null&&
+                citizenId
               ) {
                 console.log("ffffffffffffffffffffffffffff");
                 try {
@@ -203,6 +214,7 @@ export default function signupPage() {
                     shertSize,
                     gender,
                     haveBottle,
+                    citizenId
                   });
                 } catch (error) {
                   console.log(error);

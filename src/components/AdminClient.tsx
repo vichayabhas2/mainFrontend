@@ -2,10 +2,12 @@
 
 import { Session } from "next-auth";
 import { CreateCamp, InterNameContainer } from "../../intreface";
-import { Select, MenuItem, TextField } from "@mui/material";
+import { Select, MenuItem, TextField, Input } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
+import createCamp from "@/libs/admin/createCamp";
+import addCampName from "@/libs/admin/addCampName";
 
 export default function AdminClient({
   campNameContainers,
@@ -23,13 +25,14 @@ export default function AdminClient({
     | "nong->highSchool,pee->2upYear"
     | "nong->1year,pee->2upYear"
     | "nong->highSchool,pee->allYear"
+    | "allYearMix"
     | null
   >(null);
   const [registerModel, setRegisterModel] = useState<
     "noPaid" | "noInterview" | "all" | null
   >(null);
   const [boardIds, setBoardIds] = useState<string[]>([]);
-
+  const [newName, setNewName] = useState<string | null>(null);
   return (
     <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
       <div className=" rounded-lg ">
@@ -37,19 +40,24 @@ export default function AdminClient({
           variant="standard"
           name="location"
           id="location"
-          onChange={(e) => setChose(e.target.value as string)}
           className="h-[2em] w-[200px]"
         >
           {campNameContainers.map((choice: InterNameContainer) => {
-            return <MenuItem value={choice.id}>{choice.name}</MenuItem>;
+            return (
+              <MenuItem value={choice.name} onClick={() =>{setChose(choice._id)
+                alert(choice._id)
+              } }>
+                {choice.name}
+              </MenuItem>
+            );
           })}
         </Select>
       </div>
 
       <div className=" rounded-lg ">
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Password</label>
-          <input
+          <label className="w-2/5 text-2xl text-slate-200">ครั้งที่</label>
+          <Input
             type="number"
             id="name"
             name="name"
@@ -92,32 +100,44 @@ export default function AdminClient({
           className="h-[2em] w-[200px]"
         >
           <MenuItem
-            onSelect={() => {
+            value={"น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1"}
+            onClick={() => {
               setMemberStructre("nong->highSchool,pee->1year,peto->2upYear");
             }}
           >
             น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1
           </MenuItem>
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setMemberStructre("nong->1year,pee->2upYear");
             }}
+            value="น้องค่ายเป็นปี 1"
           >
             น้องค่ายเป็นปี 1
           </MenuItem>
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setMemberStructre("nong->highSchool,pee->2upYear");
             }}
+            value="น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปีโต"
           >
             น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปีโต
           </MenuItem>
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setMemberStructre("nong->highSchool,pee->allYear");
             }}
+            value="น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1-4"
           >
             น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1-4
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setMemberStructre("allYearMix");
+            }}
+            value="นิสิตเป็นได้ทั้งพี่บ้านและน้องค่าย"
+          >
+            นิสิตเป็นได้ทั้งพี่บ้านและน้องค่าย
           </MenuItem>
         </Select>
       </div>
@@ -129,23 +149,26 @@ export default function AdminClient({
           className="h-[2em] w-[200px]"
         >
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setRegisterModel("all");
             }}
+            value="มีสัมภาสและค่าใช้จ่าย"
           >
             มีสัมภาสและค่าใช้จ่าย
           </MenuItem>
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setRegisterModel("noInterview");
             }}
+            value="ไม่มีสัมภาสแต่มีค่าใช้จ่าย"
           >
             ไม่มีสัมภาสแต่มีค่าใช้จ่าย
           </MenuItem>
           <MenuItem
-            onSelect={() => {
+            onClick={() => {
               setRegisterModel("noPaid");
             }}
+            value="ไม่มีสัมภาสและไม่มีค่าใช้จ่าย"
           >
             ไม่มีสัมภาสและไม่มีค่าใช้จ่าย
           </MenuItem>
@@ -184,20 +207,68 @@ export default function AdminClient({
                 dateStart,
                 memberStructre,
               };
-              console.log("ffffffffffffffffffffffffffff");
               try {
-                console.log("ffffffffffffffffffffffffffff");
+                createCamp(redy, session.user.token);
               } catch (error) {
                 console.log(error);
               }
             } else {
               alert("Please type in all the details!");
+              alert(chose)
+              alert(boardIds)
+              alert(registerModel)
+              alert(round)
+              alert(dateEnd)
+              alert(dateStart)
+              alert(memberStructre)
+              console.log({
+                nameId: chose,
+                boardIds,
+                registerModel,
+                round,
+                dateEnd,
+                dateStart,
+                memberStructre,
+              })
             }
           }}
         >
-          Register
+          Create Camp
         </button>
       </div>
+      {campNameContainers.map((nameContainer: InterNameContainer) => (
+        <label className="w-2/5 text-2xl text-slate-200">
+          {nameContainer.name}
+        </label>
+      ))}
+      <div className="flex flex-row items-center">
+        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชื่อค่าย</label>
+        <TextField
+          name="Name"
+          id="Name"
+          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          onChange={(e) => setNewName(e.target.value)}
+        />
+      </div>
+      <button
+          className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+          onClick={() => {
+            if (
+              newName
+            ) {
+              
+              try {
+                addCampName(newName,session.user.token)
+              } catch (error) {
+                console.log(error);
+              }
+            } else {
+              alert("Please type in all the detavdtrjbyfugjunils!");
+            }
+          }}
+        >
+          สร้างชื่อค่าย
+        </button>
     </form>
   );
 }

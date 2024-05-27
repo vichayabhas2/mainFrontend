@@ -11,7 +11,7 @@ import getCampName from "@/libs/camp/getCampName";
 import getCampNames from "@/libs/admin/getCampNames";
 
 import AdminClient from "@/components/AdminClient";
-import { useRouter } from "next/navigation";
+
 
 export default async function adminPage() {
   //const router=useRouter()
@@ -24,8 +24,8 @@ export default async function adminPage() {
   if (user.mode == "nong" || user.role != "admin") {
     return <BackToHome />;
   }
-  const camps = getCamps();
-  const names = getCampName(camps);
+  const camps = await getCamps();
+  const names = await getCampName(camps);
   const campNameContainers = await getCampNames();
 
   return (
@@ -37,22 +37,19 @@ export default async function adminPage() {
           </p>
         }
       >*/}
-        
-
-        <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-          <div className="text-4xl font-medium">Verifile</div>
-          <AdminClient
-            campNameContainers={campNameContainers}
-            session={session}
-          />
-        </div>
+      
+      <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
+        <div className="text-4xl font-medium">สร้างค่าย</div>
+        <AdminClient
+          campNameContainers={campNameContainers}
+          session={session}
+        />
+      </div>
       {/*</Suspense>*/}
     </main>
-  ); 
-}/* <HospitalCatalog
-          hospitalsJson={camps}
-          mapName={names}
-          onRating={(link: string) => {
-            router.push(link);
-          }}
-        />*/
+  );
+} /* <HospitalCatalog
+        hospitalsJson={camps}
+        mapName={names}
+        onRating={(link: string) => {}}
+      />*/

@@ -89,6 +89,7 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         boySleepPlaceId,
         girlSleepPlaceId,
         mapShertManageIdByUserId,
+        _id,
         nomalPlaceId } = input
     return ({
         name,
@@ -115,7 +116,8 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         id,
         peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
         nongHaveBottleMapIds: mapBoolToArray(nongHaveBottleMapIds),
-        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId)
+        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
+        _id
     })
 }
 export function conCampBackToFront(input: InterCampBack): InterCampFront {
@@ -170,8 +172,12 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         mapShertManageIdByUserId,
         logoUrl,
         registerSheetLink,
-        peeLock
+        peeLock,
+        outRoundIds,
+        _id,
+        campName
     } = input
+    console.log(campName)
     return ({
         partIds,
         open,
@@ -224,7 +230,10 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         logoUrl,
         mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
         registerSheetLink,
-        peeLock
+        peeLock,
+        outRoundIds,
+        _id,
+        campName
     })
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
@@ -248,7 +257,9 @@ export function conPartBackToFront(input: InterPartBack): InterPartFront {
         actionPlanIds,
         workItemIds,
         mapShertManageIdByUserId,
-        placeId } = input
+        placeId ,
+        _id
+    } = input
 
     return ({
         actionPlanIds,
@@ -271,7 +282,8 @@ export function conPartBackToFront(input: InterPartBack): InterPartFront {
         petoShertManageIds,
         petoShertSize: sizeMapToJson(petoShertSize),
         placeId,
-        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId)
+        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
+        _id
     })
 }
 export function mapStringToMyMap(input: Map<string, string>): MyMap[] {

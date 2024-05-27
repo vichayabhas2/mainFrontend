@@ -49,6 +49,7 @@ export default function peeOnlyPage() {
               } else {
                 alert("Please type in all the details!");
               }
+              router.push("/");
             }}
           >
             Verifile

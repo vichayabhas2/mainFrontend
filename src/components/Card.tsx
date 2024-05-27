@@ -171,7 +171,7 @@ export default async function Card({
       <div
         className="flex flex-row h-auto"
         onClick={() => {
-          onRating(`/camp/${campDetail.id}`)
+          onRating(`/camp/${campDetail._id}`)
         }}
       >
         <div className="w-1/5 h-auto relative rounded-t-lg">
