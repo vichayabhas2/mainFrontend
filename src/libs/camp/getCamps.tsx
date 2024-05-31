@@ -6,7 +6,7 @@ export default async function getCamps(): Promise<InterCampFront[]> {
   if (!response.ok) {
     throw new Error("Fail");
   }
-  console.log(await response.json())
+  //console.log(await response.json())
 
   return await response.json();
 }

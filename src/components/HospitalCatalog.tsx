@@ -32,7 +32,7 @@ export default function HospitalCatalog({
           <div className={`w-full h-auto my-${5}`}>
             {/* <Link href={`/hospital/${hospitalItem.id}`}> */}
             <Card
-              hospitalName={mapred.get(camp.id) as string}
+              hospitalName={camp.campName}
               link={`/camp/${camp.id}`}
               imgSrc={camp.logoUrl}
               id={camp.id}
