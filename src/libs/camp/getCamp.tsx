@@ -1,10 +1,12 @@
 import { backendUrl } from "@/components/setup";
 import { InterCampFront } from "../../../intreface";
+import mongoose from "mongoose";
 
-export default async function getCamp(id: string): Promise<InterCampFront> {
+export default async function getCamp(id: mongoose.Types.ObjectId): Promise<InterCampFront> {
   //console.log(id)
   //console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhh')
-  const response = await fetch(`${backendUrl}/camp/getCamp/params/${id}`);
+  //console.log(`${backendUrl}/camp/getCamp/params/${id.toString()}`)
+  const response = await fetch(`${backendUrl}/camp/getCamp/params/${id.toString()}`);
   if (!response.ok) {
     throw new Error("Fail");
   }

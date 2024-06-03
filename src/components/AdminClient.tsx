@@ -1,13 +1,15 @@
 "use client";
 
 import { Session } from "next-auth";
-import { CreateCamp, InterNameContainer } from "../../intreface";
 import { Select, MenuItem, TextField, Input } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
 import createCamp from "@/libs/admin/createCamp";
 import addCampName from "@/libs/admin/addCampName";
+import mongoose from "mongoose";
+import { InterNameContainer, CreateCamp } from "../../interface";
+//import { InterNameContainer, CreateCamp } from "../../interface";
 
 export default function AdminClient({
   campNameContainers,
@@ -16,7 +18,12 @@ export default function AdminClient({
   campNameContainers: InterNameContainer[];
   session: Session;
 }) {
-  const [chose, setChose] = useState<string | null>(null);
+  const models: (
+    | "นอนทุกคน"
+    | "เลือกได้ว่าจะค้างคืนหรือไม่"
+    | "ไม่มีการค้างคืน"
+  )[] = ["นอนทุกคน", "เลือกได้ว่าจะค้างคืนหรือไม่", "ไม่มีการค้างคืน"];
+  const [chose, setChose] = useState<mongoose.Types.ObjectId | null>(null);
   const [round, setRound] = useState<number | null>(null);
   const [dateStart, setDateStart] = useState<Date | null>(null);
   const [dateEnd, setDateEnd] = useState<Date | null>(null);
@@ -31,8 +38,14 @@ export default function AdminClient({
   const [registerModel, setRegisterModel] = useState<
     "noPaid" | "noInterview" | "all" | null
   >(null);
-  const [boardIds, setBoardIds] = useState<string[]>([]);
+  const [boardIds, setBoardIds] = useState<string | null>(null);
   const [newName, setNewName] = useState<string | null>(null);
+  const [nongSleepModel, setNongSleepModel] = useState<
+    "นอนทุกคน" | "เลือกได้ว่าจะค้างคืนหรือไม่" | "ไม่มีการค้างคืน" | null
+  >(null);
+  const [peeSleepModel, setPeeSleepModel] = useState<
+    "นอนทุกคน" | "เลือกได้ว่าจะค้างคืนหรือไม่" | "ไม่มีการค้างคืน" | null
+  >(null);
   return (
     <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
       <div className=" rounded-lg ">
@@ -44,9 +57,13 @@ export default function AdminClient({
         >
           {campNameContainers.map((choice: InterNameContainer) => {
             return (
-              <MenuItem value={choice.name} onClick={() =>{setChose(choice._id)
-                alert(choice._id)
-              } }>
+              <MenuItem
+                value={choice.name}
+                onClick={() => {
+                  setChose(choice._id);
+                  alert(choice._id);
+                }}
+              >
                 {choice.name}
               </MenuItem>
             );
@@ -174,6 +191,61 @@ export default function AdminClient({
           </MenuItem>
         </Select>
       </div>
+      <div className=" rounded-lg ">
+        <Select
+          variant="standard"
+          name="location"
+          id="location"
+          className="h-[2em] w-[200px]"
+        >
+          {models.map(
+            (
+              value:
+                | "นอนทุกคน"
+                | "เลือกได้ว่าจะค้างคืนหรือไม่"
+                | "ไม่มีการค้างคืน"
+            ) => {
+              return (
+                <MenuItem
+                  onClick={() => {
+                    setPeeSleepModel(value);
+                  }}
+                  value={value}
+                >
+                  {value}
+                </MenuItem>
+              );
+            }
+          )}
+        </Select>
+        <Select
+          variant="standard"
+          name="location"
+          id="location"
+          className="h-[2em] w-[200px]"
+        >
+          {models.map(
+            (
+              value:
+                | "นอนทุกคน"
+                | "เลือกได้ว่าจะค้างคืนหรือไม่"
+                | "ไม่มีการค้างคืน"
+            ) => {
+              return (
+                <MenuItem
+                  onClick={() => {
+                    setNongSleepModel(value);
+                  }}
+                  value={value}
+                >
+                  {value}
+                </MenuItem>
+              );
+            }
+          )}
+        </Select>
+      </div>
+
       <div className="flex flex-row items-center">
         <label className="w-2/5 text-2xl text-slate-200">
           บอร์ดค่าย userId ให้ใส่ , ห้ามเว้นวรรค
@@ -182,7 +254,7 @@ export default function AdminClient({
           name="Name"
           id="Name"
           className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
-          onChange={(e) => setBoardIds(e.target.value.split(","))}
+          onChange={(e) => setBoardIds(e.target.value)}
         />
       </div>
       <div className=" rounded-lg ">
@@ -191,36 +263,42 @@ export default function AdminClient({
           onClick={() => {
             if (
               chose &&
-              boardIds.length &&
+              boardIds &&
               memberStructre &&
               registerModel &&
               round &&
               dateStart &&
-              dateEnd
+              dateEnd &&
+              nongSleepModel &&
+              peeSleepModel
             ) {
-              const redy: CreateCamp = {
-                nameId: chose,
-                boardIds,
-                registerModel,
-                round,
-                dateEnd,
-                dateStart,
-                memberStructre,
-              };
               try {
+                const redy: CreateCamp = {
+                  nameId: chose,
+                  boardIds: boardIds
+                    .split(",")
+                    .map((input: string) => new mongoose.Types.ObjectId(input)),
+                  registerModel,
+                  round,
+                  dateEnd,
+                  dateStart,
+                  memberStructre,
+                  peeSleepModel,
+                  nongSleepModel,
+                };
                 createCamp(redy, session.user.token);
               } catch (error) {
                 console.log(error);
               }
             } else {
               alert("Please type in all the details!");
-              alert(chose)
-              alert(boardIds)
-              alert(registerModel)
-              alert(round)
-              alert(dateEnd)
-              alert(dateStart)
-              alert(memberStructre)
+              alert(chose);
+              alert(boardIds);
+              alert(registerModel);
+              alert(round);
+              alert(dateEnd);
+              alert(dateStart);
+              alert(memberStructre);
               console.log({
                 nameId: chose,
                 boardIds,
@@ -229,7 +307,7 @@ export default function AdminClient({
                 dateEnd,
                 dateStart,
                 memberStructre,
-              })
+              });
             }
           }}
         >
@@ -251,24 +329,21 @@ export default function AdminClient({
         />
       </div>
       <button
-          className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
-          onClick={() => {
-            if (
-              newName
-            ) {
-              
-              try {
-                addCampName(newName,session.user.token)
-              } catch (error) {
-                console.log(error);
-              }
-            } else {
-              alert("Please type in all the detavdtrjbyfugjunils!");
+        className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        onClick={() => {
+          if (newName) {
+            try {
+              addCampName(newName, session.user.token);
+            } catch (error) {
+              console.log(error);
             }
-          }}
-        >
-          สร้างชื่อค่าย
-        </button>
+          } else {
+            alert("Please type in all the detavdtrjbyfugjunils!");
+          }
+        }}
+      >
+        สร้างชื่อค่าย
+      </button>
     </form>
   );
 }

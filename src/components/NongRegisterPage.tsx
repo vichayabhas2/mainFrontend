@@ -38,7 +38,7 @@ export default function NongRegisterPage({
                 console.log("ffffffffffffffffffffffffffff");
                 try {
                   console.log("ffffffffffffffffffffffffffff");
-                  nongRegisterCamp(camp.id, link, token);
+                  nongRegisterCamp(camp._id, link, token);
                 } catch (error) {
                   console.log(error);
                 }

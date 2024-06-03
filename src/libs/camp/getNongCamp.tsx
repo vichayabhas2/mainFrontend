@@ -1,8 +1,9 @@
 import { backendUrl } from "@/components/setup";
 import { InterCampFront, InterNongCampBack } from "../../../intreface";
+import mongoose from "mongoose";
 
 export default async function getNongCamp(
-  id: string,
+  id: mongoose.Types.ObjectId,
   token: string
 ): Promise<InterNongCampBack> {
   const response = await fetch(`${backendUrl}/camp/nongCamp/params/${id}`, {

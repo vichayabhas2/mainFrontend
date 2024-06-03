@@ -5,11 +5,20 @@ import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import getCamps from "@/libs/camp/getCamps";
 import getCampName from "@/libs/camp/getCampName";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import getUserProfile from "@/libs/user/getUserProfile";
 export default async function Hospital() {
   const camps = await getCamps();
-  const names = await getCampName(camps);
-  //console.log(camps)
-  console.log(names)
+  const names = getCampName(camps);
+  var univercity = false;
+  const session = await getServerSession(authOptions);
+  if (session) {
+    const user = await getUserProfile(session.user.token);
+    univercity = user.fridayActEn;
+  }
+  console.log(camps)
+  //console.log(names);
   return (
     <main className="text-center p-5">
       <Suspense
@@ -19,11 +28,7 @@ export default async function Hospital() {
           </p>
         }
       >
-        <HospitalCatalog
-          hospitalsJson={camps}
-          mapName={names}
-          
-        />
+        <HospitalCatalog hospitalsJson={camps} mapName={names} univercity />
       </Suspense>
     </main>
   );

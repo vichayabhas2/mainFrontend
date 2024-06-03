@@ -1,6 +1,7 @@
 import { backendUrl } from "@/components/setup";
+import mongoose from "mongoose";
 
-export default async function nongRegisterCamp(campId:string,link:string,token:string){
+export default async function nongRegisterCamp(campId:mongoose.Types.ObjectId,link:string,token:string){
     const res=await fetch(`${backendUrl}/camp/nongRegisterCamp`,{
         method:'POST',
         headers:{

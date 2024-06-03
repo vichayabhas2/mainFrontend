@@ -1,8 +1,9 @@
 import { backendUrl } from "@/components/setup";
 import { InterPetoCamp } from "../../../intreface";
+import mongoose from "mongoose";
 
 export default async function getpetoCamp(
-  id: string,
+  id: mongoose.Types.ObjectId,
   token: string
 ): Promise<InterPetoCamp> {
   const response = await fetch(`${backendUrl}/camp/petoCamp/params/${id}`, {

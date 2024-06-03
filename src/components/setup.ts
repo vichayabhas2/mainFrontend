@@ -1,5 +1,8 @@
-import { InterBaanBack, InterBaanFront, InterCampBack, InterCampFront, InterPartBack, InterPartFront, InterSize, MyMap } from "../../intreface"
 
+
+
+import mongoose from 'mongoose'
+import { InterBaanBack, InterBaanFront, InterCampBack, InterCampFront, InterPartBack, InterPartFront, InterSize, InterWorkingItem, IntreActionPlan, MapObjectId, MyMap } from '../../intreface'
 
 
 export function startSize(): Map<'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL', number> {
@@ -11,7 +14,7 @@ export function startSize(): Map<'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL', number>
     })
     return size
 }
-export function swop(olds: string | null, news: string | null, array: string[]): string[] {
+export function swop(olds: mongoose.Types.ObjectId | null, news: mongoose.Types.ObjectId | null, array: mongoose.Types.ObjectId[]): mongoose.Types.ObjectId[] {
     if (!olds) {
         if (news) {
             array.push(news)
@@ -32,7 +35,7 @@ export const resError = { success: false }
 
 export function sizeMapToJson(input: Map<'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL', number>): InterSize {
     const out: InterSize = {
-        id: null,
+        _id: null,
         sizeS: input.get('S') as number,
         sizeM: input.get('M') as number,
         sizeL: input.get('L') as number,
@@ -54,9 +57,9 @@ export function sizeJsonMod(size: 'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL', count:
     return input
 }
 
-export function mapBoolToArray(input: Map<string, boolean>): string[] {
-    var out: string[] = []
-    input.forEach((v: boolean, k: string) => {
+export function mapBoolToArray(input: Map<mongoose.Types.ObjectId, boolean>): mongoose.Types.ObjectId[] {
+    var out: mongoose.Types.ObjectId[] = []
+    input.forEach((v: boolean, k: mongoose.Types.ObjectId) => {
         if (v) {
             out.push(k)
         }
@@ -65,7 +68,7 @@ export function mapBoolToArray(input: Map<string, boolean>): string[] {
 
 }
 export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
-    const { id,
+    const {
         name,
         fullName,
         campId,
@@ -89,8 +92,11 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         boySleepPlaceId,
         girlSleepPlaceId,
         mapShertManageIdByUserId,
+        nomalPlaceId,
         _id,
-        nomalPlaceId } = input
+        peeSleepIds,
+        nongSleepIds
+    } = input
     return ({
         name,
         fullName,
@@ -113,15 +119,17 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         styleId,
         boySleepPlaceId,
         girlSleepPlaceId,
-        id,
+
         peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
         nongHaveBottleMapIds: mapBoolToArray(nongHaveBottleMapIds),
-        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
-        _id
+        mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
+        _id,
+        peeSleepIds,
+        nongSleepIds
     })
 }
 export function conCampBackToFront(input: InterCampBack): InterCampFront {
-    const { id,
+    const {
         nameId,
         round,
         dateStart,
@@ -174,10 +182,13 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         registerSheetLink,
         peeLock,
         outRoundIds,
+        campName,
         _id,
-        campName
+        peeSleepIds,
+        peeSleepModel,
+        nongSleepIds,
+        nongSleepModel
     } = input
-    console.log(campName)
     return ({
         partIds,
         open,
@@ -186,7 +197,7 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         peeHelthIsueIds,
         peeIds,
         peeModelIds,
-        peePassIds: mapStringToMyMap(peePassIds),
+        peePassIds: mapObjectIdToMyMap(peePassIds),
         peeShertManageIds,
         peeShertSize: sizeMapToJson(peeShertSize),
         petoHaveBottle,
@@ -226,18 +237,22 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         memberStructre,
         workItemIds,
         songIds,
-        id,
+
         logoUrl,
-        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
+        mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
         registerSheetLink,
         peeLock,
         outRoundIds,
+        campName,
         _id,
-        campName
+        peeSleepIds,
+        peeSleepModel,
+        nongSleepIds,
+        nongSleepModel
     })
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
-    const { id,
+    const {
         nameId,
         campId,
         peeIds,
@@ -257,14 +272,15 @@ export function conPartBackToFront(input: InterPartBack): InterPartFront {
         actionPlanIds,
         workItemIds,
         mapShertManageIdByUserId,
-        placeId ,
+        placeId,
+        partName,
+        peeSleepIds,
         _id
     } = input
 
     return ({
         actionPlanIds,
         workItemIds,
-        id,
         campId,
         nameId,
         peeHaveBottle,
@@ -282,24 +298,73 @@ export function conPartBackToFront(input: InterPartBack): InterPartFront {
         petoShertManageIds,
         petoShertSize: sizeMapToJson(petoShertSize),
         placeId,
-        mapShertManageIdByUserId: mapStringToMyMap(mapShertManageIdByUserId),
+        mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
+        partName,
+        peeSleepIds,
         _id
     })
 }
-export function mapStringToMyMap(input: Map<string, string>): MyMap[] {
+export function mapStringToMyMap(input: Map<mongoose.Types.ObjectId, string>): MyMap[] {
     var out: MyMap[] = []
-    input.forEach((value: string, key: string) => {
+    input.forEach((value: string, key: mongoose.Types.ObjectId) => {
         out.push({ key, value })
     })
     return out
 }
-export function myMapToMapString(input: MyMap[]): Map<string, string> {
+export function mapObjectIdToMyMap(input: Map<mongoose.Types.ObjectId, mongoose.Types.ObjectId>): MapObjectId[] {
+    var out: MapObjectId[] = []
+    input.forEach((value: mongoose.Types.ObjectId, key: mongoose.Types.ObjectId) => {
+        out.push({ key, value })
+    })
+    return out
+}
+/*export function myMapToMapString(input: MyMap[]): Map<string, string> {
     const map: Map<string, string> = new Map
     input.forEach((v) => {
         map.set(v.key, v.value)
     })
     return map
 
+}*/
+
+
+export function isInTime(start: Date, end: Date): boolean {
+    const now = new Date(Date.now())
+    return (now > start && now < end)
+}
+export function plusActionPlan(input: IntreActionPlan, minute: number): IntreActionPlan {
+    const millisecound = minute * 1000 * 60
+    const {
+        start,
+        end,
+        partId,
+        placeIds,
+
+        action,
+        headId,
+        body,
+        _id
+    } = input
+    return ({
+        start: new Date(start.getTime() + millisecound),
+        end: new Date(end.getTime() + millisecound),
+        partId,
+        placeIds,
+
+        action,
+        headId,
+        body,
+        _id
+    })
 }
 export const backendUrl = 'http://localhost:5000'
 export const userPath = 'api/v1/auth'
+export function hasKey(input: MyMap[] | MapObjectId[], id: mongoose.Types.ObjectId): boolean {
+    var i = 0
+    while (i < input.length) {
+        if (input[i++].key === id) {
+            return true
+        }
+    }
+    return false
+}

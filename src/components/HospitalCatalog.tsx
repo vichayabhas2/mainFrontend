@@ -3,15 +3,16 @@ import { useRouter } from "next/navigation";
 import { InterCampFront } from "../../intreface";
 import Card from "./Card";
 import Link from "next/link";
+import mongoose from "mongoose";
 
 export default function HospitalCatalog({
   hospitalsJson,
   mapName,
-
+  univercity,
 }: {
   hospitalsJson: InterCampFront[];
-  mapName: Map<string, string>;
-
+  mapName: Map<mongoose.Types.ObjectId, string>;
+  univercity: boolean;
 }) {
   const mapred = mapName;
   const router = useRouter();
@@ -28,21 +29,30 @@ export default function HospitalCatalog({
           alignContent: "space-around",
         }}
       >
-        {hospitalsJsonReady.map((camp: InterCampFront) => (
-          <div className={`w-full h-auto my-${5}`}>
-            {/* <Link href={`/hospital/${hospitalItem.id}`}> */}
-            <Card
-              hospitalName={camp.campName}
-              link={`/camp/${camp.id}`}
-              imgSrc={camp.logoUrl}
-              id={camp.id}
-              onRating={() => {
-                router.push(`/camp/${camp.id}`);
-              }}
-            />{" "}
-            {/* </Link> */}
-          </div>
-        ))}
+        {hospitalsJsonReady.map((camp: InterCampFront) => {
+          if (
+            camp.memberStructre == "nong->1year,pee->2upYear" &&
+            !univercity
+          ) {
+            return null;
+          }
+          console.log(camp)
+          return (
+            <div className={`w-full h-auto my-${5}`}>
+              {/* <Link href={`/hospital/${hospitalItem._id}`}> */}
+              <Card
+                hospitalName={camp.campName}
+                link={`/camp/${camp._id.toString()}`}
+                imgSrc={camp.logoUrl}
+                id={camp._id}
+                onRating={() => {
+                  router.push(`/camp/${camp._id.toString()}`);
+                }}
+              />{" "}
+              {/* </Link> */}
+            </div>
+          );
+        })}
       </div>
     </>
   );

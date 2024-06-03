@@ -4,7 +4,6 @@ import  CredentialsProvider  from "next-auth/providers/credentials";
 import userLogin from "@/libs/user/userLogIn";
 
 
-
 export const authOptions:AuthOptions={
     providers:[
         
@@ -45,6 +44,7 @@ export const authOptions:AuthOptions={
       async session({session,token,user}) {
         session.user = token as any
         return session
+        
       }
     }
 }

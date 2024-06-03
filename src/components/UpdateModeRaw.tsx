@@ -1,26 +1,37 @@
 "use client";
 import { Session } from "next-auth";
-import { InterUser } from "../../intreface";
+import { InterCampFront, InterUser } from "../../intreface";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
 import peeUpdateMode from "@/libs/user/peeUpdateMode";
-import { Input } from "@mui/material";
+import { Checkbox, Input } from "@mui/material";
+import mongoose from "mongoose";
+import { ClockIcon } from "@mui/x-date-pickers";
+import link from "next/link";
+import InteractiveCard from "./InteractiveCard";
+import { swop } from "./setup";
 
 export default function UpdateModeRaw({
   session,
   user,
+  camps,
 }: {
   session: Session | null;
   user: InterUser | null;
+  camps: InterCampFront[];
 }) {
   const router = useRouter();
-  const [mode, setMode] = useState<"pee" | "nong" | null>(null);
-  const [fillterIds, setFillterIds] = useState<string[]>([]);
+
   if (!session || !user || user.role == "nong") {
     router.push("/");
     return <></>;
   }
+  const [mode, setMode] = useState<"pee" | "nong" | null>(null);
+  const [fillterIds, setFillterIds] = useState<mongoose.Types.ObjectId[]>(
+    user.filterIds
+  );
+
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Verifile</div>
@@ -54,6 +65,23 @@ export default function UpdateModeRaw({
             }}
           />
         </div>
+        {camps.map((camp: InterCampFront) => {
+          return (
+            <div className="text-2xl my-10">
+              <Checkbox
+                onChange={(v) => {
+                  if (v) {
+                    setFillterIds(swop(camp._id, null, fillterIds));
+                  } else {
+                    setFillterIds(swop(null, camp._id, fillterIds));
+                  }
+                }}
+                defaultChecked={fillterIds.includes(camp._id)}
+              />
+              {camp.campName}
+            </div>
+          );
+        })}
       </form>
     </div>
   );

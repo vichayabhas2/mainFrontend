@@ -32,7 +32,7 @@ export default async function NongRegisterPage({camp,user}:{camp:InterCampFront,
                 console.log("ffffffffffffffffffffffffffff");
                 try {
                   console.log("ffffffffffffffffffffffffffff");
-                  nongRegisterCamp(camp.id, link, token);
+                  nongRegisterCamp(camp._id, link, token);
                 } catch (error) {
                   console.log(error);
                 }

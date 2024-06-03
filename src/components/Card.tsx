@@ -139,6 +139,7 @@ import Link from "next/link";
 import { Button } from "@mui/material";
 import getCamp from "@/libs/camp/getCamp";
 import { getServerSession } from "next-auth";
+import mongoose from "mongoose";
 //import { Router } from "next/router";
 //import { useRouter } from "next/navigation";
 
@@ -155,7 +156,7 @@ export default async function Card({
   value?: number | null;
   link: string;
   imgSrc: string;
-  id: string;
+  id: mongoose.Types.ObjectId
   //onCarSelected :Function
 }) {
 //  const session=await getServerSession()

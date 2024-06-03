@@ -1,4 +1,26 @@
-import mongoose from "mongoose"
+export interface HospitalItem {
+    __id: string,
+    name: string,
+    address: string,
+    district: string,
+    province: string,
+    postalcode: string,
+    tel: string,
+    picture: string,
+    __v: number,
+    _id: string
+  }
+  
+ export interface HospitalJson {
+    success: boolean,
+    count: number,
+    pagination: Object,
+    data: HospitalItem[]
+  }
+
+
+
+  import mongoose from "mongoose"
 
 export interface IntreActionPlan {
 

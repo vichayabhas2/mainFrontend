@@ -8,24 +8,25 @@ import { InterCampFront } from "../../intreface";
 import { useRef, useState } from "react";
 import staffRegisterCamp from "@/libs/camp/staffRegister";
 import SelectTemplate from "./SelectTemplate";
+import mongoose from "mongoose";
 
 export default function LocationDateReserve({
   partMap,
   token,
 }: {
-  partMap: Map<string, string>;
+  partMap: Map<string, mongoose.Types.ObjectId>;
   token: string;
 }) {
   const userRef = useRef("");
   const choices: string[] = [];
-  partMap.forEach((v: string, k: string) => {
+  partMap.forEach((v: mongoose.Types.ObjectId, k: string) => {
     choices.push(k);
   });
   const [partName, setPartName] = useState<string | null>(null);
   return (
     <SelectTemplate
       mapIn={partMap}
-      select={(partId: string) => {
+      select={(partId: mongoose.Types.ObjectId) => {
         staffRegisterCamp(partId, token);
       }}
     />

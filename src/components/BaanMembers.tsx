@@ -1,9 +1,10 @@
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
-import { InterBaanFront, InterUser } from "../../intreface";
+import { InterBaanFront, InterUser } from "../../interface";
+
 
 export default async function BaanMembers({ baan }: { baan: InterBaanFront }) {
-  const nongs = await getUserFromCamp("getNongsFromBaanId", baan.id);
-  const pees = await getUserFromCamp("getPeesFromBaanId", baan.id);
+  const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+  const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   return (
     <main className="text-center p-5">
       <div>

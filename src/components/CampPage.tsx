@@ -1,4 +1,4 @@
-import getBaan from "@/libs/camp/getBaan";
+/*import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
 import getNongCamp from "@/libs/camp/getNongCamp";
 import getPart from "@/libs/camp/getPart";
@@ -11,7 +11,7 @@ import BaanMembers from "./BaanMembers";
 import LocationDateReserve from "./LocationDateReserve";
 import NongRegisterPage from "./NongRegisterPage";
 import PushToCamps from "./PushToCamps";
-import { myMapToMapString } from "./setup";
+
 import Image from "next/image";
 
 export default async function CampPage({
@@ -31,17 +31,17 @@ export default async function CampPage({
   }
   var campRole: "nong" | "pee" | "peto" | null = null;
   const curentRole = user.role;
-  const userId: string = user.id;
+  const userId: string = user._id;
   const partMap: Map<string, string> = new Map();
   campDetail.partIds.forEach(async (partId: string) => {
     const part = await getPart(partId, token);
     const partName = await getPartName(part.nameId, token);
-    partMap.set(partName.name, part.id);
+    partMap.set(partName.name, part._id);
   });
 
   if (campDetail.nongIds.includes(userId)) {
     campRole = "nong";
-    const shertManage = await getShertManageByCampId(campDetail.id, token);
+    const shertManage = await getShertManageByCampId(campDetail._id, token);
     const nongCamp = await getNongCamp(shertManage.campModelId, token);
     const baan = await getBaan(nongCamp.baanId);
     return <BaanMembers baan={baan} />;
@@ -49,11 +49,11 @@ export default async function CampPage({
     campRole = "pee";
   } else if (campDetail.petoIds.includes(userId)) {
     campRole = "peto";
-  } else if (myMapToMapString(campDetail.nongPendingIds).has(user.id)) {
-  } else if (campDetail.nongPaidIds.includes(user.id)) {
-  } else if (myMapToMapString(campDetail.nongPassIds).has(user.id)) {
-  } else if (myMapToMapString(campDetail.peePassIds).has(user.id)) {
-  } else if (myMapToMapString(campDetail.nongInterviewIds).has(user.id)) {
+  } else if (myMapToMapString(campDetail.nongPendingIds).has(user._id)) {
+  } else if (campDetail.nongPaidIds.includes(user._id)) {
+  } else if (myMapToMapString(campDetail.nongPassIds).has(user._id)) {
+  } else if (myMapToMapString(campDetail.peePassIds).has(user._id)) {
+  } else if (myMapToMapString(campDetail.nongInterviewIds).has(user._id)) {
   } else if (campDetail.open && user.role == "nong") {
     console.log(user.role);
     return <NongRegisterPage camp={campDetail} token={token} />;
@@ -82,4 +82,4 @@ export default async function CampPage({
       </div>
     </main>
   );
-}
+}*/

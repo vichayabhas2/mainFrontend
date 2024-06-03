@@ -1,31 +1,31 @@
 "use client";
 import { Select, MenuItem } from "@mui/material";
+import mongoose from "mongoose";
 import { useRef, useState } from "react";
 
 export default function SelectTemplate({
   mapIn,
   select,
 }: {
-  mapIn: Map<string, string>;
+  mapIn: Map<string, mongoose.Types.ObjectId>;
   select: Function;
 }) {
   const userRef = useRef("");
   const choices: string[] = [];
-  mapIn.forEach((v: string, k: string) => {
+  mapIn.forEach((v, k: string) => {
     choices.push(k);
   });
-  const [chose, setChose] = useState<string | null>(null);
+  const [chose, setChose] = useState<string| null>(null);
   return (
     <div className=" rounded-lg ">
       <Select
         variant="standard"
         name="location"
         id="location"
-        onChange={(e) => setChose(e.target.value as string)}
         className="h-[2em] w-[200px]"
       >
         {choices.map((choice: string) => {
-          return <MenuItem value={choice}>{choice}</MenuItem>;
+          return <MenuItem value={choice} onClick={()=>{setChose(choice)}}>{choice}</MenuItem>;
         })}
       </Select>
       <button
@@ -36,7 +36,7 @@ export default function SelectTemplate({
             console.log("ffffffffffffffffffffffffffff");
             try {
               console.log("ffffffffffffffffffffffffffff");
-              select(mapIn.get(chose) as string);
+              select(mapIn.get(chose));
             } catch (error) {
               console.log(error);
             }
