@@ -7,14 +7,15 @@ import mongoose from "mongoose";
 
 export default function HospitalCatalog({
   hospitalsJson,
-  mapName,
+  url,
+
   univercity,
 }: {
   hospitalsJson: InterCampFront[];
-  mapName: Map<mongoose.Types.ObjectId, string>;
+  url: string;
+
   univercity: boolean;
 }) {
-  const mapred = mapName;
   const router = useRouter();
   const hospitalsJsonReady = hospitalsJson;
   return (
@@ -31,23 +32,25 @@ export default function HospitalCatalog({
       >
         {hospitalsJsonReady.map((camp: InterCampFront) => {
           if (
-            camp.memberStructre == "nong->1year,pee->2upYear" &&
+            (camp.memberStructre == "nong->1year,pee->2upYear" ||
+              camp.memberStructre == "allYearMix") &&
             !univercity
           ) {
             return null;
           }
-          console.log(camp)
+          console.log(camp);
           return (
             <div className={`w-full h-auto my-${5}`}>
               {/* <Link href={`/hospital/${hospitalItem._id}`}> */}
               <Card
                 hospitalName={camp.campName}
-                link={`/camp/${camp._id.toString()}`}
+                link={`/${url}/${camp._id.toString()}`}
                 imgSrc={camp.logoUrl}
                 id={camp._id}
                 onRating={() => {
-                  router.push(`/camp/${camp._id.toString()}`);
+                  router.push(`/${url}/${camp._id.toString()}`);
                 }}
+                camp={camp}
               />{" "}
               {/* </Link> */}
             </div>

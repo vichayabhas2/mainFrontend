@@ -13,13 +13,24 @@ import getUserProfile from "@/libs/user/getUserProfile";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Image from "next/image";
+import mongoose from "mongoose";
+import getBaans from "@/libs/camp/getBaans";
+import UpdateCampClient from "@/components/UpdateCampClient";
 
 export default async function HospitalDetailPage({
   params,
 }: {
   params: { cid: string };
 }) {
-  return<></>
+  const campId=new mongoose.Types.ObjectId(params.cid)
+  const baans=await getBaans(campId)
+  const camp=await getCamp(campId)
+
+  return<><UpdateCampClient camp={camp} baans={baans}/></>
+  //สร้างบ้าน
+  //สร้างฝ่าย
+  // update บ้าน
+  // update ฝ่าย
   /*const campId = params.cid;
   const session = await getServerSession(authOptions);
   if (session) {

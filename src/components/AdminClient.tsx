@@ -8,15 +8,22 @@ import { useState } from "react";
 import createCamp from "@/libs/admin/createCamp";
 import addCampName from "@/libs/admin/addCampName";
 import mongoose from "mongoose";
-import { InterNameContainer, CreateCamp } from "../../interface";
+import {
+  InterNameContainer,
+  CreateCamp,
+  InterPartNameContainer,
+} from "../../interface";
+import addPartName from "@/libs/admin/addPartName";
 //import { InterNameContainer, CreateCamp } from "../../interface";
 
 export default function AdminClient({
   campNameContainers,
   session,
+  partNameContainers,
 }: {
   campNameContainers: InterNameContainer[];
   session: Session;
+  partNameContainers: InterPartNameContainer[];
 }) {
   const models: (
     | "นอนทุกคน"
@@ -46,6 +53,7 @@ export default function AdminClient({
   const [peeSleepModel, setPeeSleepModel] = useState<
     "นอนทุกคน" | "เลือกได้ว่าจะค้างคืนหรือไม่" | "ไม่มีการค้างคืน" | null
   >(null);
+  const [newPartName, setNewPartName] = useState<string | null>(null);
   return (
     <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
       <div className=" rounded-lg ">
@@ -334,6 +342,40 @@ export default function AdminClient({
           if (newName) {
             try {
               addCampName(newName, session.user.token);
+            } catch (error) {
+              console.log(error);
+            }
+          } else {
+            alert("Please type in all the detavdtrjbyfugjunils!");
+          }
+        }}
+      >
+        สร้างชื่อค่าย
+      </button>
+
+      {partNameContainers.map((nameContainer: InterPartNameContainer) => (
+        <div>
+          <label className="w-2/5 text-2xl text-slate-200">
+            {nameContainer.name}
+          </label>
+        </div>
+      ))}
+
+      <div className="flex flex-row items-center">
+        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชื่อฝ่าย</label>
+        <TextField
+          name="Name"
+          id="Name"
+          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          onChange={(e) => setNewPartName(e.target.value)}
+        />
+      </div>
+      <button
+        className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        onClick={() => {
+          if (newPartName) {
+            try {
+              addPartName(newPartName, session.user.token);
             } catch (error) {
               console.log(error);
             }

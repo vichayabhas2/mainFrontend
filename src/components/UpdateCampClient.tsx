@@ -1,40 +1,40 @@
 "use client";
-import { updateBottle } from "@/libs/user/updateBottle";
-import { updateProfile } from "@/libs/user/updateProfile";
-import updateSize from "@/libs/user/updateSize";
 
-import { Checkbox, TextField} from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { InterUser } from "../../intreface";
-import { Session } from "next-auth";
-import SelectSize from "./SelectSize";
-import updateSleep from "@/libs/user/updateSleep";
+import { InterCampFront } from "../../interface";
+import { InterBaanFront } from "../../intreface";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { TextField, Checkbox } from "@mui/material";
 
-export default function UpdateProfileRaw({
-  user,
-  session,
+export default function UpdateCampClient({
+  baans,
+  camp,
 }: {
-  user: InterUser;
-  session: Session | null;
+  baans: InterBaanFront[];
+  camp: InterCampFront;
 }) {
-  const userRef = useRef("");
   const router = useRouter();
-  const [tel, setTel] = useState<string>(user.tel);
-  const [email, setEmail] = useState<string>(user.email);
-  const [shertSize, setShertSize] = useState<
-    "S" | "M" | "L" | "XL" | "XXL" | "3XL"
-  >(user.shertSize);
-  const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
-  if (!session) {
-    router.push("/");
-    return <></>;
-  }
-  const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(
-    user.likeToSleepAtCamp
+  const [registerSheetLink, setRegisterSheetLink] = useState<string | null>(
+    camp.registerSheetLink
   );
-  //console.log(user)
-  return (
+  const [link, setLink] = useState<string | null>(camp.link);
+  const [pictureUrls, setPictureUrls] = useState<string[]>(camp.pictureUrls);
+  const [logoUrl, setLogoUrl] = useState<string | null>(camp.logoUrl);
+  const [dataLock, setDataLock] = useState<boolean>(camp.dataLock);
+  const [open, setOpen] = useState<boolean>(camp.open);
+  const [allDone, setAllDone] = useState<boolean>(camp.allDone);
+  const [lockChangePickup, setLockChangePickup] = useState<boolean>(
+    camp.lockChangePickup
+  );
+  const [peeLock, setPeeLock] = useState<boolean>(camp.peeLock);
+  const [dateStart, setDateStart] = useState<Date>(camp.dateStart);
+  const [dateEnd, setDateEnd] = useState<Date>(camp.dateEnd);
+  const { data: session } = useSession();
+  return<></>
+
+
+  /*return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Update Profile </div>
 
@@ -45,8 +45,8 @@ export default function UpdateProfileRaw({
             name="Email"
             id="Email"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-            onChange={(e) => setEmail(e.target.value)}
-            defaultValue={email}
+            onChange={(e) => setLink(e.target.value)}
+            defaultValue={link}
           />
         </div>
 
@@ -56,17 +56,22 @@ export default function UpdateProfileRaw({
             name="Tel"
             id="Tel"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-            onChange={(e) => setTel(e.target.value)}
-            defaultValue={tel}
+            onChange={(e) => setPictureUrls(e.target.value.split(','))}
+            defaultValue={pictureUrls.toLocaleString()}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            เลือกขนาดเสื้อ
-          </label>
-
-          <SelectSize select={setShertSize} def={user.shertSize} />
+          <label className="w-2/5 text-2xl text-slate-200">Telephone</label>
+          <TextField
+            name="Tel"
+            id="Tel"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setPictureUrls(e.target.value.split(','))}
+            defaultValue={link}
+          />
         </div>
+       
+  
 
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
@@ -94,24 +99,10 @@ export default function UpdateProfileRaw({
         </div>
         <div className="flex flex-row justify-end">
           <button
-            className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50 "
-            onClick={() => {
-              alert(user._id);
-            }}
-          >
-            รหัส mongo
-          </button>
-          <button
             className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
             onClick={() => {
-              console.log(tel);
-              console.log(email);
               if (true) {
                 try {
-                  updateProfile(email, tel, session.user.token);
-                  updateSize(shertSize, session.user.token);
-                  updateBottle(haveBottle, session.user.token);
-                  updateSleep(likeToSleepAtCamp, session.user.token);
                 } catch (error) {
                   console.log(error);
                 }
@@ -125,5 +116,5 @@ export default function UpdateProfileRaw({
         </div>
       </form>
     </div>
-  );
+  );*/
 }

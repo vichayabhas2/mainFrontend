@@ -11,6 +11,7 @@ import getCampName from "@/libs/camp/getCampName";
 import getCampNames from "@/libs/admin/getCampNames";
 
 import AdminClient from "@/components/AdminClient";
+import getPartNames from "@/libs/admin/getPartNames";
 
 
 export default async function adminPage() {
@@ -25,8 +26,8 @@ export default async function adminPage() {
     return <BackToHome />;
   }
   const camps = await getCamps();
-  const names = await getCampName(camps);
   const campNameContainers = await getCampNames();
+  const partNameContainers=await getPartNames()
 
   return (
     <main className="text-center p-5">
@@ -37,18 +38,25 @@ export default async function adminPage() {
           </p>
         }
       >*/}
+      <HospitalCatalog hospitalsJson={camps} univercity={true} url="admin/camp"/>
       
       <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
         <div className="text-4xl font-medium">สร้างค่าย</div>
         <AdminClient
           campNameContainers={campNameContainers}
           session={session}
+          partNameContainers={partNameContainers}
         />
       </div>
       {/*</Suspense>*/}
     </main>
   );
 } /* <HospitalCatalog
+
+
+function getPartNames() {
+  throw new Error("Function not implemented.");
+}
         hospitalsJson={camps}
         mapName={names}
         onRating={(link: string) => {}}

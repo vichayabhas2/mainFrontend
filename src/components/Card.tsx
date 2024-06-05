@@ -126,7 +126,7 @@
 // }
 
 // */
-
+"use client";
 import Image from "next/image";
 
 import InteractiveCard from "./InteractiveCard";
@@ -140,29 +140,29 @@ import { Button } from "@mui/material";
 import getCamp from "@/libs/camp/getCamp";
 import { getServerSession } from "next-auth";
 import mongoose from "mongoose";
+import { InterCampFront } from "../../intreface";
 //import { Router } from "next/router";
 //import { useRouter } from "next/navigation";
 
-export default async function Card({
+export default function Card({
   hospitalName,
   onRating,
   value,
   link,
   imgSrc,
   id,
+  camp,
 }: {
   hospitalName: string;
   onRating: Function;
   value?: number | null;
   link: string;
-  imgSrc: string;
-  id: mongoose.Types.ObjectId
+  imgSrc: string | null;
+  id: mongoose.Types.ObjectId;
+  camp: InterCampFront;
   //onCarSelected :Function
 }) {
-//  const session=await getServerSession()
-
-
-  const campDetail = await getCamp(id);
+  //  const session=await getServerSession()
 
   return (
     <InteractiveCard
@@ -172,25 +172,27 @@ export default async function Card({
       <div
         className="flex flex-row h-auto"
         onClick={() => {
-          onRating(`/camp/${campDetail._id}`)
+          onRating(`/camp/${camp._id}`);
         }}
       >
         <div className="w-1/5 h-auto relative rounded-t-lg">
-          <Image
-            src={imgSrc}
-            alt="Massage Shop Picture"
-            fill={true}
-            className="object-cover rounded-t-lg"
-          />
+          {imgSrc ? (
+            <Image
+              src={imgSrc}
+              alt="Massage Shop Picture"
+              fill={true}
+              className="object-cover rounded-t-lg"
+            />
+          ) : null}
         </div>
 
         <div className="w-3/5 h-auto p-[10px]">
           <div className="text-left pl-5">
             <div className="text-3xl">{hospitalName}</div>
-            
+
             <div className="text-2xl my-10">
               <ClockIcon className="mr-5" />
-              {campDetail.open}
+              {camp.open}
             </div>
           </div>
         </div>

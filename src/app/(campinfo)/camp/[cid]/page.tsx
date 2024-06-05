@@ -1,5 +1,4 @@
 import PushToCamps from "@/components/PushToCamps";
-
 import BaanMembers from "@/components/BaanMembers";
 import LocationDateReserve from "@/components/LocationDateReserve";
 import NongRegisterPage from "@/components/NongRegisterPage";
@@ -7,7 +6,6 @@ import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
 import getNongCamp from "@/libs/camp/getNongCamp";
 import getPart from "@/libs/camp/getPart";
-import getPartName from "@/libs/camp/getPartName";
 import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import { getServerSession } from "next-auth";
@@ -15,7 +13,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Image from "next/image";
 import mongoose from "mongoose";
 import { hasKey } from "@/components/setup";
-
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -37,8 +34,8 @@ export default async function HospitalDetailPage({
     const curentRole = user.role;
     const userId: mongoose.Types.ObjectId = user._id;
     const partMap: Map<string, mongoose.Types.ObjectId> = new Map();
-    var i=0
-    while(i<campDetail.partIds.length){
+    var i = 0;
+    while (i < campDetail.partIds.length) {
       const part = await getPart(campDetail.partIds[i++], token);
 
       partMap.set(part.partName, part._id);
@@ -51,14 +48,14 @@ export default async function HospitalDetailPage({
       return <BaanMembers baan={baan} />;
     } else if (campDetail.peeIds.includes(userId)) {
       campRole = "pee";
-      return<>ctrudyfgukhjkn,ytigtkhjn</>
+      return <>ctrudyfgukhjkn,ytigtkhjn</>;
     } else if (campDetail.petoIds.includes(userId)) {
       campRole = "peto";
-    } else if (hasKey(campDetail.nongPendingIds,user._id)) {
+    } else if (hasKey(campDetail.nongPendingIds, user._id)) {
     } else if (campDetail.nongPaidIds.includes(user._id)) {
-    } else if (hasKey(campDetail.nongPassIds,user._id)) {
-    } else if (hasKey(campDetail.peePassIds,user._id)) {
-    } else if (hasKey(campDetail.nongInterviewIds,user._id)) {
+    } else if (hasKey(campDetail.nongPassIds, user._id)) {
+    } else if (hasKey(campDetail.peePassIds, user._id)) {
+    } else if (hasKey(campDetail.nongInterviewIds, user._id)) {
     } else {
       switch (campDetail.memberStructre) {
         case "nong->highSchool,pee->1year,peto->2upYear": {
@@ -121,14 +118,16 @@ export default async function HospitalDetailPage({
     return (
       <main className="text-center p-5">
         <div>
-          <Image
-            src={campDetail.logoUrl}
-            alt="htfugyy"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="rounded-lg w-[30%]"
-          />
+          {campDetail.logoUrl ? (
+            <Image
+              src={campDetail.logoUrl}
+              alt="htfugyy"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="rounded-lg w-[30%]"
+            />
+          ) : null}
           <div className="text-md mx-5">{}</div>
           <div className="text-md mx-5">{}</div>
           <div className="text-md mx-5">{}</div>
@@ -138,7 +137,8 @@ export default async function HospitalDetailPage({
   } else {
     return <PushToCamps />;
   }
-} /*
+}
+/*
 const campDetail = await getCamp(params.cid);
 const session=await getSession()
 

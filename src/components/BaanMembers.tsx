@@ -1,5 +1,5 @@
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
-import { InterBaanFront, InterUser } from "../../interface";
+import { InterBaanFront, InterUser, ShowMember } from "../../interface";
 
 
 export default async function BaanMembers({ baan }: { baan: InterBaanFront }) {
@@ -15,7 +15,7 @@ export default async function BaanMembers({ baan }: { baan: InterBaanFront }) {
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
           </tr>
-          {nongs.map((user: InterUser) => (
+          {nongs.map((user: ShowMember) => (
             <tr>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
@@ -32,7 +32,7 @@ export default async function BaanMembers({ baan }: { baan: InterBaanFront }) {
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
           </tr>
-          {pees.map((user: InterUser) => (
+          {pees.map((user: ShowMember) => (
             <tr>
               <td>{user.nickname}</td>
               <td>{user.name}</td>

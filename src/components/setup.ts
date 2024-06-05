@@ -95,7 +95,8 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         nomalPlaceId,
         _id,
         peeSleepIds,
-        nongSleepIds
+        nongSleepIds, groupRef
+
     } = input
     return ({
         name,
@@ -119,7 +120,7 @@ export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
         styleId,
         boySleepPlaceId,
         girlSleepPlaceId,
-
+        groupRef,
         peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
         nongHaveBottleMapIds: mapBoolToArray(nongHaveBottleMapIds),
         mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
@@ -237,7 +238,6 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         memberStructre,
         workItemIds,
         songIds,
-
         logoUrl,
         mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
         registerSheetLink,

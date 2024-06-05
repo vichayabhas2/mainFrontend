@@ -1,6 +1,7 @@
 "use client";
+import SelectSize from "@/components/SelectSize";
 import userSignup from "@/libs/user/userSignup";
-import { Input, TextField } from "@mui/material";
+import { Checkbox, Input, TextField } from "@mui/material";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
@@ -17,7 +18,8 @@ export default function signupPage() {
   >(null);
   const [gender, setGender] = useState<"Male" | "Female" | null>(null);
   const [haveBottle, setHaveBottle] = useState<boolean | null>(null);
-  const [citizenId,setCitizenId]=useState<string|null>(null)
+  const [citizenId, setCitizenId] = useState<string | null>(null);
+  const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(false);
 
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
@@ -79,7 +81,9 @@ export default function signupPage() {
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">รหัสประจำตัวประชาชน</label>
+          <label className="w-2/5 text-2xl text-slate-200">
+            รหัสประจำตัวประชาชน
+          </label>
           <TextField
             name="citizenId"
             id="citizenId"
@@ -110,75 +114,27 @@ export default function signupPage() {
           <label className="w-2/5 text-2xl text-slate-200">
             เลือกขนาดเสื้อ
           </label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"s"}
-            onClick={() => setShertSize("S")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">S</label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"m"}
-            onClick={() => setShertSize("M")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">M</label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"l"}
-            onClick={() => setShertSize("L")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">L</label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"xl"}
-            onClick={() => setShertSize("XL")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">XL</label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"xxl"}
-            onClick={() => setShertSize("XXL")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">XXL</label>
-          <Input
-            type="radio"
-            id="shertSize"
-            value={"3xl"}
-            onClick={() => setShertSize("3XL")}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
-          />
-          <label className="w-2/5 text-2xl text-slate-200">3XL</label>
+          <SelectSize select={setShertSize} def={null}/>
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
             มีกระติกน้ำหรือไม่
           </label>
-          <Input
-            type="radio"
-            id="bottle"
-            value={"male"}
-            onClick={() => setHaveBottle(true)}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
+          <Checkbox
+            onChange={(e, state) => {
+              setHaveBottle(state);
+            }}
           />
-          <label className="w-2/5 text-2xl text-slate-200">มี</label>
-          <Input
-            type="radio"
-            id="bottle"
-            value={"female"}
-            onClick={() => setHaveBottle(false)}
-            className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            ชอบนอนในค่ายหรือไม่
+          </label>
+          <Checkbox
+            onChange={(e, state) => {
+              setLikeToSleepAtCamp(state);
+            }}
           />
-          <label className="w-2/5 text-2xl text-slate-200">ไม่มี</label>
         </div>
         <div className="flex flex-row justify-end">
           <button
@@ -198,7 +154,7 @@ export default function signupPage() {
                 gender &&
                 lastname &&
                 nickname &&
-                haveBottle != null&&
+                haveBottle != null &&
                 citizenId
               ) {
                 console.log("ffffffffffffffffffffffffffff");
@@ -214,7 +170,8 @@ export default function signupPage() {
                     shertSize,
                     gender,
                     haveBottle,
-                    citizenId
+                    citizenId,
+                    likeToSleepAtCamp,
                   });
                 } catch (error) {
                   console.log(error);
