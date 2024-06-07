@@ -5,37 +5,38 @@ import { InterBuilding } from "../../interface";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import createBuilding from "@/libs/randomthing/createBuilding";
+import { InterPlace } from "../../intreface";
 
-export default function BuildingClient({
-  buildings,
+export default function PlaceClient({
+  places,
   token
 }: {
-  buildings: InterBuilding[];
+  places: InterPlace[];
   token:string
 }) {
   const [newName, setNewName] = useState<string | null>(null);
   const router = useRouter();
   return (
     <>
-      {buildings.map((building) => (
+      {places.map((place) => (
         <div
           className="flex flex-row h-auto"
           onClick={() => {
-            router.push(`/place/${building._id}`);
+            router.push(`/place/${place.buildingId}/${place._id}`);
           }}
         >
           <div className="w-1/5 h-auto relative rounded-t-lg"></div>
 
           <div className="w-3/5 h-auto p-[10px]">
             <div className="text-left pl-5">
-              <div className="text-3xl">{building.name}</div>
+              <div className="text-3xl">{place.flore} {place.room}</div>
             </div>
           </div>
           <div className="w-1/5 h-auto bg-slate-800 rounded-xl hover:bg-slate-600"></div>
         </div>
       ))}
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชื่อค่าย</label>
+        <label className="w-2/5 text-2xl text-slate-200">เพิ่มห้อง</label>
         <TextField
           name="Name"
           id="Name"
