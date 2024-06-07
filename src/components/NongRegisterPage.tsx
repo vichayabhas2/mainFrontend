@@ -4,19 +4,22 @@ import React, { useRef, useState } from "react";
 import nongRegisterCamp from "@/libs/camp/nongRegisterCamp";
 import { InterCampFront } from "../../intreface";
 import Link from "next/link";
+import { InterUser } from "../../interface";
 export default function NongRegisterPage({
   camp,
   token,
+  user
 }: {
   camp: InterCampFront;
   token: string;
+  user:InterUser
 }): React.ReactNode {
   const userRef = useRef("");
   const [link, setLink] = useState<string | null>("");
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Register</div>
-      {camp.registerSheetLink?<Link href={camp.registerSheetLink}>ใบรับสมัคร</Link>:null}
+      {camp.registerSheetLink?<Link href={`${camp.registerSheetLink}${user._id}`}>ใบรับสมัคร</Link>:null}
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center">
           <label className="w-2/5 text-2xl text-slate-200">

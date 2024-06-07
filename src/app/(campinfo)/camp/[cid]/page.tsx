@@ -61,7 +61,9 @@ export default async function HospitalDetailPage({
         case "nong->highSchool,pee->1year,peto->2upYear": {
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
+            return (
+              <NongRegisterPage camp={campDetail} token={token} user={user} />
+            );
           } else if (!campDetail.peeLock && user.role != "nong") {
             return <LocationDateReserve partMap={partMap} token={token} />;
           } else {
@@ -76,7 +78,9 @@ export default async function HospitalDetailPage({
             !(user.role == "peto" || user.role == "admin")
           ) {
             console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
+            return (
+              <NongRegisterPage camp={campDetail} token={token} user={user} />
+            );
           } else if (
             !campDetail.peeLock &&
             (user.role == "peto" || user.role == "admin")
@@ -90,7 +94,9 @@ export default async function HospitalDetailPage({
         case "nong->highSchool,pee->2upYear": {
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
+            return (
+              <NongRegisterPage camp={campDetail} token={token} user={user} />
+            );
           } else if (
             !campDetail.peeLock &&
             (user.role == "peto" || user.role == "admin")
@@ -104,7 +110,9 @@ export default async function HospitalDetailPage({
         case "nong->highSchool,pee->allYear": {
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
-            return <NongRegisterPage camp={campDetail} token={token} />;
+            return (
+              <NongRegisterPage camp={campDetail} token={token} user={user} />
+            );
           } else if (!campDetail.peeLock && user.role != "nong") {
             return <LocationDateReserve partMap={partMap} token={token} />;
           } else {

@@ -21,9 +21,9 @@ export default function UpdateCampClient({
   baans: InterBaanFront[];
   camp: InterCampFront;
 }) {
- // alert(baans.length)
+  // alert(baans.length)
   const router = useRouter();
-  const [newBaanName,setNewBaanName]=useState<string|null>(null)
+  const [newBaanName, setNewBaanName] = useState<string | null>(null);
   const [registerSheetLink, setRegisterSheetLink] = useState<string | null>(
     camp.registerSheetLink
   );
@@ -41,7 +41,7 @@ export default function UpdateCampClient({
     dayjs(camp.dateStart)
   );
   const [dateEnd, setDateEnd] = useState<Dayjs | null>(dayjs(camp.dateEnd));
-  
+
   const { data: session } = useSession();
   if (!session) {
     return <BackToHome />;
@@ -57,11 +57,10 @@ export default function UpdateCampClient({
         );
       })}
 
-      <div className="text-4xl font-medium">Update Profile </div>
-
+      <div className="text-4xl font-medium">Update Camp</div>
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-      <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">link ใบสมัคร</label>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">ชื่อบ้านใหม่</label>
           <TextField
             name="Tel"
             id="Tel"
@@ -70,15 +69,20 @@ export default function UpdateCampClient({
             defaultValue={null}
           />
         </div>
-        <FinishButton text="สร้างบ้าน" onClick={()=>{
-          if(newBaanName){
-            alert(newBaanName)
-            addBaan(newBaanName,camp._id,session.user.token)
-          }
-
-        }}/>
+        <FinishButton
+          text="สร้างบ้าน"
+          onClick={() => {
+            if (newBaanName) {
+              alert(newBaanName);
+              addBaan(newBaanName, camp._id, session.user.token);
+            }
+          }}
+        />
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">link ใบสมัคร</label>
+          <label className="w-2/5 text-2xl text-slate-200">
+            link ใบสมัคร ถ้าไม่ต้องการให้ใส่ id ตามหลังให้ใส่ ~ ตามหลัง link
+            ด้วย
+          </label>
           <TextField
             name="Tel"
             id="Tel"

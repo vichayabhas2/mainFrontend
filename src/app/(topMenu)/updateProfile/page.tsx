@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import getUserProfile from "@/libs/user/getUserProfile";
 import UpdateProfileRaw from "@/components/UpdateProfileRaw";
