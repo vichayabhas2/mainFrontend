@@ -6,7 +6,7 @@ export default async function getCamp(id: mongoose.Types.ObjectId): Promise<Inte
   //console.log(id)
   //console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhh')
   //console.log(`${backendUrl}/camp/getCamp/params/${id.toString()}`)
-  const response = await fetch(`${backendUrl}/camp/getCamp/params/${id.toString()}`);
+  const response = await fetch(`${backendUrl}/camp/getCamp/params/${id.toString()}`,{ cache: 'no-store' });
   if (!response.ok) {
     throw new Error("Fail");
   }

@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
-import { UpdateCamp } from "../../../interface";
 import { backendUrl } from "@/components/setup";
+import { UpdateBaan } from "../../../interface";
 
-export default async function updateCamp(update:UpdateCamp,id:mongoose.Types.ObjectId,token:string){
-    const response = await fetch(`${backendUrl}/updateCamp/params/${id}`, {
+export default async function updateBaan(input:UpdateBaan,token:string){
+    const response = await fetch(`${backendUrl}/updateBaan`, {
         method: "PUT",cache: "no-store",
         headers: {
           "Content-Type": "application/json",
@@ -11,7 +10,7 @@ export default async function updateCamp(update:UpdateCamp,id:mongoose.Types.Obj
           authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(
-          update
+          input
     
           //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
         ),

@@ -3,7 +3,7 @@ import { InterBaanFront, InterCampFront } from "../../../intreface";
 import mongoose from "mongoose";
 
 export default async function getBaan(id:mongoose.Types.ObjectId): Promise<InterBaanFront> {
-  const response = await fetch(`${backendUrl}/camp/Baan/params/${id}`);
+  const response = await fetch(`${backendUrl}/camp/Baan/params/${id}`,{ cache: 'no-store' });
   if (!response.ok) {
     throw new Error("Fail");
   }

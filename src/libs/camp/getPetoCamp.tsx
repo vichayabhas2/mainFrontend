@@ -8,6 +8,7 @@ export default async function getpetoCamp(
 ): Promise<InterPetoCamp> {
   const response = await fetch(`${backendUrl}/camp/petoCamp/params/${id}`, {
     method: "GET",
+    cache: "no-store",
     headers: {
       authorization: `Bearer ${token}`,
     },

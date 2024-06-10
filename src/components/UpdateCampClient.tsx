@@ -13,6 +13,7 @@ import BackToHome from "./BackToHome";
 import dayjs, { Dayjs } from "dayjs";
 import FinishButton from "./FinishButton";
 import addBaan from "@/libs/admin/addBaan";
+//import initBaan from "./initBaan";
 
 export default function UpdateCampClient({
   baans,
@@ -51,7 +52,12 @@ export default function UpdateCampClient({
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       {baans.map((baan) => {
         return (
-          <div onClick={() => router.push(`/admin/baan/${baan._id}`)}>
+          <div
+            onClick={() => {
+              //initBaan(baan._id)
+              router.push(`/admin/baan/${baan._id}`);
+            }}
+          >
             {baan.name}
           </div>
         );

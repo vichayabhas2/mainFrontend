@@ -7,7 +7,7 @@ export default async function getPart(
   token: string
 ): Promise<InterPartFront> {
   const response = await fetch(`${backendUrl}/camp/part/params/${id}`, {
-    method: "GET",
+    method: "GET",cache: "no-store",
     headers: {
       authorization: `Bearer ${token}`,
     },

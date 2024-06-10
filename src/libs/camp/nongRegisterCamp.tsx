@@ -8,6 +8,7 @@ export default async function nongRegisterCamp(campId:mongoose.Types.ObjectId,li
             "Content-Type":"application/json",
             authorization:`Bearer ${token}`
         },
+        cache: "no-store",
         body:JSON.stringify({
             campId,link
         })

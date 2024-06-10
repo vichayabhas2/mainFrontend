@@ -8,6 +8,7 @@ export default async function getPeeCamp(
 ): Promise<InterPeeCamp> {
   const response = await fetch(`${backendUrl}/camp/peeCamp/params/${id}`, {
     method: "GET",
+    cache: "no-store",
     headers: {
       authorization: `Bearer ${token}`,
     },

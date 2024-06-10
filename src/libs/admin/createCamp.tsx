@@ -6,7 +6,7 @@ export default async function createCamp(
   token: string
 ): Promise<InterCampFront> {
   const response = await fetch(`${backendUrl}/admin/createCamp`, {
-    method: "POST",
+    method: "POST",cache: "no-store",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,

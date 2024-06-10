@@ -7,7 +7,7 @@ export default async function getNongCamp(
   token: string
 ): Promise<InterNongCampBack> {
   const response = await fetch(`${backendUrl}/camp/nongCamp/params/${id}`, {
-    method: "GET",
+    method: "GET",cache: "no-store",
     headers: {
       authorization: `Bearer ${token}`,
     },

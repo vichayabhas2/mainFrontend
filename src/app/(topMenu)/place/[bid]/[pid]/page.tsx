@@ -6,5 +6,5 @@ export default async function PlacePage({
 }: {
   params: { bid: string; pid: string };
 }) {
-  const places = await getPlaces(new mongoose.Types.ObjectId(params.bid));
+  const place = await getPlaces(new mongoose.Types.ObjectId(params.bid));
 }
