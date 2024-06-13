@@ -188,7 +188,8 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         peeSleepIds,
         peeSleepModel,
         nongSleepIds,
-        nongSleepModel
+        nongSleepModel,
+        baanBordId
     } = input
     return ({
         partIds,
@@ -248,7 +249,8 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         peeSleepIds,
         peeSleepModel,
         nongSleepIds,
-        nongSleepModel
+        nongSleepModel,
+        baanBordId
     })
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
@@ -367,4 +369,13 @@ export function hasKey(input: MyMap[] | MapObjectId[], id: mongoose.Types.Object
         }
     }
     return false
+}
+export function getValue(input:MyMap[],id:mongoose.Types.ObjectId):string{
+    var i = 0
+    while (i < input.length) {
+        if (input[i++].key.equals(id)) {
+            return input[i-1].value
+        }
+    }
+    return ''
 }

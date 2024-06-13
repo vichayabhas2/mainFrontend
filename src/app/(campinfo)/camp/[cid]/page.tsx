@@ -13,6 +13,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Image from "next/image";
 import mongoose from "mongoose";
 import { hasKey } from "@/components/setup";
+import getPeeCamp from "@/libs/camp/getPeeCamp";
+import NongPendingPage from "@/components/NongPendingPage";
+import getUserFromCamp from "@/libs/camp/getUserFromCamp";
+import ImagesFromUrl from "@/components/ImagesFromUrl";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -45,13 +49,42 @@ export default async function HospitalDetailPage({
       const shertManage = await getShertManageByCampId(campDetail._id, token);
       const nongCamp = await getNongCamp(shertManage.campModelId, token);
       const baan = await getBaan(nongCamp.baanId);
-      return <BaanMembers baan={baan} />;
+      const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
+      const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <BaanMembers baan={baan} campRole="nong" pees={pees} nongs={nongs} />
+        </>
+      );
     } else if (campDetail.peeIds.includes(userId)) {
       campRole = "pee";
-      return <>ctrudyfgukhjkn,ytigtkhjn</>;
+      const shertManage = await getShertManageByCampId(campDetail._id, token);
+      const peeCamp = await getPeeCamp(shertManage.campModelId, token);
+      const baan = await getBaan(peeCamp.baanId);
+      const part = await getPart(peeCamp.partId, token);
+      const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
+      const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <BaanMembers
+            baan={baan}
+            campRole={user.mode}
+            pees={pees}
+            nongs={nongs}
+          />
+        </>
+      );
     } else if (campDetail.petoIds.includes(userId)) {
       campRole = "peto";
     } else if (hasKey(campDetail.nongPendingIds, user._id)) {
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <NongPendingPage camp={campDetail} user={user} token={token} />
+        </>
+      );
     } else if (campDetail.nongPaidIds.includes(user._id)) {
     } else if (hasKey(campDetail.nongPassIds, user._id)) {
     } else if (hasKey(campDetail.peePassIds, user._id)) {
@@ -62,10 +95,18 @@ export default async function HospitalDetailPage({
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
             return (
-              <NongRegisterPage camp={campDetail} token={token} user={user} />
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <NongRegisterPage camp={campDetail} token={token} user={user} />
+              </>
             );
           } else if (!campDetail.peeLock && user.role != "nong") {
-            return <LocationDateReserve partMap={partMap} token={token} />;
+            return (
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />{" "}
+                <LocationDateReserve partMap={partMap} token={token} />
+              </>
+            );
           } else {
             alert("this camp is close");
             return <PushToCamps />;
@@ -79,13 +120,21 @@ export default async function HospitalDetailPage({
           ) {
             console.log(user.role);
             return (
-              <NongRegisterPage camp={campDetail} token={token} user={user} />
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <NongRegisterPage camp={campDetail} token={token} user={user} />
+              </>
             );
           } else if (
             !campDetail.peeLock &&
             (user.role == "peto" || user.role == "admin")
           ) {
-            return <LocationDateReserve partMap={partMap} token={token} />;
+            return (
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <LocationDateReserve partMap={partMap} token={token} />
+              </>
+            );
           } else {
             alert("this camp is close");
             return <PushToCamps />;
@@ -95,13 +144,21 @@ export default async function HospitalDetailPage({
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
             return (
-              <NongRegisterPage camp={campDetail} token={token} user={user} />
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <NongRegisterPage camp={campDetail} token={token} user={user} />
+              </>
             );
           } else if (
             !campDetail.peeLock &&
             (user.role == "peto" || user.role == "admin")
           ) {
-            return <LocationDateReserve partMap={partMap} token={token} />;
+            return (
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <LocationDateReserve partMap={partMap} token={token} />
+              </>
+            );
           } else {
             alert("this camp is close");
             return <PushToCamps />;
@@ -111,17 +168,25 @@ export default async function HospitalDetailPage({
           if (campDetail.open && user.role == "nong") {
             console.log(user.role);
             return (
-              <NongRegisterPage camp={campDetail} token={token} user={user} />
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <NongRegisterPage camp={campDetail} token={token} user={user} />
+              </>
             );
           } else if (!campDetail.peeLock && user.role != "nong") {
-            return <LocationDateReserve partMap={partMap} token={token} />;
+            return (
+              <>
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
+                <LocationDateReserve partMap={partMap} token={token} />
+              </>
+            );
           } else {
             alert("this camp is close");
             return <PushToCamps />;
           }
         }
       }
-    }
+    }//ล่อไว้ก่อน
 
     return (
       <main className="text-center p-5">

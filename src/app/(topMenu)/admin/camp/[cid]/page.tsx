@@ -1,18 +1,4 @@
-import PushToCamps from "@/components/PushToCamps";
-
-import BaanMembers from "@/components/BaanMembers";
-import LocationDateReserve from "@/components/LocationDateReserve";
-import NongRegisterPage from "@/components/NongRegisterPage";
-import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
-import getNongCamp from "@/libs/camp/getNongCamp";
-import getPart from "@/libs/camp/getPart";
-import getPartName from "@/libs/camp/getPartName";
-import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
-import getUserProfile from "@/libs/user/getUserProfile";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Image from "next/image";
 import mongoose from "mongoose";
 import getBaans from "@/libs/camp/getBaans";
 import UpdateCampClient from "@/components/UpdateCampClient";
@@ -22,11 +8,11 @@ export default async function HospitalDetailPage({
 }: {
   params: { cid: string };
 }) {
-  const campId=new mongoose.Types.ObjectId(params.cid)
-  const baans=await getBaans(campId)
-  const camp=await getCamp(campId)
+  const campId = new mongoose.Types.ObjectId(params.cid)
+  const baans = await getBaans(campId)
+  const camp = await getCamp(campId)
 
-  return<><UpdateCampClient camp={camp} baans={baans}/></>
+  return <><UpdateCampClient camp={camp} baans={baans} /></>
   //สร้างบ้าน
   //สร้างฝ่าย
   // update บ้าน

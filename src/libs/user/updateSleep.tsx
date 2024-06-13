@@ -9,6 +9,7 @@ export default async function updateSleep(sleep:boolean,token:string){
       headers: {
         authorization: `Bearer ${token}`,
       },
+      cache:'no-store'
     });
   }
 }

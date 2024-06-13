@@ -12,7 +12,7 @@ export default async function userSignup(signUp: Register) {
         signUp
 
         //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
-      ),
+      ),cache:'no-store'
     });
 
     if (!response.ok) {

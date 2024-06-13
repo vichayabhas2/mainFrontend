@@ -9,6 +9,7 @@ export async function updateBottle(haveBottle: boolean, token: string) {
       headers: {
         authorization: `Bearer ${token}`,
       },
+      cache:'no-store'
     });
   }
 }

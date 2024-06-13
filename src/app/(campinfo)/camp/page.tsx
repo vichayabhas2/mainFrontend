@@ -27,7 +27,7 @@ export default async function Hospital() {
           </p>
         }
       >
-        <HospitalCatalog hospitalsJson={camps}  univercity url="camp"/>
+        <HospitalCatalog hospitalsJson={camps}  univercity={univercity} url="camp"/>
       </Suspense>
     </main>
   );

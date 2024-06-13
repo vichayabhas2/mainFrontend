@@ -1,12 +1,12 @@
 import { backendUrl, userPath } from "@/components/setup";
 import { InterShertManage } from "../../../intreface";
-import mongoose from "mongoose";
-export default async function shertManagebyCampId(
-  id: mongoose.Types.ObjectId,
+
+export default async function checkTel(
+  tel:string,
   token: string
-): Promise<InterShertManage> {
+): Promise<{relation:string[]}> {
   const response = await fetch(
-    `${backendUrl}/${userPath}/shertManagebyCampId/params/${id}`,
+    `${backendUrl}/${userPath}/checkTel/params/${tel}`,
     {
       method: "GET",
       headers: {
@@ -14,6 +14,7 @@ export default async function shertManagebyCampId(
       },cache: "no-store",
     }
   );
+  console.log(`${backendUrl}/${userPath}/checkTel/params/${tel}`)
   if (!response.ok) {
     throw new Error("Fail");
   }

@@ -17,6 +17,7 @@ export default async function peeUpdateMode(
 
       //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
     ),
+    cache:'no-store'
   });
   return await response.json();
 }

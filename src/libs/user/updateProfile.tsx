@@ -13,6 +13,7 @@ export async function updateProfile(email: string, tel: string, token: string) {
 
       //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
     ),
+    cache:'no-store'
   });
   return await response.json();
 }
