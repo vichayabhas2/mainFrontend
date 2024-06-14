@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
-import { UpdateCamp } from "../../../interface";
 import { backendUrl } from "@/components/setup";
+import mongoose from "mongoose";
 
-export default async function updateCamp(update:UpdateCamp,id:mongoose.Types.ObjectId,token:string){
-    const response = await fetch(`${backendUrl}/admin/updateCamp/params/${id}`, {
+export default async function updatePart(partId:mongoose.Types.ObjectId,placeId:mongoose.Types.ObjectId,token:string){
+    const response = await fetch(`${backendUrl}/admin/updatePart`, {
         method: "PUT",cache: "no-store",
         headers: {
           "Content-Type": "application/json",
@@ -11,7 +10,10 @@ export default async function updateCamp(update:UpdateCamp,id:mongoose.Types.Obj
           authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(
-          update
+          {
+            partId,
+            placeId
+          }
     
           //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
         ),

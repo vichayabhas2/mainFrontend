@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { InterCampFront } from "../../interface";
+import { InterCampFront, InterPartFront } from "../../interface";
 import { InterBaanFront } from "../../intreface";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -18,9 +18,11 @@ import addBaan from "@/libs/admin/addBaan";
 export default function UpdateCampClient({
   baans,
   camp,
+  parts,
 }: {
   baans: InterBaanFront[];
   camp: InterCampFront;
+  parts: InterPartFront[];
 }) {
   // alert(baans.length)
   const router = useRouter();
@@ -33,7 +35,7 @@ export default function UpdateCampClient({
   const [logoUrl, setLogoUrl] = useState<string | null>(camp.logoUrl);
   const [dataLock, setDataLock] = useState<boolean>(camp.dataLock);
   const [open, setOpen] = useState<boolean>(camp.open);
-  const [peeLock, setPeeLock] = useState<boolean>(camp.peeLock);
+  const [peeLock, setPeeLock] = useState<boolean>(!camp.peeLock);
   const [lockChangePickup, setLockChangePickup] = useState<boolean>(
     camp.lockChangePickup
   );
@@ -47,18 +49,31 @@ export default function UpdateCampClient({
   if (!session) {
     return <BackToHome />;
   }
+  //alert(camp.registerSheetLink)
   /** */
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
+      <div>บ้าน</div>
       {baans.map((baan) => {
         return (
           <div
             onClick={() => {
-              //initBaan(baan._id)
               router.push(`/admin/baan/${baan._id}`);
             }}
           >
             {baan.name}
+          </div>
+        );
+      })}
+      <div>ฝ่าย</div>
+      {parts.map((part) => {
+        return (
+          <div
+            onClick={() => {
+              router.push(`/admin/part/${part._id}`);
+            }}
+          >
+            {part.partName}
           </div>
         );
       })}
@@ -155,7 +170,7 @@ export default function UpdateCampClient({
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            มีกระติกน้ำหรือไม่
+            เปิดให้น้องค่ายลงทะเบียนหรือไม่
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -168,7 +183,7 @@ export default function UpdateCampClient({
         <div className="flex flex-row justify-end"></div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            ชอบนอนในค่ายหรือไม่
+            ล็อกข้อมูลการรับเสื้อของพี่บ้านหรือไม่
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -179,7 +194,7 @@ export default function UpdateCampClient({
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            มีกระติกน้ำหรือไม่
+            ค่ายเสร็จหรือยัง
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -223,7 +238,7 @@ export default function UpdateCampClient({
                       link,
                       lockChangePickup,
                       logoUrl,
-                      peeLock,
+                      peeLock: !peeLock,
                       dataLock,
                       dateEnd: dateEnd.toDate(),
                       dateStart: dateStart.toDate(),

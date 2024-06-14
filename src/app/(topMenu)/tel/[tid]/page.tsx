@@ -15,7 +15,7 @@ export default async function HospitalDetailPage({
   }
 
   const tels=await checkTel(params.tid,session.user.token)
-  console.log(tels)
+  //console.log(tels)
 
   return<>
   {tels.relation.map((v)=>(<div>{v}</div>))}

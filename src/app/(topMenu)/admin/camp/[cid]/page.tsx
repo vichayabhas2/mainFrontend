@@ -2,6 +2,11 @@ import getCamp from "@/libs/camp/getCamp";
 import mongoose from "mongoose";
 import getBaans from "@/libs/camp/getBaans";
 import UpdateCampClient from "@/components/UpdateCampClient";
+import getPart from "@/libs/camp/getPart";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import BackToHome from "@/components/BackToHome";
+import { InterPartFront } from "../../../../../../interface";
 
 export default async function HospitalDetailPage({
   params,
@@ -11,8 +16,19 @@ export default async function HospitalDetailPage({
   const campId = new mongoose.Types.ObjectId(params.cid)
   const baans = await getBaans(campId)
   const camp = await getCamp(campId)
+  const session=await getServerSession(authOptions)
+  if(!session){
+    return <BackToHome/>
+  }
+  var i=0
+  const parts:InterPartFront[]=[]
+  while(i<camp.partIds.length){
+    const part=await getPart(camp.partIds[i++],session.user.token)
+    parts.push(part)
 
-  return <><UpdateCampClient camp={camp} baans={baans} /></>
+  }
+
+  return <><UpdateCampClient camp={camp} baans={baans} parts={parts} /></>
   //สร้างบ้าน
   //สร้างฝ่าย
   // update บ้าน

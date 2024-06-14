@@ -69,7 +69,7 @@ export default function AdminClient({
                 value={choice.name}
                 onClick={() => {
                   setChose(choice._id);
-                  alert(choice._id);
+                  //alert(choice._id);
                 }}
               >
                 {choice.name}

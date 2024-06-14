@@ -1,34 +1,25 @@
-'use client'
-
-import checkTel from "@/libs/user/checkTel";
+"use client";
 import { TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { useRef, useState } from "react";
 
-export default function HospitalDetailPage({
-
-}: {
-
-}) {
-  const {data:session}=useSession()
+export default function HospitalDetailPage({}: {}) {
+  const { data: session } = useSession();
   const userRef = useRef("");
   const router = useRouter();
-  const [tel, setTel] = useState<string|null>(null);
- 
-  
+  const [tel, setTel] = useState<string | null>(null);
+
   if (!session) {
     router.push("/");
     return <></>;
   }
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-medium">Update Profile </div>
+      <div className="text-4xl font-medium">check Tel </div>
 
-      <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-        
-
+      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">Telephone</label>
           <TextField
@@ -39,31 +30,25 @@ export default function HospitalDetailPage({
             defaultValue={tel}
           />
         </div>
-        
-
-        
-
-        
         <div className="flex flex-row justify-end">
-          
           <button
             className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
             onClick={() => {
               console.log(tel);
-              console.log('hhhhhhhjmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
-              if(tel){
-                router.push(`tel/${tel}`)
-              }
-              else{
-                alert('ไม่ได้ใส่หมายเลขโทรศัพท์')
+              console.log("hhhhhhhjmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+              if (tel) {
+                router.push(`/tel/${tel}`);
+
+             
+              } else {
+                alert("ไม่ได้ใส่หมายเลขโทรศัพท์");
               }
             }}
           >
             checkTel
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
-  
-} 
+}

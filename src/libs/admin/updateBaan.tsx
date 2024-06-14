@@ -2,7 +2,7 @@ import { backendUrl } from "@/components/setup";
 import { UpdateBaan } from "../../../interface";
 
 export default async function updateBaan(input:UpdateBaan,token:string){
-    const response = await fetch(`${backendUrl}/updateBaan`, {
+    const response = await fetch(`${backendUrl}/admin/updateBaan`, {
         method: "PUT",cache: "no-store",
         headers: {
           "Content-Type": "application/json",
