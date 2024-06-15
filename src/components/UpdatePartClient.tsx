@@ -49,7 +49,7 @@ export default function UpdatePartClient({
   }
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-medium">Update Profile </div>
+      <div className="text-4xl font-medium">Update Part</div>
 
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         

@@ -66,11 +66,11 @@ export default function UpdateBaanClient({
   }
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-medium">Update Profile </div>
+      <div className="text-4xl font-medium">Update บ้าน </div>
 
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Email</label>
+          <label className="w-2/5 text-2xl text-slate-200"> ชื่อย่อ</label>
           <TextField
             name="Email"
             id="Email"
@@ -81,7 +81,7 @@ export default function UpdateBaanClient({
         </div>
 
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Telephone</label>
+          <label className="w-2/5 text-2xl text-slate-200">ชื่อเต็ม</label>
           <TextField
             name="Tel"
             id="Tel"
@@ -91,7 +91,7 @@ export default function UpdateBaanClient({
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Telephone</label>
+          <label className="w-2/5 text-2xl text-slate-200">link</label>
           <TextField
             name="Tel"
             id="Tel"

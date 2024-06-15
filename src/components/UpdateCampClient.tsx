@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { InterCampFront, InterPartFront } from "../../interface";
+import { InterCampFront, InterPartFront, MyMap } from "../../interface";
 import { InterBaanFront } from "../../intreface";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -13,16 +13,21 @@ import BackToHome from "./BackToHome";
 import dayjs, { Dayjs } from "dayjs";
 import FinishButton from "./FinishButton";
 import addBaan from "@/libs/admin/addBaan";
+import SelectTemplate from "./SelectTemplate";
+import mongoose from "mongoose";
+import addPart from "@/libs/admin/addPart";
 //import initBaan from "./initBaan";
 
 export default function UpdateCampClient({
   baans,
   camp,
   parts,
+  remainPartName
 }: {
   baans: InterBaanFront[];
   camp: InterCampFront;
   parts: InterPartFront[];
+  remainPartName:MyMap[]
 }) {
   // alert(baans.length)
   const router = useRouter();
@@ -99,6 +104,9 @@ export default function UpdateCampClient({
             }
           }}
         />
+        <SelectTemplate mapIn={remainPartName} select={(e:mongoose.Types.ObjectId
+        )=>{addPart(e,camp._id,session.user.token)
+        }} buttonText="สร้างฝ่าย" />
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
             link ใบสมัคร ถ้าไม่ต้องการให้ใส่ id ตามหลังให้ใส่ ~ ตามหลัง link

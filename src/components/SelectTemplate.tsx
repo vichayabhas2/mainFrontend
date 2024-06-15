@@ -2,20 +2,20 @@
 import { Select, MenuItem } from "@mui/material";
 import mongoose from "mongoose";
 import { useRef, useState } from "react";
+import { MyMap } from "../../interface";
 
 export default function SelectTemplate({
   mapIn,
   select,
+  buttonText
 }: {
-  mapIn: Map<string, mongoose.Types.ObjectId>;
+  mapIn: MyMap[];
   select: Function;
+  buttonText:string
 }) {
   const userRef = useRef("");
-  const choices: string[] = [];
-  mapIn.forEach((v, k: string) => {
-    choices.push(k);
-  });
-  const [chose, setChose] = useState<string| null>(null);
+  
+  const [chose, setChose] = useState<mongoose.Types.ObjectId| null>(null);
   return (
     <div className=" rounded-lg ">
       <Select
@@ -24,8 +24,8 @@ export default function SelectTemplate({
         id="location"
         className="h-[2em] w-[200px]"
       >
-        {choices.map((choice: string) => {
-          return <MenuItem value={choice} onClick={()=>{setChose(choice)}}>{choice}</MenuItem>;
+        {mapIn.map((choice: MyMap) => {
+          return <MenuItem value={choice.value} onClick={()=>{setChose(choice.key)}}>{choice.value}</MenuItem>;
         })}
       </Select>
       <button
@@ -36,7 +36,7 @@ export default function SelectTemplate({
             console.log("ffffffffffffffffffffffffffff");
             try {
               console.log("ffffffffffffffffffffffffffff");
-              select(mapIn.get(chose));
+              select(chose);
             } catch (error) {
               console.log(error);
             }
@@ -45,7 +45,7 @@ export default function SelectTemplate({
           }
         }}
       >
-        Register
+        {buttonText}
       </button>
     </div>
   );

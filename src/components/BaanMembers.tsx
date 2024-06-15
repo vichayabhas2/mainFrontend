@@ -43,7 +43,8 @@ export default function BaanMembers({
               </>
             ) : null}
           </tr>
-          {pees.map((user: ShowMember) => (
+          {nongs.map((user: ShowMember) =>
+           (
             <tr>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
@@ -51,12 +52,12 @@ export default function BaanMembers({
               <td>{user.gender}</td>
               {campRole !== "nong" ? (
                 <>
-                  <td>{user.sleep} </td>
+                  <td>{user.sleep?<>ค้างคืน</>:<>ไม่ค้างคืน</>} </td>
                   <td>{user._id.toString()}</td>
                   <td>{user.studentId}</td>
                   <td>{user.tel}</td>
                   <td>{user.email}</td>
-                  <td>{user.haveBottle}</td>
+                  <td>{user.haveBottle.toString()}</td>
                   <td>{user.shertSize}</td>
                   <td>{user.group}</td>
                   {user.helthIsueId ? (
@@ -85,6 +86,7 @@ export default function BaanMembers({
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
+            <th>เพศ</th>
             {campRole !== "nong" ? (
               <>
                 <th>ค้างคืนหรือไม่</th>
@@ -107,12 +109,12 @@ export default function BaanMembers({
               <td>{user.gender}</td>
               {campRole !== "nong" ? (
                 <>
-                  <td>{user.sleep} </td>
+                  <td>{user.sleep?<>ค้างคืน</>:<>ไม่ค้างคืน</>} </td>
                   <td>{user._id.toString()}</td>
                   <td>{user.studentId}</td>
                   <td>{user.tel}</td>
                   <td>{user.email}</td>
-                  <td>{user.haveBottle}</td>
+                  <td>{user.haveBottle.toString()}</td>
                   <td>{user.shertSize}</td>
                   <td>{user.group}</td>
                   {user.helthIsueId ? (

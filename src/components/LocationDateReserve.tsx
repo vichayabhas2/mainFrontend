@@ -1,33 +1,25 @@
 "use client";
 
-import { DatePicker } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { InterCampFront } from "../../intreface";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import staffRegisterCamp from "@/libs/camp/staffRegister";
 import SelectTemplate from "./SelectTemplate";
 import mongoose from "mongoose";
+import { MyMap } from "../../interface";
 
 export default function LocationDateReserve({
   partMap,
   token,
 }: {
-  partMap: Map<string, mongoose.Types.ObjectId>;
+  partMap: MyMap[];
   token: string;
 }) {
   const userRef = useRef("");
-  const choices: string[] = [];
-  partMap.forEach((v: mongoose.Types.ObjectId, k: string) => {
-    choices.push(k);
-  });
-  const [partName, setPartName] = useState<string | null>(null);
   return (
     <SelectTemplate
       mapIn={partMap}
       select={(partId: mongoose.Types.ObjectId) => {
         staffRegisterCamp(partId, token);
-      }}
+      }}  buttonText="Register"
     />
   );
 } /*<div className=" rounded-lg ">

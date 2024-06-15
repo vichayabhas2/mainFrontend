@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import { InterPartFront } from "../../../../../../interface";
+import getAllRemainPartName from "@/libs/admin/getAllRemainPartName";
 
 export default async function HospitalDetailPage({
   params,
@@ -20,6 +21,7 @@ export default async function HospitalDetailPage({
   if(!session){
     return <BackToHome/>
   }
+  const remainPartName=await getAllRemainPartName(campId,session.user.token)
   var i=0
   const parts:InterPartFront[]=[]
   while(i<camp.partIds.length){
@@ -28,7 +30,7 @@ export default async function HospitalDetailPage({
 
   }
 
-  return <><UpdateCampClient camp={camp} baans={baans} parts={parts} /></>
+  return <><UpdateCampClient camp={camp} baans={baans} parts={parts} remainPartName={remainPartName} /></>
   //สร้างบ้าน
   //สร้างฝ่าย
   // update บ้าน

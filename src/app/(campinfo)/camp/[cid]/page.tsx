@@ -17,6 +17,7 @@ import getPeeCamp from "@/libs/camp/getPeeCamp";
 import NongPendingPage from "@/components/NongPendingPage";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import ImagesFromUrl from "@/components/ImagesFromUrl";
+import { MyMap } from "../../../../../interface";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -37,12 +38,12 @@ export default async function HospitalDetailPage({
     var campRole: "nong" | "pee" | "peto" | null = null;
     const curentRole = user.role;
     const userId: mongoose.Types.ObjectId = user._id;
-    const partMap: Map<string, mongoose.Types.ObjectId> = new Map();
+    const partMap: MyMap[] = [];
     var i = 0;
     while (i < campDetail.partIds.length) {
       const part = await getPart(campDetail.partIds[i++], token);
 
-      partMap.set(part.partName, part._id);
+      partMap.push({ key: part._id, value: part.partName });
     }
     if (campDetail.nongIds.includes(userId)) {
       campRole = "nong";
@@ -186,7 +187,7 @@ export default async function HospitalDetailPage({
           }
         }
       }
-    }//ล่อไว้ก่อน
+    } //ล่อไว้ก่อน
 
     return (
       <main className="text-center p-5">
