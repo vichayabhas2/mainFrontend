@@ -16,18 +16,19 @@ import addBaan from "@/libs/admin/addBaan";
 import SelectTemplate from "./SelectTemplate";
 import mongoose from "mongoose";
 import addPart from "@/libs/admin/addPart";
+import createBaanByGroup from "@/libs/admin/createBaanByGroup";
 //import initBaan from "./initBaan";
 
 export default function UpdateCampClient({
   baans,
   camp,
   parts,
-  remainPartName
+  remainPartName,
 }: {
   baans: InterBaanFront[];
   camp: InterCampFront;
   parts: InterPartFront[];
-  remainPartName:MyMap[]
+  remainPartName: MyMap[];
 }) {
   // alert(baans.length)
   const router = useRouter();
@@ -96,6 +97,12 @@ export default function UpdateCampClient({
           />
         </div>
         <FinishButton
+          text="สร้างบ้านจากกรุ๊ป"
+          onClick={() => {
+            createBaanByGroup(camp._id, session.user.token);
+          }}
+        />
+        <FinishButton
           text="สร้างบ้าน"
           onClick={() => {
             if (newBaanName) {
@@ -104,9 +111,13 @@ export default function UpdateCampClient({
             }
           }}
         />
-        <SelectTemplate mapIn={remainPartName} select={(e:mongoose.Types.ObjectId
-        )=>{addPart(e,camp._id,session.user.token)
-        }} buttonText="สร้างฝ่าย" />
+        <SelectTemplate
+          mapIn={remainPartName}
+          select={(e: mongoose.Types.ObjectId) => {
+            addPart(e, camp._id, session.user.token);
+          }}
+          buttonText="สร้างฝ่าย"
+        />
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
             link ใบสมัคร ถ้าไม่ต้องการให้ใส่ id ตามหลังให้ใส่ ~ ตามหลัง link

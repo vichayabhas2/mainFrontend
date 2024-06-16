@@ -30,7 +30,7 @@ export default async function HospitalDetailPage({
     const token = session.user.token;
 
     const user = await getUserProfile(token);
-    console.log(user);
+    //console.log(user);
     if (!user) {
       //alert("ghggg");
       return <PushToCamps />;
@@ -94,7 +94,7 @@ export default async function HospitalDetailPage({
       switch (campDetail.memberStructre) {
         case "nong->highSchool,pee->1year,peto->2upYear": {
           if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
+            //console.log(user.role);
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
@@ -119,7 +119,7 @@ export default async function HospitalDetailPage({
             user.fridayActEn &&
             !(user.role == "peto" || user.role == "admin")
           ) {
-            console.log(user.role);
+            //console.log(user.role);
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
@@ -143,7 +143,7 @@ export default async function HospitalDetailPage({
         }
         case "nong->highSchool,pee->2upYear": {
           if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
+            //console.log(user.role);
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
@@ -167,7 +167,7 @@ export default async function HospitalDetailPage({
         }
         case "nong->highSchool,pee->allYear": {
           if (campDetail.open && user.role == "nong") {
-            console.log(user.role);
+            //console.log(user.role);
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
