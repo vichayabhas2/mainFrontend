@@ -1,7 +1,9 @@
+import BaanMembers from "@/components/BaanMembers";
 import UpdateBaanClient from "@/components/UpdateBaanClient";
 import { getAllBuildings, getAllPlace } from "@/components/placeSetUp";
 import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
+import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import getPlace from "@/libs/randomthing/getPlace";
 import mongoose from "mongoose";
 
@@ -13,8 +15,9 @@ export default async function Baan({ params }: { params: { bid: string } }) {
   const allPlace = await getAllPlace();
   const allBuilding = await getAllBuildings();
   const camp = await getCamp(baan.campId);
-  return (
-    <UpdateBaanClient
+  const pees=await getUserFromCamp('getPeesFromBaanId',baan._id)
+  const nongs=await getUserFromCamp('getNongsFromBaanId',baan._id)
+  return (<><BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees}/><UpdateBaanClient
       baan={baan}
       boy={boy}
       girl={girl}
@@ -23,5 +26,7 @@ export default async function Baan({ params }: { params: { bid: string } }) {
       allBuildings={allBuilding}
       camp={camp}
     />
+  </>
+    
   );
 }

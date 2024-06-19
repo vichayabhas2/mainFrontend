@@ -28,6 +28,7 @@ export default function peeOnlyPage() {
           <TextField
             name="Password"
             id="Password"
+            type="password"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setPassword(e.target.value)}
           />

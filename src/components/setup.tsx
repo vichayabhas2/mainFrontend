@@ -2,7 +2,7 @@
 
 
 import mongoose from 'mongoose'
-import { InterBaanBack, InterBaanFront, InterCampBack, InterCampFront, InterPartBack, InterPartFront, InterSize, InterWorkingItem, IntreActionPlan, MapObjectId, MyMap } from '../../intreface'
+import { InterBaanBack, InterBaanFront, InterCampBack, InterCampFront, InterPartBack, InterPartFront, InterSize, InterWorkingItem, InterActionPlan, MapObjectId, MyMap } from '../../intreface'
 
 
 export function startSize(): Map<'S' | 'M' | 'L' | 'XL' | 'XXL' | '3XL', number> {
@@ -190,7 +190,11 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         nongSleepIds,
         nongSleepModel,
         baanBordId,
-        partNameIds
+        partNameIds,
+        partBoardId,
+        partCoopId,
+        partRegiterId,
+        partPeeBaanId
     } = input
     return ({
         partIds,
@@ -252,7 +256,11 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
         nongSleepIds,
         nongSleepModel,
         baanBordId,
-        partNameIds
+        partNameIds,
+        partBoardId,
+        partCoopId,
+        partRegiterId,
+        partPeeBaanId
     })
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
@@ -336,7 +344,7 @@ export function isInTime(start: Date, end: Date): boolean {
     const now = new Date(Date.now())
     return (now > start && now < end)
 }
-export function plusActionPlan(input: IntreActionPlan, minute: number): IntreActionPlan {
+export function plusActionPlan(input: InterActionPlan, minute: number): InterActionPlan {
     const millisecound = minute * 1000 * 60
     const {
         start,
@@ -347,7 +355,8 @@ export function plusActionPlan(input: IntreActionPlan, minute: number): IntreAct
         action,
         headId,
         body,
-        _id
+        _id,
+        partName
     } = input
     return ({
         start: new Date(start.getTime() + millisecound),
@@ -358,7 +367,8 @@ export function plusActionPlan(input: IntreActionPlan, minute: number): IntreAct
         action,
         headId,
         body,
-        _id
+        _id,
+        partName
     })
 }
 export const backendUrl = 'http://localhost:5000'

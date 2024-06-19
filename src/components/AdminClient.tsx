@@ -57,6 +57,7 @@ export default function AdminClient({
   return (
     <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">เลือกชื่อค่าย</label>
         <Select
           variant="standard"
           name="location"
@@ -94,6 +95,7 @@ export default function AdminClient({
         </div>
       </div>
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">วันเริ่มค่าย</label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             className="bg-white m-10"
@@ -106,6 +108,7 @@ export default function AdminClient({
         </LocalizationProvider>
       </div>
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">วันจบค่าย</label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             className="bg-white m-10"
@@ -118,6 +121,9 @@ export default function AdminClient({
         </LocalizationProvider>
       </div>
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">
+          รูปแบบสมาชิกค่าย
+        </label>
         <Select
           variant="standard"
           name="location"
@@ -167,6 +173,9 @@ export default function AdminClient({
         </Select>
       </div>
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">
+          รูปแบบการลงทะเบียนค่าย
+        </label>
         <Select
           variant="standard"
           name="location"
@@ -200,6 +209,9 @@ export default function AdminClient({
         </Select>
       </div>
       <div className=" rounded-lg ">
+        <label className="w-2/5 text-2xl text-slate-200">
+          รูปแบบการนอนของพี่ค่าย
+        </label>
         <Select
           variant="standard"
           name="location"
@@ -226,6 +238,9 @@ export default function AdminClient({
             }
           )}
         </Select>
+        <label className="w-2/5 text-2xl text-slate-200">
+          รูปแบบการนอนของน้องค่าย
+        </label>
         <Select
           variant="standard"
           name="location"
