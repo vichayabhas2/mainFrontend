@@ -34,8 +34,8 @@ export default function PartClient({
   allPlace: Map<string, InterPlace[]>;
   allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
 }) {
-  const {data:session}=useSession()
-  if (user.mode == "nong"||!session) {
+  const { data: session } = useSession();
+  if (user.mode == "nong" || !session) {
     return null;
   }
   const [action, setAction] = useState<string | null>(null);
@@ -47,23 +47,23 @@ export default function PartClient({
   function add() {
     places.push(null);
     //setPlaces(places);
-    router.refresh()
+    router.refresh();
   }
   function remove() {
     places.pop();
     //setPlaces(places);
-    router.refresh()
+    router.refresh();
   }
-  const maps:MyMap[]=[]
-  var i=0
-  while(i<pees.length){
-    const {_id,nickname,name,lastname}=pees[i++]
-    maps.push({key:_id,value:`${nickname} ${name} ${lastname}`})
+  const maps: MyMap[] = [];
+  var i = 0;
+  while (i < pees.length) {
+    const { _id, nickname, name, lastname } = pees[i++];
+    maps.push({ key: _id, value: `${nickname} ${name} ${lastname}` });
   }
-  i=0
-  while(i<petos.length){
-    const {_id,nickname,name,lastname}=petos[i++]
-    maps.push({key:_id,value:`${nickname} ${name} ${lastname}`})
+  i = 0;
+  while (i < petos.length) {
+    const { _id, nickname, name, lastname } = petos[i++];
+    maps.push({ key: _id, value: `${nickname} ${name} ${lastname}` });
   }
   return (
     <main className="text-center p-5">
@@ -200,51 +200,53 @@ export default function PartClient({
         />
       ))}
       <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            ทำอะไร กริยาขึ้นก่อน
-          </label>
-          <TextField
-            name="Tel"
-            id="Tel"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-            onChange={(e) => setAction(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            รายละเอียด
-          </label>
-          <TextField
-            name="Email"
-            id="Email"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-            onChange={(e) => setBody(e.target.value)}
-          />
-        </div>
-      <SelectTemplate mapIn={maps} select={(headId)=>{
-        if(headId&&body&&action&&start&&end){
-          createActionPlan({
-            action,
-            partId: part._id,
-            placeIds: places.filter((e)=>{
-              if(!e){
-                return false
-              }else{
-                return true
-              }
-            }).map((e)=>(e?._id)) as mongoose.Types.ObjectId[],
-            start,
-            end,
-            headId,
-            body
-          },session.user.token)
-        }
-     
-      }} buttonText={"สร้าง action plan"}/>
-
-
-
-        
+        <label className="w-2/5 text-2xl text-slate-200">
+          ทำอะไร กริยาขึ้นก่อน
+        </label>
+        <TextField
+          name="Tel"
+          id="Tel"
+          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+          onChange={(e) => setAction(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
+        <TextField
+          name="Email"
+          id="Email"
+          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+          onChange={(e) => setBody(e.target.value)}
+        />
+      </div>
+      <SelectTemplate
+        mapIn={maps}
+        select={(headId) => {
+          if (headId && body && action && start && end) {
+            createActionPlan(
+              {
+                action,
+                partId: part._id,
+                placeIds: places
+                  .filter((e) => {
+                    if (!e) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((e) => e?._id) as mongoose.Types.ObjectId[],
+                start,
+                end,
+                headId,
+                body,
+              },
+              session.user.token
+            );
+          }
+        }}
+        buttonText={"สร้าง action plan"}
+      />
     </main>
   );
 }
