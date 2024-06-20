@@ -9,24 +9,30 @@ import mongoose from "mongoose";
 
 export default async function Baan({ params }: { params: { bid: string } }) {
   const baan = await getBaan(new mongoose.Types.ObjectId(params.bid));
-  const boy = await getPlace(baan.boySleepPlaceId);
-  const girl = await getPlace(baan.girlSleepPlaceId);
-  const normal = await getPlace(baan.nomalPlaceId);
+  const boy = baan.boySleepPlaceId
+    ? await getPlace(baan.boySleepPlaceId)
+    : null;
+  const girl = baan.girlSleepPlaceId
+    ? await getPlace(baan.girlSleepPlaceId)
+    : null;
+  const normal = baan.nomalPlaceId ? await getPlace(baan.nomalPlaceId) : null;
   const allPlace = await getAllPlace();
   const allBuilding = await getAllBuildings();
   const camp = await getCamp(baan.campId);
-  const pees=await getUserFromCamp('getPeesFromBaanId',baan._id)
-  const nongs=await getUserFromCamp('getNongsFromBaanId',baan._id)
-  return (<><BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees}/><UpdateBaanClient
-      baan={baan}
-      boy={boy}
-      girl={girl}
-      normal={normal}
-      allPlace={allPlace}
-      allBuildings={allBuilding}
-      camp={camp}
-    />
-  </>
-    
+  const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
+  const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+  return (
+    <>
+      <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} />
+      <UpdateBaanClient
+        baan={baan}
+        boy={boy}
+        girl={girl}
+        normal={normal}
+        allPlace={allPlace}
+        allBuildings={allBuilding}
+        camp={camp}
+      />
+    </>
   );
 }

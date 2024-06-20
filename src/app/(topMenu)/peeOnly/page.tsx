@@ -15,14 +15,12 @@ export default function peeOnlyPage() {
     router.push("/");
     return <></>;
   }
-
   const [password, setPassword] = useState<string>("");
-
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Verifile</div>
 
-      <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">Password</label>
           <TextField
@@ -56,7 +54,7 @@ export default function peeOnlyPage() {
             Verifile
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

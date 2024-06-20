@@ -552,7 +552,7 @@ export interface HelthIsueBody {
     isWearing: boolean,
     spicy: boolean
 }
-export interface createActionPlan {
+export interface CreateActionPlan {
     action: string,
     partId: mongoose.Types.ObjectId,
     placeIds: mongoose.Types.ObjectId[],
@@ -591,7 +591,9 @@ export interface ChoiseQuasion {
     c: string,
     d: string,
     e: string,
-    _id: mongoose.Types.ObjectId
+    _id: mongoose.Types.ObjectId,
+    score: number,
+    correct: Choise
 }
 export interface Answer {
     quasionId: mongoose.Types.ObjectId,
@@ -606,5 +608,18 @@ export interface CreateQuation {
     c: string,
     d: string,
     e: string,
+    score: number,
+    correct: Choise
 
+}
+export interface EditQuation {
+    _id: mongoose.Types.ObjectId,
+    quasion: string,
+    a: string,
+    b: string,
+    c: string,
+    d: string,
+    e: string,
+    score: number,
+    correct: Choise
 }

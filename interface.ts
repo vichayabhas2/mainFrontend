@@ -552,7 +552,7 @@ export interface HelthIsueBody {
     isWearing: boolean,
     spicy: boolean
 }
-export interface createActionPlan {
+export interface CreateActionPlan {
     action: string,
     partId: mongoose.Types.ObjectId,
     placeIds: mongoose.Types.ObjectId[],
@@ -578,33 +578,48 @@ export interface showActionPlan {
 }
 export interface ChoiseAnswer extends Answer {
     userId: mongoose.Types.ObjectId,
-    _id:mongoose.Types.ObjectId
+    _id: mongoose.Types.ObjectId
 }
 export type Choise = 'A' | 'B' | 'C' | "D" | "E"
-export interface ChoiseQuasion{
-    choiseAnswerIds:mongoose.Types.ObjectId[],
-    campId:mongoose.Types.ObjectId,
-    userIds:mongoose.Types.ObjectId[],
-    quasion:string,
-    a:string,
-    b:string,
-    c:string,
-    d:string,
-    e:string,
-    _id:mongoose.Types.ObjectId
-}
-export interface Answer{
-    quasionId:mongoose.Types.ObjectId,
+export interface ChoiseQuasion {
+    choiseAnswerIds: mongoose.Types.ObjectId[],
     campId: mongoose.Types.ObjectId,
-    answer: Choise|null
+    userIds: mongoose.Types.ObjectId[],
+    quasion: string,
+    a: string,
+    b: string,
+    c: string,
+    d: string,
+    e: string,
+    _id: mongoose.Types.ObjectId,
+    score: number,
+    correct: Choise
 }
-export interface CreateQuation{
-    campId:mongoose.Types.ObjectId,
-    quasion:string,
-    a:string,
-    b:string,
-    c:string,
-    d:string,
-    e:string,
-   
+export interface Answer {
+    quasionId: mongoose.Types.ObjectId,
+    campId: mongoose.Types.ObjectId,
+    answer: Choise | null
+}
+export interface CreateQuation {
+    campId: mongoose.Types.ObjectId,
+    quasion: string,
+    a: string,
+    b: string,
+    c: string,
+    d: string,
+    e: string,
+    score: number,
+    correct: Choise
+
+}
+export interface EditQuation {
+    _id: mongoose.Types.ObjectId,
+    quasion: string,
+    a: string,
+    b: string,
+    c: string,
+    d: string,
+    e: string,
+    score: number,
+    correct: Choise
 }

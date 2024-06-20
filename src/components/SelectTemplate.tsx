@@ -7,15 +7,15 @@ import { MyMap } from "../../interface";
 export default function SelectTemplate({
   mapIn,
   select,
-  buttonText
+  buttonText,
 }: {
   mapIn: MyMap[];
-  select: Function;
-  buttonText:string
+  select: (output: mongoose.Types.ObjectId) => void;
+  buttonText: string;
 }) {
   const userRef = useRef("");
-  
-  const [chose, setChose] = useState<mongoose.Types.ObjectId| null>(null);
+
+  const [chose, setChose] = useState<mongoose.Types.ObjectId | null>(null);
   return (
     <div className=" rounded-lg ">
       <Select
@@ -25,7 +25,16 @@ export default function SelectTemplate({
         className="h-[2em] w-[200px]"
       >
         {mapIn.map((choice: MyMap) => {
-          return <MenuItem value={choice.value} onClick={()=>{setChose(choice.key)}}>{choice.value}</MenuItem>;
+          return (
+            <MenuItem
+              value={choice.value}
+              onClick={() => {
+                setChose(choice.key);
+              }}
+            >
+              {choice.value}
+            </MenuItem>
+          );
         })}
       </Select>
       <button

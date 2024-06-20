@@ -37,16 +37,18 @@ export default function PlaceClient({
                 {place.flore} {place.room}
               </div>
               <div>
-                <tr>
-                  <td>กิจกรรม</td>
-                  <td>ห้องเรียน</td>
-                  <td>ห้องนอน</td>
-                </tr>
-                <tr>
-                  <td>{place.actCap}</td>
-                  <td>{place.studyCap}</td>
-                  <td>{place.sleepCap} </td>
-                </tr>
+                <table>
+                  <tr>
+                    <td>กิจกรรม</td>
+                    <td>ห้องเรียน</td>
+                    <td>ห้องนอน</td>
+                  </tr>
+                  <tr>
+                    <td>{place.actCap}</td>
+                    <td>{place.studyCap}</td>
+                    <td>{place.sleepCap} </td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
@@ -76,7 +78,12 @@ export default function PlaceClient({
         onClick={() => {
           if (floor && room) {
             try {
-              createPlace(floor, room,new mongoose.Types.ObjectId(buildingId) , token);
+              createPlace(
+                floor,
+                room,
+                new mongoose.Types.ObjectId(buildingId),
+                token
+              );
             } catch (error) {
               console.log(error);
             }

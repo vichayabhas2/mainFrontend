@@ -24,7 +24,7 @@ export default function UpdateProfileRaw({
   const [tel, setTel] = useState<string>(user.tel);
   const [email, setEmail] = useState<string>(user.email);
   const [nickname, setNickname] = useState<string>(user.nickname);
-  const [lastname, setLastname] = useState<string>(user.name);
+  const [lastname, setLastname] = useState<string>(user.lastname);
   const [shertSize, setShertSize] = useState<Size>(user.shertSize);
   const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
   const [citizenId, setCitizenId] = useState<string>(user.citizenId);
@@ -42,7 +42,7 @@ export default function UpdateProfileRaw({
       <div className="text-4xl font-medium">Update Profile </div>
 
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-      <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center">
           <label className="w-2/5 text-2xl text-slate-200">ชื่อจริง</label>
           <TextField
             name="Name"

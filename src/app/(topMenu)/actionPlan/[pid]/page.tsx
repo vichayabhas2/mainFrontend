@@ -1,6 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import ActionPlandClient from "@/components/ActionPlanClient";
 import BackToHome from "@/components/BackToHome";
-import getPart from "@/libs/camp/getPart";
+import getActionPlanByPartId from "@/libs/camp/getActionPlanByPartId";
+import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 
@@ -13,6 +15,12 @@ export default async function HospitalDetailPage({
   if (!session) {
     return <BackToHome />;
   }
-  const part =await getPart(new mongoose.Types.ObjectId(params.pid),session.user.token)
-  return <></>;
+  const user = await getUserProfile(session.user.token);
+  if (user.role === "nong") {
+    return <BackToHome />;
+  }
+  const actionPlans=await getActionPlanByPartId(new mongoose.Types.ObjectId(params.pid),session.user.token)
+  return <>
+  <ActionPlandClient actionPlands={actionPlans}/>
+  </>;
 }

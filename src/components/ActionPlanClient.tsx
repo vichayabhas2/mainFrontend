@@ -1,6 +1,7 @@
-//"use client";
+"use client";
 
 import { InterActionPlan, showActionPlan } from "../../interface";
+import DateConv from "./Dateconv";
 
 export default function ActionPlandClient({
   actionPlands,
@@ -21,19 +22,71 @@ export default function ActionPlandClient({
           <th>เบอร์โทร</th>
           <th>body</th>
         </tr>
-        {actionPlands.map((actionPland) => (
-          <tr>
-            <td>{actionPland._id.toString()}</td>
-            <td>{actionPland.start.toISOString()}</td>
-            <td>{actionPland.end.toISOString()}</td>
-            <td>{actionPland.partName}</td>
-            <td>{actionPland.action}</td>
-            <td>{actionPland.placeName.toString()}</td>
-            <td>{actionPland.headName}</td>
-            <td>{actionPland.headTel}</td>
-            <td>{actionPland.body}</td>
-          </tr>
-        ))}
+        {actionPlands.map((actionPland) => {
+          //console.log(actionPland);
+          const monthArray = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          const dateE = new Date(actionPland.end);
+          const dateS = new Date(actionPland.start);
+          const dayS = String(dateS.getDate()).padStart(2, "0");
+          const monthS = monthArray[dateS.getMonth()];
+          const yearS = dateS.getFullYear();
+          const hoursS = String(dateS.getHours()).padStart(2, "0");
+          const minutesS = String(dateS.getMinutes()).padStart(
+            2,
+            "0"
+          );
+
+          const dayE = String(dateE.getDate()).padStart(2, "0");
+          const monthE = monthArray[dateE.getMonth()];
+          const yearE = dateE.getFullYear();
+          const hoursE = String(dateE.getHours()).padStart(2, "0");
+          const minutesE = String(dateE.getMinutes()).padStart(
+            2,
+            "0"
+          );
+          return (
+            <tr>
+              <td>{actionPland._id.toString()}</td>
+              <td>
+                <DateConv
+                  day={dayS}
+                  month={monthS}
+                  year={yearS}
+                  hours={hoursS}
+                  minutes={minutesS}
+                />
+              </td>
+              <td>
+                <DateConv
+                  day={dayE}
+                  month={monthE}
+                  year={yearE}
+                  hours={hoursE}
+                  minutes={minutesE}
+                />
+              </td>
+              <td>{actionPland.partName}</td>
+              <td>{actionPland.action}</td>
+              <td>{actionPland.placeName.toString()}</td>
+              <td>{actionPland.headName}</td>
+              <td>{actionPland.headTel}</td>
+              <td>{actionPland.body}</td>
+            </tr>
+          );
+        })}
       </table>
     </div>
   );

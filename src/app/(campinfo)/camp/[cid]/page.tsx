@@ -18,6 +18,9 @@ import NongPendingPage from "@/components/NongPendingPage";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import ImagesFromUrl from "@/components/ImagesFromUrl";
 import { MyMap } from "../../../../../interface";
+import PartClient from "@/components/PartClient";
+import getPetoCamp from "@/libs/camp/getPetoCamp";
+import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -26,6 +29,8 @@ export default async function HospitalDetailPage({
   const campId = params.cid;
   const session = await getServerSession(authOptions);
   if (session) {
+    const allPlace = await getAllPlace();
+    const allBuilding = await getAllBuildings();
     const campDetail = await getCamp(new mongoose.Types.ObjectId(campId));
     const token = session.user.token;
 
@@ -66,6 +71,8 @@ export default async function HospitalDetailPage({
       const part = await getPart(peeCamp.partId, token);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+      const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
+      const peto = await getUserFromCamp("getPetosFromPartId", peeCamp.partId);
       return (
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
@@ -75,10 +82,24 @@ export default async function HospitalDetailPage({
             pees={pees}
             nongs={nongs}
           />
+          <PartClient pees={PeeParts} petos={[]} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
         </>
       );
     } else if (campDetail.petoIds.includes(userId)) {
       campRole = "peto";
+      const shertManage = await getShertManageByCampId(campDetail._id, token);
+      const petoCamp = await getPetoCamp(shertManage.campModelId, token);
+
+      const part = await getPart(petoCamp.partId, token);
+      const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
+      const peto = await getUserFromCamp("getPetosFromPartId", petoCamp.partId);
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+
+          <PartClient pees={PeeParts} petos={peto} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
+        </>
+      );
     } else if (hasKey(campDetail.nongPendingIds, user._id)) {
       return (
         <>
@@ -104,7 +125,7 @@ export default async function HospitalDetailPage({
           } else if (!campDetail.peeLock && user.role != "nong") {
             return (
               <>
-                <ImagesFromUrl urls={campDetail.pictureUrls} />{" "}
+                <ImagesFromUrl urls={campDetail.pictureUrls} />
                 <LocationDateReserve partMap={partMap} token={token} />
               </>
             );
