@@ -391,3 +391,23 @@ export function getValue(input:MyMap[],id:mongoose.Types.ObjectId):string{
     }
     return ''
 }
+
+export function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
+    if (value === null || value === undefined) return false;
+    const testDummy: TValue = value;
+    return true;
+  }
+  //const Notifybtn = document.querySelector(".notify");
+export  const sendNotification = ()=>{
+      if(!("Notification" in window)){
+          throw new Error("Your browser does not support push notification");
+      }
+      Notification.requestPermission().then((Permission)=>{
+          const notificationOptions = {
+              body:"Welcome to Javascript Push Notification",
+              //icon:"./image.png"
+          }
+          new Notification("Push Notification",notificationOptions);
+      })
+  };
+  //Notifybtn.addEventListener("click", sendNotification);

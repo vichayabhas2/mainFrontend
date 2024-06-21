@@ -19,6 +19,7 @@ import SelectTemplate from "./SelectTemplate";
 import { TextField } from "@mui/material";
 import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
+import { notEmpty } from "./setup";
 export default function PartClient({
   user,
   part,
@@ -227,15 +228,7 @@ export default function PartClient({
               {
                 action,
                 partId: part._id,
-                placeIds: places
-                  .filter((e) => {
-                    if (!e) {
-                      return false;
-                    } else {
-                      return true;
-                    }
-                  })
-                  .map((e) => e?._id) as mongoose.Types.ObjectId[],
+                placeIds: places.filter(notEmpty).map((e) => e._id),
                 start,
                 end,
                 headId,

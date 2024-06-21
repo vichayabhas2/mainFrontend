@@ -7,6 +7,8 @@ import styles from './banner.module.css'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import FinishButton from './FinishButton'
+import { sendNotification } from './setup'
 //import
 export default function Banner(){
     const router=useRouter()
@@ -35,10 +37,12 @@ export default function Banner(){
 
                 </p>
             </div>
+            <FinishButton text={'hvfghjnhbgh'} onClick={sendNotification}/>
             {
                 session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>
                     Welcome {session.user?.name}</div>: null
             }
+            <FinishButton text={'hvfghjnhbgh'} onClick={sendNotification}/>
             <button onClick={(e)=>{e.stopPropagation();   router.push('/camp')}}
 
        className='bg-white text-cyan-600 border border-cyan-600

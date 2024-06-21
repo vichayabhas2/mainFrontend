@@ -69,7 +69,7 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px]"
-          defaultValue={nP}
+          defaultValue={`${nP?.flore} ${nP?.room}`}
         >
           {nC?.map((choice: InterPlace) => {
             return (

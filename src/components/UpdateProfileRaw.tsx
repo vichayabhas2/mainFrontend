@@ -153,7 +153,7 @@ export default function UpdateProfileRaw({
               console.log(email);
               if (true) {
                 try {
-                  updateProfile(email, tel, session.user.token);
+                  updateProfile(email, tel,name,nickname,lastname,citizenId, session.user.token);
                   updateSize(shertSize, session.user.token);
                   updateBottle(haveBottle, session.user.token);
                   updateSleep(likeToSleepAtCamp, session.user.token);

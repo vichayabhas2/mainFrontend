@@ -1,6 +1,6 @@
 import { backendUrl, userPath } from "@/components/setup";
 
-export async function updateProfile(email: string, tel: string, token: string) {
+export async function updateProfile(email: string, tel: string,name:string,nickname:string,lastname:string,citizenId:string, token: string) {
   const response = await fetch(`${backendUrl}/${userPath}/updateProfile`, {
     method: "PUT",
     headers: {
@@ -9,7 +9,7 @@ export async function updateProfile(email: string, tel: string, token: string) {
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(
-      { email, tel }
+      { email, tel,name,nickname,lastname,citizenId }
 
       //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
     ),

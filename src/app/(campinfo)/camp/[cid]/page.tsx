@@ -82,7 +82,7 @@ export default async function HospitalDetailPage({
             pees={pees}
             nongs={nongs}
           />
-          <PartClient pees={PeeParts} petos={[]} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
+          <PartClient pees={PeeParts} petos={peto} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
         </>
       );
     } else if (campDetail.petoIds.includes(userId)) {

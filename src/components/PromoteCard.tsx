@@ -2,8 +2,10 @@
 'use client'
 
 
+import FinishButton from "./FinishButton"
 import  VideoPlayer  from "./VideoPlayer"
 import { useState } from "react"
+import { sendNotification } from "./setup"
 
 
 
@@ -27,6 +29,7 @@ export default function PromoteCard(){
         {playing? 'Pause':'Play'}
         
        </button>
+       <FinishButton text={'hvfghjnhbgh'} onClick={sendNotification}/>
             </div>
             
 
