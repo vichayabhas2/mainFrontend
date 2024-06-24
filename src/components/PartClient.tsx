@@ -20,6 +20,7 @@ import { TextField } from "@mui/material";
 import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
 import { notEmpty } from "./setup";
+import createWorkingItem from "@/libs/camp/createWorkingItem";
 export default function PartClient({
   user,
   part,
@@ -39,6 +40,9 @@ export default function PartClient({
   if (user.mode == "nong" || !session) {
     return null;
   }
+  const [password,setPassword]=useState<string>('null')
+  const [name, setName] = useState<string | null>(null);
+  const [link, setLink] = useState<string | null>(null);
   const [action, setAction] = useState<string | null>(null);
   const [places, setPlaces] = useState<(InterPlace | null)[]>([]);
   const [start, setStart] = useState<Date | null>(null);
@@ -163,83 +167,125 @@ export default function PartClient({
           ))}
         </table>
       </div>
-      <div className=" rounded-lg ">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            className="bg-white m-10"
-            value={start}
-            onChange={(newValue) => {
-              setStart(newValue);
-              console.log(newValue);
+      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+        <div className=" rounded-lg ">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              className="bg-white m-10"
+              value={start}
+              onChange={(newValue) => {
+                setStart(newValue);
+                console.log(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+        <div className=" rounded-lg ">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              className="bg-white m-10"
+              value={end}
+              onChange={(newValue) => {
+                setEnd(newValue);
+                console.log(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+        <FinishButton text={"add"} onClick={add} />
+        <FinishButton text={"remove"} onClick={remove} />
+        {places.map((v, i) => (
+          <PlaceSelect
+            place={v}
+            allPlace={allPlace}
+            allBuildings={allBuildings}
+            onClick={(ouuPut) => {
+              places[i] = ouuPut;
+              setPlaces(places);
             }}
           />
-        </LocalizationProvider>
-      </div>
-      <div className=" rounded-lg ">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            className="bg-white m-10"
-            value={end}
-            onChange={(newValue) => {
-              setEnd(newValue);
-              console.log(newValue);
-            }}
+        ))}
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            ทำอะไร กริยาขึ้นก่อน
+          </label>
+          <TextField
+            name="Tel"
+            id="Tel"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setAction(e.target.value)}
           />
-        </LocalizationProvider>
-      </div>
-      <FinishButton text={"add"} onClick={add} />
-      <FinishButton text={"remove"} onClick={remove} />
-      {places.map((v, i) => (
-        <PlaceSelect
-          place={v}
-          allPlace={allPlace}
-          allBuildings={allBuildings}
-          onClick={(ouuPut) => {
-            places[i] = ouuPut;
-            setPlaces(places);
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
+          <TextField
+            name="Email"
+            id="Email"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setBody(e.target.value)}
+          />
+        </div>
+        <SelectTemplate
+          mapIn={maps}
+          select={(headId) => {
+            if (headId && body && action && start && end) {
+              createActionPlan(
+                {
+                  action,
+                  partId: part._id,
+                  placeIds: places.filter(notEmpty).map((e) => e._id),
+                  start,
+                  end,
+                  headId,
+                  body,
+                },
+                session.user.token
+              );
+            }
           }}
-        />
-      ))}
-      <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">
-          ทำอะไร กริยาขึ้นก่อน
-        </label>
-        <TextField
-          name="Tel"
-          id="Tel"
-          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-          onChange={(e) => setAction(e.target.value)}
+          buttonText={"สร้าง action plan"}
         />
       </div>
-      <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
-        <TextField
-          name="Email"
-          id="Email"
-          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-          onChange={(e) => setBody(e.target.value)}
-        />
+      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">ทำอะไร</label>
+          <TextField
+            name="Tel"
+            id="Tel"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">link</label>
+          <TextField
+            name="Email"
+            id="Email"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setLink(e.target.value)}
+          />
+        </div><div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">รหัสผ่าน</label>
+          <TextField
+            name="Email"
+            id="Email"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setPassword(e.target.value)}
+            defaultValue={password}
+          />
+        </div>
+        <FinishButton text={"สร้างการทำงาน"} onClick={()=>{
+          if(name){
+            createWorkingItem({
+          name,
+          link,
+          partId: part._id,
+          fromId: null,
+          password:password?password:'null'
+          },session.user.token)
+          
+        }}}/>
       </div>
-      <SelectTemplate
-        mapIn={maps}
-        select={(headId) => {
-          if (headId && body && action && start && end) {
-            createActionPlan(
-              {
-                action,
-                partId: part._id,
-                placeIds: places.filter(notEmpty).map((e) => e._id),
-                start,
-                end,
-                headId,
-                body,
-              },
-              session.user.token
-            );
-          }
-        }}
-        buttonText={"สร้าง action plan"}
-      />
     </main>
   );
 }

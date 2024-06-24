@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { InterActionPlan, showActionPlan } from "../../interface";
 import DateConv from "./Dateconv";
 
@@ -8,6 +9,7 @@ export default function ActionPlandClient({
 }: {
   actionPlands: showActionPlan[];
 }) {
+  const router=useRouter()
   return (
     <div>
       <table>
@@ -59,7 +61,7 @@ export default function ActionPlandClient({
           );
           return (
             <tr>
-              <td>{actionPland._id.toString()}</td>
+              <td onClick={()=>{router.push(`/actionPlan/${actionPland._id}`)}}>{actionPland._id.toString()}</td>
               <td>
                 <DateConv
                   day={dayS}
@@ -78,7 +80,7 @@ export default function ActionPlandClient({
                   minutes={minutesE}
                 />
               </td>
-              <td>{actionPland.partName}</td>
+              <td onClick={()=>{router.push(`/actionPlan/part/${actionPland.partId}`)}}>{actionPland.partName}</td>
               <td>{actionPland.action}</td>
               <td>{actionPland.placeName.toString()}</td>
               <td>{actionPland.headName}</td>

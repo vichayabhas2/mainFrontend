@@ -133,7 +133,7 @@ export default function UpdateBaanClient({
                 name="location"
                 id="location"
                 className="h-[2em] w-[200px]"
-                defaultValue={bP}
+                defaultValue={`${bP?.flore} ${bP?.room}`}
               >
                 {bC?.map((choice: InterPlace) => {
                   return (
@@ -177,7 +177,7 @@ export default function UpdateBaanClient({
                 name="location"
                 id="location"
                 className="h-[2em] w-[200px]"
-                defaultValue={gP}
+                defaultValue={`${gP?.flore} ${gP?.room}`}
               >
                 {gC?.map((choice: InterPlace) => {
                   return (
@@ -222,7 +222,7 @@ export default function UpdateBaanClient({
             name="location"
             id="location"
             className="h-[2em] w-[200px]"
-            defaultValue={nP}
+            defaultValue={`${nP?.flore} ${nP?.room}`}
           >
             {nC?.map((choice: InterPlace) => {
               return (

@@ -1,12 +1,25 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import BackToHome from "@/components/BackToHome";
 import getPlace from "@/libs/randomthing/getPlace";
 import getPlaces from "@/libs/randomthing/getPlaces";
+import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 
 export default async function PlacePage({
   params,
 }: {
   params: { bid: string; pid: string };
 }) {
+  const session=await getServerSession(authOptions)
+    if(!session){
+        return<BackToHome/>
+
+    }
+    const user=await getUserProfile(session.user.token)
+    if(user.role==='nong'){
+        return <BackToHome/>
+    }
   const place = await getPlace(new mongoose.Types.ObjectId(params.pid));
   //const building=await getBuild
   return (

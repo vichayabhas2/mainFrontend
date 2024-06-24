@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import updateActionPlan from "@/libs/camp/updateActionPlan";
 import BackToHome from "./BackToHome";
 import dayjs, { Dayjs } from "dayjs";
+import deleteActionPlan from "@/libs/camp/deleteActionPlan";
 
 export default function EditActionPland({
   pees,
@@ -151,6 +152,7 @@ export default function EditActionPland({
         }}
         buttonText={"สร้าง action plan"}
       />
+      <FinishButton onClick={() => deleteActionPlan(new mongoose.Types.ObjectId(actionPland._id), session.user.token)} text={"delete"} />
     </>
   );
 }

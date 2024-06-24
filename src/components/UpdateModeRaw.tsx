@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
 import peeUpdateMode from "@/libs/user/peeUpdateMode";
-import { Checkbox, Input } from "@mui/material";
+import { Checkbox, Input, TextField } from "@mui/material";
 import mongoose from "mongoose";
 import { ClockIcon } from "@mui/x-date-pickers";
 import link from "next/link";
@@ -22,11 +22,13 @@ export default function UpdateModeRaw({
   camps: InterCampFront[];
 }) {
   const router = useRouter();
+  
 
   if (!session || !user || user.role == "nong") {
     router.push("/");
     return <></>;
   }
+  const [linkHash,setLinkHash]=useState<string>(user.linkHash)
   const [mode, setMode] = useState<"pee" | "nong" | null>(null);
   const [fillterIds, setFillterIds] = useState<mongoose.Types.ObjectId[]>(
     user.filterIds
@@ -36,6 +38,16 @@ export default function UpdateModeRaw({
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Verifile</div>
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="flex flex-row items-center">
+          <label className="w-2/5 text-2xl text-slate-200">รหัส</label>
+          <TextField
+            name="Name"
+            id="Name"
+            defaultValue={linkHash}
+            className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+            onChange={(e) => setLinkHash(e.target.value)}
+          />
+        </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">mode</label>
           <Input
@@ -60,7 +72,7 @@ export default function UpdateModeRaw({
             text="update mode"
             onClick={() => {
               if (mode) {
-                peeUpdateMode(session.user.token, mode, []);
+                peeUpdateMode(session.user.token, mode, [],linkHash);
               }
             }}
           />
@@ -70,7 +82,7 @@ export default function UpdateModeRaw({
             <div className="text-2xl my-10">
               <Checkbox
                 onChange={(v) => {
-                  if (v) {
+                  if (v.target.checked) {
                     setFillterIds(swop(camp._id, null, fillterIds));
                   } else {
                     setFillterIds(swop(null, camp._id, fillterIds));

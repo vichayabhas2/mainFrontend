@@ -17,6 +17,7 @@ import SelectTemplate from "./SelectTemplate";
 import mongoose from "mongoose";
 import addPart from "@/libs/admin/addPart";
 import createBaanByGroup from "@/libs/admin/createBaanByGroup";
+import saveDeleteCamp from "@/libs/admin/saveDeleteCamp";
 //import initBaan from "./initBaan";
 
 export default function UpdateCampClient({
@@ -279,6 +280,9 @@ export default function UpdateCampClient({
           >
             update all
           </button>
+          <FinishButton text="delete" onClick={
+            ()=>saveDeleteCamp(camp._id,session.user.token)
+          }/>
         </div>
       </form>
     </div>

@@ -8,6 +8,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import { InterPartFront } from "../../../../../../interface";
 import getAllRemainPartName from "@/libs/admin/getAllRemainPartName";
+import getUserProfile from "@/libs/user/getUserProfile";
 
 export default async function HospitalDetailPage({
   params,
@@ -18,9 +19,14 @@ export default async function HospitalDetailPage({
   const baans = await getBaans(campId)
   const camp = await getCamp(campId)
   const session=await getServerSession(authOptions)
-  if(!session){
-    return <BackToHome/>
-  }
+    if(!session){
+        return<BackToHome/>
+
+    }
+    const user=await getUserProfile(session.user.token)
+    if(user.role!=='admin'){
+        return <BackToHome/>
+    }
   const remainPartName=await getAllRemainPartName(campId,session.user.token)
   var i=0
   const parts:InterPartFront[]=[]

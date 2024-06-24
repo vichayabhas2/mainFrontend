@@ -1,13 +1,26 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BaanMembers from "@/components/BaanMembers";
+import BackToHome from "@/components/BackToHome";
 import UpdateBaanClient from "@/components/UpdateBaanClient";
 import { getAllBuildings, getAllPlace } from "@/components/placeSetUp";
 import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import getPlace from "@/libs/randomthing/getPlace";
+import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 
 export default async function Baan({ params }: { params: { bid: string } }) {
+  const session=await getServerSession(authOptions)
+    if(!session){
+        return<BackToHome/>
+
+    }
+    const user=await getUserProfile(session.user.token)
+    if(user.role!=='admin'){
+        return <BackToHome/>
+    }
   const baan = await getBaan(new mongoose.Types.ObjectId(params.bid));
   const boy = baan.boySleepPlaceId
     ? await getPlace(baan.boySleepPlaceId)

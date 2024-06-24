@@ -73,13 +73,14 @@ export default async function TopMenu() {
     />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="action plan" pageRef="/actionPlan"/>
+              <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
+              <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="สถานที่" pageRef="/place" />
               <TopMenuItem title="admin" pageRef="/admin" />
               <TopMenuItem title="Update Mode" pageRef="/updateMode" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
-              <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" /> 
+              <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
               <TopMenuItem title="Home" pageRef="/" />
             </div>
           </div>
@@ -99,7 +100,8 @@ export default async function TopMenu() {
     />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-            <TopMenuItem title="action plan" pageRef="/actionPlan"/>
+              <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
+              <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="สถานที่" pageRef="/place" />
               <TopMenuItem title="Update Mode" pageRef="/updateMode" />

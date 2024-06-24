@@ -1,13 +1,10 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import ActionPlandClient from "@/components/ActionPlanClient";
 import BackToHome from "@/components/BackToHome";
 import { getAllBuildings, getAllPlace } from "@/components/placeSetUp";
 import getActionPlan from "@/libs/camp/getActionPlan";
-import getActionPlanByPartId from "@/libs/camp/getActionPlanByPartId";
-import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-import { InterPlace } from "../../../../../../interface";
+import { InterPlace } from "../../../../../interface";
 import getPlace from "@/libs/randomthing/getPlace";
 import EditActionPland from "@/components/EditActionPland";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
@@ -15,7 +12,7 @@ import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 export default async function HospitalDetailPage({
   params,
 }: {
-  params: { pid: string,aid:string };
+  params: {aid:string };
 }) {
     const session=await getServerSession(authOptions)
     if(!session){
@@ -30,8 +27,8 @@ export default async function HospitalDetailPage({
     }
     const allPlace = await getAllPlace();
     const allBuilding = await getAllBuildings();
-    const pees=await getUserFromCamp('getPeesFromPartId',new mongoose.Types.ObjectId(params.pid))
-    const petos=await getUserFromCamp('getPetosFromPartId',new mongoose.Types.ObjectId(params.pid))
+    const pees=await getUserFromCamp('getPeesFromPartId',actionPland.partId)
+    const petos=await getUserFromCamp('getPetosFromPartId',actionPland.partId)
     return<><EditActionPland pees={pees} petos={petos} allPlace={allPlace} allBuildings={allBuilding} actionPland={actionPland} pls={places}/></>
   
 
