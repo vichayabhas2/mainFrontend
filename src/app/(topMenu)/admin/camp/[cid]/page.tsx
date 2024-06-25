@@ -1,42 +1,26 @@
-import getCamp from "@/libs/camp/getCamp";
 import mongoose from "mongoose";
-import getBaans from "@/libs/camp/getBaans";
-import UpdateCampClient from "@/components/UpdateCampClient";
-import getPart from "@/libs/camp/getPart";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
-import { InterPartFront } from "../../../../../../interface";
-import getAllRemainPartName from "@/libs/admin/getAllRemainPartName";
 import getUserProfile from "@/libs/user/getUserProfile";
+import UpdateCampServer from "@/components/UpdateCampServer";
 
 export default async function HospitalDetailPage({
   params,
 }: {
   params: { cid: string };
 }) {
-  const campId = new mongoose.Types.ObjectId(params.cid)
-  const baans = await getBaans(campId)
-  const camp = await getCamp(campId)
-  const session=await getServerSession(authOptions)
-    if(!session){
-        return<BackToHome/>
-
-    }
-    const user=await getUserProfile(session.user.token)
-    if(user.role!=='admin'){
-        return <BackToHome/>
-    }
-  const remainPartName=await getAllRemainPartName(campId,session.user.token)
-  var i=0
-  const parts:InterPartFront[]=[]
-  while(i<camp.partIds.length){
-    const part=await getPart(camp.partIds[i++],session.user.token)
-    parts.push(part)
-
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return <BackToHome />;
   }
+  const user = await getUserProfile(session.user.token);
+  if (user.role !== "admin") {
+    return <BackToHome />;
+  }
+  const campId = new mongoose.Types.ObjectId(params.cid);
+  return <UpdateCampServer token={session.user.token} campId={campId} />;
 
-  return <><UpdateCampClient camp={camp} baans={baans} parts={parts} remainPartName={remainPartName} /></>
   //สร้างบ้าน
   //สร้างฝ่าย
   // update บ้าน

@@ -2,7 +2,8 @@ import { backendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function staffRegisterCamp(partId:mongoose.Types.ObjectId,token:string){
-    const res=await fetch(`${backendUrl}/camp/nongRegisterCamp/${partId}`,{
+    console.log(partId)
+    const res=await fetch(`${backendUrl}/camp/staffRegisterCamp/params/${partId}`,{
         method:'POST',
         cache: "no-store",
         headers:{
@@ -11,4 +12,5 @@ export default async function staffRegisterCamp(partId:mongoose.Types.ObjectId,t
         }
 
     })
+    return await res.json()
 }

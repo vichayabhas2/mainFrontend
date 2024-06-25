@@ -72,7 +72,7 @@ export default function signupPage() {
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Telephone</label>
+          <label className="w-2/5 text-2xl text-slate-200">Tel.</label>
           <TextField
             name="Tel"
             id="Tel"
@@ -114,11 +114,11 @@ export default function signupPage() {
           <label className="w-2/5 text-2xl text-slate-200">
             เลือกขนาดเสื้อ
           </label>
-          <SelectSize select={setShertSize} def={null}/>
+          <SelectSize select={setShertSize} def={null} />
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            มีกระติกน้ำหรือไม่
+            ประสงค์ใช้ในค่ายหรือไม่
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -128,7 +128,7 @@ export default function signupPage() {
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            ชอบนอนในค่ายหรือไม่
+            ประสงค์นอนในค่ายหรือไม่
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -157,9 +157,7 @@ export default function signupPage() {
                 haveBottle != null &&
                 citizenId
               ) {
-                console.log("ffffffffffffffffffffffffffff");
                 try {
-                  console.log("ffffffffffffffffffffffffffff");
                   userSignup({
                     name,
                     tel,

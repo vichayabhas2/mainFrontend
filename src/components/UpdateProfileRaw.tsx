@@ -25,9 +25,9 @@ export default function UpdateProfileRaw({
   const [email, setEmail] = useState<string>(user.email);
   const [nickname, setNickname] = useState<string>(user.nickname);
   const [lastname, setLastname] = useState<string>(user.lastname);
+  const [citizenId, setCitizenId] = useState<string>(user.citizenId);
   const [shertSize, setShertSize] = useState<Size>(user.shertSize);
   const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
-  const [citizenId, setCitizenId] = useState<string>(user.citizenId);
   const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(
     user.likeToSleepAtCamp
   );
@@ -153,7 +153,15 @@ export default function UpdateProfileRaw({
               console.log(email);
               if (true) {
                 try {
-                  updateProfile(email, tel,name,nickname,lastname,citizenId, session.user.token);
+                  updateProfile(
+                    email,
+                    tel,
+                    name,
+                    nickname,
+                    lastname,
+                    citizenId,
+                    session.user.token
+                  );
                   updateSize(shertSize, session.user.token);
                   updateBottle(haveBottle, session.user.token);
                   updateSleep(likeToSleepAtCamp, session.user.token);

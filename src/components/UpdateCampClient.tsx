@@ -51,6 +51,10 @@ export default function UpdateCampClient({
     dayjs(camp.dateStart)
   );
   const [dateEnd, setDateEnd] = useState<Dayjs | null>(dayjs(camp.dateEnd));
+  const [groupName, setGroupName] = useState<string>(camp.groupName);
+  const [peeDataLock, setPeeDataLock] = useState<boolean>(camp.peeDataLock);
+  const [petoDataLock, setPetoDataLock] = useState<boolean>(camp.petoDataLock);
+  const [haveCloth, setHaveCloth] = useState<boolean>(camp.haveCloth);
 
   const { data: session } = useSession();
   if (!session) {
@@ -167,7 +171,19 @@ export default function UpdateCampClient({
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
-            ล็อกข้อมูลหรือไม่
+            คำเรียกชื่อกลุ่ม
+          </label>
+          <TextField
+            name="Tel"
+            id="Tel"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setGroupName(e.target.value)}
+            defaultValue={groupName}
+          />
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            ล็อกข้อมูลน้องหรือไม่
           </label>
           <Checkbox
             onChange={(e, state) => {
@@ -176,7 +192,31 @@ export default function UpdateCampClient({
             defaultChecked={dataLock}
           />
         </div>
-        <div className="flex flex-row justify-end"></div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            ล็อกข้อมูลพี่บ้านหรือไม่
+          </label>
+          <Checkbox
+            onChange={(e, state) => {
+              setPeeDataLock(state);
+            }}
+            defaultChecked={peeDataLock}
+          />
+        </div>
+        {camp.memberStructre === "nong->highSchool,pee->1year,peto->2upYear" ? (
+          <div className="flex flex-row items-center my-5">
+            <label className="w-2/5 text-2xl text-slate-200">
+              ล็อกข้อมูลปีโตหรือไม่
+            </label>
+            <Checkbox
+              onChange={(e, state) => {
+                setPetoDataLock(state);
+              }}
+              defaultChecked={petoDataLock}
+            />
+          </div>
+        ) : null}
+
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
             เปิดให้น้องค่ายลงทะเบียนหรือไม่
@@ -266,6 +306,10 @@ export default function UpdateCampClient({
                       open,
                       allDone,
                       registerSheetLink,
+                      groupName,
+                      peeDataLock,
+                      petoDataLock,
+                      haveCloth,
                     },
                     camp._id,
                     session.user.token
@@ -280,9 +324,10 @@ export default function UpdateCampClient({
           >
             update all
           </button>
-          <FinishButton text="delete" onClick={
-            ()=>saveDeleteCamp(camp._id,session.user.token)
-          }/>
+          <FinishButton
+            text="delete"
+            onClick={() => saveDeleteCamp(camp._id, session.user.token)}
+          />
         </div>
       </form>
     </div>

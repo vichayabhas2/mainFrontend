@@ -1,26 +1,74 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import staffRegisterCamp from "@/libs/camp/staffRegister";
 import SelectTemplate from "./SelectTemplate";
 import mongoose from "mongoose";
-import { MyMap } from "../../interface";
+import { InterUser, MyMap, Size } from "../../interface";
+import { Checkbox } from "@mui/material";
+import SelectSize from "./SelectSize";
+import { updateBottle } from "@/libs/user/updateBottle";
+import updateSize from "@/libs/user/updateSize";
+import updateSleep from "@/libs/user/updateSleep";
 
 export default function LocationDateReserve({
   partMap,
   token,
+  user,
 }: {
   partMap: MyMap[];
   token: string;
+  user: InterUser;
 }) {
+  const [shertSize, setShertSize] = useState<Size>(user.shertSize);
+  const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
+  const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(
+    user.likeToSleepAtCamp
+  );
   const userRef = useRef("");
   return (
-    <SelectTemplate
-      mapIn={partMap}
-      select={(partId: mongoose.Types.ObjectId) => {
-        staffRegisterCamp(partId, token);
-      }}  buttonText="Register"
-    />
+    <>
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-slate-200">เลือกขนาดเสื้อ</label>
+
+        <SelectSize select={setShertSize} def={user.shertSize} />
+      </div>
+
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-slate-200">
+          มีกระติกน้ำหรือไม่
+        </label>
+        <Checkbox
+          onChange={(e, state) => {
+            setHaveBottle(state);
+          }}
+          defaultChecked={user.haveBottle}
+        />
+      </div>
+
+      <div className="flex flex-row justify-end"></div>
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-slate-200">
+          ประสงค์นอนในค่ายหรือไม่
+        </label>
+        <Checkbox
+          onChange={(e, state) => {
+            setLikeToSleepAtCamp(state);
+          }}
+          defaultChecked={user.likeToSleepAtCamp}
+        />
+      </div>
+      <SelectTemplate
+        mapIn={partMap}
+        select={(partId: mongoose.Types.ObjectId) => {
+          staffRegisterCamp(partId, token);
+          updateBottle(haveBottle, token);
+          updateSleep(likeToSleepAtCamp, token);
+          updateSize(shertSize, token);
+        }}
+        buttonText="Register"
+      />
+    </>
   );
 } /*<div className=" rounded-lg ">
             <Select variant="standard" name="location" id="location" onChange={(e)=>setPartName(e.target.value as string)}

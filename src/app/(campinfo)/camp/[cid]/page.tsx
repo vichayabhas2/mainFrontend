@@ -110,6 +110,9 @@ export default async function HospitalDetailPage({
     } else if (campDetail.nongPaidIds.includes(user._id)) {
     } else if (hasKey(campDetail.nongPassIds, user._id)) {
     } else if (hasKey(campDetail.peePassIds, user._id)) {
+      if(!campDetail.peeLock){
+        return <LocationDateReserve partMap={partMap} token={token} user={user}/>
+      }
     } else if (hasKey(campDetail.nongInterviewIds, user._id)) {
     } else {
       switch (campDetail.memberStructre) {
@@ -126,7 +129,7 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} />
+                <LocationDateReserve partMap={partMap} token={token} user={user} />
               </>
             );
           } else {
@@ -154,7 +157,7 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} />
+                <LocationDateReserve partMap={partMap} token={token} user={user} />
               </>
             );
           } else {
@@ -178,7 +181,7 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} />
+                <LocationDateReserve partMap={partMap} token={token} user={user} />
               </>
             );
           } else {
@@ -199,7 +202,7 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} />
+                <LocationDateReserve partMap={partMap} token={token} user={user} />
               </>
             );
           } else {

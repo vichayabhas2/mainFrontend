@@ -26,6 +26,7 @@ export default async function TopMenu() {
   />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile"/>
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
@@ -48,6 +49,7 @@ export default async function TopMenu() {
     />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile"/>
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="โซนพี่" pageRef="/peeOnly" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
@@ -73,6 +75,10 @@ export default async function TopMenu() {
     />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile"/>
+              {user.authPartIds.length ? (
+                <TopMenuItem title="ฝ่ายที่ได้รับอนุญาต" pageRef="/authPart" />
+              ) : null}
               <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
               <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
@@ -100,6 +106,10 @@ export default async function TopMenu() {
     />*/}
             </Link>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile"/>
+              {user.authPartIds.length ? (
+                <TopMenuItem title="ฝ่ายที่ได้รับอนุญาต" pageRef="/authPart" />
+              ) : null}
               <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
               <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />

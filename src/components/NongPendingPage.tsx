@@ -42,16 +42,14 @@ export default function NongPendingPage({
               onChange={(e) => setLink(e.target.value)}
             />
           </div>
-          (
+
           <div className="flex flex-row justify-end">
             <button
               className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
               onClick={async () => {
                 console.log(userRef);
                 if (link) {
-                  console.log("ffffffffffffffffffffffffffff");
                   try {
-                    console.log("ffffffffffffffffffffffffffff");
                     nongRegisterCamp(camp._id, link, token);
                   } catch (error) {
                     console.log(error);
@@ -64,7 +62,6 @@ export default function NongPendingPage({
               Register
             </button>
           </div>
-          )
         </form>
       ) : null}
     </div>
