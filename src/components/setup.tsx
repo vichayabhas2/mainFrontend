@@ -442,7 +442,7 @@ export function hasKey(
 export function getValue(input: MyMap[], id: mongoose.Types.ObjectId): string {
   var i = 0;
   while (i < input.length) {
-    if (input[i++].key.equals(id)) {
+    if (input[i++].key.toString().localeCompare(id.toString())) {
       return input[i - 1].value;
     }
   }
@@ -456,7 +456,6 @@ export function notEmpty<TValue>(
   const testDummy: TValue = value;
   return true;
 }
-//const Notifybtn = document.querySelector(".notify");
 export const sendNotification = () => {
   if (!("Notification" in window)) {
     throw new Error("Your browser does not support push notification");
@@ -469,4 +468,3 @@ export const sendNotification = () => {
     new Notification("Push Notification", notificationOptions);
   });
 };
-//Notifybtn.addEventListener("click", sendNotification);

@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
+import RegisterPartServer from "@/components/RegisterPartServer";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import UpdateCampServer from "@/components/UpdateCampServer";
 import getCamp from "@/libs/camp/getCamp";
@@ -52,7 +53,13 @@ export default async function Baan({ params }: { params: { pid: string } }) {
       return (
         <>
           <UpdateCampServer campId={camp._id} token={token} />
+          <RegisterPartServer campId={camp._id} token={token} isBoard={true} />
         </>
+      );
+    }
+    case camp.partRegiterId.toString(): {
+      return (
+        <RegisterPartServer campId={camp._id} token={token} isBoard={false} />
       );
     }
   }

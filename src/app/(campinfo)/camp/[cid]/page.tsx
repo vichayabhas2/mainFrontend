@@ -21,6 +21,7 @@ import { MyMap } from "../../../../../interface";
 import PartClient from "@/components/PartClient";
 import getPetoCamp from "@/libs/camp/getPetoCamp";
 import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
+import NongSureClient from "@/components/NongSureClient";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -82,7 +83,14 @@ export default async function HospitalDetailPage({
             pees={pees}
             nongs={nongs}
           />
-          <PartClient pees={PeeParts} petos={peto} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
+          <PartClient
+            pees={PeeParts}
+            petos={peto}
+            part={part}
+            user={user}
+            allPlace={allPlace}
+            allBuildings={allBuilding}
+          />
         </>
       );
     } else if (campDetail.petoIds.includes(userId)) {
@@ -97,7 +105,14 @@ export default async function HospitalDetailPage({
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
 
-          <PartClient pees={PeeParts} petos={peto} part={part} user={user} allPlace={allPlace} allBuildings={allBuilding} />
+          <PartClient
+            pees={PeeParts}
+            petos={peto}
+            part={part}
+            user={user}
+            allPlace={allPlace}
+            allBuildings={allBuilding}
+          />
         </>
       );
     } else if (hasKey(campDetail.nongPendingIds, user._id)) {
@@ -108,12 +123,21 @@ export default async function HospitalDetailPage({
         </>
       );
     } else if (campDetail.nongPaidIds.includes(user._id)) {
+      return <div>คุณได้จ่ายตังแล้ว</div>;
+    } else if (campDetail.nongSureIds.includes(user._id)) {
+      return <div>คุณได้เข้าค่ายแน่นอน</div>;
     } else if (hasKey(campDetail.nongPassIds, user._id)) {
+      return (
+        <NongSureClient campDetail={campDetail} user={user} token={token} />
+      );
     } else if (hasKey(campDetail.peePassIds, user._id)) {
-      if(!campDetail.peeLock){
-        return <LocationDateReserve partMap={partMap} token={token} user={user}/>
+      if (!campDetail.peeLock) {
+        return (
+          <LocationDateReserve partMap={partMap} token={token} user={user} />
+        );
       }
     } else if (hasKey(campDetail.nongInterviewIds, user._id)) {
+      return <div>น้องผ่านรอบเอกสารแล้ว</div>;
     } else {
       switch (campDetail.memberStructre) {
         case "nong->highSchool,pee->1year,peto->2upYear": {
@@ -129,7 +153,11 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} user={user} />
+                <LocationDateReserve
+                  partMap={partMap}
+                  token={token}
+                  user={user}
+                />
               </>
             );
           } else {
@@ -157,7 +185,11 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} user={user} />
+                <LocationDateReserve
+                  partMap={partMap}
+                  token={token}
+                  user={user}
+                />
               </>
             );
           } else {
@@ -181,7 +213,11 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} user={user} />
+                <LocationDateReserve
+                  partMap={partMap}
+                  token={token}
+                  user={user}
+                />
               </>
             );
           } else {
@@ -202,7 +238,11 @@ export default async function HospitalDetailPage({
             return (
               <>
                 <ImagesFromUrl urls={campDetail.pictureUrls} />
-                <LocationDateReserve partMap={partMap} token={token} user={user} />
+                <LocationDateReserve
+                  partMap={partMap}
+                  token={token}
+                  user={user}
+                />
               </>
             );
           } else {
@@ -212,26 +252,6 @@ export default async function HospitalDetailPage({
         }
       }
     } //ล่อไว้ก่อน
-
-    return (
-      <main className="text-center p-5">
-        <div>
-          {campDetail.logoUrl ? (
-            <Image
-              src={campDetail.logoUrl}
-              alt="htfugyy"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="rounded-lg w-[30%]"
-            />
-          ) : null}
-          <div className="text-md mx-5">{}</div>
-          <div className="text-md mx-5">{}</div>
-          <div className="text-md mx-5">{}</div>
-        </div>
-      </main>
-    );
   } else {
     return <PushToCamps />;
   }

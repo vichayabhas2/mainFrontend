@@ -163,6 +163,7 @@ export default function Card({
   //onCarSelected :Function
 }) {
   //  const session=await getServerSession()
+  console.log(camp.logoUrl)
 
   return (
     <InteractiveCard
@@ -176,9 +177,9 @@ export default function Card({
         }}
       >
         <div className="w-1/5 h-auto relative rounded-t-lg">
-          {imgSrc ? (
+          {camp.logoUrl ? (
             <Image
-              src={imgSrc}
+              src={camp.logoUrl}
               alt="Massage Shop Picture"
               fill={true}
               className="object-cover rounded-t-lg"
