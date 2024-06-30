@@ -1,15 +1,23 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { InterActionPlan, showActionPlan } from "../../interface";
+import {
+  InterActionPlan,
+  InterTimeOffset,
+  showActionPlan,
+} from "../../interface";
 import DateConv from "./Dateconv";
+import dayjs from "dayjs";
+import { addTime } from "./setup";
 
 export default function ActionPlandClient({
   actionPlands,
+  timeOffset,
 }: {
   actionPlands: showActionPlan[];
+  timeOffset: InterTimeOffset;
 }) {
-  const router=useRouter()
+  const router = useRouter();
   return (
     <div>
       <table>
@@ -40,28 +48,28 @@ export default function ActionPlandClient({
             "November",
             "December",
           ];
-          const dateE = new Date(actionPland.end);
-          const dateS = new Date(actionPland.start);
+          const dateE = addTime(actionPland.end,timeOffset)
+          const dateS = addTime(actionPland.start,timeOffset)
           const dayS = String(dateS.getDate()).padStart(2, "0");
           const monthS = monthArray[dateS.getMonth()];
           const yearS = dateS.getFullYear();
           const hoursS = String(dateS.getHours()).padStart(2, "0");
-          const minutesS = String(dateS.getMinutes()).padStart(
-            2,
-            "0"
-          );
+          const minutesS = String(dateS.getMinutes()).padStart(2, "0");
 
           const dayE = String(dateE.getDate()).padStart(2, "0");
           const monthE = monthArray[dateE.getMonth()];
           const yearE = dateE.getFullYear();
           const hoursE = String(dateE.getHours()).padStart(2, "0");
-          const minutesE = String(dateE.getMinutes()).padStart(
-            2,
-            "0"
-          );
+          const minutesE = String(dateE.getMinutes()).padStart(2, "0");
           return (
             <tr>
-              <td onClick={()=>{router.push(`/actionPlan/${actionPland._id}`)}}>{actionPland._id.toString()}</td>
+              <td
+                onClick={() => {
+                  router.push(`/actionPlan/${actionPland._id}`);
+                }}
+              >
+                {actionPland._id.toString()}
+              </td>
               <td>
                 <DateConv
                   day={dayS}
@@ -80,7 +88,13 @@ export default function ActionPlandClient({
                   minutes={minutesE}
                 />
               </td>
-              <td onClick={()=>{router.push(`/actionPlan/part/${actionPland.partId}`)}}>{actionPland.partName}</td>
+              <td
+                onClick={() => {
+                  router.push(`/actionPlan/part/${actionPland.partId}`);
+                }}
+              >
+                {actionPland.partName}
+              </td>
               <td>{actionPland.action}</td>
               <td>{actionPland.placeName.toString()}</td>
               <td>{actionPland.headName}</td>

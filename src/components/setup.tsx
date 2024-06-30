@@ -12,6 +12,8 @@ import {
   MapObjectId,
   MyMap,
 } from "../../intreface";
+import dayjs from "dayjs";
+import { InterTimeOffset } from "../../interface";
 
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
@@ -237,6 +239,7 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
     peeDataLock,
     petoDataLock,
     haveCloth,
+    actionPlanOffset,
   } = input;
   return {
     partIds,
@@ -307,6 +310,7 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
     peeDataLock,
     petoDataLock,
     haveCloth,
+    actionPlanOffset,
   };
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
@@ -399,7 +403,6 @@ export function plusActionPlan(
   input: InterActionPlan,
   minute: number
 ): InterActionPlan {
-  const millisecound = minute * 1000 * 60;
   const {
     start,
     end,
@@ -413,8 +416,8 @@ export function plusActionPlan(
     partName,
   } = input;
   return {
-    start: new Date(start.getTime() + millisecound),
-    end: new Date(end.getTime() + millisecound),
+    start: dayjs(start).add(minute, "minutes").toDate(),
+    end: dayjs(end).add(minute, "minutes").toDate(),
     partId,
     placeIds,
 
@@ -468,3 +471,10 @@ export const sendNotification = () => {
     new Notification("Push Notification", notificationOptions);
   });
 };
+export function addTime(input: Date, add: InterTimeOffset): Date {
+  return dayjs(input)
+    .add(-add.day, "days")
+    .add(-add.hour, "hours")
+    .add(-add.minute, "minutes")
+    .toDate();
+}

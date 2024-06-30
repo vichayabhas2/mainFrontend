@@ -5,6 +5,7 @@ import {
   InterBuilding,
   InterPartFront,
   InterPlace,
+  InterTimeOffset,
   InterUser,
   MyMap,
   ShowMember,
@@ -19,7 +20,7 @@ import SelectTemplate from "./SelectTemplate";
 import { TextField } from "@mui/material";
 import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
-import { notEmpty } from "./setup";
+import { addTime, notEmpty } from "./setup";
 import createWorkingItem from "@/libs/camp/createWorkingItem";
 export default function PartClient({
   user,
@@ -28,6 +29,7 @@ export default function PartClient({
   petos,
   allBuildings,
   allPlace,
+  timeOffset
 }: {
   part: InterPartFront;
   user: InterUser;
@@ -35,6 +37,7 @@ export default function PartClient({
   petos: ShowMember[];
   allPlace: Map<string, InterPlace[]>;
   allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
+  timeOffset:InterTimeOffset
 }) {
   const { data: session } = useSession();
   if (user.mode == "nong" || !session) {
@@ -234,8 +237,8 @@ export default function PartClient({
                   action,
                   partId: part._id,
                   placeIds: places.filter(notEmpty).map((e) => e._id),
-                  start,
-                  end,
+                  start:addTime(start,timeOffset),
+                  end:addTime(end,timeOffset),
                   headId,
                   body,
                 },

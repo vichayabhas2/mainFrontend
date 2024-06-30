@@ -22,6 +22,7 @@ import PartClient from "@/components/PartClient";
 import getPetoCamp from "@/libs/camp/getPetoCamp";
 import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
 import NongSureClient from "@/components/NongSureClient";
+import getTimeOffset from "@/libs/user/getTimeOffset";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -44,6 +45,7 @@ export default async function HospitalDetailPage({
     var campRole: "nong" | "pee" | "peto" | null = null;
     const curentRole = user.role;
     const userId: mongoose.Types.ObjectId = user._id;
+    const timeOffset=await getTimeOffset(user.selectOffsetId)
     const partMap: MyMap[] = [];
     var i = 0;
     while (i < campDetail.partIds.length) {
@@ -90,6 +92,7 @@ export default async function HospitalDetailPage({
             user={user}
             allPlace={allPlace}
             allBuildings={allBuilding}
+            timeOffset={timeOffset}
           />
         </>
       );
@@ -112,6 +115,7 @@ export default async function HospitalDetailPage({
             user={user}
             allPlace={allPlace}
             allBuildings={allBuilding}
+            timeOffset={timeOffset}
           />
         </>
       );

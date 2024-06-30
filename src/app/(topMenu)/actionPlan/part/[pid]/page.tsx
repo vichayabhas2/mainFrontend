@@ -2,6 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ActionPlandClient from "@/components/ActionPlanClient";
 import BackToHome from "@/components/BackToHome";
 import getActionPlanByPartId from "@/libs/camp/getActionPlanByPartId";
+import getTimeOffset from "@/libs/user/getTimeOffset";
 import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
@@ -19,8 +20,9 @@ export default async function HospitalDetailPage({
   if (user.role === "nong") {
     return <BackToHome />;
   }
+  const timeOffset=await getTimeOffset(user.displayOffsetId)
   const actionPlans=await getActionPlanByPartId(new mongoose.Types.ObjectId(params.pid),session.user.token)
   return <>
-  <ActionPlandClient actionPlands={actionPlans}/>
+  <ActionPlandClient actionPlands={actionPlans} timeOffset={timeOffset}/>
   </>;
 }
