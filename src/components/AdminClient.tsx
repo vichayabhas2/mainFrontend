@@ -14,6 +14,8 @@ import {
   InterPartNameContainer,
 } from "../../interface";
 import addPartName from "@/libs/admin/addPartName";
+import FinishButton from "./FinishButton";
+import { backendUrl } from "./setup";
 //import { InterNameContainer, CreateCamp } from "../../interface";
 
 export default function AdminClient({
@@ -401,6 +403,24 @@ export default function AdminClient({
       >
         สร้างชื่อค่าย
       </button>
+      <FinishButton onClick={async()=>{await fetch (`${backendUrl}/admin/afterVisnuToPee`,{
+         method:'POST',cache: "no-store",
+         headers:{
+             "Content-Type":"application/json",
+             authorization:`Bearer ${session.user.token}`
+         },
+         
+
+      })}} text="เปลี่ยนสถานะจากน้องค่ายวิศนุเป็นพี่บ้าน"/>
+      <FinishButton onClick={async()=>{await fetch (`${backendUrl}/admin/peeToPeto`,{
+         method:'POST',cache: "no-store",
+         headers:{
+             "Content-Type":"application/json",
+             authorization:`Bearer ${session.user.token}`
+         },
+         
+
+      })}} text="เปลี่ยนสถานะจากพี่บ้านเป็นปีโต"/>
     </form>
   );
 }
