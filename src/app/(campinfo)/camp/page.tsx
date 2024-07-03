@@ -16,6 +16,7 @@ export default async function Hospital() {
     const user = await getUserProfile(session.user.token);
     univercity = user.fridayActEn;
   }
+  console.log(session)
   //console.log(camps)
   //console.log(names);
   return (

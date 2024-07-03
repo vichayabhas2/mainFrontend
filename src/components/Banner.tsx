@@ -19,7 +19,7 @@ export default function Banner(){
     return(
         /*
         */
-        <div className={styles.banner} onClick={()=>{setIndex(index+1)}}>
+        <div className={styles.banner} onClick={()=>{setIndex(index+0)}}>
             <Image src={cover[index%4]} alt='cover' fill={true}
             priority 
             style={{objectFit:'cover'}}
@@ -27,27 +27,18 @@ export default function Banner(){
             
             <div className={styles.bannerText}>
                 
-                <h1 >
-                Vaccine Service Center
-                </h1>
-                <p>
-                    มาฉีดวัคซีนกัน
-                </p>
-                <p>
-
-                </p>
+                
             </div>
-            <FinishButton text={'hvfghjnhbgh'} onClick={sendNotification}/>
+            
             {
                 session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>
                     Welcome {session.user?.name}</div>: null
             }
-            <FinishButton text={'hvfghjnhbgh'} onClick={sendNotification}/>
             <button onClick={(e)=>{e.stopPropagation();   router.push('/camp')}}
 
        className='bg-white text-cyan-600 border border-cyan-600
-      font-semibold py-2 px-2 rounded z-30 absolute bottom-0 right-0
-      hover:bg-cyan-600 hover:text-white hover:border-tranparent'>Select Hospital</button>
+      font-semibold py-2 px-2 rounded z-30 absolute bottom-0 right-10
+      hover:bg-cyan-600 hover:text-white hover:border-tranparent'>Select Camp</button>
         </div>
     )
 }

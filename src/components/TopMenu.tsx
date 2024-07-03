@@ -52,6 +52,8 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="verify" pageRef="/verify" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
@@ -72,6 +74,7 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="โซนพี่" pageRef="/peeOnly" />
@@ -95,16 +98,11 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
-              {user.authPartIds.length ? (
-                <TopMenuItem title="ฝ่ายที่ได้รับอนุญาต" pageRef="/authPart" />
-              ) : null}
-              <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
-              <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
-              <TopMenuItem title="สถานที่" pageRef="/place" />
               <TopMenuItem title="admin" pageRef="/admin" />
-              <TopMenuItem title="Update Mode" pageRef="/updateMode" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
               <TopMenuItem title="Home" pageRef="/" />
@@ -123,15 +121,10 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
-              {user.authPartIds.length ? (
-                <TopMenuItem title="ฝ่ายที่ได้รับอนุญาต" pageRef="/authPart" />
-              ) : null}
-              <TopMenuItem title="tracking sheet" pageRef="/trackingSheet" />
-              <TopMenuItem title="action plan" pageRef="/actionPlan" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
-              <TopMenuItem title="สถานที่" pageRef="/place" />
-              <TopMenuItem title="Update Mode" pageRef="/updateMode" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
               <TopMenuItem title="Home" pageRef="/" />

@@ -14,6 +14,11 @@ export default function page() {
   if (!session) {
     return <BackToHome />;
   }
+  if(session.user.user.email.split('@')[1].localeCompare('student.chula.ac.th')){
+    return <BackToHome />;
+  }
+  console.log(session)
+  alert(session.user.user.email)
   const [studentId, setStudentId] = useState<string | null>(null);
   const [group, setGroup] = useState<Group | null>(null);
   const allGroup: Group[] = [

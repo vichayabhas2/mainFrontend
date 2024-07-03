@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import {
   InterBuilding,
+  InterCampFront,
   InterPartFront,
   InterPlace,
   InterTimeOffset,
@@ -22,6 +23,7 @@ import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
 import { addTime, notEmpty } from "./setup";
 import createWorkingItem from "@/libs/camp/createWorkingItem";
+import plusActionPlan from "@/libs/camp/plusActionPlan";
 export default function PartClient({
   user,
   part,
@@ -29,7 +31,8 @@ export default function PartClient({
   petos,
   allBuildings,
   allPlace,
-  timeOffset
+  timeOffset,
+  camp,
 }: {
   part: InterPartFront;
   user: InterUser;
@@ -37,13 +40,14 @@ export default function PartClient({
   petos: ShowMember[];
   allPlace: Map<string, InterPlace[]>;
   allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
-  timeOffset:InterTimeOffset
+  timeOffset: InterTimeOffset;
+  camp: InterCampFront;
 }) {
   const { data: session } = useSession();
   if (user.mode == "nong" || !session) {
     return null;
   }
-  const [password,setPassword]=useState<string>('null')
+  const [password, setPassword] = useState<string>("null");
   const [name, setName] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
   const [action, setAction] = useState<string | null>(null);
@@ -51,6 +55,7 @@ export default function PartClient({
   const [start, setStart] = useState<Date | null>(null);
   const [end, setEnd] = useState<Date | null>(null);
   const [body, setBody] = useState<string | null>(null);
+  const [plus, setPlus] = useState<number>(0);
   const router = useRouter();
   function add() {
     places.push(null);
@@ -170,7 +175,7 @@ export default function PartClient({
           ))}
         </table>
       </div>
-      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="w-[80%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className=" rounded-lg ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
@@ -237,8 +242,8 @@ export default function PartClient({
                   action,
                   partId: part._id,
                   placeIds: places.filter(notEmpty).map((e) => e._id),
-                  start:addTime(start,timeOffset),
-                  end:addTime(end,timeOffset),
+                  start: addTime(start, timeOffset),
+                  end: addTime(end, timeOffset),
                   headId,
                   body,
                 },
@@ -248,8 +253,21 @@ export default function PartClient({
           }}
           buttonText={"สร้าง action plan"}
         />
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            +- action plan ล่าสุด {camp.actionPlanOffset} นาที
+          </label>
+          <TextField
+            name="Email"
+            id="Email"
+            type="number"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setPlus(parseInt(e.target.value))}
+          />
+          <FinishButton text="+- action plan" onClick={()=>{plusActionPlan({campId:camp._id,plus},session.user.token)}}/>
+        </div>
       </div>
-      <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="w-[80%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">ทำอะไร</label>
           <TextField
@@ -267,7 +285,8 @@ export default function PartClient({
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setLink(e.target.value)}
           />
-        </div><div className="flex flex-row items-center my-5">
+        </div>
+        <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">รหัสผ่าน</label>
           <TextField
             name="Email"
@@ -277,17 +296,23 @@ export default function PartClient({
             defaultValue={password}
           />
         </div>
-        <FinishButton text={"สร้างการทำงาน"} onClick={()=>{
-          if(name){
-            createWorkingItem({
-          name,
-          link,
-          partId: part._id,
-          fromId: null,
-          password:password?password:'null'
-          },session.user.token)
-          
-        }}}/>
+        <FinishButton
+          text={"สร้างการทำงาน"}
+          onClick={() => {
+            if (name) {
+              createWorkingItem(
+                {
+                  name,
+                  link,
+                  partId: part._id,
+                  fromId: null,
+                  password: password ? password : "null",
+                },
+                session.user.token
+              );
+            }
+          }}
+        />
       </div>
     </main>
   );

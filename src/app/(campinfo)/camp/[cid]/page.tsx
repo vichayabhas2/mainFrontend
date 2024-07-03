@@ -93,6 +93,7 @@ export default async function HospitalDetailPage({
             allPlace={allPlace}
             allBuildings={allBuilding}
             timeOffset={timeOffset}
+            camp={campDetail}
           />
         </>
       );
@@ -116,6 +117,7 @@ export default async function HospitalDetailPage({
             allPlace={allPlace}
             allBuildings={allBuilding}
             timeOffset={timeOffset}
+            camp={campDetail}
           />
         </>
       );

@@ -16,7 +16,6 @@ export default function Home() {
   return (
     <main >
 <Banner/>
-      <PromoteCard/>
       
 
 
@@ -27,6 +26,7 @@ export default function Home() {
 /*
             
       
+      <PromoteCard/>
       
       <div className={styles.description}>className={styles.main}
         <p>บางพลัดอาจจะเป็นแค่ชื่อเขต แต่เธอคือสาเหตุของความรัก

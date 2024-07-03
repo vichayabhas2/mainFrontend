@@ -10,10 +10,13 @@ import FinishButton from "@/components/FinishButton";
 import { backendUrl } from "@/components/setup";
 
 export default function page() {
-    const { data: session } = useSession();
-    if (!session) {
-      return <BackToHome />;
-    }
+  const { data: session } = useSession();
+  if (!session) {
+    return <BackToHome />;
+  }
+  if(session.user.user.email.split('@')[1].localeCompare('student.chula.ac.th')){
+    return <BackToHome />;
+  }
   const [studentId, setStudentId] = useState<string | null>(null);
   const [group, setGroup] = useState<Group | null>(null);
   const allGroup: Group[] = [
@@ -59,20 +62,18 @@ export default function page() {
       <FinishButton
         text="bypass"
         onClick={async () => {
-          const response = await fetch(
-            `${backendUrl}/subfunction/petoBypass`,
-            {
-              method: "POST",
-              cache: "no-store",
-              headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${session.user.token}`,
-              },
-              body:JSON.stringify({
-                studentId,group
-              })
-            }
-          );
+          const response = await fetch(`${backendUrl}/subfunction/petoBypass`, {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${session.user.token}`,
+            },
+            body: JSON.stringify({
+              studentId,
+              group,
+            }),
+          });
         }}
       />
     </div>

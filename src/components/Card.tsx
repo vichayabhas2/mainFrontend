@@ -163,7 +163,7 @@ export default function Card({
   //onCarSelected :Function
 }) {
   //  const session=await getServerSession()
-  console.log(camp.logoUrl)
+  console.log(camp.logoUrl);
 
   return (
     <InteractiveCard
@@ -193,7 +193,7 @@ export default function Card({
 
             <div className="text-2xl my-10">
               <ClockIcon className="mr-5" />
-              {camp.open}
+              {camp.open?<>เปิดรับสมัคร</>:<>ปิดรับสมัครแล้ว</>}
             </div>
           </div>
         </div>
