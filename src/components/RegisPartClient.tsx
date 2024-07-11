@@ -60,23 +60,24 @@ export default function RegisterPartClient({
   return (
     <div>
       <div>น้องที่สมัครเข้ามา</div>
-      <table>
-        <th>รหัส</th>
-        <th>link</th>
-        <th>select</th>
+      <table className="table-auto border border-x-black border-separate">
+        <th className=" border border-x-black">รหัส</th>
+        <th className=" border border-x-black">link</th>
+        <th className=" border border-x-black">select</th>
         {camp.nongPendingIds.map((v, i) => (
           <tr>
             <td
+              className=" border border-x-black"
               onClick={() => {
                 router.push(`/userProfile/${v.key}`);
               }}
             >
               {v.key.toString()}
             </td>
-            <td>
+            <td className=" border border-x-black">
               <Link href={v.value || ""}>link</Link>
             </td>
-            <td>
+            <td className=" border border-x-black">
               <Checkbox
                 onChange={(e, c) => {
                   if (c) {
@@ -115,23 +116,24 @@ export default function RegisterPartClient({
             }}
           />
           <div>ผ่านการสัมภาส</div>
-          <table>
-            <th>รหัส</th>
-            <th>link</th>
-            <th>select</th>
+          <table className="table-auto border border-x-blackborder-separate">
+            <th className=" border border-x-black">รหัส</th>
+            <th className=" border border-x-black">link</th>
+            <th className=" border border-x-black">select</th>
             {camp.nongInterviewIds.map((v) => (
               <tr>
                 <td
+                  className=" border border-x-black"
                   onClick={() => {
                     router.push(`/userProfile/${v.key}`);
                   }}
                 >
                   {v.key.toString()}
                 </td>
-                <td>
+                <td className=" border border-x-black">
                   <Link href={v.value}>link</Link>
                 </td>
-                <td>
+                <td className=" border border-x-black">
                   <Checkbox
                     onChange={(e, c) => {
                       if (c) {
@@ -201,19 +203,20 @@ export default function RegisterPartClient({
           <>น้องที่ผ่านการคัดเลือก</>
         )}
       </div>
-      <table>
-        <th>รหัส</th>
-        <th>link</th>
+      <table className="table-auto border border-x-black border-separate">
+        <th className=" border border-x-black">รหัส</th>
+        <th className=" border border-x-black">link</th>
         {camp.nongPassIds.map((v) => (
           <tr>
             <td
+              className=" border border-x-black"
               onClick={() => {
                 router.push(`/userProfile/${v.key}`);
               }}
             >
               {v.key.toString()}
             </td>
-            <td>
+            <td className=" border border-x-black">
               <Link href={v.value}>link</Link>
             </td>
           </tr>
@@ -222,25 +225,25 @@ export default function RegisterPartClient({
       {camp.registerModel !== "noPaid" ? (
         <>
           <div>น้องที่จ่ายเงินแล้ว</div>
-          <table>
-            <th>รหัส</th>
-            <th>link</th>
-            <th>select</th>
+          <table className="table-auto border border-x-black border-separate">
+            <th className=" border border-x-black">รหัส</th>
+            <th className=" border border-x-black">link</th>
+            <th className=" border border-x-black">select</th>
             {camp.nongPassIds
               .filter((e) => camp.nongPaidIds.includes(e.key))
               .map((v) => (
                 <tr>
-                  <td
+                  <td className=" border border-x-black"
                     onClick={() => {
                       router.push(`/userProfile/${v.key}`);
                     }}
                   >
                     {v.key.toString()}
                   </td>
-                  <td>
+                  <td className=" border border-x-black">
                     <Link href={v.value}>link</Link>
                   </td>
-                  <td>
+                  <td className=" border border-x-black">
                     <Checkbox
                       onChange={(e, c) => {
                         if (c) {
@@ -280,12 +283,12 @@ export default function RegisterPartClient({
       ) : null}
       <div>น้องที่มั่นใจว่าเข้าค่ายแน่นอน</div>
       <table>
-        <th>รหัส</th>
+        <th className=" border border-x-black">รหัส</th>
 
-        <th>select</th>
+        <th className=" border border-x-black">select</th>
         {camp.nongSureIds.map((v) => (
           <tr>
-            <td
+            <td className=" border border-x-black"
               onClick={() => {
                 router.push(`/userProfile/${v.toString()}`);
               }}
@@ -293,7 +296,7 @@ export default function RegisterPartClient({
               {v.toString()}
             </td>
 
-            <td>
+            <td className=" border border-x-black">
               <Checkbox
                 onChange={(e, c) => {
                   if (c) {
@@ -308,21 +311,21 @@ export default function RegisterPartClient({
         ))}
       </table>
       <div>พี่ที่สมัครเข้ามา</div>
-      <table>
-        <th>รหัส</th>
-        <th>link</th>
-        <th>select</th>
+      <table className="table-auto border border-x-black border-separate">
+        <th className=" border border-x-black">รหัส</th>
+        <th className=" border border-x-black">link</th>
+        <th className=" border border-x-black">select</th>
         {peeRegisters.map((v) => (
           <tr>
-            <td
+            <td className=" border border-x-black"
               onClick={() => {
                 router.push(`/userProfile/${v.userId}`);
               }}
             >
               {v.fullName}
             </td>
-            <td>{v.partName}</td>
-            <td>
+            <td className=" border border-x-black">{v.partName}</td>
+            <td className=" border border-x-black">
               <Checkbox
                 onChange={(e, c) => {
                   if (c) {
@@ -357,38 +360,38 @@ export default function RegisterPartClient({
         <>
           <div>
             <div>รายชื่อน้องบ้าน{regisBaan.baan.fullName}</div>
-            <table>
+            <table className="table-auto border border-x-black border-separate">
               <tr>
-                <th>ชือเล่น</th>
-                <th>ชื่อจริง</th>
-                <th>นามสกุล</th>
-                <th>เพศ</th>
-                <th>ค้างคืนหรือไม่</th>
-                <th>id</th>
-                <th>รหัสประจำตัวนิสิต</th>
-                <th>เบอร์โทรศัพท์</th>
-                <th>email</th>
-                <th>มีกระติกน้ำหรือไม่</th>
-                <th>ขนาดเสื้อ</th>
-                <th>กรุปของนิสิต</th>
-                <th>ปัญหาสุขภาพ</th>
+                <th className=" border border-x-black">ชือเล่น</th>
+                <th className=" border border-x-black">ชื่อจริง</th>
+                <th className=" border border-x-black">นามสกุล</th>
+                <th className=" border border-x-black">เพศ</th>
+                <th className=" border border-x-black">ค้างคืนหรือไม่</th>
+                <th className=" border border-x-black">id</th>
+                <th className=" border border-x-black">รหัสประจำตัวนิสิต</th>
+                <th className=" border border-x-black">เบอร์โทรศัพท์</th>
+                <th className=" border border-x-black">email</th>
+                <th className=" border border-x-black">มีกระติกน้ำหรือไม่</th>
+                <th className=" border border-x-black">ขนาดเสื้อ</th>
+                <th className=" border border-x-black">กรุปของนิสิต</th>
+                <th className=" border border-x-black">ปัญหาสุขภาพ</th>
               </tr>
               {regisBaan.nongs.map((user: ShowMember) => (
                 <tr>
-                  <td>{user.nickname}</td>
-                  <td>{user.name}</td>
-                  <td>{user.lastname}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                  <td>{user._id.toString()}</td>
-                  <td>{user.studentId}</td>
-                  <td>{user.tel}</td>
-                  <td>{user.email}</td>
-                  <td>{user.haveBottle.toString()}</td>
-                  <td>{user.shertSize}</td>
-                  <td>{user.group}</td>
+                  <td className=" border border-x-black">{user.nickname}</td>
+                  <td className=" border border-x-black">{user.name}</td>
+                  <td className=" border border-x-black">{user.lastname}</td>
+                  <td className=" border border-x-black">{user.gender}</td>
+                  <td className=" border border-x-black">{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                  <td className=" border border-x-black">{user._id.toString()}</td>
+                  <td className=" border border-x-black">{user.studentId}</td>
+                  <td className=" border border-x-black">{user.tel}</td>
+                  <td className=" border border-x-black">{user.email}</td>
+                  <td className=" border border-x-black">{user.haveBottle.toString()}</td>
+                  <td className=" border border-x-black">{user.shertSize}</td>
+                  <td className=" border border-x-black">{user.group}</td>
                   {user.helthIsueId ? (
-                    <td
+                    <td className=" border border-x-black"
                       onClick={() => {
                         router.push(
                           `/helthIshue/${user.helthIsueId?.toString()}`
@@ -398,7 +401,7 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td> null</td>
+                    <td className=" border border-x-black"> null</td>
                   )}
                   <td>
                     <Checkbox
@@ -417,38 +420,38 @@ export default function RegisterPartClient({
           </div>
           <div>
             <div>รายชื่อพี่บ้าน{regisBaan.baan.fullName}</div>
-            <table>
+            <table className="table-auto border border-x-black border-separate">
               <tr>
-                <th>ชือเล่น</th>
-                <th>ชื่อจริง</th>
-                <th>นามสกุล</th>
-                <th>เพศ</th>
-                <th>ค้างคืนหรือไม่</th>
-                <th>id</th>
-                <th>รหัสประจำตัวนิสิต</th>
-                <th>เบอร์โทรศัพท์</th>
-                <th>email</th>
-                <th>มีกระติกน้ำหรือไม่</th>
-                <th>ขนาดเสื้อ</th>
-                <th>กรุปของนิสิต</th>
-                <th>ปัญหาสุขภาพ</th>
+                <th className=" border border-x-black">ชือเล่น</th>
+                <th className=" border border-x-black">ชื่อจริง</th>
+                <th className=" border border-x-black">นามสกุล</th>
+                <th className=" border border-x-black">เพศ</th>
+                <th className=" border border-x-black">ค้างคืนหรือไม่</th>
+                <th className=" border border-x-black">id</th>
+                <th className=" border border-x-black">รหัสประจำตัวนิสิต</th>
+                <th className=" border border-x-black">เบอร์โทรศัพท์</th>
+                <th className=" border border-x-black">email</th>
+                <th className=" border border-x-black">มีกระติกน้ำหรือไม่</th>
+                <th className=" border border-x-black">ขนาดเสื้อ</th>
+                <th className=" border border-x-black">กรุปของนิสิต</th>
+                <th className=" border border-x-black">ปัญหาสุขภาพ</th>
               </tr>
               {regisBaan.pees.map((user: ShowMember) => (
                 <tr>
-                  <td>{user.nickname}</td>
-                  <td>{user.name}</td>
-                  <td>{user.lastname}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                  <td>{user._id.toString()}</td>
-                  <td>{user.studentId}</td>
-                  <td>{user.tel}</td>
-                  <td>{user.email}</td>
-                  <td>{user.haveBottle.toString()}</td>
-                  <td>{user.shertSize}</td>
-                  <td>{user.group}</td>
+                  <td className=" border border-x-black">{user.nickname}</td>
+                  <td className=" border border-x-black">{user.name}</td>
+                  <td className=" border border-x-black">{user.lastname}</td>
+                  <td className=" border border-x-black">{user.gender}</td>
+                  <td className=" border border-x-black">{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                  <td className=" border border-x-black">{user._id.toString()}</td>
+                  <td className=" border border-x-black">{user.studentId}</td>
+                  <td className=" border border-x-black">{user.tel}</td>
+                  <td className=" border border-x-black">{user.email}</td>
+                  <td className=" border border-x-black">{user.haveBottle.toString()}</td>
+                  <td className=" border border-x-black">{user.shertSize}</td>
+                  <td className=" border border-x-black">{user.group}</td>
                   {user.helthIsueId ? (
-                    <td
+                    <td className=" border border-x-black"
                       onClick={() => {
                         router.push(
                           `/helthIshue/${user.helthIsueId?.toString()}`
@@ -458,9 +461,9 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td> null</td>
+                    <td className=" border border-x-black"> null</td>
                   )}
-                  <td>
+                  <td  className=" border border-x-black">
                     <Checkbox
                       onChange={(e, c) => {
                         if (c) {
@@ -486,39 +489,39 @@ export default function RegisterPartClient({
           <>
             <div>
               <div>รายชื่อปีโตฝ่าย{regisPart.part.partName}</div>
-              <table>
+              <table className="table-auto border border-x-black border-separate">
                 <tr>
-                  <th>ชือเล่น</th>
-                  <th>ชื่อจริง</th>
-                  <th>นามสกุล</th>
-                  <th>เพศ</th>
-                  <th>ค้างคืนหรือไม่</th>
-                  <th>id</th>
-                  <th>รหัสประจำตัวนิสิต</th>
-                  <th>เบอร์โทรศัพท์</th>
-                  <th>email</th>
-                  <th>มีกระติกน้ำหรือไม่</th>
-                  <th>ขนาดเสื้อ</th>
-                  <th>กรุปของนิสิต</th>
-                  <th>ปัญหาสุขภาพ</th>
-                  <th>select</th>
+                  <th className=" border border-x-black">ชือเล่น</th>
+                  <th className=" border border-x-black">ชื่อจริง</th>
+                  <th className=" border border-x-black">นามสกุล</th>
+                  <th className=" border border-x-black">เพศ</th>
+                  <th className=" border border-x-black">ค้างคืนหรือไม่</th>
+                  <th className=" border border-x-black">id</th>
+                  <th className=" border border-x-black">รหัสประจำตัวนิสิต</th>
+                  <th className=" border border-x-black">เบอร์โทรศัพท์</th>
+                  <th className=" border border-x-black">email</th>
+                  <th className=" border border-x-black">มีกระติกน้ำหรือไม่</th>
+                  <th className=" border border-x-black">ขนาดเสื้อ</th>
+                  <th className=" border border-x-black">กรุปของนิสิต</th>
+                  <th className=" border border-x-black">ปัญหาสุขภาพ</th>
+                  <th className=" border border-x-black">select</th>
                 </tr>
                 {regisPart.petos.map((user: ShowMember) => (
                   <tr>
-                    <td>{user.nickname}</td>
-                    <td>{user.name}</td>
-                    <td>{user.lastname}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                    <td>{user._id.toString()}</td>
-                    <td>{user.studentId}</td>
-                    <td>{user.tel}</td>
-                    <td>{user.email}</td>
-                    <td>{user.haveBottle.toString()}</td>
-                    <td>{user.shertSize}</td>
-                    <td>{user.group}</td>
+                    <td className=" border border-x-black">{user.nickname}</td>
+                    <td className=" border border-x-black">{user.name}</td>
+                    <td className=" border border-x-black">{user.lastname}</td>
+                    <td className=" border border-x-black">{user.gender}</td>
+                    <td className=" border border-x-black">{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                    <td className=" border border-x-black">{user._id.toString()}</td>
+                    <td className=" border border-x-black">{user.studentId}</td>
+                    <td className=" border border-x-black">{user.tel}</td>
+                    <td className=" border border-x-black">{user.email}</td>
+                    <td className=" border border-x-black">{user.haveBottle.toString()}</td>
+                    <td className=" border border-x-black">{user.shertSize}</td>
+                    <td className=" border border-x-black">{user.group}</td>
                     {user.helthIsueId ? (
-                      <td
+                      <td className=" border border-x-black"
                         onClick={() => {
                           router.push(
                             `/helthIshue/${user.helthIsueId?.toString()}`
@@ -528,7 +531,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td> null</td>
+                      <td className=" border border-x-black"> null</td>
                     )}
                     {have ? (
                       <Checkbox
@@ -547,39 +550,39 @@ export default function RegisterPartClient({
             </div>
             <div>
               <div>รายชื่อพี่บ้าน{regisPart.part.partName}</div>
-              <table>
+              <table className="table-auto border border-x-black border-separate">
                 <tr>
-                  <th>ชือเล่น</th>
-                  <th>ชื่อจริง</th>
-                  <th>นามสกุล</th>
-                  <th>เพศ</th>
-                  <th>ค้างคืนหรือไม่</th>
-                  <th>id</th>
-                  <th>รหัสประจำตัวนิสิต</th>
-                  <th>เบอร์โทรศัพท์</th>
-                  <th>email</th>
-                  <th>มีกระติกน้ำหรือไม่</th>
-                  <th>ขนาดเสื้อ</th>
-                  <th>กรุปของนิสิต</th>
-                  <th>ปัญหาสุขภาพ</th>
-                  <th>select</th>
+                  <th className=" border border-x-black">ชือเล่น</th>
+                  <th className=" border border-x-black">ชื่อจริง</th>
+                  <th className=" border border-x-black">นามสกุล</th>
+                  <th className=" border border-x-black">เพศ</th>
+                  <th className=" border border-x-black">ค้างคืนหรือไม่</th>
+                  <th className=" border border-x-black">id</th>
+                  <th className=" border border-x-black">รหัสประจำตัวนิสิต</th>
+                  <th className=" border border-x-black">เบอร์โทรศัพท์</th>
+                  <th className=" border border-x-black">email</th>
+                  <th className=" border border-x-black">มีกระติกน้ำหรือไม่</th>
+                  <th className=" border border-x-black">ขนาดเสื้อ</th>
+                  <th className=" border border-x-black">กรุปของนิสิต</th>
+                  <th className=" border border-x-black">ปัญหาสุขภาพ</th>
+                  <th className=" border border-x-black">select</th>
                 </tr>
                 {regisPart.pees.map((user: ShowMember) => (
                   <tr>
-                    <td>{user.nickname}</td>
-                    <td>{user.name}</td>
-                    <td>{user.lastname}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                    <td>{user._id.toString()}</td>
-                    <td>{user.studentId}</td>
-                    <td>{user.tel}</td>
-                    <td>{user.email}</td>
-                    <td>{user.haveBottle.toString()}</td>
-                    <td>{user.shertSize}</td>
-                    <td>{user.group}</td>
+                    <td className=" border border-x-black">{user.nickname}</td>
+                    <td className=" border border-x-black">{user.name}</td>
+                    <td className=" border border-x-black">{user.lastname}</td>
+                    <td className=" border border-x-black">{user.gender}</td>
+                    <td className=" border border-x-black">{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                    <td className=" border border-x-black">{user._id.toString()}</td>
+                    <td className=" border border-x-black">{user.studentId}</td>
+                    <td className=" border border-x-black">{user.tel}</td>
+                    <td className=" border border-x-black">{user.email}</td>
+                    <td className=" border border-x-black">{user.haveBottle.toString()}</td>
+                    <td className=" border border-x-black">{user.shertSize}</td>
+                    <td className=" border border-x-black">{user.group}</td>
                     {user.helthIsueId ? (
-                      <td
+                      <td className=" border border-x-black"
                         onClick={() => {
                           router.push(
                             `/helthIshue/${user.helthIsueId?.toString()}`
@@ -589,7 +592,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td> null</td>
+                      <td className=" border border-x-black"> null</td>
                     )}
                     {have ? (
                       <Checkbox
