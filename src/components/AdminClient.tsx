@@ -8,6 +8,7 @@ import { useState } from "react";
 import createCamp from "@/libs/admin/createCamp";
 import addCampName from "@/libs/admin/addCampName";
 import mongoose from "mongoose";
+console.log(mongoose)
 import {
   InterNameContainer,
   CreateCamp,
