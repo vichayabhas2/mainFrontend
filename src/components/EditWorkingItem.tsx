@@ -16,10 +16,12 @@ export default function EditWorkingItem({
   worlingItem,
   parts,
   token,
+  auth,
 }: {
   token: string;
   worlingItem: InterWorkingItem;
   parts: InterPartFront[];
+  auth: boolean;
 }) {
   const partMap: MyMap[] = [];
   var i = 0;
@@ -64,19 +66,18 @@ export default function EditWorkingItem({
         </tr>
       </table>
       <div className="w-[100%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-        <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            link frontend รอง
-          </label>
-          <TextField
-            name="Email"
-            id="Email"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-            onChange={(e) => setLink(e.target.value)}
-            defaultValue={link}
-          />
-        </div>
-
+        {auth ? (
+          <div className="flex flex-row items-center my-5">
+            <label className="w-2/5 text-2xl text-slate-200">link</label>
+            <TextField
+              name="Email"
+              id="Email"
+              className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+              onChange={(e) => setLink(e.target.value)}
+              defaultValue={link}
+            />
+          </div>
+        ) : null}
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">link รูปภาพ</label>
           <TextField
@@ -113,7 +114,7 @@ export default function EditWorkingItem({
         <FinishButton
           text="Delete"
           onClick={() => {
-            deleteWorkingItem( worlingItem._id, token);
+            deleteWorkingItem(worlingItem._id, token);
           }}
         />
       </div>

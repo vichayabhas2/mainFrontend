@@ -56,7 +56,7 @@ export default function PlaceClient({
         </div>
       ))}
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">เพิ่มห้อง</label>
+        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชั้น</label>
         <TextField
           name="Name"
           id="Name"

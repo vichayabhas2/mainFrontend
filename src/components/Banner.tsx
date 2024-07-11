@@ -20,10 +20,10 @@ export default function Banner(){
         /*
         */
         <div className={styles.banner} onClick={()=>{setIndex(index+0)}}>
-            <Image src={cover[index%4]} alt='cover' fill={true}
+            {/*<Image src={cover[index%4]} alt='cover' fill={true}
             priority 
             style={{objectFit:'cover'}}
-            />
+            />*/}
             
             <div className={styles.bannerText}>
                 

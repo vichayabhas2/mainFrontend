@@ -11,11 +11,15 @@ export default function PlaceSelect({
   allPlace,
   allBuildings,
   onClick,
+  buildingText,
+  placeText
 }: {
   place: InterPlace | null;
   allPlace: Map<string, InterPlace[]>;
   allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   onClick: (outPut: InterPlace) => void;
+  buildingText:string;
+  placeText:string
 }) {
 
   // dispatch = useDispatch<AppDispatch>();
@@ -42,7 +46,7 @@ export default function PlaceSelect({
     <>
       <div className="flex flex-row items-center my-5">
         <label className="w-2/5 text-2xl text-slate-200">
-          เลือกตึกที่ใช้เป็นห้องฝ่าย
+          {buildingText}
         </label>
         <Select
           variant="standard"
@@ -62,7 +66,7 @@ export default function PlaceSelect({
       </div>
       <div className="flex flex-row items-center my-5">
         <label className="w-2/5 text-2xl text-slate-200">
-          เลือกชั้นและห้องที่ใช้เป็นห้องฝ่าย
+          {placeText}
         </label>
         <Select
           variant="standard"

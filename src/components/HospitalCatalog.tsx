@@ -38,7 +38,7 @@ export default function HospitalCatalog({
           ) {
             return null;
           }
-          console.log(camp);
+          //console.log(camp);
           return (
             <div className={`w-full h-auto my-${5}`}>
               {/* <Link href={`/hospital/${hospitalItem._id}`}> */}

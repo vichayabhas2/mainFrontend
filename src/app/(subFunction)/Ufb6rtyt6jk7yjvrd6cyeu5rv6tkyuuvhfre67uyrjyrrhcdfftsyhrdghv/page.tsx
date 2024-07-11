@@ -18,7 +18,7 @@ export default function page() {
     return <BackToHome />;
   }
   console.log(session)
-  alert(session.user.user.email)
+  //alert(session.user.user.email)
   const [studentId, setStudentId] = useState<string | null>(null);
   const [group, setGroup] = useState<Group | null>(null);
   const allGroup: Group[] = [
@@ -47,7 +47,7 @@ export default function page() {
       <Select value={group}>
         {allGroup.map((g) => (
           <MenuItem
-            onChange={() => {
+            onClick={() => {
               setGroup(g);
             }}
           >

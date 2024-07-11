@@ -17,7 +17,7 @@ export default function page() {
   if(session.user.user.email.split('@')[1].localeCompare('student.chula.ac.th')){
     return <BackToHome />;
   }
-  alert(session.user.user.email);
+  //alert(session.user.user.email);
   const [studentId, setStudentId] = useState<string | null>(null);
   return (
     <div>

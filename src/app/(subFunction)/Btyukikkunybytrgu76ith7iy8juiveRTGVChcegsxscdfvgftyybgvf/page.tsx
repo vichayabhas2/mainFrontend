@@ -45,7 +45,7 @@ export default function page() {
       <Select value={group}>
         {allGroup.map((g) => (
           <MenuItem
-            onChange={() => {
+            onClick={() => {
               setGroup(g);
             }}
           >

@@ -210,8 +210,7 @@ export default function PartClient({
             onClick={(ouuPut) => {
               places[i] = ouuPut;
               setPlaces(places);
-            }}
-          />
+            } } buildingText={`ตึกที่${i+1}`} placeText={`ชั้นและห้องที่${i+1}`}          />
         ))}
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">

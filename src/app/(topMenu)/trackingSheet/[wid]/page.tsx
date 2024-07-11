@@ -36,10 +36,11 @@ export default async function HospitalDetailPage({
         const buf=await getPart(camp.partIds[i++],session.user.token)
         parts.push(buf)
     }
+    const auth=await bcrypt.compare(user.linkHash,workingItem.password)
     if(!await bcrypt.compare(user.linkHash,workingItem.password)){
         workingItem.link=null
     }
-    return<><EditWorkingItem token={session.user.token} worlingItem={workingItem} parts={parts}/></>
+    return<><EditWorkingItem token={session.user.token} worlingItem={workingItem} parts={parts} auth={auth}/></>
   
 
 }
