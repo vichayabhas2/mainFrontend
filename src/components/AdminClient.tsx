@@ -212,7 +212,7 @@ export default function AdminClient({
       </div>
       <div className=" rounded-lg ">
         <label className="w-2/5 text-2xl text-slate-200">
-          รูปแบบการนอนของพี่ค่าย
+          รูปแบบการค้างคืนของพี่ค่าย
         </label>
         <Select
           variant="standard"
@@ -241,7 +241,7 @@ export default function AdminClient({
           )}
         </Select>
         <label className="w-2/5 text-2xl text-slate-200">
-          รูปแบบการนอนของน้องค่าย
+          รูปแบบการค้างคืนของน้องค่าย
         </label>
         <Select
           variant="standard"
