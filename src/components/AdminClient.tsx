@@ -314,6 +314,7 @@ export default function AdminClient({
                 };
                 createCamp(redy, session.user.token);
               } catch (error) {
+                alert (error)
                 console.log(error);
               }
             } else {
