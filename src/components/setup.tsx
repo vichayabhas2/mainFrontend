@@ -428,7 +428,7 @@ export function plusActionPlan(
     partName,
   };
 }
-export const backendUrl ='https://main-backend-seven.vercel.app/'// "http://localhost:5000";
+export const backendUrl ='https://main-backend-seven.vercel.app'// "http://localhost:5000";
 export const userPath = "api/v1/auth";
 export function hasKey(
   input: MyMap[] | MapObjectId[],
