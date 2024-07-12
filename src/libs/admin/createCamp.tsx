@@ -13,6 +13,7 @@ export default async function createCamp(
     },
     body: JSON.stringify(input),
   });
+  alert(response.status)
 
   return await response.json();
 }
