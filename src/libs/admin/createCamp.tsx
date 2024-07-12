@@ -5,6 +5,7 @@ export default async function createCamp(
   input: CreateCamp,
   token: string
 ): Promise<InterCampFront> {
+  console.log(input)
   const response = await fetch(`${backendUrl}/admin/createCamp`, {
     method: "POST",cache: "no-store",
     headers: {
