@@ -52,6 +52,7 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="ปรับตั้งเวลา" pageRef="testTime"/>
               <TopMenuItem title="verify" pageRef="/verify" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
@@ -75,6 +76,8 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+            <TopMenuItem title="ปรับตั้งเวลา" pageRef="testTime"/>
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
@@ -99,6 +102,8 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+            <TopMenuItem title="ปรับตั้งเวลา" pageRef="testTime"/>
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
@@ -122,6 +127,8 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+            <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+            <TopMenuItem title="ปรับตั้งเวลา" pageRef="testTime"/>
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="ดูข้อมูลคนอื่น" pageRef="/userProfile" />
