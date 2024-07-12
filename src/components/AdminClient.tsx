@@ -313,7 +313,6 @@ export default function AdminClient({
                   nongSleepModel,
                 };
                 createCamp(redy, session.user.token);
-                alert('jjjjjjjjjjjjjjjjjjjjjj')
               } catch (error) {
                 alert (error)
                 console.log(error);
