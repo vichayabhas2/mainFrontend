@@ -25,6 +25,7 @@ export default async function UpdateBaanServer({
   const camp = await getCamp(baan.campId);
   const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+  
   return (
     <>
       <UpdateBaanClient

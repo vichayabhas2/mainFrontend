@@ -10,7 +10,6 @@ import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Image from "next/image";
 import mongoose from "mongoose";
 import { hasKey } from "@/components/setup";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
@@ -23,6 +22,7 @@ import getPetoCamp from "@/libs/camp/getPetoCamp";
 import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
 import NongSureClient from "@/components/NongSureClient";
 import getTimeOffset from "@/libs/user/getTimeOffset";
+import getShowPlace from "@/libs/randomthing/getShowPlace";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -45,7 +45,7 @@ export default async function HospitalDetailPage({
     var campRole: "nong" | "pee" | "peto" | null = null;
     const curentRole = user.role;
     const userId: mongoose.Types.ObjectId = user._id;
-    const timeOffset=await getTimeOffset(user.selectOffsetId)
+    const timeOffset = await getTimeOffset(user.selectOffsetId);
     const partMap: MyMap[] = [];
     var i = 0;
     while (i < campDetail.partIds.length) {
@@ -60,9 +60,53 @@ export default async function HospitalDetailPage({
       const baan = await getBaan(nongCamp.baanId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+      const boy = baan.boySleepPlaceId
+        ? await getShowPlace(baan.boySleepPlaceId)
+        : null;
+      const girl = baan.girlSleepPlaceId
+        ? await getShowPlace(baan.girlSleepPlaceId)
+        : null;
+      const normal = baan.nomalPlaceId
+        ? await getShowPlace(baan.nomalPlaceId)
+        : null;
       return (
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <table>
+            <tr>
+              <td>สถานที่</td>
+              <td>ห้อง</td>
+              <td>ชั้น</td>
+              <td>ตึก</td>
+            </tr>
+            <tr>
+              <td>
+                ห้อง{campDetail.groupName}
+                {baan.name}
+              </td>
+              <td>{normal?.room.toString()}</td>
+              <td>{normal?.floor.toString()}</td>
+              <td>{normal?.buildingName.toString()}</td>
+            </tr>
+            <tr>
+              <td>
+                ห้องนอน{campDetail.groupName}
+                {baan.name}น้องผู้ชาย
+              </td>
+              <td>{boy?.room.toString()}</td>
+              <td>{boy?.floor.toString()}</td>
+              <td>{boy?.buildingName.toString()}</td>
+            </tr>
+            <tr>
+              <td>
+                ห้องนอน{campDetail.groupName}
+                {baan.name}น้องผู้หญิง
+              </td>
+              <td>{girl?.room.toString()}</td>
+              <td>{girl?.floor.toString()}</td>
+              <td>{girl?.buildingName.toString()}</td>
+            </tr>
+          </table>
           <BaanMembers baan={baan} campRole="nong" pees={pees} nongs={nongs} />
         </>
       );
@@ -76,9 +120,54 @@ export default async function HospitalDetailPage({
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
       const peto = await getUserFromCamp("getPetosFromPartId", peeCamp.partId);
+      const boy = baan.boySleepPlaceId
+        ? await getShowPlace(baan.boySleepPlaceId)
+        : null;
+      const girl = baan.girlSleepPlaceId
+        ? await getShowPlace(baan.girlSleepPlaceId)
+        : null;
+      const normal = baan.nomalPlaceId
+        ? await getShowPlace(baan.nomalPlaceId)
+        : null;
+      const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
       return (
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <table>
+            <tr>
+              <td>สถานที่</td>
+              <td>ห้อง</td>
+              <td>ชั้น</td>
+              <td>ตึก</td>
+            </tr>
+            <tr>
+              <td>
+                ห้อง{campDetail.groupName}
+                {baan.name}
+              </td>
+              <td>{normal?.room.toString()}</td>
+              <td>{normal?.floor.toString()}</td>
+              <td>{normal?.buildingName.toString()}</td>
+            </tr>
+            <tr>
+              <td>
+                ห้องนอน{campDetail.groupName}
+                {baan.name}น้องผู้ชาย
+              </td>
+              <td>{boy?.room.toString()}</td>
+              <td>{boy?.floor.toString()}</td>
+              <td>{boy?.buildingName.toString()}</td>
+            </tr>
+            <tr>
+              <td>
+                ห้องนอน{campDetail.groupName}
+                {baan.name}น้องผู้หญิง
+              </td>
+              <td>{girl?.room.toString()}</td>
+              <td>{girl?.floor.toString()}</td>
+              <td>{girl?.buildingName.toString()}</td>
+            </tr>
+          </table>
           <BaanMembers
             baan={baan}
             campRole={user.mode}
@@ -105,6 +194,7 @@ export default async function HospitalDetailPage({
       const part = await getPart(petoCamp.partId, token);
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
       const peto = await getUserFromCamp("getPetosFromPartId", petoCamp.partId);
+      const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
       return (
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
