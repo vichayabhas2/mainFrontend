@@ -428,7 +428,7 @@ export function plusActionPlan(
     partName,
   };
 }
-const deploy = false;
+const deploy = true;
 export const backendUrl = deploy
   ? "https://main-backend-seven.vercel.app"
   : "http://localhost:5000";
