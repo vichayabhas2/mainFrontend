@@ -151,8 +151,8 @@ export default async function HospitalDetailPage({
             </tr>
             <tr>
               <td>
-                ห้องนอน{campDetail.groupName}
-                {baan.name}น้องผู้ชาย
+                ห้องนอนน้องผู้ชาย{campDetail.groupName}
+                {baan.name}
               </td>
               <td>{boy?.room.toString()}</td>
               <td>{boy?.floor.toString()}</td>
@@ -160,8 +160,8 @@ export default async function HospitalDetailPage({
             </tr>
             <tr>
               <td>
-                ห้องนอน{campDetail.groupName}
-                {baan.name}น้องผู้หญิง
+                ห้องนอนน้องผู้หญิง{campDetail.groupName}
+                {baan.name}
               </td>
               <td>{girl?.room.toString()}</td>
               <td>{girl?.floor.toString()}</td>
