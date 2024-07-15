@@ -391,12 +391,8 @@ export default function RegisterPartClient({
                   </td>
                   <td
                     className=" border border-x-black"
-                    onClick={() => {
-                      alert(user._id);
-                      alert(user._id.toString());
-                    }}
                   >
-                    {user.id}
+                    {user._id.toString()}
                   </td>
                   <td className=" border border-x-black">{user.studentId}</td>
                   <td className=" border border-x-black">{user.tel}</td>
@@ -465,12 +461,8 @@ export default function RegisterPartClient({
                   </td>
                   <td
                     className=" border border-x-black"
-                    onClick={() => {
-                      alert(user._id);
-                      alert(user._id.toString());
-                    }}
                   >
-                    {user.id}
+                    {user._id.toString()}
                   </td>
                   <td className=" border border-x-black">{user.studentId}</td>
                   <td className=" border border-x-black">{user.tel}</td>
@@ -548,12 +540,8 @@ export default function RegisterPartClient({
                     </td>
                     <td
                       className=" border border-x-black"
-                      onClick={() => {
-                        alert(user._id);
-                        alert(user._id.toString());
-                      }}
                     >
-                      {user.id}
+                      {user._id.toString()}
                     </td>
                     <td className=" border border-x-black">{user.studentId}</td>
                     <td className=" border border-x-black">{user.tel}</td>
@@ -627,7 +615,7 @@ export default function RegisterPartClient({
                         alert(user._id.toString());
                       }}
                     >
-                      {user.id}
+                      {user._id.toString()}
                     </td>
                     <td className=" border border-x-black">{user.studentId}</td>
                     <td className=" border border-x-black">{user.tel}</td>
