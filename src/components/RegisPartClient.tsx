@@ -413,7 +413,7 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td className=" border border-x-black"> null</td>
+                    <td className=" border border-x-black">-</td>
                   )}
                   <td>
                     <Checkbox
@@ -482,7 +482,7 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td className=" border border-x-black"> null</td>
+                    <td className=" border border-x-black">-</td>
                   )}
                   <td className=" border border-x-black">
                     <Checkbox
@@ -561,7 +561,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td className=" border border-x-black"> null</td>
+                      <td className=" border border-x-black">-</td>
                     )}
                     {have ? (
                       <Checkbox
@@ -635,7 +635,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td className=" border border-x-black"> null</td>
+                      <td className=" border border-x-black">-</td>
                     )}
                     {have ? (
                       <Checkbox
