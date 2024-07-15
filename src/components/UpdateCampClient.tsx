@@ -264,6 +264,7 @@ export default function UpdateCampClient({
           />
         </div>
         <div className=" rounded-lg ">
+          <div>วันเริ่มค่าย</div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               className="bg-white m-10"
@@ -276,6 +277,7 @@ export default function UpdateCampClient({
           </LocalizationProvider>
         </div>
         <div className=" rounded-lg ">
+          <div>วันจบค่าย</div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               className="bg-white m-10"
