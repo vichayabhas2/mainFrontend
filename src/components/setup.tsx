@@ -14,7 +14,7 @@ import {
 } from "../../intreface";
 import dayjs from "dayjs";
 import { InterTimeOffset } from "../../interface";
-
+const deploy = true;
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
   number
@@ -240,6 +240,8 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
     petoDataLock,
     haveCloth,
     actionPlanOffset,
+    currentNong,
+    currentPee,
   } = input;
   return {
     partIds,
@@ -311,6 +313,8 @@ export function conCampBackToFront(input: InterCampBack): InterCampFront {
     petoDataLock,
     haveCloth,
     actionPlanOffset,
+    currentNong,
+    currentPee,
   };
 }
 export function conPartBackToFront(input: InterPartBack): InterPartFront {
@@ -428,7 +432,7 @@ export function plusActionPlan(
     partName,
   };
 }
-const deploy = true;
+
 export const backendUrl = deploy
   ? "https://main-backend-seven.vercel.app"
   : "http://localhost:5000";
