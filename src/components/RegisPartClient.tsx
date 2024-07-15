@@ -378,7 +378,6 @@ export default function RegisterPartClient({
                 <th className=" border border-x-black">ขนาดเสื้อ</th>
                 <th className=" border border-x-black">กรุปของนิสิต</th>
                 <th className=" border border-x-black">ปัญหาสุขภาพ</th>
-                <th className=" border border-x-black">select</th>
               </tr>
               {regisBaan.nongs.map((user: ShowMember) => (
                 <tr>
@@ -414,7 +413,7 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td className=" border border-x-black">-</td>
+                    <td className=" border border-x-black"> null</td>
                   )}
                   <td>
                     <Checkbox
@@ -448,7 +447,6 @@ export default function RegisterPartClient({
                 <th className=" border border-x-black">ขนาดเสื้อ</th>
                 <th className=" border border-x-black">กรุปของนิสิต</th>
                 <th className=" border border-x-black">ปัญหาสุขภาพ</th>
-                <th className=" border border-x-black">select</th>
               </tr>
               {regisBaan.pees.map((user: ShowMember) => (
                 <tr>
@@ -484,7 +482,7 @@ export default function RegisterPartClient({
                       {user.helthIsueId.toString()}
                     </td>
                   ) : (
-                    <td className=" border border-x-black">-</td>
+                    <td className=" border border-x-black"> null</td>
                   )}
                   <td className=" border border-x-black">
                     <Checkbox
@@ -563,7 +561,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td className=" border border-x-black">-</td>
+                      <td className=" border border-x-black"> null</td>
                     )}
                     {have ? (
                       <Checkbox
@@ -637,7 +635,7 @@ export default function RegisterPartClient({
                         {user.helthIsueId.toString()}
                       </td>
                     ) : (
-                      <td className=" border border-x-black">-</td>
+                      <td className=" border border-x-black"> null</td>
                     )}
                     {have ? (
                       <Checkbox
