@@ -391,9 +391,9 @@ export default function RegisterPartClient({
                   </td>
                   <td
                     className=" border border-x-black"
-                    onClick={() => {
-                      alert(user._id.toString());
-                    }}
+                    // onClick={() => {
+                    //   alert(user._id.toString());
+                    // }}
                   >
                     {user.id}
                   </td>
@@ -464,9 +464,9 @@ export default function RegisterPartClient({
                   </td>
                   <td
                     className=" border border-x-black"
-                    onClick={() => {
-                      alert(user._id.toString());
-                    }}
+                    // onClick={() => {
+                    //   alert(user._id.toString());
+                    // }}
                   >
                     {user.id}
                   </td>
@@ -546,9 +546,9 @@ export default function RegisterPartClient({
                     </td>
                     <td
                       className=" border border-x-black"
-                      onClick={() => {
-                        alert(user._id.toString());
-                      }}
+                      // onClick={() => {
+                      //   alert(user._id.toString());
+                      // }}
                     >
                       {user.id}
                     </td>
@@ -619,9 +619,9 @@ export default function RegisterPartClient({
                     </td>
                     <td
                       className=" border border-x-black"
-                      onClick={() => {
-                        alert(user._id.toString());
-                      }}
+                      // onClick={() => {
+                      //   alert(user._id.toString());
+                      // }}
                     >
                       {user.id}
                     </td>
