@@ -14,7 +14,7 @@ import {
 } from "../../intreface";
 import dayjs from "dayjs";
 import { InterTimeOffset } from "../../interface";
-const deploy = true;
+const deploy = false;
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
   number

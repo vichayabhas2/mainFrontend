@@ -50,7 +50,9 @@ export default function page() {
           <MenuItem
             onClick={() => {
               setGroup(g);
+              alert(g)
             }}
+            value={g}
           >
             {g}
           </MenuItem>

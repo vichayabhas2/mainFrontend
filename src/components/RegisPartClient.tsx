@@ -386,12 +386,15 @@ export default function RegisterPartClient({
                   <td className=" border border-x-black">{user.lastname}</td>
                   <td className=" border border-x-black">{user.gender}</td>
                   <td className=" border border-x-black">
-                    {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}{" "}
+                    {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}
                   </td>
                   <td
                     className=" border border-x-black"
+                    onClick={() => {
+                      alert(user._id);
+                    }}
                   >
-                    {user._id.toString()}
+                    {user.id}
                   </td>
                   <td className=" border border-x-black">{user.studentId}</td>
                   <td className=" border border-x-black">{user.tel}</td>
@@ -455,12 +458,15 @@ export default function RegisterPartClient({
                   <td className=" border border-x-black">{user.lastname}</td>
                   <td className=" border border-x-black">{user.gender}</td>
                   <td className=" border border-x-black">
-                    {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}{" "}
+                    {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}
                   </td>
                   <td
                     className=" border border-x-black"
+                    onClick={() => {
+                      alert(user._id);
+                    }}
                   >
-                    {user._id.toString()}
+                    {user.id}
                   </td>
                   <td className=" border border-x-black">{user.studentId}</td>
                   <td className=" border border-x-black">{user.tel}</td>
@@ -538,8 +544,11 @@ export default function RegisterPartClient({
                     </td>
                     <td
                       className=" border border-x-black"
+                      onClick={() => {
+                        alert(user._id);
+                      }}
                     >
-                      {user._id.toString()}
+                      {user.id}
                     </td>
                     <td className=" border border-x-black">{user.studentId}</td>
                     <td className=" border border-x-black">{user.tel}</td>
@@ -610,10 +619,9 @@ export default function RegisterPartClient({
                       className=" border border-x-black"
                       onClick={() => {
                         alert(user._id);
-                        alert(user._id.toString());
                       }}
                     >
-                      {user._id.toString()}
+                      {user.id}
                     </td>
                     <td className=" border border-x-black">{user.studentId}</td>
                     <td className=" border border-x-black">{user.tel}</td>
