@@ -28,7 +28,7 @@ export default function TestDateTime({
   const [displayhour, setDisplayHour] = useState<number>(displayOffset.hour);
   const [displayday, setDisplayDay] = useState<number>(displayOffset.day);
   const [select, setSelect] = useState<Dayjs>(dayjs(Date.now()));
-  const dateObjn = dayjs(Date.now())
+  const dateObjn = dayjs(new Date(Date.now()))
     .add(-displayMinute, "minutes")
     .add(-displayhour, "hours")
     .add(-displayday, "days")
