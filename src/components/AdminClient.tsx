@@ -107,6 +107,7 @@ export default function AdminClient({
               setDateStart(newValue);
               console.log(newValue);
             }}
+            disablePast
           />
         </LocalizationProvider>
       </div>
@@ -120,6 +121,7 @@ export default function AdminClient({
               setDateEnd(newValue);
               console.log(newValue);
             }}
+            disablePast
           />
         </LocalizationProvider>
       </div>

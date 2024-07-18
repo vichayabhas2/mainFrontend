@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useState } from "react";
 import mongoose from "mongoose";
 import { Checkbox } from "@mui/material";
-import { swop } from "./setup";
+import { getValue, swop } from "./setup";
 import SelectTemplate from "./SelectTemplate";
 import FinishButton from "./FinishButton";
 import admission from "@/libs/camp/admission";
@@ -72,7 +72,7 @@ export default function RegisterPartClient({
                 router.push(`/userProfile/${v.key}`);
               }}
             >
-              {v.key.toString()}
+              {getValue(camp.nongMapIdGtoL, v.key)} 
             </td>
             <td className=" border border-x-black">
               <Link href={v.value || ""}>link</Link>
@@ -128,7 +128,7 @@ export default function RegisterPartClient({
                     router.push(`/userProfile/${v.key}`);
                   }}
                 >
-                  {v.key.toString()}
+                  {getValue(camp.nongMapIdGtoL, v.key)}
                 </td>
                 <td className=" border border-x-black">
                   <Link href={v.value}>link</Link>
@@ -214,7 +214,7 @@ export default function RegisterPartClient({
                 router.push(`/userProfile/${v.key}`);
               }}
             >
-              {v.key.toString()}
+              {getValue(camp.nongMapIdGtoL, v.key)} 
             </td>
             <td className=" border border-x-black">
               <Link href={v.value}>link</Link>
@@ -295,7 +295,7 @@ export default function RegisterPartClient({
                 router.push(`/userProfile/${v.toString()}`);
               }}
             >
-              {v.toString()}
+              {getValue(camp.nongMapIdGtoL, v)}
             </td>
 
             <td className=" border border-x-black">

@@ -50,6 +50,7 @@ export default function UpdateProfileRaw({
             defaultValue={name}
             className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </div>
         <div className="flex flex-row items-center my-5">
@@ -60,6 +61,7 @@ export default function UpdateProfileRaw({
             defaultValue={lastname}
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setLastname(e.target.value)}
+            required
           />
         </div>
         <div className="flex flex-row items-center">
@@ -70,6 +72,7 @@ export default function UpdateProfileRaw({
             defaultValue={nickname}
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setNickname(e.target.value)}
+            required
           />
         </div>
         <div className="flex flex-row items-center my-5">
@@ -77,9 +80,11 @@ export default function UpdateProfileRaw({
           <TextField
             name="Email"
             id="Email"
+            type="email"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setEmail(e.target.value)}
             defaultValue={email}
+            required
           />
         </div>
 
@@ -88,9 +93,11 @@ export default function UpdateProfileRaw({
           <TextField
             name="Tel"
             id="Tel"
+            type='number'
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setTel(e.target.value)}
             defaultValue={tel}
+            required
           />
         </div>
         <div className="flex flex-row items-center my-5">
@@ -100,6 +107,9 @@ export default function UpdateProfileRaw({
           <TextField
             name="citizenId"
             id="citizenId"
+            type='number'
+            required
+            
             defaultValue={citizenId}
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setCitizenId(e.target.value)}

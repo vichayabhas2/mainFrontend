@@ -131,6 +131,7 @@ export default function UpdateCampClient({
           <TextField
             name="Tel"
             id="Tel"
+            type="url"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setRegisterSheetLink(e.target.value)}
             defaultValue={camp.registerSheetLink}
@@ -143,6 +144,7 @@ export default function UpdateCampClient({
           <TextField
             name="Email"
             id="Email"
+            type="url"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setLink(e.target.value)}
             defaultValue={camp.link}
@@ -154,6 +156,7 @@ export default function UpdateCampClient({
           <TextField
             name="Tel"
             id="Tel"
+            type="url"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setPictureUrls(e.target.value.split(","))}
             defaultValue={camp.pictureUrls.toLocaleString()}
@@ -164,6 +167,7 @@ export default function UpdateCampClient({
           <TextField
             name="Tel"
             id="Tel"
+            type="url"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setLogoUrl(e.target.value)}
             defaultValue={camp.logoUrl}
@@ -273,6 +277,7 @@ export default function UpdateCampClient({
                 setDateStart(newValue);
                 console.log(newValue);
               }}
+              disablePast
             />
           </LocalizationProvider>
         </div>
@@ -286,6 +291,7 @@ export default function UpdateCampClient({
                 setDateEnd(newValue);
                 console.log(newValue);
               }}
+              disablePast
             />
           </LocalizationProvider>
         </div>
@@ -293,7 +299,7 @@ export default function UpdateCampClient({
           <button
             className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
             onClick={() => {
-              if (dateStart && dateEnd) {
+              if (dateStart && dateEnd && dateStart.isBefore(dateEnd)) {
                 try {
                   updateCamp(
                     {

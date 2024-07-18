@@ -14,7 +14,7 @@ import {
 } from "../../intreface";
 import dayjs from "dayjs";
 import { InterTimeOffset } from "../../interface";
-const deploy = true;
+const deploy = false;
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
   number
@@ -107,7 +107,7 @@ export function mapBoolToArray(
   });
   return out;
 }
-export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
+/*export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
   const {
     name,
     fullName,
@@ -369,7 +369,7 @@ export function conPartBackToFront(input: InterPartBack): InterPartFront {
     peeSleepIds,
     _id,
   };
-}
+}*/
 export function mapStringToMyMap(
   input: Map<mongoose.Types.ObjectId, string>
 ): MyMap[] {
@@ -452,7 +452,7 @@ export function hasKey(
 export function getValue(input: MyMap[], id: mongoose.Types.ObjectId): string {
   var i = 0;
   while (i < input.length) {
-    if (input[i++].key.toString().localeCompare(id.toString())) {
+    if (!input[i++].key.toString().localeCompare(id.toString())) {
       return input[i - 1].value;
     }
   }
@@ -485,3 +485,16 @@ export function addTime(input: Date, add: InterTimeOffset): Date {
     .add(-add.minute, "minutes")
     .toDate();
 }
+const removeDups = (
+  arr: mongoose.Types.ObjectId[]
+): mongoose.Types.ObjectId[] => {
+  let unique: mongoose.Types.ObjectId[] = arr.reduce(function (
+    acc: mongoose.Types.ObjectId[],
+    curr: mongoose.Types.ObjectId
+  ) {
+    if (!acc.includes(curr)) acc.push(curr);
+    return acc;
+  },
+  []);
+  return unique;
+};
