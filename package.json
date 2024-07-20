@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@angular/core": "^18.1.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.14",
@@ -20,6 +21,7 @@
     "@types/react-dom": "18.2.19",
     "bcrypt": "^5.1.1",
     "dayjs": "^1.11.10",
+    "excel": "^1.0.1",
     "mongodb-client-encryption": "^6.0.1",
     "mongoose": "^8.5.0",
     "next": "^13.5.6",
@@ -29,7 +31,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^9.1.2",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

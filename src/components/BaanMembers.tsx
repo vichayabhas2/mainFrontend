@@ -1,20 +1,27 @@
 "use client";
 import {
   InterBaanFront,
+  InterCampFront,
   InterUser,
+  Mode,
   RoleCamp,
   ShowMember,
+  ShowNong,
 } from "../../interface";
 import { useRouter } from "next/navigation";
+import FinishButton from "./FinishButton";
+import { AppComponent, downloadExcelFile, downToShowNong, generateExcelData } from "./setup";
 
 export default function BaanMembers({
   baan,
   campRole,
   pees,
   nongs,
+  camp
 }: {
+  camp:InterCampFront
   baan: InterBaanFront;
-  campRole: RoleCamp;
+  campRole: Mode;
   nongs: ShowMember[];
   pees: ShowMember[];
 }) {
@@ -22,7 +29,10 @@ export default function BaanMembers({
   return (
     <main className="text-center p-5">
       <div>
-        <div>รายชื่อน้องบ้าน{baan.fullName}</div>
+        <div>รายชื่อน้อง{camp.groupName} {baan.fullName}</div>
+        <FinishButton text="download" onClick={()=>{
+          generateExcelData(nongs)
+        }}/>
         <table>
           <tr>
             <th>ชือเล่น</th>
@@ -80,7 +90,11 @@ export default function BaanMembers({
         </table>
       </div>
       <div>
-        <div>รายชื่อพี่บ้าน{baan.fullName}</div>
+        <div>รายชื่อพี่{camp.groupName} {baan.fullName}</div>
+        <FinishButton text="download" onClick={()=>{
+
+          generateExcelData(pees.map(downToShowNong))
+        }}/>
         <table>
           <tr>
             <th>ชือเล่น</th>

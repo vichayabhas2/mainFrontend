@@ -13,7 +13,7 @@ import {
   MyMap,
 } from "../../intreface";
 import dayjs from "dayjs";
-import { InterTimeOffset } from "../../interface";
+import { InterTimeOffset, ShowMember, ShowNong } from "../../interface";
 const deploy = false;
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
@@ -498,3 +498,61 @@ const removeDups = (
   []);
   return unique;
 };
+import * as XLSX from "xlsx";
+import React from "react";
+
+//import { Observable } from 'rxjs/Observable';
+export class AppComponent {
+  
+
+  fireEvent(data:any) {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
+      data
+    );
+
+    /* new format */
+    var fmt = "0.00";
+    /* change cell format of range B2:D4 */
+    var range = { s: { r: 1, c: 1 }, e: { r: 2, c: 100000 } };
+    for (var R = range.s.r; R <= range.e.r; ++R) {
+      for (var C = range.s.c; C <= range.e.c; ++C) {
+        var cell = ws[XLSX.utils.encode_cell({ r: R, c: C })];
+        if (!cell || cell.t != "n") continue; // only format numeric cells
+        cell.z = fmt;
+      }
+    }
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    var fmt = "@";
+    wb.Sheets["Sheet1"]["F"] = fmt;
+
+    /* save to file */
+    XLSX.writeFile(wb, "SheetJS.xlsx");
+  }
+}
+
+import { utils, writeFile } from "xlsx";
+
+export function generateExcelData(data: any) {
+  const worksheet = utils.json_to_sheet(data);
+  const workbook = utils.book_new();
+  utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  const excelData = writeFile(workbook, "products.xlsx", {
+    compression: true,
+  });
+  return excelData;
+}
+export function downloadExcelFile(data: any) {
+  const excelData = generateExcelData(data);
+  const blob = new Blob([excelData], { type: "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", "data.xlsx");
+  document.body.appendChild(link);
+  link.click();
+}
+export function downToShowNong({name,nickname,lastname,gender,id}:ShowMember):ShowNong{
+  return {name,nickname,lastname,gender,id}
+
+}

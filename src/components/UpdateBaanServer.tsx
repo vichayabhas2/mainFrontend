@@ -37,7 +37,7 @@ export default async function UpdateBaanServer({
         allBuildings={allBuilding}
         camp={camp}
       />
-      <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} />
+      <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} camp={camp} />
     </>
   );
 }

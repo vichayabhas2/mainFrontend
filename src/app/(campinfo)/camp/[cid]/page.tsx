@@ -107,7 +107,7 @@ export default async function HospitalDetailPage({
               <td>{girl?.buildingName.toString()}</td>
             </tr>
           </table>
-          <BaanMembers baan={baan} campRole="nong" pees={pees} nongs={nongs} />
+          <BaanMembers baan={baan} campRole="nong" pees={pees} nongs={nongs} camp={campDetail} />
         </>
       );
     } else if (campDetail.peeIds.includes(userId)) {
@@ -173,6 +173,7 @@ export default async function HospitalDetailPage({
             campRole={user.mode}
             pees={pees}
             nongs={nongs}
+            camp={campDetail}
           />
           <PartClient
             pees={PeeParts}
