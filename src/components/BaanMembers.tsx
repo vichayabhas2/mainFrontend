@@ -10,16 +10,16 @@ import {
 } from "../../interface";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
-import { AppComponent, downloadExcelFile, downToShowNong, generateExcelData } from "./setup";
+import { downToShowNong, generateExcelData } from "./setup";
 
 export default function BaanMembers({
   baan,
   campRole,
   pees,
   nongs,
-  camp
+  camp,
 }: {
-  camp:InterCampFront
+  camp: InterCampFront;
   baan: InterBaanFront;
   campRole: Mode;
   nongs: ShowMember[];
@@ -29,10 +29,25 @@ export default function BaanMembers({
   return (
     <main className="text-center p-5">
       <div>
-        <div>รายชื่อน้อง{camp.groupName} {baan.fullName}</div>
-        <FinishButton text="download" onClick={()=>{
-          generateExcelData(nongs)
-        }}/>
+        <div>
+          รายชื่อน้อง{camp.groupName} {baan.fullName}
+        </div>
+        <FinishButton
+          text="download"
+          onClick={() => {
+            if (campRole === "pee") {
+              generateExcelData(
+                nongs,
+                `รายชื่อน้อง${camp.groupName} ${baan.name} จากค่าย ${camp.campName}`
+              );
+            } else {
+              generateExcelData(
+                nongs.map(downToShowNong),
+                `รายชื่อน้อง${camp.groupName} ${baan.name} จากค่าย ${camp.campName}`
+              );
+            }
+          }}
+        />
         <table>
           <tr>
             <th>ชือเล่น</th>
@@ -53,8 +68,7 @@ export default function BaanMembers({
               </>
             ) : null}
           </tr>
-          {nongs.map((user: ShowMember) =>
-           (
+          {nongs.map((user: ShowMember) => (
             <tr>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
@@ -62,8 +76,8 @@ export default function BaanMembers({
               <td>{user.gender}</td>
               {campRole !== "nong" ? (
                 <>
-                  <td>{user.sleep?<>ค้างคืน</>:<>ไม่ค้างคืน</>} </td>
-                  <td>{user._id.toString()}</td>
+                  <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                  <td>{user.id.toString()}</td>
                   <td>{user.studentId}</td>
                   <td>{user.tel}</td>
                   <td>{user.email}</td>
@@ -90,11 +104,25 @@ export default function BaanMembers({
         </table>
       </div>
       <div>
-        <div>รายชื่อพี่{camp.groupName} {baan.fullName}</div>
-        <FinishButton text="download" onClick={()=>{
-
-          generateExcelData(pees.map(downToShowNong))
-        }}/>
+        <div>
+          รายชื่อพี่{camp.groupName} {baan.fullName}
+        </div>
+        <FinishButton
+          text="download"
+          onClick={() => {
+            if (campRole === "pee") {
+              generateExcelData(
+                pees,
+                `รายชื่อพี่${camp.groupName} ${baan.name} จากค่าย ${camp.campName}`
+              );
+            } else {
+              generateExcelData(
+                pees.map(downToShowNong),
+                `รายชื่อพี่${camp.groupName} ${baan.name} จากค่าย ${camp.campName}`
+              );
+            }
+          }}
+        />
         <table>
           <tr>
             <th>ชือเล่น</th>
@@ -123,8 +151,8 @@ export default function BaanMembers({
               <td>{user.gender}</td>
               {campRole !== "nong" ? (
                 <>
-                  <td>{user.sleep?<>ค้างคืน</>:<>ไม่ค้างคืน</>} </td>
-                  <td>{user._id.toString()}</td>
+                  <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                  <td>{user.id.toString()}</td>
                   <td>{user.studentId}</td>
                   <td>{user.tel}</td>
                   <td>{user.email}</td>

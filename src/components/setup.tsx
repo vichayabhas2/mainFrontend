@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { utils, writeFile } from "xlsx";
 import {
   InterBaanBack,
   InterBaanFront,
@@ -14,6 +15,9 @@ import {
 } from "../../intreface";
 import dayjs from "dayjs";
 import { InterTimeOffset, ShowMember, ShowNong } from "../../interface";
+import Link from "next/link";
+import React from "react";
+
 const deploy = false;
 export function startSize(): Map<
   "S" | "M" | "L" | "XL" | "XXL" | "3XL",
@@ -498,61 +502,93 @@ const removeDups = (
   []);
   return unique;
 };
-import * as XLSX from "xlsx";
-import React from "react";
-
-//import { Observable } from 'rxjs/Observable';
-export class AppComponent {
-  
-
-  fireEvent(data:any) {
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
-      data
-    );
-
-    /* new format */
-    var fmt = "0.00";
-    /* change cell format of range B2:D4 */
-    var range = { s: { r: 1, c: 1 }, e: { r: 2, c: 100000 } };
-    for (var R = range.s.r; R <= range.e.r; ++R) {
-      for (var C = range.s.c; C <= range.e.c; ++C) {
-        var cell = ws[XLSX.utils.encode_cell({ r: R, c: C })];
-        if (!cell || cell.t != "n") continue; // only format numeric cells
-        cell.z = fmt;
-      }
-    }
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    var fmt = "@";
-    wb.Sheets["Sheet1"]["F"] = fmt;
-
-    /* save to file */
-    XLSX.writeFile(wb, "SheetJS.xlsx");
-  }
-}
-
-import { utils, writeFile } from "xlsx";
-
-export function generateExcelData(data: any) {
+export function generateExcelData(data: any, fileName: string) {
   const worksheet = utils.json_to_sheet(data);
   const workbook = utils.book_new();
   utils.book_append_sheet(workbook, worksheet, "Sheet1");
-  const excelData = writeFile(workbook, "products.xlsx", {
+  const excelData = writeFile(workbook, `${fileName}.xlsx`, {
     compression: true,
   });
   return excelData;
 }
-export function downloadExcelFile(data: any) {
-  const excelData = generateExcelData(data);
-  const blob = new Blob([excelData], { type: "application/octet-stream" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.setAttribute("download", "data.xlsx");
-  document.body.appendChild(link);
-  link.click();
+export function downToShowNong({
+  name,
+  nickname,
+  lastname,
+  gender,
+  id,
+}: ShowMember): ShowNong {
+  return { name, nickname, lastname, gender, id };
 }
-export function downToShowNong({name,nickname,lastname,gender,id}:ShowMember):ShowNong{
-  return {name,nickname,lastname,gender,id}
-
+////////////////////////////////////////////////////////////////////////////////////
+export function peeLookupNong<TValue>(
+  pees: TValue[],
+  nongs: TValue[]
+): TValue[] {
+  const mp = pees.length;
+  const mn = nongs.length;
+  var n = 0;
+  var p = 0;
+  const outs: TValue[] = [];
+  var i = 0;
+  if (mp > mn) {
+    var count = mp / (mn + 1);
+    console.log(count);
+    const exc = mp % (mn + 1);
+    if (exc) {
+      outs.push(pees[p++]);
+      count--;
+    }
+    var j = 0;
+    while (j < count) {
+      outs.push(pees[p++]);
+      j++;
+    }
+    while (i < mn) {
+      outs.push(nongs[n++]);
+      if (exc > ++i) {
+        outs.push(pees[p++]);
+      }
+      var j = 0;
+      while (j < count) {
+        outs.push(pees[p++]);
+        j++;
+      }
+    }
+  } else {
+    var count = mn / (mp - 1);
+    console.log(count);
+    const exc = mn % (mp - 1);
+    outs.push(pees[p++]);
+    if (exc) {
+      outs.push(nongs[n++]);
+      count--;
+    }
+    var j = 0;
+    while (j < count) {
+      outs.push(nongs[n++]);
+      j++;
+    }
+    while (i < mp - 2) {
+      outs.push(pees[p++]);
+      if (exc > ++i) {
+        outs.push(nongs[n++]);
+      }
+      var j = 0;
+      while (j < count) {
+        outs.push(nongs[n++]);
+        j++;
+      }
+    }
+    outs.push(pees[p++]);
+  }
+  return outs;
+}
+export function stringToHtml(input: string): React.ReactNode {
+  try {
+    const url = new URL(input);
+    return <Link href={url}>{input}</Link>;
+  } catch (e) {
+    return <>{input}</>;
+  }
 }

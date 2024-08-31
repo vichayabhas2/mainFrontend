@@ -58,6 +58,9 @@ export default function UpdateBaanClient({
   const [fullName, setFullName] = useState<string | null>(baan.fullName);
   const [link, setLink] = useState<string | null>(baan.link);
   const buildings: string[] = [];
+  const [nongSendMessage, setNongSendmessage] = useState<boolean>(
+    baan.nongSendMessage
+  );
   allPlace.forEach((e, input: string) => {
     buildings.push(input);
   });
@@ -252,6 +255,7 @@ export default function UpdateBaanClient({
                       girlSleepPlaceId: gP ? gP._id : null,
                       boySleepPlaceId: bP ? bP._id : null,
                       nomalPlaceId: nP ? nP._id : null,
+                      nongSendMessage,
                     },
                     session.user.token
                   );
