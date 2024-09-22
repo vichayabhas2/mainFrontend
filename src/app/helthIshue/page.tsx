@@ -23,8 +23,10 @@ export default async function name() {
       extra: "",
       isWearing: false,
       spicy: false,
+      foodConcern: "",
     };
   }
-  return<HelthIshueClient helthIshue={helthIshue} token={session.user.token}/>
-
+  return (
+    <HelthIshueClient helthIshue={helthIshue} token={session.user.token} />
+  );
 }

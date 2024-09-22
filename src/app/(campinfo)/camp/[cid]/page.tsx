@@ -60,6 +60,7 @@ export default async function HospitalDetailPage({
       const baan = await getBaan(nongCamp.baanId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+      console.log(nongs)
       const boy = baan.boySleepPlaceId
         ? await getShowPlace(baan.boySleepPlaceId)
         : null;

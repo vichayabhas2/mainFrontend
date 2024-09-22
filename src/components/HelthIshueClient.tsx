@@ -20,6 +20,7 @@ export default function HelthIshueClient({
   const [extra, set5] = useState<string>(helthIshue.extra);
   const [isWearing, set6] = useState<boolean>(helthIshue.isWearing);
   const [mode, setMode] = useState<boolean>(false);
+  const [foodConcern, set7] = useState<string>(helthIshue.foodConcern);
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">ปัญหาสุขภาพ</div>
@@ -110,7 +111,15 @@ export default function HelthIshueClient({
           text="update"
           onClick={() => {
             updateHelth(
-              { food, chronicDisease, medicine, spicy, extra, isWearing },
+              {
+                food,
+                chronicDisease,
+                medicine,
+                spicy,
+                extra,
+                isWearing,
+                foodConcern,
+              },
               token
             );
           }}

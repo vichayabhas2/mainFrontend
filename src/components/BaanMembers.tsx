@@ -68,39 +68,42 @@ export default function BaanMembers({
               </>
             ) : null}
           </tr>
-          {nongs.map((user: ShowMember) => (
-            <tr>
-              <td>{user.nickname}</td>
-              <td>{user.name}</td>
-              <td>{user.lastname}</td>
-              <td>{user.gender}</td>
-              {campRole !== "nong" ? (
-                <>
-                  <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                  <td>{user.id.toString()}</td>
-                  <td>{user.studentId}</td>
-                  <td>{user.tel}</td>
-                  <td>{user.email}</td>
-                  <td>{user.haveBottle.toString()}</td>
-                  <td>{user.shertSize}</td>
-                  <td>{user.group}</td>
-                  {user.helthIsueId ? (
-                    <td
-                      onClick={() => {
-                        router.push(
-                          `/helthIshue/${user.helthIsueId?.toString()}`
-                        );
-                      }}
-                    >
-                      {user.helthIsueId.toString()}
-                    </td>
-                  ) : (
-                    <td> null</td>
-                  )}
-                </>
-              ) : null}
-            </tr>
-          ))}
+          {nongs.map((user: ShowMember) => {
+            console.log(user)
+            return (
+              <tr>
+                <td>{user.nickname}</td>
+                <td>{user.name}</td>
+                <td>{user.lastname}</td>
+                <td>{user.gender}</td>
+                {campRole !== "nong" ? (
+                  <>
+                    <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
+                    <td>{user._id.toString()}</td>
+                    <td>{user.studentId}</td>
+                    <td>{user.tel}</td>
+                    <td>{user.email}</td>
+                    <td>{user.haveBottle.toString()}</td>
+                    <td>{user.shertSize}</td>
+                    <td>{user.group}</td>
+                    {user.helthIsueId ? (
+                      <td
+                        onClick={() => {
+                          router.push(
+                            `/helthIshue/${user.helthIsueId?.toString()}`
+                          );
+                        }}
+                      >
+                        {user.helthIsueId.toString()}
+                      </td>
+                    ) : (
+                      <td> null</td>
+                    )}
+                  </>
+                ) : null}
+              </tr>
+            );
+          })}
         </table>
       </div>
       <div>
@@ -152,7 +155,7 @@ export default function BaanMembers({
               {campRole !== "nong" ? (
                 <>
                   <td>{user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>} </td>
-                  <td>{user.id.toString()}</td>
+                  <td>{user._id.toString()}</td>
                   <td>{user.studentId}</td>
                   <td>{user.tel}</td>
                   <td>{user.email}</td>

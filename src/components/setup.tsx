@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 import { InterTimeOffset, ShowMember, ShowNong } from "../../interface";
 import Link from "next/link";
 import React from "react";
+import DateConv from "./Dateconv";
 
 const deploy = false;
 export function startSize(): Map<
@@ -111,269 +112,6 @@ export function mapBoolToArray(
   });
   return out;
 }
-/*export function conBaanBackToFront(input: InterBaanBack): InterBaanFront {
-  const {
-    name,
-    fullName,
-    campId,
-    peeIds,
-    nongIds,
-    nongHelthIsueIds,
-    peeHelthIsueIds,
-    nongShertSize,
-    peeShertSize,
-    songIds,
-    nongHaveBottle,
-    peeHaveBottle,
-    nongHaveBottleMapIds,
-    peeHaveBottleMapIds,
-    peeModelIds,
-    nongModelId,
-    nongShertManageIds,
-    peeShertManageIds,
-    link,
-    styleId,
-    boySleepPlaceId,
-    girlSleepPlaceId,
-    mapShertManageIdByUserId,
-    nomalPlaceId,
-    _id,
-    peeSleepIds,
-    nongSleepIds,
-    groupRef,
-  } = input;
-  return {
-    name,
-    fullName,
-    campId,
-    link,
-    peeHaveBottle,
-    nomalPlaceId,
-    nongHaveBottle,
-    nongHelthIsueIds,
-    nongIds,
-    nongModelId,
-    nongShertManageIds,
-    peeHelthIsueIds,
-    peeIds,
-    peeShertManageIds,
-    peeModelIds,
-    peeShertSize: sizeMapToJson(peeShertSize),
-    nongShertSize: sizeMapToJson(nongShertSize),
-    songIds,
-    styleId,
-    boySleepPlaceId,
-    girlSleepPlaceId,
-    groupRef,
-    peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
-    nongHaveBottleMapIds: mapBoolToArray(nongHaveBottleMapIds),
-    mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
-    _id,
-    peeSleepIds,
-    nongSleepIds,
-  };
-}
-export function conCampBackToFront(input: InterCampBack): InterCampFront {
-  const {
-    nameId,
-    round,
-    dateStart,
-    dateEnd,
-    boardIds,
-    peeIds,
-    nongIds,
-    partIds,
-    petoIds,
-    authorizeIds,
-    nongHelthIsueIds,
-    peeHelthIsueIds,
-    petoHelthIsueIds,
-    dataLock,
-    nongShertSize,
-    peeShertSize,
-    petoShertSize,
-    nongModelIds,
-    peeModelIds,
-    petoModelIds,
-    nongPendingIds, /////////////i
-    nongPassIds, ////////////////////i
-    open,
-    peePassIds, //<userId,partId>               ////////////////////////i
-    songIds,
-    nongHaveBottle,
-    peeHaveBottle,
-    petoHaveBottle,
-    nongHaveBottleMapIds,
-    peeHaveBottleMapIds,
-    petoHaveBottleMapIds,
-    nongSureIds,
-    baanIds,
-    nongShertManageIds,
-    peeShertManageIds,
-    petoShertManageIds,
-    link,
-    allDone,
-    lockChangePickup,
-    pictureUrls,
-    campStyleId,
-    actionPlanIds,
-    workItemIds,
-    nongPaidIds,
-    nongInterviewIds, ////////////////////////////////i
-    registerModel,
-    memberStructre,
-    mapShertManageIdByUserId,
-    logoUrl,
-    registerSheetLink,
-    peeLock,
-    outRoundIds,
-    campName,
-    _id,
-    peeSleepIds,
-    peeSleepModel,
-    nongSleepIds,
-    nongSleepModel,
-    baanBordId,
-    partNameIds,
-    partBoardId,
-    partCoopId,
-    partRegiterId,
-    partPeeBaanId,
-    groupName,
-    peeDataLock,
-    petoDataLock,
-    haveCloth,
-    actionPlanOffset,
-    currentNong,
-    currentPee,
-  } = input;
-  return {
-    partIds,
-    open,
-    peeHaveBottle,
-    peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
-    peeHelthIsueIds,
-    peeIds,
-    peeModelIds,
-    peePassIds: mapObjectIdToMyMap(peePassIds),
-    peeShertManageIds,
-    peeShertSize: sizeMapToJson(peeShertSize),
-    petoHaveBottle,
-    petoHaveBottleMapIds: mapBoolToArray(petoHaveBottleMapIds),
-    petoHelthIsueIds,
-    petoIds,
-    petoModelIds,
-    petoShertManageIds,
-    petoShertSize: sizeMapToJson(petoShertSize),
-    pictureUrls,
-    nameId,
-    nongHaveBottle,
-    nongHaveBottleMapIds: mapBoolToArray(nongHaveBottleMapIds),
-    nongHelthIsueIds,
-    nongIds,
-    nongInterviewIds: mapStringToMyMap(nongInterviewIds),
-    nongModelIds,
-    nongPaidIds,
-    nongPassIds: mapStringToMyMap(nongPassIds),
-    nongPendingIds: mapStringToMyMap(nongPendingIds),
-    nongShertManageIds,
-    nongShertSize: sizeMapToJson(nongShertSize),
-    nongSureIds,
-    registerModel,
-    round,
-    actionPlanIds,
-    allDone,
-    authorizeIds,
-    baanIds,
-    boardIds,
-    campStyleId,
-    link,
-    lockChangePickup,
-    dataLock,
-    dateEnd,
-    dateStart,
-    memberStructre,
-    workItemIds,
-    songIds,
-    logoUrl,
-    mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
-    registerSheetLink,
-    peeLock,
-    outRoundIds,
-    campName,
-    _id,
-    peeSleepIds,
-    peeSleepModel,
-    nongSleepIds,
-    nongSleepModel,
-    baanBordId,
-    partNameIds,
-    partBoardId,
-    partCoopId,
-    partRegiterId,
-    partPeeBaanId,
-    groupName,
-    peeDataLock,
-    petoDataLock,
-    haveCloth,
-    actionPlanOffset,
-    currentNong,
-    currentPee,
-  };
-}
-export function conPartBackToFront(input: InterPartBack): InterPartFront {
-  const {
-    nameId,
-    campId,
-    peeIds,
-    petoIds,
-    peeHelthIsueIds,
-    petoHelthIsueIds,
-    peeShertSize,
-    petoShertSize,
-    peeHaveBottle,
-    petoHaveBottle,
-    peeHaveBottleMapIds,
-    petoHaveBottleMapIds,
-    peeModelIds,
-    petoModelId,
-    peeShertManageIds,
-    petoShertManageIds,
-    actionPlanIds,
-    workItemIds,
-    mapShertManageIdByUserId,
-    placeId,
-    partName,
-    peeSleepIds,
-    _id,
-  } = input;
-
-  return {
-    actionPlanIds,
-    workItemIds,
-    campId,
-    nameId,
-    peeHaveBottle,
-    peeHaveBottleMapIds: mapBoolToArray(peeHaveBottleMapIds),
-    peeHelthIsueIds,
-    peeIds,
-    peeModelIds,
-    peeShertManageIds,
-    peeShertSize: sizeMapToJson(peeShertSize),
-    petoHaveBottle,
-    petoHaveBottleMapIds: mapBoolToArray(petoHaveBottleMapIds),
-    petoHelthIsueIds,
-    petoIds,
-    petoModelId,
-    petoShertManageIds,
-    petoShertSize: sizeMapToJson(petoShertSize),
-    placeId,
-    mapShertManageIdByUserId: mapObjectIdToMyMap(mapShertManageIdByUserId),
-    partName,
-    peeSleepIds,
-    _id,
-  };
-}*/
 export function mapStringToMyMap(
   input: Map<mongoose.Types.ObjectId, string>
 ): MyMap[] {
@@ -591,4 +329,69 @@ export function stringToHtml(input: string): React.ReactNode {
   } catch (e) {
     return <>{input}</>;
   }
+}
+export const departures = [
+  "วิศวกรรมเคมี (Chemical Engineering)",
+  "วิศวกรรมเคมีและกระบวนการ (นานาชาติ) (Chemical and Process Engineering)",
+  "วิศวกรรมเครื่องกล (Mechanical Engineering)",
+  "วิศวกรรมเรือ (Naval Architecture and Marine Engineering)",
+  "วิศวกรรมยานยนต์ (Automotive Engineering)",
+  "วิศวกรรมไฟฟ้า (Electrical Engineering)",
+  "วิศวกรรมโยธา (Civil Engineering)",
+  "วิศวกรรมโลหการและวัสดุ (Metallurgical and Materials Engineering)",
+  "วิศวกรรมสิ่งแวดล้อม (Environmental Engineering)",
+  "วิศวกรรมสำรวจ (Survey Engineering)",
+  "วิศวกรรมทรัพยากรธรณี (Georesources Engineering)",
+  "วิศวกรรมปิโตรเลียม (Petroleum Engineering)",
+  "วิศวกรรมอุตสาหการ (Industrial Engineering)",
+  "วิศวกรรมคอมพิวเตอร์ (Computer Engineering)",
+  "วิศวกรรมคอมพิวเตอร์และเทคโนโลยีดิจิทัล (หลักสูตร Sandbox) (Computer Engineering and Digital Technology)",
+  "วิศวกรรมนิวเคลียร์และรังสี (Nuclear and Radiological Engineering)",
+  "วิศวกรรมนาโน (นานาชาติ)** (Nano-Engineering)",
+  "วิศวกรรมการออกแบบและการผลิตยานยนต์ (นานาชาติ)** (Automotive Design and Manufacturing Engineering)",
+  "วิศวกรรมอากาศยาน (นานาชาติ)** (Aerospace Engineering)",
+  "วิศวกรรมสารสนเทศและการสื่อสาร (นานาชาติ)** (Information and Communication Engineering)",
+  "วิศวกรรมหุ่นยนต์และปัญญาประดิษฐ์ (นานาชาติ)** (Robotics and Artificial Intelligence Engineering)",
+] as const;
+export const zeroTimeOffset: InterTimeOffset = {
+  userId: new mongoose.Types.ObjectId(),
+  minute: 0,
+  hour: 0,
+  day: 0,
+  _id: new mongoose.Types.ObjectId(),
+};
+export function getTimeHtml(input: Date, offset: InterTimeOffset) {
+  const monthArray = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const dateObj = dayjs(input)
+    .add(-offset.day, "days")
+    .add(-offset.hour, "hours")
+    .add(-offset.minute, "minutes")
+    .toDate();
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = monthArray[dateObj.getMonth()];
+  const year = dateObj.getFullYear();
+  const hours = String(dateObj.getHours()).padStart(2, "0");
+  const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+  return (
+    <DateConv
+      day={day}
+      minutes={minutes}
+      month={month}
+      year={year}
+      hours={hours}
+    />
+  );
 }
