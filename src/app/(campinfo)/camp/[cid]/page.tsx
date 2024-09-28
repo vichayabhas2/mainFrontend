@@ -19,10 +19,10 @@ import ImagesFromUrl from "@/components/ImagesFromUrl";
 import { MyMap } from "../../../../../interface";
 import PartClient from "@/components/PartClient";
 import getPetoCamp from "@/libs/camp/getPetoCamp";
-import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
 import NongSureClient from "@/components/NongSureClient";
 import getTimeOffset from "@/libs/user/getTimeOffset";
 import getShowPlace from "@/libs/randomthing/getShowPlace";
+import { getAllPlaceData } from "@/components/placeSetUp";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -31,8 +31,7 @@ export default async function HospitalDetailPage({
   const campId = params.cid;
   const session = await getServerSession(authOptions);
   if (session) {
-    const allPlace = await getAllPlace();
-    const allBuilding = await getAllBuildings();
+    const allPlaceData = await getAllPlaceData();
     const campDetail = await getCamp(new mongoose.Types.ObjectId(campId));
     const token = session.user.token;
 
@@ -43,7 +42,6 @@ export default async function HospitalDetailPage({
       return <PushToCamps />;
     }
     var campRole: "nong" | "pee" | "peto" | null = null;
-    const curentRole = user.role;
     const userId: mongoose.Types.ObjectId = user._id;
     const timeOffset = await getTimeOffset(user.selectOffsetId);
     const partMap: MyMap[] = [];
@@ -60,7 +58,7 @@ export default async function HospitalDetailPage({
       const baan = await getBaan(nongCamp.baanId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
-      console.log(nongs)
+      console.log(nongs);
       const boy = baan.boySleepPlaceId
         ? await getShowPlace(baan.boySleepPlaceId)
         : null;
@@ -108,7 +106,13 @@ export default async function HospitalDetailPage({
               <td>{girl?.buildingName.toString()}</td>
             </tr>
           </table>
-          <BaanMembers baan={baan} campRole="nong" pees={pees} nongs={nongs} camp={campDetail} />
+          <BaanMembers
+            baan={baan}
+            campRole="nong"
+            pees={pees}
+            nongs={nongs}
+            camp={campDetail}
+          />
         </>
       );
     } else if (campDetail.peeIds.includes(userId)) {
@@ -181,8 +185,7 @@ export default async function HospitalDetailPage({
             petos={peto}
             part={part}
             user={user}
-            allPlace={allPlace}
-            allBuildings={allBuilding}
+            allPlaceData={allPlaceData}
             timeOffset={timeOffset}
             camp={campDetail}
           />
@@ -200,14 +203,12 @@ export default async function HospitalDetailPage({
       return (
         <>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
-
           <PartClient
             pees={PeeParts}
             petos={peto}
             part={part}
             user={user}
-            allPlace={allPlace}
-            allBuildings={allBuilding}
+            allPlaceData={allPlaceData}
             timeOffset={timeOffset}
             camp={campDetail}
           />
@@ -221,9 +222,19 @@ export default async function HospitalDetailPage({
         </>
       );
     } else if (campDetail.nongPaidIds.includes(user._id)) {
-      return <div>คุณได้จ่ายตังแล้ว</div>;
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <div>คุณได้จ่ายตังแล้ว</div>
+        </>
+      );
     } else if (campDetail.nongSureIds.includes(user._id)) {
-      return <div>คุณได้เข้าค่ายแน่นอน</div>;
+      return (
+        <>
+          <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <div>คุณได้เข้าค่ายแน่นอน</div>
+        </>
+      );
     } else if (hasKey(campDetail.nongPassIds, user._id)) {
       return (
         <NongSureClient campDetail={campDetail} user={user} token={token} />
@@ -349,74 +360,8 @@ export default async function HospitalDetailPage({
           }
         }
       }
-    } //ล่อไว้ก่อน
+    }
   } else {
     return <PushToCamps />;
   }
 }
-/*
-const campDetail = await getCamp(params.cid);
-const session=await getSession()
-
-  console.log(session?.user)
-  const user = await getUserProfile(session?.user.token as string);
-  if (!user||!session) {
-    //alert("ghggg");
-    return <PushToCamps />;
-  }
-  var campRole: "nong" | "pee" | "peto" | null = null;
-  const curentRole = session.user.role;
-  const userId: string = user._id
-  const partMap: Map<string, string> = new Map();
-  campDetail.partIds.forEach(async (partId: string) => {
-    const part = await getPart(partId, token);
-    const partName = await getPartName(part.nameId, token);
-    partMap.set(partName.name, part._id);
-  });
-  const token: string = session.user.token as string;
-  if (campDetail.nongIds.includes(userId)) {
-    campRole = "nong";
-    const shertManage = await getShertManageByCampId(campDetail._id, token);
-    const nongCamp = await getNongCamp(shertManage.campModelId, token);
-    const baan = await getBaan(nongCamp.baanId);
-    return <BaanMembers baan={baan} />;
-  } else if (campDetail.peeIds.includes(userId)) {
-    campRole = "pee";
-  } else if (campDetail.petoIds.includes(userId)) {
-    campRole = "peto";
-  } else if (myMapToMapString(campDetail.nongPendingIds).has(user._id)) {
-  } else if (campDetail.nongPaidIds.includes(user._id)) {
-  } else if (myMapToMapString(campDetail.nongPassIds).has(user._id)) {
-  } else if (myMapToMapString(campDetail.peePassIds).has(user._id)) {
-  } else if (myMapToMapString(campDetail.nongInterviewIds).has(user._id)) {
-  } else if (campDetail.open && user.role === "nong") {
-    return (
-      <main>
-        <Link href={campDetail.registerSheetLink}>ใบรับสมัคร</Link>
-        <NongRegisterPage camp={campDetail} token={token} />
-      </main>
-    );
-  } else if (!campDetail.peeLock && user.role !== "nong") {
-    return <LocationDateReserve partMap={partMap} token={token} />;
-  } else {
-    alert("this camp is close");
-
-    return <PushToCamps />;
-  }
-  return (
-    <main className="text-center p-5">
-      <div>
-        <Image
-          src={campDetail.logoUrl}
-          alt="htfugyy"
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="rounded-lg w-[30%]"
-        />
-        <div className="text-md mx-5">{}</div>
-        <div className="text-md mx-5">{}</div>
-        <div className="text-md mx-5">{}</div>
-      </div>
-    </main>
-  );*/

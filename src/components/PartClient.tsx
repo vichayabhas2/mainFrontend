@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import {
+  AllPlaceData,
   InterBuilding,
   InterCampFront,
   InterPartFront,
@@ -29,19 +30,17 @@ export default function PartClient({
   part,
   pees,
   petos,
-  allBuildings,
-  allPlace,
   timeOffset,
   camp,
+  allPlaceData,
 }: {
   part: InterPartFront;
   user: InterUser;
   pees: ShowMember[];
   petos: ShowMember[];
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   timeOffset: InterTimeOffset;
   camp: InterCampFront;
+  allPlaceData: AllPlaceData;
 }) {
   const { data: session } = useSession();
   if (user.mode == "nong" || !session) {
@@ -205,12 +204,14 @@ export default function PartClient({
         {places.map((v, i) => (
           <PlaceSelect
             place={v}
-            allPlace={allPlace}
-            allBuildings={allBuildings}
             onClick={(ouuPut) => {
               places[i] = ouuPut;
               setPlaces(places);
-            } } buildingText={`ตึกที่${i+1}`} placeText={`ชั้นและห้องที่${i+1}`}          />
+            }}
+            buildingText={`ตึกที่${i + 1}`}
+            placeText={`ชั้นและห้องที่${i + 1}`}
+            allPlaceData={allPlaceData}
+          />
         ))}
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
@@ -263,7 +264,12 @@ export default function PartClient({
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setPlus(parseInt(e.target.value))}
           />
-          <FinishButton text="+- action plan" onClick={()=>{plusActionPlan({campId:camp._id,plus},session.user.token)}}/>
+          <FinishButton
+            text="+- action plan"
+            onClick={() => {
+              plusActionPlan({ campId: camp._id, plus }, session.user.token);
+            }}
+          />
         </div>
       </div>
       <div className="w-[80%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">

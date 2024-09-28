@@ -1,27 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { InterBuilding, InterPlace } from "../../interface";
+import { AllPlaceData, InterBuilding, InterPlace } from "../../interface";
 import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
 import { MenuItem, Select } from "@mui/material";
 import BackToHome from "./BackToHome";
 export default function PlaceSelect({
   place,
-  allPlace,
-  allBuildings,
   onClick,
   buildingText,
-  placeText
+  placeText,
+  allPlaceData, //const allPlaceData=await getAllPlaceData()
 }: {
   place: InterPlace | null;
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   onClick: (outPut: InterPlace) => void;
-  buildingText:string;
-  placeText:string
+  buildingText: string;
+  placeText: string;
+  allPlaceData: AllPlaceData; //const allPlaceData=await getAllPlaceData()
 }) {
-
   // dispatch = useDispatch<AppDispatch>();
   //const update = useAppSelector((state) => state.bookSlice.bookItem);
   const { data: session } = useSession();
@@ -29,14 +26,13 @@ export default function PlaceSelect({
   const [nP, setNP] = useState<InterPlace | null>(place);
 
   const [nB, setNB] = useState<string | null>(
-    allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)?.name as
-      | string
-      | null
+    allPlaceData.allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)
+      ?.name as string | null
   );
 
-  const nC = nB ? (allPlace.get(nB) as InterPlace[]) : [];
+  const nC = nB ? (allPlaceData.allPlace.get(nB) as InterPlace[]) : [];
   const buildings: string[] = [];
-  allPlace.forEach((e, input: string) => {
+  allPlaceData.allPlace.forEach((e, input: string) => {
     buildings.push(input);
   });
   if (!session) {
@@ -45,9 +41,7 @@ export default function PlaceSelect({
   return (
     <>
       <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">
-          {buildingText}
-        </label>
+        <label className="w-2/5 text-2xl text-slate-200">{buildingText}</label>
         <Select
           variant="standard"
           name="location"
@@ -65,9 +59,7 @@ export default function PlaceSelect({
         </Select>
       </div>
       <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">
-          {placeText}
-        </label>
+        <label className="w-2/5 text-2xl text-slate-200">{placeText}</label>
         <Select
           variant="standard"
           name="location"

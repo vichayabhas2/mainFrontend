@@ -1,9 +1,8 @@
 import getAllBuilding from "@/libs/randomthing/getAllBuilding";
-import { InterBuilding, InterPlace } from "../../interface";
+import { AllPlaceData, InterBuilding, InterPlace } from "../../interface";
 import getPlaces from "@/libs/randomthing/getPlaces";
 import mongoose from "mongoose";
-
-export async function getAllPlace() {
+async function getAllPlace() {
   const out = new Map<string, InterPlace[]>();
   const buildings = await getAllBuilding();
   var i = 0;
@@ -14,8 +13,7 @@ export async function getAllPlace() {
   //console.log(out);
   return out;
 }
-export const placeReady=await getAllPlace()
-export async function getAllBuildings() {
+export const placeReady = await getAllPlace(); async function getAllBuildings() {
   const out = new Map<mongoose.Types.ObjectId, InterBuilding>();
   const buildings = await getAllBuilding();
   var i = 0;
@@ -26,4 +24,10 @@ export async function getAllBuildings() {
   //console.log(out);
   return out;
 }
-export const AllBuildingsReady=await getAllBuildings()
+export const AllBuildingsReady = await getAllBuildings();
+export async function getAllPlaceData(): Promise<AllPlaceData> {
+  return {
+    allBuildings: await getAllBuildings(),
+    allPlace: await getAllPlace(),
+  };
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import mongoose from "mongoose";
-import { InterBuilding, InterPlace, MyMap } from "../../interface";
+import { AllPlaceData, InterBuilding, InterPlace, MyMap } from "../../interface";
 import { useRef, useState } from "react";
 import { MenuItem, Select, TextField } from "@mui/material";
 import PlaceSelect from "./PlaceSelect";
@@ -9,15 +9,13 @@ import SelectTemplate from "./SelectTemplate";
 import addLostAndFound from "@/libs/randomthing/addLostAndFound";
 
 export default function LostAndFoundClient({
-  allBuildings,
-  allPlace,
   mapIn,
   token,
+  allPlaceData
 }: {
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   mapIn: MyMap[];
   token: string;
+  allPlaceData:AllPlaceData
 }) {
   const userRef = useRef("");
 
@@ -75,13 +73,12 @@ export default function LostAndFoundClient({
       </div>
       <PlaceSelect
         place={null}
-        allPlace={allPlace}
-        allBuildings={allBuildings}
         onClick={(place) => {
           setPlaceId(place._id);
         }}
         buildingText={"ตึกที่พบเจอหรือคิดว่าทำหายถ้ารู้"}
         placeText={"ชั้นและห้องที่พบเจอหรือคิดว่าทำหายถ้ารู้"}
+        allPlaceData={allPlaceData}
       />
       <div className=" rounded-lg ">
         <Select

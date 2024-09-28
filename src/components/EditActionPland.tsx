@@ -5,6 +5,7 @@ import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
 import {
+  AllPlaceData,
   InterBuilding,
   InterPlace,
   MyMap,
@@ -26,18 +27,16 @@ import deleteActionPlan from "@/libs/camp/deleteActionPlan";
 export default function EditActionPland({
   pees,
   petos,
-  allBuildings,
-  allPlace,
   actionPland,
-  pls
+  pls,
+  allPlaceData
 
 }: {
   pees: ShowMember[];
   petos: ShowMember[];
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   actionPland: showActionPlan;
   pls:InterPlace[]
+  allPlaceData:AllPlaceData
 }) {
     const {data:session}=useSession()
     if(!session){
@@ -102,8 +101,7 @@ export default function EditActionPland({
       {places.map((v, i) => (
         <PlaceSelect
           place={v}
-          allPlace={allPlace}
-          allBuildings={allBuildings}
+          allPlaceData={allPlaceData}
           onClick={(ouuPut) => {
             places[i] = ouuPut;
             setPlaces(places);

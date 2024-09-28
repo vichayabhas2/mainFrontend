@@ -5,7 +5,8 @@ import getWorkingItemByPartId from "@/libs/camp/getWorkingItemByPartId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
+import PasswordLock from "@/components/PasswordLock";
 
 export default async function HospitalDetailPage({
   params,
@@ -20,14 +21,19 @@ export default async function HospitalDetailPage({
   if (user.role === "nong") {
     return <BackToHome />;
   }
-  var i=0
-  const workingItems=await getWorkingItemByPartId(new mongoose.Types.ObjectId(params.pid),session.user.token)
-  while(i<workingItems.length){
-    if(!await bcrypt.compare(user.linkHash,workingItems[i++].password)){
-        workingItems[i-1].link=null
+  var i = 0;
+  const workingItems = await getWorkingItemByPartId(
+    new mongoose.Types.ObjectId(params.pid),
+    session.user.token
+  );
+  while (i < workingItems.length) {
+    if (!(await bcrypt.compare(user.linkHash, workingItems[i++].password))) {
+      workingItems[i - 1].link = null;
     }
-}
-  return <>
-  <WorkingItemClient worlingItems={workingItems}/>
-  </>;
+  }
+  return (
+    <PasswordLock token={session.user.token} bypass={user.mode=='pee'}>
+      <WorkingItemClient worlingItems={workingItems} />
+    </PasswordLock>
+  );
 }

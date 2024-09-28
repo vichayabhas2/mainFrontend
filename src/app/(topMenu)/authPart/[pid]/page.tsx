@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
+import PasswordLock from "@/components/PasswordLock";
 import RegisterPartServer from "@/components/RegisterPartServer";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import UpdateCampServer from "@/components/UpdateCampServer";
@@ -35,17 +36,24 @@ export default async function Baan({ params }: { params: { pid: string } }) {
     case camp.partCoopId.toString(): {
       switch (shertManage.role) {
         case "nong": {
-          console.log();
           return <BackToHome />;
         }
         case "pee": {
           const peeCamp = await getPeeCamp(shertManage.campModelId, token);
-          return <UpdateBaanServer baanId={peeCamp.baanId} />;
+          return (
+            <PasswordLock token={token} bypass={user.mode=='pee'}>
+              <UpdateBaanServer baanId={peeCamp.baanId} />
+            </PasswordLock>
+          );
         }
         case "peto": {
-          return camp.baanIds.map((baanId) => (
-            <UpdateBaanServer baanId={baanId} />
-          ));
+          return (
+            <PasswordLock token={token} bypass={user.mode=='pee'}>
+              {camp.baanIds.map((baanId) => (
+                <UpdateBaanServer baanId={baanId} />
+              ))}
+            </PasswordLock>
+          );
         }
       }
     }

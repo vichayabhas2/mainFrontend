@@ -52,11 +52,13 @@ export default function RegisterPartClient({
     key: regisBaan.baan._id,
     value: regisBaan.baan.name,
   }));
-  const regis = partMap.filter((e) => {
-    e.key.toString() !== camp.partBoardId.toString() &&
-      e.key.toString() !== camp.partRegiterId.toString();
-  });
-
+  const regis = partMap.filter(
+    (e) =>
+      e.key.toString() !== camp.partBoardId.toString() &&
+      e.key.toString() !== camp.partRegiterId.toString()
+  );
+  console.log(regisParts);
+  console.log(regisBaans);
   return (
     <div>
       <div>น้องที่สมัครเข้ามา</div>
@@ -72,7 +74,7 @@ export default function RegisterPartClient({
                 router.push(`/userProfile/${v.key}`);
               }}
             >
-              {getValue(camp.nongMapIdGtoL, v.key)} 
+              {getValue(camp.nongMapIdGtoL, v.key)}
             </td>
             <td className=" border border-x-black">
               <Link href={v.value || ""}>link</Link>
@@ -214,7 +216,7 @@ export default function RegisterPartClient({
                 router.push(`/userProfile/${v.key}`);
               }}
             >
-              {getValue(camp.nongMapIdGtoL, v.key)} 
+              {getValue(camp.nongMapIdGtoL, v.key)}
             </td>
             <td className=" border border-x-black">
               <Link href={v.value}>link</Link>

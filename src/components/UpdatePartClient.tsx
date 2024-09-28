@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  AllPlaceData,
   InterBaanFront,
   InterBuilding,
   InterCampFront,
@@ -16,15 +17,13 @@ import BackToHome from "./BackToHome";
 import updatePart from "@/libs/admin/updatePart";
 export default function UpdatePartClient({
   place,
-  allPlace,
-  allBuildings,
-  partId
+  partId,
+  allPlaceData
 
 }: {
   place: InterPlace | null;
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
-  partId:mongoose.Types.ObjectId
+  partId:mongoose.Types.ObjectId,
+  allPlaceData:AllPlaceData
 
 }) {
   // dispatch = useDispatch<AppDispatch>();
@@ -34,14 +33,14 @@ export default function UpdatePartClient({
   const [nP, setNP] = useState<InterPlace | null>(place);
   
   const [nB, setNB] = useState<string | null>(
-    allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)?.name as
+    allPlaceData.allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)?.name as
       | string
       | null
   );
   
-  const nC = nB ? (allPlace.get(nB) as InterPlace[]) : [];
+  const nC = nB ? (allPlaceData.allPlace.get(nB) as InterPlace[]) : [];
   const buildings: string[] = [];
-  allPlace.forEach((e, input: string) => {
+  allPlaceData.allPlace.forEach((e, input: string) => {
     buildings.push(input);
   });
   if (!session) {

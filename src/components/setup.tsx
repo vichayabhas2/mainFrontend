@@ -1,23 +1,15 @@
 import mongoose from "mongoose";
 import { utils, writeFile } from "xlsx";
 import {
-  InterBaanBack,
-  InterBaanFront,
-  InterCampBack,
-  InterCampFront,
-  InterPartBack,
-  InterPartFront,
   InterSize,
-  InterWorkingItem,
   InterActionPlan,
   MapObjectId,
   MyMap,
+  InterTimeOffset,
+  ShowMember,
+  ShowNong,
 } from "../../intreface";
 import dayjs from "dayjs";
-import { InterTimeOffset, ShowMember, ShowNong } from "../../interface";
-import Link from "next/link";
-import React from "react";
-import DateConv from "./Dateconv";
 
 const deploy = false;
 export function startSize(): Map<
@@ -322,14 +314,6 @@ export function peeLookupNong<TValue>(
   }
   return outs;
 }
-export function stringToHtml(input: string): React.ReactNode {
-  try {
-    const url = new URL(input);
-    return <Link href={url}>{input}</Link>;
-  } catch (e) {
-    return <>{input}</>;
-  }
-}
 export const departures = [
   "วิศวกรรมเคมี (Chemical Engineering)",
   "วิศวกรรมเคมีและกระบวนการ (นานาชาติ) (Chemical and Process Engineering)",
@@ -360,38 +344,3 @@ export const zeroTimeOffset: InterTimeOffset = {
   day: 0,
   _id: new mongoose.Types.ObjectId(),
 };
-export function getTimeHtml(input: Date, offset: InterTimeOffset) {
-  const monthArray = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const dateObj = dayjs(input)
-    .add(-offset.day, "days")
-    .add(-offset.hour, "hours")
-    .add(-offset.minute, "minutes")
-    .toDate();
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const month = monthArray[dateObj.getMonth()];
-  const year = dateObj.getFullYear();
-  const hours = String(dateObj.getHours()).padStart(2, "0");
-  const minutes = String(dateObj.getMinutes()).padStart(2, "0");
-  return (
-    <DateConv
-      day={day}
-      minutes={minutes}
-      month={month}
-      year={year}
-      hours={hours}
-    />
-  );
-}

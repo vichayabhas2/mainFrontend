@@ -11,7 +11,6 @@ export default async function getUserFromCamp(
     | "getPetosFromPartId",
   id: mongoose.Types.ObjectId
 ): Promise<ShowMember[]> {
-  console.log(`${backendUrl}/camp/${mode}/params/${id}`)
   const res = await fetch(`${backendUrl}/camp/${mode}/params/${id}`, {
     cache: "no-store",
   });

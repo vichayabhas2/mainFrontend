@@ -42,7 +42,6 @@ export default function NongSureClient({campDetail,token,user}:{campDetail:Inter
               <FinishButton
                 text="ยืนยันที่จะเข้าค่าย+จ่ายตัง"
                 onClick={() => {
-                  alert('kkkkkkkkkkk')
                   paid(campDetail._id, token);
                 }}
               />

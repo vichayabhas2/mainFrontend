@@ -8,6 +8,7 @@ import getUserProfile from "@/libs/user/getUserProfile";
 import DateConv from "./Dateconv";
 import getTimeOffset from "@/libs/user/getTimeOffset";
 import dayjs from "dayjs";
+import getSystemInfo from "@/libs/randomthing/getSystemInfo";
 
 export default async function TopMenu() {
   const monthArray = [
@@ -26,6 +27,7 @@ export default async function TopMenu() {
   ];
 
   const session = await getServerSession(authOptions);
+  const { systemMode } = await getSystemInfo();
   if (session) {
     const user = await getUserProfile(session.user.token);
     const timeOffset = await getTimeOffset(user.displayOffsetId);
@@ -51,6 +53,7 @@ export default async function TopMenu() {
               year={year}
               hours={hours}
             />
+            <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="verify" pageRef="/verify" />
@@ -73,6 +76,7 @@ export default async function TopMenu() {
               year={year}
               hours={hours}
             />
+            <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
@@ -97,6 +101,7 @@ export default async function TopMenu() {
               year={year}
               hours={hours}
             />
+            <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
@@ -120,6 +125,7 @@ export default async function TopMenu() {
               year={year}
               hours={hours}
             />
+            <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
@@ -150,6 +156,7 @@ export default async function TopMenu() {
           year={year}
           hours={hours}
         />
+        <div>{systemMode}</div>
         <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
           <TopMenuItem title="Register" pageRef="/signup" />
           <TopMenuItem title="Home" pageRef="/" />

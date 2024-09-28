@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  AllPlaceData,
   InterBaanFront,
   InterBuilding,
   InterCampFront,
@@ -18,17 +19,15 @@ export default function UpdateBaanClient({
   boy,
   girl,
   normal,
-  allPlace,
-  allBuildings,
   camp,
+  allPlaceData
 }: {
   baan: InterBaanFront;
   boy: InterPlace | null;
   girl: InterPlace | null;
   normal: InterPlace | null;
-  allPlace: Map<string, InterPlace[]>;
-  allBuildings: Map<mongoose.Types.ObjectId, InterBuilding>;
   camp: InterCampFront;
+  allPlaceData:AllPlaceData
 }) {
   // dispatch = useDispatch<AppDispatch>();
   //const update = useAppSelector((state) => state.bookSlice.bookItem);
@@ -37,23 +36,23 @@ export default function UpdateBaanClient({
   const [gP, setGP] = useState<InterPlace | null>(girl);
   const [nP, setNP] = useState<InterPlace | null>(normal);
   const [bB, setBB] = useState<string | null>(
-    allBuildings.get(boy?.buildingId as mongoose.Types.ObjectId)?.name as
+    allPlaceData.allBuildings.get(boy?.buildingId as mongoose.Types.ObjectId)?.name as
       | string
       | null
   );
   const [gB, setGB] = useState<string | null>(
-    allBuildings.get(girl?.buildingId as mongoose.Types.ObjectId)?.name as
+    allPlaceData.allBuildings.get(girl?.buildingId as mongoose.Types.ObjectId)?.name as
       | string
       | null
   );
   const [nB, setNB] = useState<string | null>(
-    allBuildings.get(normal?.buildingId as mongoose.Types.ObjectId)?.name as
+    allPlaceData.allBuildings.get(normal?.buildingId as mongoose.Types.ObjectId)?.name as
       | string
       | null
   );
-  const bC = bB ? (allPlace.get(bB) as InterPlace[]) : [];
-  const gC = gB ? (allPlace.get(gB) as InterPlace[]) : [];
-  const nC = nB ? (allPlace.get(nB) as InterPlace[]) : [];
+  const bC = bB ? (allPlaceData.allPlace.get(bB) as InterPlace[]) : [];
+  const gC = gB ? (allPlaceData.allPlace.get(gB) as InterPlace[]) : [];
+  const nC = nB ? (allPlaceData.allPlace.get(nB) as InterPlace[]) : [];
   const [name, setName] = useState<string>(baan.name);
   const [fullName, setFullName] = useState<string | null>(baan.fullName);
   const [link, setLink] = useState<string | null>(baan.link);
@@ -61,7 +60,7 @@ export default function UpdateBaanClient({
   const [nongSendMessage, setNongSendmessage] = useState<boolean>(
     baan.nongSendMessage
   );
-  allPlace.forEach((e, input: string) => {
+  allPlaceData.allPlace.forEach((e, input: string) => {
     buildings.push(input);
   });
   if (!session) {

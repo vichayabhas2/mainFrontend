@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import LostAndFoundClient from "@/components/LostAndFoundClient";
-import { getAllPlace, getAllBuildings } from "@/components/placeSetUp";
+import { getAllPlaceData } from "@/components/placeSetUp";
 import getAllUserCamp from "@/libs/camp/getAllUserCamp";
 import getLostAndFounds from "@/libs/randomthing/getLostAndFounds";
 import { getServerSession } from "next-auth";
@@ -13,8 +13,7 @@ export default async function page() {
   }
   const allCamp = await getAllUserCamp(session.user.token);
   const lostAndFounds = await getLostAndFounds(session.user.token);
-  const allPlace = await getAllPlace();
-  const allBuilding = await getAllBuildings();
+  const allPlaceData=await getAllPlaceData()
   return (
     <div>
       <table>
@@ -47,9 +46,8 @@ export default async function page() {
       </table>
       <LostAndFoundClient
         mapIn={allCamp}
-        allBuildings={allBuilding}
-        allPlace={allPlace}
         token={session.user.token}
+        allPlaceData={allPlaceData}
       />
     </div>
   );

@@ -5,7 +5,7 @@ import getPlace from "@/libs/randomthing/getPlace";
 import mongoose from "mongoose";
 import BaanMembers from "./BaanMembers";
 import UpdateBaanClient from "./UpdateBaanClient";
-import { getAllPlace, getAllBuildings } from "./placeSetUp";
+import { getAllPlaceData } from "./placeSetUp";
 
 export default async function UpdateBaanServer({
   baanId,
@@ -20,11 +20,10 @@ export default async function UpdateBaanServer({
     ? await getPlace(baan.girlSleepPlaceId)
     : null;
   const normal = baan.nomalPlaceId ? await getPlace(baan.nomalPlaceId) : null;
-  const allPlace = await getAllPlace();
-  const allBuilding = await getAllBuildings();
   const camp = await getCamp(baan.campId);
   const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
+  const allPlaceData=await getAllPlaceData()
   
   return (
     <>
@@ -33,9 +32,8 @@ export default async function UpdateBaanServer({
         boy={boy}
         girl={girl}
         normal={normal}
-        allPlace={allPlace}
-        allBuildings={allBuilding}
         camp={camp}
+        allPlaceData={allPlaceData}
       />
       <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} camp={camp} />
     </>
