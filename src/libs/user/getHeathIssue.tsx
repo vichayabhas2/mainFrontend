@@ -1,12 +1,12 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 import mongoose from "mongoose";
-import { InterHelthIsue } from "../../../interface";
+import { InterHeathIssue } from "../../../interface";
 
-export default async function getHelthIsue(
+export default async function getHeathIssue(
     id: mongoose.Types.ObjectId
-): Promise<InterHelthIsue> {
+): Promise<InterHeathIssue> {
     const response = await fetch(
-        `${backendUrl}/${userPath}/getHelthIsue/params/${id}`,
+        `${getBackendUrl()}/${userPath}/getHeathIssue/params/${id}`,
         {
             method: "GET",
             cache: "no-store",

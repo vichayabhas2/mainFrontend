@@ -19,7 +19,7 @@ export default async function UpdateBaanServer({
   const girl = baan.girlSleepPlaceId
     ? await getPlace(baan.girlSleepPlaceId)
     : null;
-  const normal = baan.nomalPlaceId ? await getPlace(baan.nomalPlaceId) : null;
+  const normal = baan.normalPlaceId ? await getPlace(baan.normalPlaceId) : null;
   const camp = await getCamp(baan.campId);
   const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);

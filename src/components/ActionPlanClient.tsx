@@ -2,19 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import {
-  InterActionPlan,
   InterTimeOffset,
   showActionPlan,
 } from "../../interface";
-import DateConv from "./Dateconv";
-import dayjs from "dayjs";
-import { addTime } from "./setup";
+import GetTimeHtml from "./GetTimeHtml";
 
-export default function ActionPlandClient({
-  actionPlands,
+export default function ActionPlanClient({
+  actionPlans,
   timeOffset,
 }: {
-  actionPlands: showActionPlan[];
+  actionPlans: showActionPlan[];
   timeOffset: InterTimeOffset;
 }) {
   const router = useRouter();
@@ -32,74 +29,36 @@ export default function ActionPlandClient({
           <th>เบอร์โทร</th>
           <th>body</th>
         </tr>
-        {actionPlands.map((actionPland) => {
-          //console.log(actionPland);
-          const monthArray = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-          ];
-          const dateE = addTime(actionPland.end,timeOffset)
-          const dateS = addTime(actionPland.start,timeOffset)
-          const dayS = String(dateS.getDate()).padStart(2, "0");
-          const monthS = monthArray[dateS.getMonth()];
-          const yearS = dateS.getFullYear();
-          const hoursS = String(dateS.getHours()).padStart(2, "0");
-          const minutesS = String(dateS.getMinutes()).padStart(2, "0");
+        {actionPlans.map((actionPlan) => {
+          //console.log(actionPlan);
 
-          const dayE = String(dateE.getDate()).padStart(2, "0");
-          const monthE = monthArray[dateE.getMonth()];
-          const yearE = dateE.getFullYear();
-          const hoursE = String(dateE.getHours()).padStart(2, "0");
-          const minutesE = String(dateE.getMinutes()).padStart(2, "0");
           return (
             <tr>
               <td
                 onClick={() => {
-                  router.push(`/actionPlan/${actionPland._id}`);
+                  router.push(`/actionPlan/${actionPlan._id}`);
                 }}
               >
-                {actionPland._id.toString()}
+                {actionPlan._id.toString()}
               </td>
               <td>
-                <DateConv
-                  day={dayS}
-                  month={monthS}
-                  year={yearS}
-                  hours={hoursS}
-                  minutes={minutesS}
-                />
+                <GetTimeHtml offset={timeOffset} input={actionPlan.start} />
               </td>
               <td>
-                <DateConv
-                  day={dayE}
-                  month={monthE}
-                  year={yearE}
-                  hours={hoursE}
-                  minutes={minutesE}
-                />
+                <GetTimeHtml offset={timeOffset} input={actionPlan.end} />
               </td>
               <td
                 onClick={() => {
-                  router.push(`/actionPlan/part/${actionPland.partId}`);
+                  router.push(`/actionPlan/part/${actionPlan.partId}`);
                 }}
               >
-                {actionPland.partName}
+                {actionPlan.partName}
               </td>
-              <td>{actionPland.action}</td>
-              <td>{actionPland.placeName.toString()}</td>
-              <td>{actionPland.headName}</td>
-              <td>{actionPland.headTel}</td>
-              <td>{actionPland.body}</td>
+              <td>{actionPlan.action}</td>
+              <td>{actionPlan.placeName.toString()}</td>
+              <td>{actionPlan.headName}</td>
+              <td>{actionPlan.headTel}</td>
+              <td>{actionPlan.body}</td>
             </tr>
           );
         })}

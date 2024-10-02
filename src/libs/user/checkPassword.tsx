@@ -1,11 +1,11 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 
 export default async function checkPassword(
   password: string,
   token: string,
   check: (isMatch: boolean) => void
 ) {
-  const response = await fetch(`${backendUrl}/${userPath}/checkPassword`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/checkPassword`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

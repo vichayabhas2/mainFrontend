@@ -3,7 +3,7 @@ import nongRegisterCamp from "@/libs/camp/nongRegisterCamp";
 import { TextField } from "@mui/material";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { InterCampFront, InterUser } from "../../intreface";
+import { InterCampFront, InterUser } from "../../interface";
 import { getValue } from "./setup";
 
 export default function NongPendingPage({

@@ -2,11 +2,8 @@
 import {
   InterBaanFront,
   InterCampFront,
-  InterUser,
   Mode,
-  RoleCamp,
   ShowMember,
-  ShowNong,
 } from "../../interface";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
@@ -84,17 +81,17 @@ export default function BaanMembers({
                     <td>{user.tel}</td>
                     <td>{user.email}</td>
                     <td>{user.haveBottle.toString()}</td>
-                    <td>{user.shertSize}</td>
+                    <td>{user.shirtSize}</td>
                     <td>{user.group}</td>
-                    {user.helthIsueId ? (
+                    {user.heathIssueId ? (
                       <td
                         onClick={() => {
                           router.push(
-                            `/helthIshue/${user.helthIsueId?.toString()}`
+                            `/heathIssue/${user.heathIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.helthIsueId.toString()}
+                        {user.heathIssueId.toString()}
                       </td>
                     ) : (
                       <td> null</td>
@@ -160,17 +157,17 @@ export default function BaanMembers({
                   <td>{user.tel}</td>
                   <td>{user.email}</td>
                   <td>{user.haveBottle.toString()}</td>
-                  <td>{user.shertSize}</td>
+                  <td>{user.shirtSize}</td>
                   <td>{user.group}</td>
-                  {user.helthIsueId ? (
+                  {user.heathIssueId ? (
                     <td
                       onClick={() => {
                         router.push(
-                          `/helthIshue/${user.helthIsueId?.toString()}`
+                          `/heathIssue/${user.heathIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.helthIsueId.toString()}
+                      {user.heathIssueId.toString()}
                     </td>
                   ) : (
                     <td> null</td>

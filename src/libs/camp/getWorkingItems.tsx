@@ -1,10 +1,10 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import { InterWorkingItem } from "../../../interface";
 
 export default async function getWorkingItems(
   token: string
 ): Promise<InterWorkingItem[]> {
-  const response = await fetch(`${backendUrl}/camp/getWorkingItems`, {
+  const response = await fetch(`${getBackendUrl()}/camp/getWorkingItems`, {
     method: "GET",
     cache: "no-store",
     headers: {

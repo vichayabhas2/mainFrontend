@@ -110,15 +110,15 @@ export default function PartClient({
               <td>{user.tel}</td>
               <td>{user.email}</td>
               <td>{user.haveBottle.toString()}</td>
-              <td>{user.shertSize}</td>
+              <td>{user.shirtSize}</td>
               <td>{user.group}</td>
-              {user.helthIsueId ? (
+              {user.heathIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/helthIshue/${user.helthIsueId?.toString()}`);
+                    router.push(`/heathIssue/${user.heathIssueId?.toString()}`);
                   }}
                 >
-                  {user.helthIsueId.toString()}
+                  {user.heathIssueId.toString()}
                 </td>
               ) : (
                 <td> null</td>
@@ -157,15 +157,15 @@ export default function PartClient({
               <td>{user.tel}</td>
               <td>{user.email}</td>
               <td>{user.haveBottle.toString()}</td>
-              <td>{user.shertSize}</td>
+              <td>{user.shirtSize}</td>
               <td>{user.group}</td>
-              {user.helthIsueId ? (
+              {user.heathIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/helthIshue/${user.helthIsueId?.toString()}`);
+                    router.push(`/heathIssue/${user.heathIssueId?.toString()}`);
                   }}
                 >
-                  {user.helthIsueId.toString()}
+                  {user.heathIssueId.toString()}
                 </td>
               ) : (
                 <td> null</td>

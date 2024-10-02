@@ -1,10 +1,17 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 
 export default async function changeModeToPee(password: string, token: string) {
-  const response = await fetch(`${backendUrl}/${userPath}/changeModeToPee/params/${password}`, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${token}`,
-    }, cache: "no-store",
-  })
+  const response = await fetch(
+    `${getBackendUrl()}/${userPath}/changeModeToPee`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        password,
+      }),
+    }
+  );
 }

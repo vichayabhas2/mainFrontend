@@ -23,6 +23,6 @@ export default async function HospitalDetailPage({
   const timeOffset=await getTimeOffset(user.displayOffsetId)
   const actionPlans=await getActionPlanByPartId(new mongoose.Types.ObjectId(params.pid),session.user.token)
   return <>
-  <ActionPlandClient actionPlands={actionPlans} timeOffset={timeOffset}/>
+  <ActionPlandClient actionPlans={actionPlans} timeOffset={timeOffset}/>
   </>;
 }

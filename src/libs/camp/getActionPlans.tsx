@@ -1,10 +1,10 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import { InterActionPlan, showActionPlan } from "../../../interface";
 
 export default async function getActionPlans(
   token: string
 ): Promise<showActionPlan[]> {
-  const response = await fetch(`${backendUrl}/camp/getActionPlans`, {
+  const response = await fetch(`${getBackendUrl()}/camp/getActionPlans`, {
     method: "GET",
     cache: "no-store",
     headers: {

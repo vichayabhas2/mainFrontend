@@ -1,4 +1,4 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function updateActionPlan(
@@ -14,7 +14,7 @@ export default async function updateActionPlan(
   token: string
 ) {
   const response = await fetch(
-    `${backendUrl}/camp/updateActionPlan/params/${id}`,
+    `${getBackendUrl()}/camp/updateActionPlan/params/${id}`,
     {
       method: "PUT",
       cache: "no-store",

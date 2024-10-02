@@ -1,5 +1,6 @@
 "use client";
 import SelectSize from "@/components/SelectSize";
+import { getBackendUrl } from "@/components/setup";
 import userSignup from "@/libs/user/userSignup";
 import { Checkbox, Input, TextField } from "@mui/material";
 import Link from "next/link";
@@ -13,14 +14,13 @@ export default function signupPage() {
   const [password, setPassword] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-  const [shertSize, setShertSize] = useState<
+  const [shirtSize, setShirtSize] = useState<
     "S" | "M" | "L" | "XL" | "XXL" | "3XL" | null
   >(null);
   const [gender, setGender] = useState<"Male" | "Female" | null>(null);
   const [haveBottle, setHaveBottle] = useState<boolean | null>(null);
   const [citizenId, setCitizenId] = useState<string | null>(null);
   const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(false);
-
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">Register</div>
@@ -114,7 +114,7 @@ export default function signupPage() {
           <label className="w-2/5 text-2xl text-slate-200">
             เลือกขนาดเสื้อ
           </label>
-          <SelectSize select={setShertSize} def={null} />
+          <SelectSize select={setShirtSize} def={null} />
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
@@ -150,7 +150,7 @@ export default function signupPage() {
                 tel &&
                 email &&
                 password &&
-                shertSize &&
+                shirtSize &&
                 gender &&
                 lastname &&
                 nickname &&
@@ -158,14 +158,14 @@ export default function signupPage() {
                 citizenId
               ) {
                 try {
-                  userSignup({
+                  await userSignup({
                     name,
                     tel,
                     email,
                     password,
                     nickname,
                     lastname,
-                    shertSize,
+                    shirtSize,
                     gender,
                     haveBottle,
                     citizenId,

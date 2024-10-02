@@ -56,7 +56,10 @@ export default async function TopMenu() {
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-              <TopMenuItem title="verify" pageRef="/verify" />
+              {user.email.split("@")[1].localeCompare("student.chula.ac.th") ||
+              user.fridayActEn ? null : (
+                <TopMenuItem title="verify" pageRef="/verify" />
+              )}
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />

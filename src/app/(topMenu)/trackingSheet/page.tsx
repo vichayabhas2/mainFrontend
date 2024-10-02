@@ -26,7 +26,7 @@ export default async function page() {
   }
   return (
     <PasswordLock token={session.user.token} bypass={user.mode=='pee'}>
-      <WorkingItemClient worlingItems={workingItems} />
+      <WorkingItemClient workingItems={workingItems} />
     </PasswordLock>
   );
 }

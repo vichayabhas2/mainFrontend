@@ -7,7 +7,7 @@ import UpdateCampServer from "@/components/UpdateCampServer";
 import getCamp from "@/libs/camp/getCamp";
 import getPart from "@/libs/camp/getPart";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
-import shertManagebyCampId from "@/libs/user/getShertManageByCampId";
+import getCampMemberCardByCampId from "@/libs/user/getCampMemberCardByCampId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
@@ -23,23 +23,23 @@ export default async function Baan({ params }: { params: { pid: string } }) {
 
   const part = await getPart(partId, session.user.token);
   const camp = await getCamp(part.campId);
-  const shertManage = await shertManagebyCampId(part.campId, token);
+  const campMemberCard = await getCampMemberCardByCampId(part.campId, token);
 
   if (
     !user.authPartIds.includes(camp.partBoardId) &&
     !user.authPartIds.includes(camp.partCoopId) &&
-    !user.authPartIds.includes(camp.partRegiterId)
+    !user.authPartIds.includes(camp.partRegisterId)
   ) {
     return <BackToHome />;
   }
   switch (partId.toString()) {
     case camp.partCoopId.toString(): {
-      switch (shertManage.role) {
+      switch (campMemberCard.role) {
         case "nong": {
           return <BackToHome />;
         }
         case "pee": {
-          const peeCamp = await getPeeCamp(shertManage.campModelId, token);
+          const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
           return (
             <PasswordLock token={token} bypass={user.mode=='pee'}>
               <UpdateBaanServer baanId={peeCamp.baanId} />
@@ -65,7 +65,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
         </>
       );
     }
-    case camp.partRegiterId.toString(): {
+    case camp.partRegisterId.toString(): {
       return (
         <RegisterPartServer campId={camp._id} token={token} isBoard={false} />
       );

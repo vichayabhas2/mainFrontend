@@ -30,7 +30,7 @@ export default function ChatChoiseClient({
             <td>{user.name}</td>
             <td>{user.lastname}</td>
             <td>{user.gender}</td>
-            <td><FinishButton text="chat" onClick={()=>router.push(`/camp/${campId}/allNongChat/${user.shertManageId}`)}/></td>
+            <td><FinishButton text="chat" onClick={()=>router.push(`/camp/${campId}/allNongChat/${user.campMemberCardId}`)}/></td>
           </tr>
         );
       })}

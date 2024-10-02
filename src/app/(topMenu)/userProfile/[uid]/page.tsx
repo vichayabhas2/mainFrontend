@@ -8,7 +8,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import getCamp from "@/libs/camp/getCamp";
 import getBaan from "@/libs/camp/getBaan";
-import getShertmanage from "@/libs/user/getShertmanage";
+import getShertmanage from "@/libs/user/getCampMemberCard";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
 import getPetoCamp from "@/libs/camp/getPetoCamp";
 import getUser from "@/libs/user/getUser";
@@ -28,12 +28,12 @@ export default async function page({ params }: { params: { uid: string } }) {
   }
   const outs: Out[] = [];
   var i = 0;
-  while (i < user.shertManageIds.length) {
-    const shertManage = await getShertmanage(user.shertManageIds[i++]);
-    switch (shertManage.role) {
+  while (i < user.campMemberCardIds.length) {
+    const campMemberCard = await getShertmanage(user.campMemberCardIds[i++]);
+    switch (campMemberCard.role) {
       case "nong": {
         const nongCamp = await getNongCamp(
-          shertManage.campModelId,
+          campMemberCard.campModelId,
           session.user.token
         );
         const camp = await getCamp(nongCamp.campId);
@@ -42,13 +42,13 @@ export default async function page({ params }: { params: { uid: string } }) {
           campName: camp.campName,
           role: "น้องค่าย",
           baan: baan.name,
-          size: shertManage.size,
+          size: campMemberCard.size,
         });
         break;
       }
       case "pee": {
         const peeCamp = await getPeeCamp(
-          shertManage.campModelId,
+          campMemberCard.campModelId,
           session.user.token
         );
         const camp = await getCamp(peeCamp.campId);
@@ -57,13 +57,13 @@ export default async function page({ params }: { params: { uid: string } }) {
           campName: camp.campName,
           role: "พี่บ้าน",
           baan: baan.name,
-          size: shertManage.size,
+          size: campMemberCard.size,
         });
         break;
       }
       case "peto": {
         const petoCamp = await getPetoCamp(
-          shertManage.campModelId,
+          campMemberCard.campModelId,
           session.user.token
         );
         const camp = await getCamp(petoCamp.campId);
@@ -72,7 +72,7 @@ export default async function page({ params }: { params: { uid: string } }) {
           campName: camp.campName,
           role: "พี่ปีโตบ้าน",
           baan: "null",
-          size: shertManage.size,
+          size: campMemberCard.size,
         });
         break;
       }

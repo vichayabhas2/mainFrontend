@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { ChatReady, GetChat } from "../../../interface";
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 
 export default async function getChat(
   id: mongoose.Types.ObjectId,
@@ -8,7 +8,7 @@ export default async function getChat(
   token: string
 ): Promise<ChatReady> {
   const response = await fetch(
-    `${backendUrl}/randomthing/${mode}/params/${id}`,
+    `${getBackendUrl()}/randomthing/${mode}/params/${id}`,
     {
       method: "GET",
       headers: {

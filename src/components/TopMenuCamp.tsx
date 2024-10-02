@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getUserProfile from "@/libs/user/getUserProfile";
 import getSystemInfo from "@/libs/randomthing/getSystemInfo";
-import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
+import getShertManageByCampId from "@/libs/user/getCampMemberCardByCampId";
 import mongoose from "mongoose";
 import PushToCamps from "./PushToCamps";
 
@@ -17,12 +17,12 @@ export default async function TopMenuCamp({
   const { systemMode } = await getSystemInfo();
   if (session) {
     const user = await getUserProfile(session.user.token);
-    const shertManage = await getShertManageByCampId(
+    const shirtManage = await getShertManageByCampId(
       campId,
       session.user.token
     );
     if (user.mode == "nong") {
-      if (shertManage.role == "nong") {
+      if (shirtManage.role == "nong") {
         return (
           //น้องจริง
           <div className={styles.menucontainer}>

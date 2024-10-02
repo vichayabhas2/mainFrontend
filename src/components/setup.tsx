@@ -8,7 +8,7 @@ import {
   InterTimeOffset,
   ShowMember,
   ShowNong,
-} from "../../intreface";
+} from "../../interface";
 import dayjs from "dayjs";
 
 const deploy = false;
@@ -166,10 +166,10 @@ export function plusActionPlan(
     partName,
   };
 }
-
-export const backendUrl = deploy
-  ? "https://main-backend-seven.vercel.app"
-  : "http://localhost:5000";
+const backendUrl=process.env.BACKEND_URL
+export function getBackendUrl(){
+  return 'http://localhost:5001'
+}
 export const userPath = "api/v1/auth";
 export function hasKey(
   input: MyMap[] | MapObjectId[],

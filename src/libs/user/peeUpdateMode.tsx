@@ -1,13 +1,12 @@
-import { backendUrl, userPath } from "@/components/setup";
-import { InterUser } from "../../../intreface";
+import { getBackendUrl, userPath } from "@/components/setup";
 import mongoose from "mongoose";
 export default async function peeUpdateMode(
   token: string,
   mode: "pee" | "nong",
-  fillter: mongoose.Types.ObjectId[],
+  filterIds: mongoose.Types.ObjectId[],
   linkHash:string
 ) {
-  const response = await fetch(`${backendUrl}/${userPath}/updateMode`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/updateMode`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -15,9 +14,7 @@ export default async function peeUpdateMode(
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(
-      { mode, fillter,linkHash }
-
-      //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
+      { mode, filterIds,linkHash }
     ),
     cache:'no-store'
   });

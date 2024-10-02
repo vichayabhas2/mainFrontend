@@ -1,9 +1,9 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 
 export default async function signId(
   token: string
 ): Promise<{ success: boolean }> {
-  const response = await fetch(`${backendUrl}/${userPath}/signId`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/signId`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${token}`,

@@ -4,8 +4,7 @@ import UpdateBaanServer from "@/components/UpdateBaanServer";
 import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
-import getPetoCamp from "@/libs/camp/getPetoCamp";
-import shertManagebyCampId from "@/libs/user/getShertManageByCampId";
+import getCampMemberCardByCampId from "@/libs/user/getCampMemberCardByCampId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
@@ -25,13 +24,13 @@ if(user.role==='admin'){
 }
 const baan=await getBaan(baanId)
 const camp=await getCamp(baan.campId)
-const shertManage=await shertManagebyCampId(baan.campId,token)
-switch (shertManage.role){
+const campMemberCard=await getCampMemberCardByCampId(baan.campId,token)
+switch (campMemberCard.role){
   case "nong":{
     return<BackToHome/>
   }
   case "pee":{
-    const peeCamp=await getPeeCamp(shertManage.campModelId,token)
+    const peeCamp=await getPeeCamp(campMemberCard.campModelId,token)
     if(user.authPartIds.includes(camp.partBoardId)){
       return<UpdateBaanServer baanId={baanId}/>
     }

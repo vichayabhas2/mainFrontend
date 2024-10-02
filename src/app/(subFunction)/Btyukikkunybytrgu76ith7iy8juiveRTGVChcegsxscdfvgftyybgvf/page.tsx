@@ -7,7 +7,7 @@ import { MenuItem, Select, TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import BackToHome from "@/components/BackToHome";
 import FinishButton from "@/components/FinishButton";
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 
 export default function page() {
   const { data: session } = useSession();
@@ -62,7 +62,7 @@ export default function page() {
       <FinishButton
         text="bypass"
         onClick={async () => {
-          const response = await fetch(`${backendUrl}/subfunction/petoBypass`, {
+          const response = await fetch(`${getBackendUrl()}/subfunction/petoBypass`, {
             method: "POST",
             cache: "no-store",
             headers: {

@@ -1,26 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { HelthIsueBody } from "../../interface";
+import { HeathIssueBody } from "../../interface";
 import { Checkbox, TextField } from "@mui/material";
 import FinishButton from "./FinishButton";
-import updateHelth from "@/libs/user/updateHelth";
+import updateHeath from "@/libs/user/updateHeath";
 
-export default function HelthIshueClient({
-  helthIshue,
+export default function HeathIssueClient({
+  heathIssue,
   token,
 }: {
-  helthIshue: HelthIsueBody;
+  heathIssue: HeathIssueBody;
   token: string;
 }) {
-  const [food, set1] = useState<string>(helthIshue.food);
-  const [medicine, set2] = useState<string>(helthIshue.medicine);
-  const [chronicDisease, set3] = useState<string>(helthIshue.chronicDisease);
-  const [spicy, set4] = useState<boolean>(helthIshue.spicy);
-  const [extra, set5] = useState<string>(helthIshue.extra);
-  const [isWearing, set6] = useState<boolean>(helthIshue.isWearing);
+  const [food, set1] = useState<string>(heathIssue.food);
+  const [medicine, set2] = useState<string>(heathIssue.medicine);
+  const [chronicDisease, set3] = useState<string>(heathIssue.chronicDisease);
+  const [spicy, set4] = useState<boolean>(heathIssue.spicy);
+  const [extra, set5] = useState<string>(heathIssue.extra);
+  const [isWearing, set6] = useState<boolean>(heathIssue.isWearing);
   const [mode, setMode] = useState<boolean>(false);
-  const [foodConcern, set7] = useState<string>(helthIshue.foodConcern);
+  const [foodConcern, set7] = useState<string>(heathIssue.foodConcern);
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">ปัญหาสุขภาพ</div>
@@ -110,7 +110,7 @@ export default function HelthIshueClient({
         <FinishButton
           text="update"
           onClick={() => {
-            updateHelth(
+            updateHeath(
               {
                 food,
                 chronicDisease,

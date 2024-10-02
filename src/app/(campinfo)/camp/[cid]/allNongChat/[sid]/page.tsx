@@ -10,13 +10,13 @@ export default async function NongChat({
 }: {
   params: { sid: string };
 }) {
-  const shertmanageId = new mongoose.Types.ObjectId(params.sid);
+  const shirtmanageId = new mongoose.Types.ObjectId(params.sid);
   const session = await getServerSession(authOptions);
   if (!session) {
     return <BackToHome />;
   }
   const token = session.user.token;
-  const data = await getChat(shertmanageId, "getNongChat", token);
+  const data = await getChat(shirtmanageId, "getNongChat", token);
   if (!data.success) {
     return <BackToHome />;
   }

@@ -2,7 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import ChatClient from "@/components/ChatClient";
 import getChat from "@/libs/randomthing/getChat";
-import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
+import getCampMemberCardByCampId from "@/libs/user/getCampMemberCardByCampId";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 
@@ -18,8 +18,8 @@ export default async function AllChat({
     return <BackToHome />;
   }
   const token = session.user.token;
-  const shertManage = await getShertManageByCampId(campId, token);
-  if (shertManage.role == "nong") {
+  const shirtManage = await getCampMemberCardByCampId(campId, token);
+  if (shirtManage.role == "nong") {
     return <BackToHome />;
   }
   const data = await getChat(partId, "getPartChat", token);

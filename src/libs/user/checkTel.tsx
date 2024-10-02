@@ -1,12 +1,11 @@
-import { backendUrl, userPath } from "@/components/setup";
-import { InterShertManage } from "../../../intreface";
+import { getBackendUrl, userPath } from "@/components/setup";
 
 export default async function checkTel(
   tel: string,
   token: string
 ): Promise<{ relation: string[] }> {
   const response = await fetch(
-    `${backendUrl}/${userPath}/checkTel/params/${tel}`,
+    `${getBackendUrl()}/${userPath}/checkTel/params/${tel}`,
     {
       method: "GET",
       headers: {
@@ -15,7 +14,6 @@ export default async function checkTel(
       cache: "no-store",
     }
   );
-  console.log(`${backendUrl}/${userPath}/checkTel/params/${tel}`);
   if (!response.ok) {
     throw new Error("Fail");
   }

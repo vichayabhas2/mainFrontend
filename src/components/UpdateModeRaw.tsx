@@ -1,6 +1,6 @@
 "use client";
 import { Session } from "next-auth";
-import { InterCampFront, InterUser } from "../../intreface";
+import { InterCampFront, InterUser } from "../../interface";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";

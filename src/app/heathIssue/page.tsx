@@ -2,9 +2,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import getUserProfile from "@/libs/user/getUserProfile";
 import BackToHome from "@/components/BackToHome";
-import { HelthIsueBody } from "../../../interface";
-import getHelthIsue from "@/libs/user/getHelthIsue";
-import HelthIshueClient from "@/components/HelthIshueClient";
+import { HeathIssueBody } from "../../../interface";
+import getHeathIssue from "@/libs/user/getHeathIssue";
+import HeathIssueClient from "@/components/HeathIssueClient";
 
 export default async function name() {
   const session = await getServerSession(authOptions);
@@ -12,11 +12,11 @@ export default async function name() {
     return <BackToHome />;
   }
   const user = await getUserProfile(session.user.token);
-  var helthIshue: HelthIsueBody;
-  if (user.helthIsueId) {
-    helthIshue = await getHelthIsue(user.helthIsueId);
+  var heathIssue: HeathIssueBody;
+  if (user.heathIssueId) {
+    heathIssue = await getHeathIssue(user.heathIssueId);
   } else {
-    helthIshue = {
+    heathIssue = {
       food: "",
       medicine: "",
       chronicDisease: "",
@@ -27,6 +27,6 @@ export default async function name() {
     };
   }
   return (
-    <HelthIshueClient helthIshue={helthIshue} token={session.user.token} />
+    <HeathIssueClient heathIssue={heathIssue} token={session.user.token} />
   );
 }

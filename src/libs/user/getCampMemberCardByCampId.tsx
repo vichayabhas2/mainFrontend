@@ -1,12 +1,12 @@
-import { backendUrl, userPath } from "@/components/setup";
-import { InterShertManage } from "../../../intreface";
+import { getBackendUrl, userPath } from "@/components/setup";
+import { InterCampMemberCard } from "../../../interface";
 import mongoose from "mongoose";
-export default async function shertManagebyCampId(
+export default async function getCampMemberCardByCampId(
   id: mongoose.Types.ObjectId,
   token: string
-): Promise<InterShertManage> {
+): Promise<InterCampMemberCard> {
   const response = await fetch(
-    `${backendUrl}/${userPath}/shertManagebyCampId/params/${id}`,
+    `${getBackendUrl()}/${userPath}/getCampMemberCardByCampId/params/${id}`,
     {
       method: "GET",
       headers: {

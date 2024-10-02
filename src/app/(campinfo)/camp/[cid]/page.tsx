@@ -6,7 +6,7 @@ import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
 import getNongCamp from "@/libs/camp/getNongCamp";
 import getPart from "@/libs/camp/getPart";
-import getShertManageByCampId from "@/libs/user/getShertManageByCampId";
+import getCampMemberCardByCampId from "@/libs/user/getCampMemberCardByCampId";
 import getUserProfile from "@/libs/user/getUserProfile";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -53,8 +53,8 @@ export default async function HospitalDetailPage({
     }
     if (campDetail.nongIds.includes(userId)) {
       campRole = "nong";
-      const shertManage = await getShertManageByCampId(campDetail._id, token);
-      const nongCamp = await getNongCamp(shertManage.campModelId, token);
+      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const nongCamp = await getNongCamp(campMemberCard.campModelId, token);
       const baan = await getBaan(nongCamp.baanId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
@@ -65,8 +65,8 @@ export default async function HospitalDetailPage({
       const girl = baan.girlSleepPlaceId
         ? await getShowPlace(baan.girlSleepPlaceId)
         : null;
-      const normal = baan.nomalPlaceId
-        ? await getShowPlace(baan.nomalPlaceId)
+      const normal = baan.normalPlaceId
+        ? await getShowPlace(baan.normalPlaceId)
         : null;
       return (
         <>
@@ -117,8 +117,8 @@ export default async function HospitalDetailPage({
       );
     } else if (campDetail.peeIds.includes(userId)) {
       campRole = "pee";
-      const shertManage = await getShertManageByCampId(campDetail._id, token);
-      const peeCamp = await getPeeCamp(shertManage.campModelId, token);
+      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
       const baan = await getBaan(peeCamp.baanId);
       const part = await getPart(peeCamp.partId, token);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
@@ -131,8 +131,8 @@ export default async function HospitalDetailPage({
       const girl = baan.girlSleepPlaceId
         ? await getShowPlace(baan.girlSleepPlaceId)
         : null;
-      const normal = baan.nomalPlaceId
-        ? await getShowPlace(baan.nomalPlaceId)
+      const normal = baan.normalPlaceId
+        ? await getShowPlace(baan.normalPlaceId)
         : null;
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
       return (
@@ -193,8 +193,8 @@ export default async function HospitalDetailPage({
       );
     } else if (campDetail.petoIds.includes(userId)) {
       campRole = "peto";
-      const shertManage = await getShertManageByCampId(campDetail._id, token);
-      const petoCamp = await getPetoCamp(shertManage.campModelId, token);
+      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const petoCamp = await getPetoCamp(campMemberCard.campModelId, token);
 
       const part = await getPart(petoCamp.partId, token);
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
@@ -248,7 +248,7 @@ export default async function HospitalDetailPage({
     } else if (hasKey(campDetail.nongInterviewIds, user._id)) {
       return <div>น้องผ่านรอบเอกสารแล้ว</div>;
     } else {
-      switch (campDetail.memberStructre) {
+      switch (campDetail.memberStructure) {
         case "nong->highSchool,pee->1year,peto->2upYear": {
           if (campDetail.open && user.role == "nong") {
             //console.log(user.role);

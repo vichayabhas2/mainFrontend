@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { InterCampFront } from "../../intreface";
+import { InterCampFront } from "../../interface";
 import Card from "./Card";
 import Link from "next/link";
 import mongoose from "mongoose";
@@ -32,8 +32,8 @@ export default function HospitalCatalog({
       >
         {hospitalsJsonReady.map((camp: InterCampFront) => {
           if (
-            (camp.memberStructre == "nong->1year,pee->2upYear" ||
-              camp.memberStructre == "allYearMix") &&
+            (camp.memberStructure == "nong->1year,pee->2upYear" ||
+              camp.memberStructure == "allYearMix") &&
             !univercity
           ) {
             return null;

@@ -27,14 +27,14 @@ import deleteActionPlan from "@/libs/camp/deleteActionPlan";
 export default function EditActionPland({
   pees,
   petos,
-  actionPland,
+  actionPlan,
   pls,
   allPlaceData
 
 }: {
   pees: ShowMember[];
   petos: ShowMember[];
-  actionPland: showActionPlan;
+  actionPlan: showActionPlan;
   pls:InterPlace[]
   allPlaceData:AllPlaceData
 }) {
@@ -42,11 +42,11 @@ export default function EditActionPland({
     if(!session){
         return<BackToHome/>
     }
-  const [action, setAction] = useState<string | null>(actionPland.action);
+  const [action, setAction] = useState<string | null>(actionPlan.action);
   const [places, setPlaces] = useState<(InterPlace | null)[]>(pls);
-  const [start, setStart] = useState<Dayjs | null>(dayjs(actionPland.start));
-  const [end, setEnd] = useState<Dayjs | null>(dayjs(actionPland.end));
-  const [body, setBody] = useState<string | null>(actionPland.body);
+  const [start, setStart] = useState<Dayjs | null>(dayjs(actionPlan.start));
+  const [end, setEnd] = useState<Dayjs | null>(dayjs(actionPlan.end));
+  const [body, setBody] = useState<string | null>(actionPlan.body);
   const router = useRouter();
   function add() {
     places.push(null);
@@ -142,14 +142,14 @@ export default function EditActionPland({
                   headId,
                   body
               },
-              actionPland._id,
+              actionPlan._id,
               session.user.token
             );
           }
         }}
         buttonText={"สร้าง action plan"}
       />
-      <FinishButton onClick={() => deleteActionPlan(new mongoose.Types.ObjectId(actionPland._id), session.user.token)} text={"delete"} />
+      <FinishButton onClick={() => deleteActionPlan(new mongoose.Types.ObjectId(actionPlan._id), session.user.token)} text={"delete"} />
     </>
   );
 }

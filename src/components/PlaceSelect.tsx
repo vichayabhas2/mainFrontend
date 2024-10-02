@@ -65,18 +65,18 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px]"
-          defaultValue={`${nP?.flore} ${nP?.room}`}
+          defaultValue={`${nP?.floor} ${nP?.room}`}
         >
           {nC?.map((choice: InterPlace) => {
             return (
               <MenuItem
-                value={`${choice.flore} ${choice.room}`}
+                value={`${choice.floor} ${choice.room}`}
                 onClick={() => {
                   onClick(choice);
                   setNP(choice);
                 }}
               >
-                {choice.flore} {choice.room}
+                {choice.floor} {choice.room}
               </MenuItem>
             );
           })}

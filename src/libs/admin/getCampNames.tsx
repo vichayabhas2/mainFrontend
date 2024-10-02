@@ -1,7 +1,9 @@
-import { backendUrl } from "@/components/setup";
-import { InterNameContainer } from "../../../intreface";
+import { getBackendUrl } from "@/components/setup";
+import { InterNameContainer } from "../../../interface";
 
 export default async function getCampNames(): Promise<InterNameContainer[]> {
-  const response = await fetch(`${backendUrl}/admin/getCampNames`,{ cache: 'no-store' });
+  const response = await fetch(`${getBackendUrl()}/admin/getCampNames`, {
+    cache: "no-store",
+  });
   return await response.json();
 }

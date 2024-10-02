@@ -1,10 +1,10 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 
 export default async function userLogin(
   userEmail: string,
   userPassword: string
 ) {
-  const response = await fetch(`${backendUrl}/api/v1/auth/login`, {
+  const response = await fetch(`${getBackendUrl()}/api/v1/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

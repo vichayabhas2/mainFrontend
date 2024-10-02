@@ -1,4 +1,4 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 import { ShowRegister } from "../../../interface";
 
@@ -7,7 +7,7 @@ export default async function getShowRegisters(
   token: string
 ): Promise<ShowRegister[]> {
   const response = await fetch(
-    `${backendUrl}/camp/getShowRegisters/params/${id}`,
+    `${getBackendUrl()}/camp/getShowRegisters/params/${id}`,
     {
       method: "GET",
       cache: "no-store",

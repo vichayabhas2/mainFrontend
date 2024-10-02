@@ -1,4 +1,4 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function admission(
@@ -6,10 +6,10 @@ export default async function admission(
     members: mongoose.Types.ObjectId[];
     campId: mongoose.Types.ObjectId;
   },
-  mode: "interview" | "pass" | "sure" | "kick/pee"|'kick/nong',
+  mode: "interview" | "pass" | "sure" | "kick/pee" | "kick/nong",
   token: string
 ) {
-  const res = await fetch(`${backendUrl}/camp/${mode}`, {
+  const res = await fetch(`${getBackendUrl()}/camp/${mode}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

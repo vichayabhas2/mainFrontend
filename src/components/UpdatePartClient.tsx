@@ -3,16 +3,11 @@
 import { useState } from "react";
 import {
   AllPlaceData,
-  InterBaanFront,
-  InterBuilding,
-  InterCampFront,
   InterPlace,
 } from "../../interface";
 import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
-import { MenuItem, Select, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
-import updateBaan from "@/libs/admin/updateBaan";
+import { MenuItem, Select } from "@mui/material";
 import BackToHome from "./BackToHome";
 import updatePart from "@/libs/admin/updatePart";
 export default function UpdatePartClient({
@@ -88,10 +83,10 @@ export default function UpdatePartClient({
             {nC?.map((choice: InterPlace) => {
               return (
                 <MenuItem
-                  value={`${choice.flore} ${choice.room}`}
+                  value={`${choice.floor} ${choice.room}`}
                   onClick={() => setNP(choice)}
                 >
-                  {choice.flore} {choice.room}
+                  {choice.floor} {choice.room}
                 </MenuItem>
               );
             })}

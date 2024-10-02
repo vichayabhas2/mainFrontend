@@ -140,7 +140,7 @@ import { Button } from "@mui/material";
 import getCamp from "@/libs/camp/getCamp";
 import { getServerSession } from "next-auth";
 import mongoose from "mongoose";
-import { InterCampFront } from "../../intreface";
+import { InterCampFront } from "../../interface";
 //import { Router } from "next/router";
 //import { useRouter } from "next/navigation";
 

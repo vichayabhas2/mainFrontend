@@ -5,9 +5,9 @@ import { InterWorkingItem } from "../../interface";
 import { useRouter } from "next/navigation";
 
 export default function WorkingItemClient({
-  worlingItems,
+  workingItems,
 }: {
-  worlingItems: InterWorkingItem[];
+  workingItems: InterWorkingItem[];
 }) {
     const router=useRouter()
   return (
@@ -22,20 +22,20 @@ export default function WorkingItemClient({
           <th>จาก</th>
           <th>งานถัดไป</th>
         </tr>
-        {worlingItems.map((worlingItem) => (
+        {workingItems.map((workingItem) => (
           <tr>
-            <td onClick={()=>router.push(`trackingSheet/${worlingItem._id}`)}>{worlingItem._id.toString()}</td>
-            <td>{worlingItem.name}</td>
-            <td>{worlingItem.status}</td>
+            <td onClick={()=>router.push(`trackingSheet/${workingItem._id}`)}>{workingItem._id.toString()}</td>
+            <td>{workingItem.name}</td>
+            <td>{workingItem.status}</td>
             <td>
-              {worlingItem.link ? (
-                <Link href={worlingItem.link}>{worlingItem.link}</Link>
+              {workingItem.link ? (
+                <Link href={workingItem.link}>{workingItem.link}</Link>
               ) : null}
             </td>
-            <td onClick={()=>router.push(`trackingSheet/part/${worlingItem.partId}`)}>{worlingItem.partName}</td>
-            <td>{worlingItem.fromId?.toString()}</td>
+            <td onClick={()=>router.push(`trackingSheet/part/${workingItem.partId}`)}>{workingItem.partName}</td>
+            <td>{workingItem.fromId?.toString()}</td>
             <td>
-              {worlingItem.linkOutIds.map((o) => o.toString()).toString()}
+              {workingItem.linkOutIds.map((o) => o.toString()).toString()}
             </td>
           </tr>
         ))}

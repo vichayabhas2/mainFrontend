@@ -1,8 +1,8 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 
-export default async function getSystemInfo(): Promise<{systemMode:string}> {
-    const res = await fetch(`${backendUrl}/randomthing/getSystemInfo`, {
-      cache: "no-store",
-    });
-    return await res.json();
-  }
+export default async function getSystemInfo(): Promise<{ systemMode: string }> {
+  const res = await fetch(`${getBackendUrl()}/randomthing/getSystemInfo`, {
+    cache: "no-store",
+  });
+  return await res.json();
+}

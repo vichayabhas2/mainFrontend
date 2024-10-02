@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Mode } from "../../../interface";
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 
 export default async function addMemberToBaan(
   input: {
@@ -11,7 +11,7 @@ export default async function addMemberToBaan(
   token: string,
   aOrK: "add" | "kick"
 ) {
-  const res = await fetch(`${backendUrl}/camp/${aOrK}/${mode}`, {
+  const res = await fetch(`${getBackendUrl()}/camp/${aOrK}/${mode}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

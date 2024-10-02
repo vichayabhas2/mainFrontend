@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { TextField } from "@mui/material";
 import { useState } from "react";
-import { InterPlace } from "../../intreface";
+import { InterPlace } from "../../interface";
 import createPlace from "@/libs/randomthing/createPlace";
 import mongoose from "mongoose";
 
@@ -34,7 +34,7 @@ export default function PlaceClient({
           <div className="w-3/5 h-auto p-[10px]">
             <div className="text-left pl-5">
               <div className="text-3xl">
-                {place.flore} {place.room}
+                {place.floor} {place.room}
               </div>
               <div>
                 <table>

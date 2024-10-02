@@ -135,15 +135,15 @@ export default function UpdateBaanClient({
                 name="location"
                 id="location"
                 className="h-[2em] w-[200px]"
-                defaultValue={`${bP?.flore} ${bP?.room}`}
+                defaultValue={`${bP?.floor} ${bP?.room}`}
               >
                 {bC?.map((choice: InterPlace) => {
                   return (
                     <MenuItem
-                      value={`${choice.flore} ${choice.room}`}
+                      value={`${choice.floor} ${choice.room}`}
                       onClick={() => setBP(choice)}
                     >
-                      {choice.flore} {choice.room}
+                      {choice.floor} {choice.room}
                     </MenuItem>
                   );
                 })}
@@ -179,15 +179,15 @@ export default function UpdateBaanClient({
                 name="location"
                 id="location"
                 className="h-[2em] w-[200px]"
-                defaultValue={`${gP?.flore} ${gP?.room}`}
+                defaultValue={`${gP?.floor} ${gP?.room}`}
               >
                 {gC?.map((choice: InterPlace) => {
                   return (
                     <MenuItem
-                      value={`${choice.flore} ${choice.room}`}
+                      value={`${choice.floor} ${choice.room}`}
                       onClick={() => setGP(choice)}
                     >
-                      {choice.flore} {choice.room}
+                      {choice.floor} {choice.room}
                     </MenuItem>
                   );
                 })}
@@ -224,15 +224,15 @@ export default function UpdateBaanClient({
             name="location"
             id="location"
             className="h-[2em] w-[200px]"
-            defaultValue={`${nP?.flore} ${nP?.room}`}
+            defaultValue={`${nP?.floor} ${nP?.room}`}
           >
             {nC?.map((choice: InterPlace) => {
               return (
                 <MenuItem
-                  value={`${choice.flore} ${choice.room}`}
+                  value={`${choice.floor} ${choice.room}`}
                   onClick={() => setNP(choice)}
                 >
-                  {choice.flore} {choice.room}
+                  {choice.floor} {choice.room}
                 </MenuItem>
               );
             })}
@@ -253,7 +253,7 @@ export default function UpdateBaanClient({
                       link,
                       girlSleepPlaceId: gP ? gP._id : null,
                       boySleepPlaceId: bP ? bP._id : null,
-                      nomalPlaceId: nP ? nP._id : null,
+                      normalPlaceId: nP ? nP._id : null,
                       nongSendMessage,
                     },
                     session.user.token

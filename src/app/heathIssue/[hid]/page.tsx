@@ -1,9 +1,9 @@
-import getHelthIsue from "@/libs/user/getHelthIsue";
+import getHeathIssue from "@/libs/user/getHeathIssue";
 import mongoose from "mongoose";
 
 export default async function HelthIshuePage({ params }: { params: { hid: string } }) {
-    const helthIsueId = new mongoose.Types.ObjectId(params.hid)
-    const helthIshue = await getHelthIsue(helthIsueId)
+    const heathIssueId = new mongoose.Types.ObjectId(params.hid)
+    const heathIssue = await getHeathIssue(heathIssueId)
     return <div
         className="flex flex-row h-auto"
     >
@@ -14,7 +14,7 @@ export default async function HelthIshuePage({ params }: { params: { hid: string
         <div className="w-3/5 h-auto p-[10px]">
             <div className="text-left pl-5">
                 <div className="text-3xl"></div>
-                {helthIshue.userId.toString()}
+                {heathIssue.userId.toString()}
 
                 <div className="text-2xl my-10">
 

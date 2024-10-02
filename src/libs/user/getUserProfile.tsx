@@ -1,9 +1,9 @@
-import { backendUrl, userPath } from "@/components/setup";
-import { InterUser } from "../../../intreface";
+import { getBackendUrl, userPath } from "@/components/setup";
+import { InterUser } from "../../../interface";
 export default async function getUserProfile(
   token: string
 ): Promise<InterUser> {
-  const response = await fetch(`${backendUrl}/${userPath}/me`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/me`, {
     headers: {
       authorization: `Bearer ${token}`,
     },

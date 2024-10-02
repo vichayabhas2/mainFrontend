@@ -82,7 +82,7 @@ export default function ChatClient({
                       }
                       case "น้องคุยส่วนตัวกับพี่": {
                         createNongChat(
-                          { shertmanageId: sendType.id, message },
+                          { CampMemberCard: sendType.id, message },
                           token
                         );
                         break;

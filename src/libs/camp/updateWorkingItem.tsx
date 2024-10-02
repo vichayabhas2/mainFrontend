@@ -1,4 +1,4 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function updateWorkingItem(
@@ -11,7 +11,7 @@ export default async function updateWorkingItem(
   token: string
 ) {
   const response = await fetch(
-    `${backendUrl}/camp/updateWorkingItem/params/${id}`,
+    `${getBackendUrl()}/camp/updateWorkingItem/params/${id}`,
     {
       method: "PUT",
       cache: "no-store",

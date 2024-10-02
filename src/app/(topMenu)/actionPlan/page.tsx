@@ -17,5 +17,5 @@ export default async function HospitalDetailPage() {
   }
   const timeOffset=await getTimeOffset(user.displayOffsetId)
   const actionPlans = await getActionPlans(session.user.token);
-  return <ActionPlandClient actionPlands={actionPlans} timeOffset={timeOffset} />;
+  return <ActionPlandClient actionPlans={actionPlans} timeOffset={timeOffset} />;
 }

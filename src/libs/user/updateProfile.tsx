@@ -1,7 +1,7 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 
 export async function updateProfile(email: string, tel: string,name:string,nickname:string,lastname:string,citizenId:string, token: string) {
-  const response = await fetch(`${backendUrl}/${userPath}/updateProfile`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/updateProfile`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -10,8 +10,6 @@ export async function updateProfile(email: string, tel: string,name:string,nickn
     },
     body: JSON.stringify(
       { email, tel,name,nickname,lastname,citizenId }
-
-      //{email,gender,haveBottle,lastname,name,nickname,password,shertSize,tel}
     ),
     cache:'no-store'
   });

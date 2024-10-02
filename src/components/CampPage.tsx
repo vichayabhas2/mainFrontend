@@ -41,8 +41,8 @@ export default async function CampPage({
 
   if (campDetail.nongIds.includes(userId)) {
     campRole = "nong";
-    const shertManage = await getShertManageByCampId(campDetail._id, token);
-    const nongCamp = await getNongCamp(shertManage.campModelId, token);
+    const campMemberCard = await getShertManageByCampId(campDetail._id, token);
+    const nongCamp = await getNongCamp(campMemberCard.campModelId, token);
     const baan = await getBaan(nongCamp.baanId);
     return <BaanMembers baan={baan} />;
   } else if (campDetail.peeIds.includes(userId)) {

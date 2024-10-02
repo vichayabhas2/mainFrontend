@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { InterCampFront, InterPartFront, MyMap } from "../../interface";
-import { InterBaanFront } from "../../intreface";
+import { InterBaanFront } from "../../interface";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { TextField, Checkbox } from "@mui/material";
@@ -207,7 +207,7 @@ export default function UpdateCampClient({
             defaultChecked={peeDataLock}
           />
         </div>
-        {camp.memberStructre === "nong->highSchool,pee->1year,peto->2upYear" ? (
+        {camp.memberStructure === "nong->highSchool,pee->1year,peto->2upYear" ? (
           <div className="flex flex-row items-center my-5">
             <label className="w-2/5 text-2xl text-slate-200">
               ล็อกข้อมูลปีโตหรือไม่

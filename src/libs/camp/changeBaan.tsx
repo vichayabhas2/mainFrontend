@@ -1,4 +1,4 @@
-import { backendUrl } from "@/components/setup";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function changeBaan(
@@ -8,7 +8,7 @@ export default async function changeBaan(
   },
   token: string
 ) {
-  const res = await fetch(`${backendUrl}/camp/changeBaan`, {
+  const res = await fetch(`${getBackendUrl()}/camp/changeBaan`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

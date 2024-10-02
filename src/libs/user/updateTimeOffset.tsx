@@ -1,11 +1,11 @@
-import { backendUrl, userPath } from "@/components/setup";
+import { getBackendUrl, userPath } from "@/components/setup";
 import { UpdateTimeOffset } from "../../../interface";
 
 export default async function updateTimeOffset(
   input: UpdateTimeOffset,
   token: string
 ) {
-  const response = await fetch(`${backendUrl}/${userPath}/updateTimeOffset`, {
+  const response = await fetch(`${getBackendUrl()}/${userPath}/updateTimeOffset`, {
     method: "PUT",
     cache: "no-store",
     headers: {

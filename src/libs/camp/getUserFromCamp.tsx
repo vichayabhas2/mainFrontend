@@ -1,5 +1,4 @@
-import { backendUrl } from "@/components/setup";
-import { InterUser } from "../../../intreface";
+import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 import { ShowMember } from "../../../interface";
 
@@ -11,7 +10,7 @@ export default async function getUserFromCamp(
     | "getPetosFromPartId",
   id: mongoose.Types.ObjectId
 ): Promise<ShowMember[]> {
-  const res = await fetch(`${backendUrl}/camp/${mode}/params/${id}`, {
+  const res = await fetch(`${getBackendUrl()}/camp/${mode}/params/${id}`, {
     cache: "no-store",
   });
   return await res.json();

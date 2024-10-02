@@ -2,7 +2,7 @@
 import { Checkbox, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import nongRegisterCamp from "@/libs/camp/nongRegisterCamp";
-import { InterCampFront } from "../../intreface";
+import { InterCampFront } from "../../interface";
 import Link from "next/link";
 import { InterUser, Size } from "../../interface";
 import SelectSize from "./SelectSize";
@@ -18,7 +18,7 @@ export default function NongRegisterPage({
   token: string;
   user: InterUser; ///////////////////////////////////////////////////////////////////////
 }): React.ReactNode {
-  const [shertSize, setShertSize] = useState<Size>(user.shertSize);
+  const [shirtSize, setShertSize] = useState<Size>(user.shirtSize);
   const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
   const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(
     user.likeToSleepAtCamp
@@ -48,7 +48,7 @@ export default function NongRegisterPage({
             เลือกขนาดเสื้อ
           </label>
 
-          <SelectSize select={setShertSize} def={user.shertSize} />
+          <SelectSize select={setShertSize} def={user.shirtSize} />
         </div>
 
         <div className="flex flex-row items-center my-5">
@@ -87,7 +87,7 @@ export default function NongRegisterPage({
                   nongRegisterCamp(camp._id, link, token);
                   updateBottle(haveBottle,token)
                   updateSleep(likeToSleepAtCamp,token)
-                  updateSize(shertSize,token)
+                  updateSize(shirtSize,token)
                 } catch (error) {
                   console.log(error);
                 }

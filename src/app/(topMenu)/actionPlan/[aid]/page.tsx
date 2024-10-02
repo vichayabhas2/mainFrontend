@@ -18,25 +18,25 @@ export default async function HospitalDetailPage({
   if (!session) {
     return <BackToHome />;
   }
-  const actionPland = await getActionPlan(
+  const actionPlan = await getActionPlan(
     new mongoose.Types.ObjectId(params.aid),
     session.user.token
   );
   var i = 0;
   const places: InterPlace[] = [];
-  while (i < actionPland.placeIds.length) {
-    const place = await getPlace(actionPland.placeIds[i++]);
+  while (i < actionPlan.placeIds.length) {
+    const place = await getPlace(actionPlan.placeIds[i++]);
     places.push(place);
   }
   const allPlaceData = await getAllPlaceData();
-  const pees = await getUserFromCamp("getPeesFromPartId", actionPland.partId);
-  const petos = await getUserFromCamp("getPetosFromPartId", actionPland.partId);
+  const pees = await getUserFromCamp("getPeesFromPartId", actionPlan.partId);
+  const petos = await getUserFromCamp("getPetosFromPartId", actionPlan.partId);
   return (
     <>
       <EditActionPland
         pees={pees}
         petos={petos}
-        actionPland={actionPland}
+        actionPlan={actionPlan}
         pls={places}
         allPlaceData={allPlaceData}
       />

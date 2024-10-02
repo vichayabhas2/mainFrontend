@@ -55,10 +55,8 @@ export default function RegisterPartClient({
   const regis = partMap.filter(
     (e) =>
       e.key.toString() !== camp.partBoardId.toString() &&
-      e.key.toString() !== camp.partRegiterId.toString()
+      e.key.toString() !== camp.partRegisterId.toString()
   );
-  console.log(regisParts);
-  console.log(regisBaans);
   return (
     <div>
       <div>น้องที่สมัครเข้ามา</div>
@@ -404,18 +402,18 @@ export default function RegisterPartClient({
                   <td className=" border border-x-black">
                     {user.haveBottle.toString()}
                   </td>
-                  <td className=" border border-x-black">{user.shertSize}</td>
+                  <td className=" border border-x-black">{user.shirtSize}</td>
                   <td className=" border border-x-black">{user.group}</td>
-                  {user.helthIsueId ? (
+                  {user.heathIssueId ? (
                     <td
                       className=" border border-x-black"
                       onClick={() => {
                         router.push(
-                          `/helthIshue/${user.helthIsueId?.toString()}`
+                          `/helthIshue/${user.heathIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.helthIsueId.toString()}
+                      {user.heathIssueId.toString()}
                     </td>
                   ) : (
                     <td className=" border border-x-black">-</td>
@@ -450,7 +448,7 @@ export default function RegisterPartClient({
                 <th className=" border border-x-black">email</th>
                 <th className=" border border-x-black">มีกระติกน้ำหรือไม่</th>
                 <th className=" border border-x-black">ขนาดเสื้อ</th>
-                <th className=" border border-x-black">กรุปของนิสิต</th>
+                <th className=" border border-x-black">กรุ๊ปของนิสิต</th>
                 <th className=" border border-x-black">ปัญหาสุขภาพ</th>
               </tr>
               {regisBaan.pees.map((user: ShowMember) => (
@@ -476,18 +474,18 @@ export default function RegisterPartClient({
                   <td className=" border border-x-black">
                     {user.haveBottle.toString()}
                   </td>
-                  <td className=" border border-x-black">{user.shertSize}</td>
+                  <td className=" border border-x-black">{user.shirtSize}</td>
                   <td className=" border border-x-black">{user.group}</td>
-                  {user.helthIsueId ? (
+                  {user.heathIssueId ? (
                     <td
                       className=" border border-x-black"
                       onClick={() => {
                         router.push(
-                          `/helthIshue/${user.helthIsueId?.toString()}`
+                          `/helthIshue/${user.heathIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.helthIsueId.toString()}
+                      {user.heathIssueId.toString()}
                     </td>
                   ) : (
                     <td className=" border border-x-black">-</td>
@@ -513,7 +511,7 @@ export default function RegisterPartClient({
         const have =
           isBoard ||
           (regisPart.part._id.toString() !== camp.partBoardId.toString() &&
-            regisPart.part._id.toString() != camp.partRegiterId.toString());
+            regisPart.part._id.toString() != camp.partRegisterId.toString());
         return (
           <>
             <div>
@@ -558,18 +556,18 @@ export default function RegisterPartClient({
                     <td className=" border border-x-black">
                       {user.haveBottle.toString()}
                     </td>
-                    <td className=" border border-x-black">{user.shertSize}</td>
+                    <td className=" border border-x-black">{user.shirtSize}</td>
                     <td className=" border border-x-black">{user.group}</td>
-                    {user.helthIsueId ? (
+                    {user.heathIssueId ? (
                       <td
                         className=" border border-x-black"
                         onClick={() => {
                           router.push(
-                            `/helthIshue/${user.helthIsueId?.toString()}`
+                            `/helthIshue/${user.heathIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.helthIsueId.toString()}
+                        {user.heathIssueId.toString()}
                       </td>
                     ) : (
                       <td className=" border border-x-black">-</td>
@@ -631,18 +629,18 @@ export default function RegisterPartClient({
                     <td className=" border border-x-black">
                       {user.haveBottle.toString()}
                     </td>
-                    <td className=" border border-x-black">{user.shertSize}</td>
+                    <td className=" border border-x-black">{user.shirtSize}</td>
                     <td className=" border border-x-black">{user.group}</td>
-                    {user.helthIsueId ? (
+                    {user.heathIssueId ? (
                       <td
                         className=" border border-x-black"
                         onClick={() => {
                           router.push(
-                            `/helthIshue/${user.helthIsueId?.toString()}`
+                            `/helthIshue/${user.heathIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.helthIsueId.toString()}
+                        {user.heathIssueId.toString()}
                       </td>
                     ) : (
                       <td className=" border border-x-black">-</td>

@@ -16,7 +16,7 @@ import {
 } from "../../interface";
 import addPartName from "@/libs/admin/addPartName";
 import FinishButton from "./FinishButton";
-import { backendUrl } from "./setup";
+import { getBackendUrl } from "./setup";
 //import { InterNameContainer, CreateCamp } from "../../interface";
 
 export default function AdminClient({
@@ -37,7 +37,7 @@ export default function AdminClient({
   const [round, setRound] = useState<number | null>(null);
   const [dateStart, setDateStart] = useState<Date | null>(null);
   const [dateEnd, setDateEnd] = useState<Date | null>(null);
-  const [memberStructre, setMemberStructre] = useState<
+  const [memberStructure, setMemberStructure] = useState<
     | "nong->highSchool,pee->1year,peto->2upYear"
     | "nong->highSchool,pee->2upYear"
     | "nong->1year,pee->2upYear"
@@ -138,14 +138,14 @@ export default function AdminClient({
           <MenuItem
             value={"น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1"}
             onClick={() => {
-              setMemberStructre("nong->highSchool,pee->1year,peto->2upYear");
+              setMemberStructure("nong->highSchool,pee->1year,peto->2upYear");
             }}
           >
             น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setMemberStructre("nong->1year,pee->2upYear");
+              setMemberStructure("nong->1year,pee->2upYear");
             }}
             value="น้องค่ายเป็นปี 1"
           >
@@ -153,7 +153,7 @@ export default function AdminClient({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setMemberStructre("nong->highSchool,pee->2upYear");
+              setMemberStructure("nong->highSchool,pee->2upYear");
             }}
             value="น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปีโต"
           >
@@ -161,7 +161,7 @@ export default function AdminClient({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setMemberStructre("nong->highSchool,pee->allYear");
+              setMemberStructure("nong->highSchool,pee->allYear");
             }}
             value="น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1-4"
           >
@@ -169,7 +169,7 @@ export default function AdminClient({
           </MenuItem>
           <MenuItem
             onClick={() => {
-              setMemberStructre("allYearMix");
+              setMemberStructure("allYearMix");
             }}
             value="นิสิตเป็นได้ทั้งพี่บ้านและน้องค่าย"
           >
@@ -292,7 +292,7 @@ export default function AdminClient({
             if (
               chose &&
               boardIds &&
-              memberStructre &&
+              memberStructure &&
               registerModel &&
               round &&
               dateStart &&
@@ -301,7 +301,7 @@ export default function AdminClient({
               peeSleepModel
             ) {
               try {
-                const redy: CreateCamp = {
+                const reddy: CreateCamp = {
                   nameId: chose,
                   boardIds: boardIds
                     .split(",")
@@ -310,11 +310,11 @@ export default function AdminClient({
                   round,
                   dateEnd,
                   dateStart,
-                  memberStructre,
+                  memberStructure,
                   peeSleepModel,
                   nongSleepModel,
                 };
-                createCamp(redy, session.user.token);
+                createCamp(reddy, session.user.token);
               } catch (error) {
                 alert (error)
                 console.log(error);
@@ -327,7 +327,7 @@ export default function AdminClient({
               alert(round);
               alert(dateEnd);
               alert(dateStart);
-              alert(memberStructre);
+              alert(memberStructure);
               console.log({
                 nameId: chose,
                 boardIds,
@@ -335,7 +335,7 @@ export default function AdminClient({
                 round,
                 dateEnd,
                 dateStart,
-                memberStructre,
+                memberStructure,
               });
             }
           }}
@@ -367,7 +367,7 @@ export default function AdminClient({
               console.log(error);
             }
           } else {
-            alert("Please type in all the detavdtrjbyfugjunils!");
+            alert("Please type in all the detail!");
           }
         }}
       >
@@ -401,7 +401,7 @@ export default function AdminClient({
               console.log(error);
             }
           } else {
-            alert("Please type in all the detavdtrjbyfugjunils!");
+            alert("Please type in all the details!");
           }
         }}
       >
@@ -409,7 +409,7 @@ export default function AdminClient({
       </button>
       <FinishButton
         onClick={async () => {
-          await fetch(`${backendUrl}/admin/afterVisnuToPee`, {
+          await fetch(`${getBackendUrl()}/admin/afterVisnuToPee`, {
             method: "POST",
             cache: "no-store",
             headers: {
@@ -422,7 +422,7 @@ export default function AdminClient({
       />
       <FinishButton
         onClick={async () => {
-          await fetch(`${backendUrl}/admin/peeToPeto`, {
+          await fetch(`${getBackendUrl()}/admin/peeToPeto`, {
             method: "POST",
             cache: "no-store",
             headers: {

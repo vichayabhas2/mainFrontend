@@ -6,11 +6,13 @@ import updateSize from "@/libs/user/updateSize";
 import { Checkbox, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { InterUser } from "../../intreface";
+import { InterUser } from "../../interface";
 import { Session } from "next-auth";
 import SelectSize from "./SelectSize";
 import updateSleep from "@/libs/user/updateSleep";
 import { Size } from "../../interface";
+import FinishButton from "./FinishButton";
+import bypassRole from "@/libs/user/bypassRole";
 
 export default function UpdateProfileRaw({
   user,
@@ -26,11 +28,12 @@ export default function UpdateProfileRaw({
   const [nickname, setNickname] = useState<string>(user.nickname);
   const [lastname, setLastname] = useState<string>(user.lastname);
   const [citizenId, setCitizenId] = useState<string>(user.citizenId);
-  const [shertSize, setShertSize] = useState<Size>(user.shertSize);
+  const [shirtSize, setShirtSize] = useState<Size>(user.shirtSize);
   const [haveBottle, setHaveBottle] = useState<boolean>(user.haveBottle);
   const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(
     user.likeToSleepAtCamp
   );
+  const [key, setKey] = useState<string>("");
   const router = useRouter();
   if (!session) {
     router.push("/");
@@ -93,7 +96,7 @@ export default function UpdateProfileRaw({
           <TextField
             name="Tel"
             id="Tel"
-            type='number'
+            type="number"
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setTel(e.target.value)}
             defaultValue={tel}
@@ -107,9 +110,8 @@ export default function UpdateProfileRaw({
           <TextField
             name="citizenId"
             id="citizenId"
-            type='number'
+            type="number"
             required
-            
             defaultValue={citizenId}
             className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setCitizenId(e.target.value)}
@@ -120,7 +122,7 @@ export default function UpdateProfileRaw({
             เลือกขนาดเสื้อ
           </label>
 
-          <SelectSize select={setShertSize} def={user.shertSize} />
+          <SelectSize select={setShirtSize} def={user.shirtSize} />
         </div>
 
         <div className="flex flex-row items-center my-5">
@@ -172,7 +174,7 @@ export default function UpdateProfileRaw({
                     citizenId,
                     session.user.token
                   );
-                  updateSize(shertSize, session.user.token);
+                  updateSize(shirtSize, session.user.token);
                   updateBottle(haveBottle, session.user.token);
                   updateSleep(likeToSleepAtCamp, session.user.token);
                 } catch (error) {
@@ -186,6 +188,23 @@ export default function UpdateProfileRaw({
             update all
           </button>
         </div>
+        {user.fridayActEn ? (
+          <>
+            <div className="flex flex-row items-center my-5">
+              <label className="w-2/5 text-2xl text-slate-200">bypass</label>
+              <TextField
+                name="citizenId"
+                id="citizenId"
+                className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+                onChange={(e) => setKey(e.target.value)}
+              />
+            </div>
+            <FinishButton
+              text="bypass"
+              onClick={() => bypassRole(key, session.user.token)}
+            />
+          </>
+        ) : null}
       </form>
     </div>
   );
