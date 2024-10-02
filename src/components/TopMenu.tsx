@@ -62,7 +62,7 @@ export default async function TopMenu() {
               user.fridayActEn ? null : (
                 <TopMenuItem title="verify" pageRef="/verify" />
               )}
-              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
