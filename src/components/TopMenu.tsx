@@ -47,7 +47,7 @@ export default async function TopMenu() {
         return (
           //น้องจริง
           <div className={styles.menucontainer}>
-            
+             <Logo/>
             <DateConv
               day={day}
               minutes={minutes}
@@ -74,7 +74,7 @@ export default async function TopMenu() {
         // พี่ และ admin mode น้อง
         return (
           <div className={styles.menucontainer}>
-            
+             <Logo/>
             <DateConv
               day={day}
               minutes={minutes}
@@ -100,7 +100,7 @@ export default async function TopMenu() {
         // admin mode พี่
         return (
           <div className={styles.menucontainer}>
-           
+            <Logo/>
             <DateConv
               day={day}
               minutes={minutes}
@@ -157,6 +157,7 @@ export default async function TopMenu() {
     return (
       // not login
       <div className={styles.menucontainer}>
+         <Logo/>
         <DateConv
           day={day}
           minutes={minutes}

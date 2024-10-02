@@ -3,6 +3,7 @@ import { Register } from "../../../interface";
 
 export default async function userSignup(signUp: Register) {
   try {
+    
     const response = await fetch(`${getBackendUrl()}/api/v1/auth/register`, {
       method: "POST",
       headers: {
@@ -11,7 +12,7 @@ export default async function userSignup(signUp: Register) {
       body: JSON.stringify(signUp),
       cache: "no-store",
     });
-
+    alert(response.status);
     if (!response.ok) {
       throw new Error("Failed to log-in");
     }
