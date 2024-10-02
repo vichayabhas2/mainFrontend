@@ -112,7 +112,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
-              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="admin" pageRef="/admin" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
@@ -137,7 +137,7 @@ export default async function TopMenu() {
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
-              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
+              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
               <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
