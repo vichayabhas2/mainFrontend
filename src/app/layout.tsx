@@ -25,7 +25,7 @@ export default async function RootLayout({
      
           <NextAuthProvider session={session}>
             <TopMenu />
-            <div style={{ marginTop: 52 }}>{children}</div>
+            <div style={{ marginTop: 80 }}>{children}</div>
           </NextAuthProvider>
     
       </body>
