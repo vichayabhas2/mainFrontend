@@ -9,6 +9,7 @@ import DateConv from "./Dateconv";
 import getTimeOffset from "@/libs/user/getTimeOffset";
 import dayjs from "dayjs";
 import getSystemInfo from "@/libs/randomthing/getSystemInfo";
+import Logo from "./Logo";
 
 export default async function TopMenu() {
   const monthArray = [
@@ -46,6 +47,7 @@ export default async function TopMenu() {
         return (
           //น้องจริง
           <div className={styles.menucontainer}>
+            
             <DateConv
               day={day}
               minutes={minutes}
@@ -72,6 +74,7 @@ export default async function TopMenu() {
         // พี่ และ admin mode น้อง
         return (
           <div className={styles.menucontainer}>
+            
             <DateConv
               day={day}
               minutes={minutes}
@@ -97,6 +100,7 @@ export default async function TopMenu() {
         // admin mode พี่
         return (
           <div className={styles.menucontainer}>
+           
             <DateConv
               day={day}
               minutes={minutes}
@@ -121,6 +125,7 @@ export default async function TopMenu() {
         return (
           // พี่ mode พี่
           <div className={styles.menucontainer}>
+             <Logo/>
             <DateConv
               day={day}
               minutes={minutes}
