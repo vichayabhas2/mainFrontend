@@ -28,6 +28,9 @@ export default function SelectSize({
         id="location"
         className="h-[2em] w-[200px]"
         defaultValue={def}
+        style={{
+          color:"white"
+        }}
       >
         {choices.map((choice: "S" | "M" | "L" | "XL" | "XXL" | "3XL") => {
           return (
