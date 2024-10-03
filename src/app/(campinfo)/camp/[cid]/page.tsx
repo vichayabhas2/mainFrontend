@@ -24,6 +24,7 @@ import getTimeOffset from "@/libs/user/getTimeOffset";
 import getShowPlace from "@/libs/randomthing/getShowPlace";
 import { getAllPlaceData } from "@/components/placeSetUp";
 import TopMenuCamp from "@/components/TopMenuCamp";
+import WelfareServer from "@/components/WelfareServer";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -198,6 +199,7 @@ export default async function HospitalDetailPage({
             timeOffset={timeOffset}
             camp={campDetail}
           />
+          <WelfareServer campId={campDetail._id} token={token} />
         </>
       );
     } else if (campDetail.petoIds.includes(userId)) {
@@ -225,6 +227,7 @@ export default async function HospitalDetailPage({
             timeOffset={timeOffset}
             camp={campDetail}
           />
+          <WelfareServer campId={campDetail._id} token={token} />
         </>
       );
     } else if (hasKey(campDetail.nongPendingIds, user._id)) {
