@@ -50,7 +50,7 @@ export default function UpdateProfileRaw({
       }}
       >Update Profile </div>
 
-      <form className="w-[60%] items-center p-10 rounded-3xl"
+      <form className="w-[70%] items-center p-10 rounded-3xl"
       style={{
         backgroundColor:"#961A1D"
       }}

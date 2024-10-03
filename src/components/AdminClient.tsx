@@ -58,14 +58,25 @@ export default function AdminClient({
   >(null);
   const [newPartName, setNewPartName] = useState<string | null>(null);
   return (
-    <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">เลือกชื่อค่าย</label>
+    <form className="w-[70%] items-center p-10 rounded-3xl "
+    style={{
+      backgroundColor:"#961A1D"
+    }}
+    >
+      <div className=" flex flex-row items-center ">
+        <label className="w-2/5 text-2xl text-white"
+        style={{
+          textAlign:"left"
+        }}
+        >เลือกชื่อค่าย</label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] text-white"
+          style={{
+            textAlign:"left"
+          }}
         >
           {campNameContainers.map((choice: InterNameContainer) => {
             return (
@@ -85,11 +96,16 @@ export default function AdminClient({
 
       <div className=" rounded-lg ">
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">ครั้งที่</label>
+          <label className="w-2/5 text-2xl text-white"
+            style={{
+              textAlign:"left"
+            }}
+          >ครั้งที่</label>
           <Input
             type="number"
             id="name"
             name="name"
+            className="text-white"
             required
             onChange={(e) => {
               setRound(parseInt(e.target.value));
@@ -97,11 +113,30 @@ export default function AdminClient({
           />
         </div>
       </div>
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">วันเริ่มค่าย</label>
+      <div className=" flex flex-row items-center">
+        <label className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >วันเริ่มค่าย</label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            className="bg-white m-10"
+            className="bg-white m-10 rounded-2xl"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',      
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             value={dateStart}
             onChange={(newValue) => {
               setDateStart(newValue);
@@ -111,11 +146,30 @@ export default function AdminClient({
           />
         </LocalizationProvider>
       </div>
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">วันจบค่าย</label>
+      <div className=" flex flex-row items-center">
+        <label className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >วันจบค่าย</label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            className="bg-white m-10"
+            className="bg-white m-10 rounded-2xl"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',      
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             value={dateEnd}
             onChange={(newValue) => {
               setDateEnd(newValue);
@@ -125,15 +179,19 @@ export default function AdminClient({
           />
         </LocalizationProvider>
       </div>
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">
+      <div className=" flex flex-row items-center ">
+        <label className="w-2/5 mb-5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >
           รูปแบบสมาชิกค่าย
         </label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] mb-5 text-white"
         >
           <MenuItem
             value={"น้องค่ายเป็นเด็กมใปลาย พี่บ้านเป็นปี 1"}
@@ -177,15 +235,19 @@ export default function AdminClient({
           </MenuItem>
         </Select>
       </div>
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">
+      <div className=" flex flex-row items-center">
+        <label className="w-2/5 text-2xl mb-5 text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >
           รูปแบบการลงทะเบียนค่าย
         </label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] mb-5 text-white"
         >
           <MenuItem
             onClick={() => {
@@ -213,15 +275,19 @@ export default function AdminClient({
           </MenuItem>
         </Select>
       </div>
-      <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">
+      <div className=" flex flex-row items-center ">
+        <label className="w-2/5 text-2xl mb-5 text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >
           รูปแบบการค้างคืนของพี่ค่าย
         </label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] mb-5 mx-3 text-white"
         >
           {models.map(
             (
@@ -243,14 +309,18 @@ export default function AdminClient({
             }
           )}
         </Select>
-        <label className="w-2/5 text-2xl text-slate-200">
+        <label className="w-2/5 text-2xl mb-5 text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >
           รูปแบบการค้างคืนของน้องค่าย
         </label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] mb-5 mx-3 text-white"
         >
           {models.map(
             (
@@ -274,20 +344,42 @@ export default function AdminClient({
         </Select>
       </div>
 
-      <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">
+      <div className="flex flex-row items-center mt-4">
+        <label className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >
           บอร์ดค่าย userId ให้ใส่ , ห้ามเว้นวรรค
         </label>
         <TextField
           name="Name"
           id="Name"
-          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          sx={{
+            backgroundColor: '#f5f5f5',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderRadius: ' 1rem',
+                borderColor: 'transparent', 
+              },
+              '&:hover fieldset': {
+                borderColor: '#5479FF',     
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#5479FF',      
+              }
+            }
+          }}
+          className="w-3/5 bg-white rounded-2xl shadow-inner"
           onChange={(e) => setBoardIds(e.target.value)}
         />
       </div>
       <div className=" rounded-lg ">
         <button
-          className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+          className="bg-white p-3 mt-2  mb-4 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+          style={{
+            color:"#961A1D"
+          }}
           onClick={() => {
             if (
               chose &&
@@ -344,21 +436,43 @@ export default function AdminClient({
         </button>
       </div>
       {campNameContainers.map((nameContainer: InterNameContainer) => (
-        <label className="w-2/5 text-2xl text-slate-200">
+        <label className="w-2/5 text-2xl text-white">
           {nameContainer.name}
         </label>
       ))}
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชื่อค่าย</label>
+        <label className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >เพิ่มชื่อค่าย</label>
         <TextField
           name="Name"
           id="Name"
-          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          sx={{
+            backgroundColor: '#f5f5f5',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderRadius: ' 1rem',
+                borderColor: 'transparent', 
+              },
+              '&:hover fieldset': {
+                borderColor: '#5479FF',     
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#5479FF',      
+              }
+            }
+          }}
+          className="w-3/5 bg-white rounded-2xl shadow-inner"
           onChange={(e) => setNewName(e.target.value)}
         />
       </div>
       <button
-        className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        className="bg-white mt-2  mb-4  p-3 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        style={{
+          color:"#961A1D",
+        }}
         onClick={() => {
           if (newName) {
             try {
@@ -376,23 +490,33 @@ export default function AdminClient({
 
       {partNameContainers.map((nameContainer: InterPartNameContainer) => (
         <div>
-          <label className="w-2/5 text-2xl text-slate-200">
+          <label className="text-2xl text-white"
+          style={{textAlign:"left"}}
+          >
             {nameContainer.name}
           </label>
         </div>
       ))}
 
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">เพิ่มชื่อฝ่าย</label>
+        <label className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign:"left"
+          }}
+        >เพิ่มชื่อฝ่าย</label>
         <TextField
           name="Name"
           id="Name"
-          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          className="w-3/5 bg-white rounded-2xl shadow-inner"
           onChange={(e) => setNewPartName(e.target.value)}
         />
       </div>
       <button
-        className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        className=" p-3 bg-white rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+        style={{
+          color:"#961A1D",
+          marginTop:"20px"
+        }}
         onClick={() => {
           if (newPartName) {
             try {

@@ -25,14 +25,24 @@ export default function LostAndFoundClient({
   const [name, setName] = useState<string | null>(null);
   const [type, setType] = useState<"lost" | "found" | null>(null);
   return (
-    <form className="w-[70%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+    <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
+      <div className="text-4xl font-bold"
+      style={{
+        color:"#961A1D"
+      }}
+      >Lost and Found </div>
+    <form className="w-[70%] items-center p-10 rounded-3xl"
+    style={{
+      backgroundColor:"#961A1D"
+    }}
+    >
       <div className=" rounded-lg ">
-        <label className="w-2/5 text-2xl text-slate-200">lost or found</label>
+        <label className="w-2/5 text-2xl text-white">lost or found</label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] ml-20 text-white"
         >
           <MenuItem
             onClick={() => {
@@ -53,21 +63,51 @@ export default function LostAndFoundClient({
         </Select>
       </div>
 
-      <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">สิ่งของอะไร</label>
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-white">สิ่งของอะไร</label>
         <TextField
           name="Name"
           id="Name"
-          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          className="w-3/5 bg-white rounded-2xl shadow-inner"
+          sx={{
+            backgroundColor: '#f5f5f5',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderRadius: ' 1rem',
+                borderColor: 'transparent', 
+              },
+              '&:hover fieldset': {
+                borderColor: '#5479FF',      
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#5479FF',      
+              }
+            }
+          }}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
-      <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
+      <div className="flex flex-row items-center my-5">
+        <label className="w-2/5 text-2xl text-white">รายละเอียด</label>
         <TextField
           name="Name"
           id="Name"
-          className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+          className="w-3/5 bg-white rounded-2xl shadow-inner"
+          sx={{
+            backgroundColor: '#f5f5f5',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderRadius: ' 1rem',
+                borderColor: 'transparent', 
+              },
+              '&:hover fieldset': {
+                borderColor: '#5479FF',      
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#5479FF',      
+              }
+            }
+          }}
           onChange={(e) => setDetail(e.target.value)}
         />
       </div>
@@ -85,7 +125,7 @@ export default function LostAndFoundClient({
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] text-white"
         >
           {mapIn.map((choice: MyMap) => {
             return (
@@ -101,7 +141,10 @@ export default function LostAndFoundClient({
           })}
         </Select>
         <button
-          className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+          className="bg-white p-3 rounded-lg font-medium shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+          style={{
+            color:"#961A1D"
+          }}
           onClick={async () => {
             console.log(userRef);
             try {
@@ -123,5 +166,6 @@ export default function LostAndFoundClient({
         </button>
       </div>
     </form>
+    </div>
   );
 }

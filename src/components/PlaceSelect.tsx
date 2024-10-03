@@ -41,12 +41,12 @@ export default function PlaceSelect({
   return (
     <>
       <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">{buildingText}</label>
+        <label className="w-2/5 text-2xl text-white">{buildingText}</label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] text-white"
           defaultValue={nB}
         >
           {buildings.map((choice: string) => {
@@ -59,12 +59,12 @@ export default function PlaceSelect({
         </Select>
       </div>
       <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">{placeText}</label>
+        <label className="w-2/5 text-2xl text-white">{placeText}</label>
         <Select
           variant="standard"
           name="location"
           id="location"
-          className="h-[2em] w-[200px]"
+          className="h-[2em] w-[200px] text-white"
           defaultValue={`${nP?.floor} ${nP?.room}`}
         >
           {nC?.map((choice: InterPlace) => {
