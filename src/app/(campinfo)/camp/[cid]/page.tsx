@@ -23,6 +23,7 @@ import NongSureClient from "@/components/NongSureClient";
 import getTimeOffset from "@/libs/user/getTimeOffset";
 import getShowPlace from "@/libs/randomthing/getShowPlace";
 import { getAllPlaceData } from "@/components/placeSetUp";
+import TopMenuCamp from "@/components/TopMenuCamp";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -53,7 +54,10 @@ export default async function HospitalDetailPage({
     }
     if (campDetail.nongIds.includes(userId)) {
       campRole = "nong";
-      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const campMemberCard = await getCampMemberCardByCampId(
+        campDetail._id,
+        token
+      );
       const nongCamp = await getNongCamp(campMemberCard.campModelId, token);
       const baan = await getBaan(nongCamp.baanId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
@@ -70,6 +74,7 @@ export default async function HospitalDetailPage({
         : null;
       return (
         <>
+          <TopMenuCamp role="nong" mode={user.mode} campId={campDetail._id} />
           <ImagesFromUrl urls={campDetail.pictureUrls} />
           <table>
             <tr>
@@ -117,7 +122,10 @@ export default async function HospitalDetailPage({
       );
     } else if (campDetail.peeIds.includes(userId)) {
       campRole = "pee";
-      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const campMemberCard = await getCampMemberCardByCampId(
+        campDetail._id,
+        token
+      );
       const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
       const baan = await getBaan(peeCamp.baanId);
       const part = await getPart(peeCamp.partId, token);
@@ -137,6 +145,7 @@ export default async function HospitalDetailPage({
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
       return (
         <>
+          <TopMenuCamp role="pee" mode={user.mode} campId={campDetail._id} />
           <ImagesFromUrl urls={campDetail.pictureUrls} />
           <table>
             <tr>
@@ -193,7 +202,10 @@ export default async function HospitalDetailPage({
       );
     } else if (campDetail.petoIds.includes(userId)) {
       campRole = "peto";
-      const campMemberCard = await getCampMemberCardByCampId(campDetail._id, token);
+      const campMemberCard = await getCampMemberCardByCampId(
+        campDetail._id,
+        token
+      );
       const petoCamp = await getPetoCamp(campMemberCard.campModelId, token);
 
       const part = await getPart(petoCamp.partId, token);
@@ -202,6 +214,7 @@ export default async function HospitalDetailPage({
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
       return (
         <>
+          <TopMenuCamp role="peto" mode={user.mode} campId={campDetail._id} />
           <ImagesFromUrl urls={campDetail.pictureUrls} />
           <PartClient
             pees={PeeParts}

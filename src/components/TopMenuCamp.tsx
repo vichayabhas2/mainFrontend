@@ -1,82 +1,112 @@
 import styles from "./topmenu.module.css";
 import TopMenuItem from "./TopMenuItem";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import getUserProfile from "@/libs/user/getUserProfile";
-import getSystemInfo from "@/libs/randomthing/getSystemInfo";
-import getShertManageByCampId from "@/libs/user/getCampMemberCardByCampId";
 import mongoose from "mongoose";
-import PushToCamps from "./PushToCamps";
-import Logo from "./Logo";
+import { Mode, RoleCamp } from "../../interface";
+import { useRouter } from "next/navigation";
 
-export default async function TopMenuCamp({
+export default function TopMenuCamp({
   campId,
+  role,
+  mode,
 }: {
   campId: mongoose.Types.ObjectId;
+  role: RoleCamp;
+  mode: Mode;
 }) {
-  const session = await getServerSession(authOptions);
-  const { systemMode } = await getSystemInfo();
-  if (session) {
-    const user = await getUserProfile(session.user.token);
-    const shirtManage = await getShertManageByCampId(
-      campId,
-      session.user.token
-    );
-    if (user.mode == "nong") {
-      if (shirtManage.role == "nong") {
-        return (
-          //น้องจริง
-          <div className={styles.menucontainer}>
-            <Logo/>
-            <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-              <TopMenuItem title="verify" pageRef="/verify" />
-              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
-              <TopMenuItem title="checkTel" pageRef="/tel" />
-              <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
-              <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
-              <TopMenuItem title="Home" pageRef="/" />
-            </div>
-          </div>
-        );
-      } else {
-        // พี่ และ admin mode น้อง
-        return (
-          <div className={styles.menucontainer}>
-            <Logo/>
-            <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-              <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
-              <TopMenuItem title="checkTel" pageRef="/tel" />
-              <TopMenuItem title="โซนพี่" pageRef="/peeOnly" />
-              <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
-              <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
-              <TopMenuItem title="Home" pageRef="/" />
-            </div>
-          </div>
-        );
-      }
-    } else {
+  const router = useRouter();
+  switch (role) {
+    case "nong":
       return (
-        // พี่ mode พี่
         <div className={styles.menucontainer}>
-          <Logo/>
           <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-            <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-            <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
-            <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
-            <TopMenuItem title="checkTel" pageRef="/tel" />
-            <TopMenuItem title="Update Profile" pageRef="/updateProfile" />
-            <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
-            <TopMenuItem title="Home" pageRef="/" />
+            <TopMenuItem
+              title="คุยส่วนตัวกับพี่"
+              pageRef={`/camp/${campId}/allNongChat`}
+            />
+            <TopMenuItem
+              title="คุยกันในบ้าน"
+              pageRef={`/camp/${campId}/baan/nongChat`}
+            />
+            <TopMenuItem
+              title="อ่านแชตทั้งหมด"
+              pageRef={`/camp/${campId}/baan/nongChat`}
+            />
           </div>
         </div>
       );
+    case "pee": {
+      switch (mode) {
+        case "nong":
+          return (
+            <div className={styles.menucontainer}>
+              <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+                <TopMenuItem
+                  title="คุยส่วนตัวกับน้อง"
+                  pageRef={`/camp/${campId}/allNongChat`}
+                />
+                <TopMenuItem
+                  title="คุยกันในบ้าน"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+                <TopMenuItem
+                  title="อ่านแชตทั้งหมด"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+              </div>
+            </div>
+          );
+        case "pee":
+          return (
+            <div className={styles.menucontainer}>
+              <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+                <TopMenuItem
+                  title="คุยส่วนตัวกับน้อง"
+                  pageRef={`/camp/${campId}/allNongChat`}
+                />
+                <TopMenuItem
+                  title="คุยกันในบ้านห้องที่มีน้อง"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+                <TopMenuItem
+                  title="คุยกันในบ้านห้องที่มีแต่พี่บ้าน"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+                <TopMenuItem
+                  title="อ่านแชตทั้งหมด"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+              </div>
+            </div>
+          );
+      }
     }
-  } else {
-    return <PushToCamps />;
+    case "peto": {
+      switch (mode) {
+        case "nong":
+          return (
+            <div className={styles.menucontainer}>
+              <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+                <TopMenuItem
+                  title="อ่านแชตทั้งหมด"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+              </div>
+            </div>
+          );
+        case "pee":
+          return (
+            <div className={styles.menucontainer}>
+              <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+                <TopMenuItem
+                  title="อ่านแชตทั้งหมด"
+                  pageRef={`/camp/${campId}/baan/nongChat`}
+                />
+              </div>
+            </div>
+          );
+      }
+    }
   }
-  //return <TopMenuItem title="Sign Out" pageRef="/api/auth/signout" />
 } /*
 {role === "admin" && user.mode === "pee" ? (
           <TopMenuItem title="Admin Action" pageRef="" />
