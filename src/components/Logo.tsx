@@ -16,7 +16,9 @@ export default function Logo (){
         backgroundColor:"white",
         paddingLeft:"4px",
         paddingTop:"4px",
-        borderRadius:"20px"
+        borderRadius:"20px",
+        zIndex:"9999"
+  
       }}>
       <Image src={logoImage} alt="Logo" 
       style={{width:"74px"}}

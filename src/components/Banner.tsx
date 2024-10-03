@@ -31,8 +31,27 @@ export default function Banner(){
             </div>
             
             {
-                session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>
-                    Welcome {session.user?.name}</div>: null
+                session? <div className=' font-semibold'
+                style={{
+                    top:"0",
+                    bottom:"0",
+                    left:"0",
+                    right:"0",
+                }}
+                >
+                    <h1 
+                    style={{
+                        fontSize:"90px",
+                        fontWeight:"bolder",
+                        color:"#961A1D",
+                        textAlign:"center",
+                        marginTop:"200px"
+                    }}
+                    >
+                     Welcome to LarnGear
+                    </h1>
+                   {session.user?.name}
+                    </div>: null
             }
             <button onClick={(e)=>{e.stopPropagation();   router.push('/camp')}}
 

@@ -7,6 +7,7 @@ import getSystemInfo from "@/libs/randomthing/getSystemInfo";
 import getShertManageByCampId from "@/libs/user/getCampMemberCardByCampId";
 import mongoose from "mongoose";
 import PushToCamps from "./PushToCamps";
+import Logo from "./Logo";
 
 export default async function TopMenuCamp({
   campId,
@@ -26,6 +27,7 @@ export default async function TopMenuCamp({
         return (
           //น้องจริง
           <div className={styles.menucontainer}>
+            <Logo/>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="verify" pageRef="/verify" />
@@ -41,6 +43,7 @@ export default async function TopMenuCamp({
         // พี่ และ admin mode น้อง
         return (
           <div className={styles.menucontainer}>
+            <Logo/>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/helthIshue" />
@@ -57,6 +60,7 @@ export default async function TopMenuCamp({
       return (
         // พี่ mode พี่
         <div className={styles.menucontainer}>
+          <Logo/>
           <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
             <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
             <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
