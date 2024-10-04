@@ -28,7 +28,7 @@ export default function ChatClient({
         marginTop:"100px",
         marginBottom:"20px"
       }}
-      >{data.sendType?.roomType}</div>
+      >{data.roomName}</div>
       <div style={{ // chat container
         width:"100%",
         position:"absolute",

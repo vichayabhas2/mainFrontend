@@ -6,7 +6,7 @@ export default async function getPetoCamp(
   id: mongoose.Types.ObjectId,
   token: string
 ): Promise<InterPetoCamp> {
-  const response = await fetch(`${getBackendUrl}/camp/petoCamp/params/${id}`, {
+  const response = await fetch(`${getBackendUrl()}/camp/petoCamp/params/${id}`, {
     method: "GET",
     cache: "no-store",
     headers: {

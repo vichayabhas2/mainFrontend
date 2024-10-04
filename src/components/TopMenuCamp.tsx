@@ -3,7 +3,6 @@ import styles from "./topmenu.module.css";
 import TopMenuItem from "./TopMenuItem";
 import mongoose from "mongoose";
 import { Mode, RoleCamp } from "../../interface";
-import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 
 export default function TopMenuCamp({
@@ -15,7 +14,6 @@ export default function TopMenuCamp({
   role: RoleCamp;
   mode: Mode;
 }) {
-  const router = useRouter();
   switch (role) {
     case "nong":
       return (
