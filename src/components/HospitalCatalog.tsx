@@ -40,7 +40,8 @@ export default function HospitalCatalog({
           }
           //console.log(camp);
           return (
-            <div className={`w-full h-auto my-${5}`}>
+            <div className={`w-[70%] h-auto my-${5}`}
+            >
               {/* <Link href={`/hospital/${hospitalItem._id}`}> */}
               <Card
                 hospitalName={camp.campName}

@@ -20,51 +20,145 @@ export default function ChatClient({
   const sendType = data.sendType;
   return (
     <div>
-      <table>
-        <tr>
-          <th>ห้อง</th>
-          <th>ชื่อเล่น</th>
-          <th>บ้าน</th>
-          {data.mode == "pee" ? <th>ฝ่าย</th> : <th>พี่หรือน้อง</th>}
-          <th>วันเวลา</th>
-          <th>ประเภท</th>
-          <th>ข้อความ</th>
-        </tr>
+       <div className="text-4xl font-bold"
+      style={{
+        color:"#961A1D",
+        width:"100%",
+        textAlign:"center",
+        marginTop:"100px",
+        marginBottom:"20px"
+      }}
+      >{data.sendType?.roomType}</div>
+      <div style={{ // chat container
+        width:"100%",
+        position:"absolute",
+        bottom:"0",
+        top:"145px",
+        overflowY:"scroll"
+      }}> 
+      <table style={{
+        width:"70%",
+        position:"absolute",
+        left:"50%",
+        marginLeft:"-35%"
+      }}>
         {data.chats.map((chat) => (
           <tr>
-            <td>{chat.roomName}</td>
-            <td>{chat.nickname}</td>
-            <td>{chat.baanName}</td>
-            {data.mode == "pee" ? (
-              <td>{chat.partName}</td>
-            ) : chat.role == "nong" ? (
-              <td>น้องค่าย</td>
-            ) : (
-              <td>พี่{data.groupName}</td>
-            )}
-            <td>
-              <GetTimeHtml input={chat.date} offset={data.timeOffset} />
-            </td>
-            <td>{chat.typeChat}</td>
-            <td>
+             <tr>
               <StringToHtml input={chat.message} />
-            </td>
+            </tr>
+            <tr>
+              <td>
+                <tr
+                style={{
+                  fontWeight:"bold",
+                  fontSize:"14px",
+                  display:"inline-block",
+                  border:"solid",
+                  borderColor:"#707070",
+                  color:"#707070",
+                  padding:"5px",
+                  paddingLeft:"18px",
+                  paddingRight:"18px",
+                  borderRadius:"6px 18px 18px 18px",
+                  marginBottom:"8px"
+                }}
+                >
+                {data.mode == "pee" ? (
+                <td>{chat.nickname} {chat.partName}</td> // part
+                ) : chat.role == "nong" ? ( 
+                <td>{chat.nickname} น้องค่าย</td> // lable
+                ) : (
+                <td>{chat.nickname} พี่ {data.groupName}</td> // group
+                )}
+                </tr>
+                <tr>
+                <td
+                style={{
+                  fontSize:"12px",
+                  color:"gray",
+                }}
+                >{chat.typeChat} : ห้อง {chat.roomName} 
+                </td>
+                </tr>
+                <tr>
+                <td
+                    style={{
+                      fontSize: "12px",
+                      color: "gray",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      fontWeight:"bold"
+                    }}
+                  >
+                    ---- {chat.baanName}
+                    <span style={{
+                      marginTop:"4px"
+                    }}><GetTimeHtml input={chat.date} offset={data.timeOffset} /></span>
+                    ----
+                  </td>
+                </tr>
+              </td>
+            </tr>
+            
+           
           </tr>
         ))}
+        <div style={{height:"100px"}}
+      ></div>
       </table>
+      </div>
       {sendType ? (
-        <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-          <div className="flex flex-row items-center">
+        <form 
+        style={{
+           backgroundColor:"#961A1D",
+           left:"20%",
+           right:"20%",
+           bottom:"10px",
+           position:"absolute",
+           height:"85px",
+           borderRadius:"30px"
+        }}
+        >
+          <div style={{
+            position:"absolute",
+            left:"15px",
+            right:"0px",
+            top:"15px"
+          }}>
             <TextField
               name="Name"
               id="Name"
-              className="w-3/5 bg-slate-100 rounded-2xl shadow-inner"
+              className="w-3/5 bg-white rounded-2xl shadow-inner"
+              sx={{
+                backgroundColor: '#f5f5f5',
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderRadius: ' 1rem',
+                    borderColor: 'transparent', 
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#5479FF',      
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#5479FF',      
+                  }
+                }
+              }}
               onChange={(e) => setMessage(e.target.value)}
             />
           </div>
-          <div className="flex flex-row justify-end">
+          <div style={{
+            position:"absolute",
+            right:"20px",
+            top:"20px"
+          }}>
             <button
-              className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+              className="bg-white p-3 rounded-lg font-medium shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
+              style={{
+                color:"#961A1D"
+              }}
               onClick={() => {
                 if (message) {
                   try {

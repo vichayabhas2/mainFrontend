@@ -17,24 +17,24 @@ export default function InteractiveCard({
   function onCarSelected()  {
     router.push(link);
  }
-  function onCardMouseAction(event: React.SyntheticEvent) {
-    if (event.type == "mouseover") {
-      event.currentTarget.classList.remove("shadow-lg");
-      event.currentTarget.classList.add("shadow-2xl");
-      event.currentTarget.classList.remove("bg-white");
-      event.currentTarget.classList.add("bg-neutral-200");
-    } else {
-      //console.log('hhhhhhhhh')
-      event.currentTarget.classList.remove("shadow-2xl");
-      event.currentTarget.classList.add("shadow-lg");
-      event.currentTarget.classList.add("bg-white");
-      event.currentTarget.classList.remove("bg-neutral-200");
-    }
+ function onCardMouseAction(event: React.SyntheticEvent) {
+  if (event.type === "mouseover") {
+    event.currentTarget.classList.add("shadow-lg");
+    // Use inline styles to set the background color
+    (event.currentTarget as HTMLElement).style.backgroundColor = "#B44C4F";
+  } else {
+    event.currentTarget.classList.remove("shadow-lg");
+    // Reset the background color
+    (event.currentTarget as HTMLElement).style.backgroundColor = "#961A1D";
   }
+}
 
   return (
     <div
-      className="bg-white shadow-lg rounded-lg h-96"
+      className=" shadow-lg rounded-lg h-96"
+      style ={{
+        backgroundColor: "#961A1D"
+      }}
       onClick={() => onCarSelected()}
       onMouseOver={(e) => onCardMouseAction(e)}
       onMouseOut={(e) => onCardMouseAction(e)}
