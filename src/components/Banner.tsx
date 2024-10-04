@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import FinishButton from './FinishButton'
 import { sendNotification } from './setup'
+import LarnImage from '../larn.jpg'
+import GearImage from '../Gears.png'
 //import
 export default function Banner(){
     const router=useRouter()
@@ -45,19 +47,53 @@ export default function Banner(){
                         fontWeight:"bolder",
                         color:"#961A1D",
                         textAlign:"center",
-                        marginTop:"200px"
+                        marginTop:"80px",
+                        marginBottom:"35px"
                     }}
                     >
                      Welcome to LarnGear
                     </h1>
+                    <Image src={LarnImage} alt='gear'
+                    style={{
+                        position:"absolute",
+                        width:" 80%",
+                        height:"800px",
+                        left:"50%",
+                        marginLeft:"-40%",
+                        objectFit:"cover",
+                        borderRadius:"20px"
+                    }}
+                    />
                    {session.user?.name}
                     </div>: null
             }
             <button onClick={(e)=>{e.stopPropagation();   router.push('/camp')}}
 
-       className='bg-white text-cyan-600 border border-cyan-600
-      font-semibold py-2 px-2 rounded z-30 absolute bottom-0 right-10
-      hover:bg-cyan-600 hover:text-white hover:border-tranparent'>Select Camp</button>
+       className='
+      font-semibold py-2 px-2 rounded-2xl z-30 bg-white
+     '
+      style={{
+        color:"#961A1D",
+        borderColor:"#961A1D",
+        border:"solid",
+        borderWidth:"3px",
+        position:"fixed",
+        bottom:"60px",
+        left:"50%",
+        width:"200px",
+        marginLeft:"-100px",
+        boxShadow:"0px 0px 30px white",
+        overflow:"hidden"
+      }}
+      >Select Camp
+      <Image src={GearImage} alt="icon"style={{
+        width:"60px",
+        position:"absolute",
+        top:"6px",
+        left:"-15px"
+      }}/>
+      </button>
+         <div style={{height:"130%"}}></div>
         </div>
     )
 }

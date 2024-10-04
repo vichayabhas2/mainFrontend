@@ -31,9 +31,12 @@ export default function InteractiveCard({
 
   return (
     <div
-      className=" shadow-lg rounded-lg h-96"
+      className=" shadow-lg rounded-3xl h-96"
       style ={{
-        backgroundColor: "#961A1D"
+        backgroundColor: "#961A1D",
+        color:"white",
+        padding:"30px",
+        fontWeight:"bold"
       }}
       onClick={() => onCarSelected()}
       onMouseOver={(e) => onCardMouseAction(e)}
