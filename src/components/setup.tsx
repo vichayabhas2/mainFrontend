@@ -166,9 +166,9 @@ export function plusActionPlan(
     partName,
   };
 }
-const backendUrl=process.env.BACKEND_URL
-export function getBackendUrl(){
-  return 'http://localhost:5001'
+const backendUrl = process.env.BACKEND_URL;
+export function getBackendUrl() {
+  return "http://localhost:5001";
 }
 export const userPath = "api/v1/auth";
 export function hasKey(
