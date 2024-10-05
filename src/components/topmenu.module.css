@@ -42,3 +42,18 @@
     background-color: white;
     color: #961A1D;
 }
+
+.menucontainerCamp{
+    height: 60px;
+    background-color: #961A1D;
+    color: white;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 30;
+    display: flex;
+    overflow-x: scroll;
+    flex-direction: row;
+    border-radius: 30px;
+}
