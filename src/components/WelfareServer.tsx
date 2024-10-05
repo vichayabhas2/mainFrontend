@@ -10,7 +10,12 @@ export default async function WelfareServer({
 }) {
   const sizeDetail = await getAllCampSize(campId);
   return (
-    <table>
+    <table
+    style={{
+      width:"80%",
+      marginLeft:"10%"
+    }}
+    >
       <tr>
         <th>กลุ่ม</th>
         <th>น้อง S</th>
