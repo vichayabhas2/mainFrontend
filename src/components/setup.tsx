@@ -66,7 +66,7 @@ export function sizeMapToJson(
     sizeM: input.get("M") as number,
     sizeL: input.get("L") as number,
     sizeXL: input.get("XL") as number,
-    sizeXXL: input.'get("XXL") as number,
+    sizeXXL: input.get("XXL") as number,
     size3XL: input.get("3XL") as number,
   };
   return out;
