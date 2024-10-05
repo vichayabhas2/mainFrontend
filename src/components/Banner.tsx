@@ -85,12 +85,13 @@ export default function Banner(){
         boxShadow:"0px 0px 30px white",
         overflow:"hidden"
       }}
-      >Select Camp
+      >&nbsp;&nbsp;&nbsp;Select Camp
       <Image src={GearImage} alt="icon"style={{
         width:"60px",
         position:"absolute",
         top:"6px",
-        left:"-15px"
+        left:"-15px",
+        opacity:"0.6"
       }}/>
       </button>
          <div style={{height:"130%"}}></div>

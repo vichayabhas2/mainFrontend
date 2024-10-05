@@ -24,9 +24,23 @@ export default function BaanMembers({
 }) {
   const router = useRouter();
   return (
-    <main className="text-center p-5">
+    <main className="text-center p-5 text-white rounded-3xl"
+    style={{
+      backgroundColor:"#961A1D",
+      width:"80%",
+      marginLeft:"10%",
+      marginTop:"20px"
+    }}
+    >
       <div>
-        <div>
+        <div 
+        className="text-4xl font-bold"
+        style={{
+          color:"white",
+          marginTop:"30px",
+          marginBottom:"10px"
+        }}
+        >
           รายชื่อน้อง{camp.groupName} {baan.fullName}
         </div>
         <FinishButton
@@ -45,8 +59,12 @@ export default function BaanMembers({
             }
           }}
         />
-        <table>
-          <tr>
+        <table style={{
+          marginTop:"10px",
+          marginBottom:"10px",
+          width:"100%"
+        }}>
+          <tr style={{border:"solid", borderColor:"white"}}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -68,7 +86,7 @@ export default function BaanMembers({
           {nongs.map((user: ShowMember) => {
             console.log(user)
             return (
-              <tr>
+              <tr style={{border:"solid", borderColor:"white"}}>
                 <td>{user.nickname}</td>
                 <td>{user.name}</td>
                 <td>{user.lastname}</td>
@@ -104,7 +122,13 @@ export default function BaanMembers({
         </table>
       </div>
       <div>
-        <div>
+        <div className="text-4xl font-bold"
+        style={{
+          color:"white",
+          marginTop:"40px",
+          marginBottom:"10px"
+        }}
+        >
           รายชื่อพี่{camp.groupName} {baan.fullName}
         </div>
         <FinishButton
@@ -123,8 +147,14 @@ export default function BaanMembers({
             }
           }}
         />
-        <table>
-          <tr>
+        <table
+        style={{
+          marginTop:"10px",
+          marginBottom:"10px",
+          width:"100%"
+        }}
+        >
+          <tr style={{border:"solid", borderColor:"white"}}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -144,7 +174,7 @@ export default function BaanMembers({
             ) : null}
           </tr>
           {pees.map((user: ShowMember) => (
-            <tr>
+            <tr style={{border:"solid", borderColor:"white"}}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>

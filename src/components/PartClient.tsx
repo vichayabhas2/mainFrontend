@@ -78,11 +78,28 @@ export default function PartClient({
     maps.push({ key: _id, value: `${nickname} ${name} ${lastname}` });
   }
   return (
-    <main className="text-center p-5">
+    <main className="text-center p-5  rounded-3xl"
+    style={{
+      border:"solid",
+      color:"#373737",
+      borderColor:"#373737",
+      borderWidth:"2px",
+      width:"80%",
+      marginLeft:"10%",
+      marginTop:"20px"
+    }}
+    >
       <div>
-        <div>รายชื่อพี่บ้านฝ่าย{part.partName}</div>
+        <div
+         className="text-4xl font-bold"
+         style={{
+           color:"#373737",
+           marginTop:"30px",
+           marginBottom:"10px"
+         }}
+        >รายชื่อพี่บ้านฝ่าย{part.partName}</div>
         <table>
-          <tr>
+          <tr style={{border:"solid", borderColor:"#373737"}}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -99,7 +116,7 @@ export default function PartClient({
             <th>ปัญหาสุขภาพ</th>
           </tr>
           {pees.map((user: ShowMember) => (
-            <tr>
+            <tr style={{border:"solid", borderColor:"#373737"}}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>
@@ -128,9 +145,16 @@ export default function PartClient({
         </table>
       </div>
       <div>
-        <div>รายชื่อปีโตฝ่าย{part.partName}</div>
+        <div
+         className="text-4xl font-bold"
+         style={{
+           color:"#373737",
+           marginTop:"30px",
+           marginBottom:"10px"
+         }}
+        >รายชื่อปีโตฝ่าย{part.partName}</div>
         <table>
-          <tr>
+          <tr style={{border:"solid", borderColor:"#373737"}}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -146,7 +170,7 @@ export default function PartClient({
             <th>ปัญหาสุขภาพ</th>
           </tr>
           {petos.map((user: ShowMember) => (
-            <tr>
+            <tr style={{border:"solid", borderColor:"#373737"}}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>
@@ -174,11 +198,32 @@ export default function PartClient({
           ))}
         </table>
       </div>
-      <div className="w-[80%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="w-[80%] items-center] p-10 rounded-3xl "
+      style={{
+      backgroundColor:"#961A1D",
+      marginLeft:"10%",
+      marginTop:"10px"
+      }}
+      >
         <div className=" rounded-lg ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-              className="bg-white m-10"
+              className="bg-white m-10 rounded-2xl"
+              sx={{
+                backgroundColor: '#f5f5f5',
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderRadius: ' 1rem',
+                    borderColor: 'transparent', 
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#5479FF',      
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#5479FF',      
+                  }
+                }
+              }}
               value={start}
               onChange={(newValue) => {
                 setStart(newValue);
@@ -190,7 +235,22 @@ export default function PartClient({
         <div className=" rounded-lg ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-              className="bg-white m-10"
+              className="bg-white m-10 rounded-2xl"
+              sx={{
+                backgroundColor: '#f5f5f5',
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderRadius: ' 1rem',
+                    borderColor: 'transparent', 
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#5479FF',      
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#5479FF',      
+                  }
+                }
+              }}
               value={end}
               onChange={(newValue) => {
                 setEnd(newValue);
@@ -214,22 +274,52 @@ export default function PartClient({
           />
         ))}
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
+          <label className="w-2/5 text-2xl text-white">
             ทำอะไร กริยาขึ้นก่อน
           </label>
           <TextField
             name="Tel"
             id="Tel"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setAction(e.target.value)}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
+          <label className="w-2/5 text-2xl text-white">รายละเอียด</label>
           <TextField
             name="Email"
             id="Email"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setBody(e.target.value)}
           />
         </div>
@@ -254,14 +344,29 @@ export default function PartClient({
           buttonText={"สร้าง action plan"}
         />
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
+          <label className="w-2/5 text-2xl text-white">
             +- action plan ล่าสุด {camp.actionPlanOffset} นาที
           </label>
           <TextField
             name="Email"
             id="Email"
             type="number"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setPlus(parseInt(e.target.value))}
           />
           <FinishButton
@@ -272,31 +377,82 @@ export default function PartClient({
           />
         </div>
       </div>
-      <div className="w-[80%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
+      <div className="w-[80%] items-center  p-10 rounded-3xl "
+       style={{
+        backgroundColor:"#961A1D",
+        marginLeft:"10%",
+        marginTop:"10px"
+        }}
+      >
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">ทำอะไร</label>
+          <label className="w-2/5 text-2xl text-white">ทำอะไร</label>
           <TextField
             name="Tel"
             id="Tel"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">link</label>
+          <label className="w-2/5 text-2xl text-white">link</label>
           <TextField
             name="Email"
             id="Email"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setLink(e.target.value)}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">รหัสผ่าน</label>
+          <label className="w-2/5 text-2xl text-white">รหัสผ่าน</label>
           <TextField
             name="Email"
             id="Email"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: '#f5f5f5',
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: ' 1rem',
+                  borderColor: 'transparent', 
+                },
+                '&:hover fieldset': {
+                  borderColor: '#5479FF',     
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#5479FF',      
+                }
+              }
+            }}
             onChange={(e) => setPassword(e.target.value)}
             defaultValue={password}
           />
