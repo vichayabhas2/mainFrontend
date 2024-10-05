@@ -66,7 +66,7 @@ export function sizeMapToJson(
     sizeM: input.get("M") as number,
     sizeL: input.get("L") as number,
     sizeXL: input.get("XL") as number,
-    sizeXXL: input.get("XXL") as number,
+    sizeXXL: input.'get("XXL") as number,
     size3XL: input.get("3XL") as number,
   };
   return out;
@@ -166,9 +166,9 @@ export function plusActionPlan(
     partName,
   };
 }
-const backendUrl = process.env.BACKEND_URL;
-export function getBackendUrl() {
-  return "http://localhost:5001";
+const backendUrl=process.env.BACKEND_URL
+export function getBackendUrl(){
+  return 'http://localhost:5001'
 }
 export const userPath = "api/v1/auth";
 export function hasKey(
