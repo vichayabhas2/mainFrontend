@@ -156,6 +156,7 @@ export default function HeathIssueClient({
           name="location"
           id="location"
           className="h-[2em] w-[200px] mb-5 mx-3 text-white"
+          defaultValue={foodLimit}
         >
           {foodLimits.map((value) => {
             return (
