@@ -4,6 +4,7 @@ import PasswordLock from "@/components/PasswordLock";
 import RegisterPartServer from "@/components/RegisterPartServer";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import UpdateCampServer from "@/components/UpdateCampServer";
+import WelfareServer from "@/components/WelfareServer";
 import getCamp from "@/libs/camp/getCamp";
 import getPart from "@/libs/camp/getPart";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
@@ -28,7 +29,8 @@ export default async function Baan({ params }: { params: { pid: string } }) {
   if (
     !user.authPartIds.includes(camp.partBoardId) &&
     !user.authPartIds.includes(camp.partCoopId) &&
-    !user.authPartIds.includes(camp.partRegisterId)
+    !user.authPartIds.includes(camp.partRegisterId) &&
+    !user.authPartIds.includes(camp.partWelfareId)
   ) {
     return <BackToHome />;
   }
@@ -41,14 +43,14 @@ export default async function Baan({ params }: { params: { pid: string } }) {
         case "pee": {
           const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
           return (
-            <PasswordLock token={token} bypass={user.mode=='pee'}>
+            <PasswordLock token={token} bypass={user.mode == "pee"}>
               <UpdateBaanServer baanId={peeCamp.baanId} />
             </PasswordLock>
           );
         }
         case "peto": {
           return (
-            <PasswordLock token={token} bypass={user.mode=='pee'}>
+            <PasswordLock token={token} bypass={user.mode == "pee"}>
               {camp.baanIds.map((baanId) => (
                 <UpdateBaanServer baanId={baanId} />
               ))}
@@ -69,6 +71,9 @@ export default async function Baan({ params }: { params: { pid: string } }) {
       return (
         <RegisterPartServer campId={camp._id} token={token} isBoard={false} />
       );
+    }
+    case camp.partWelfareId.toString(): {
+      return <WelfareServer campId={camp._id} token={token} />;
     }
   }
 }
