@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { HeathIssueBody } from "../../interface";
-import { Checkbox, TextField } from "@mui/material";
+import { FoodLimit, foodLimits, HeathIssueBody } from "../../interface";
+import { Checkbox, MenuItem, Select, TextField } from "@mui/material";
 import FinishButton from "./FinishButton";
 import updateHeath from "@/libs/user/updateHeath";
 
@@ -21,41 +21,44 @@ export default function HeathIssueClient({
   const [isWearing, set6] = useState<boolean>(heathIssue.isWearing);
   const [mode, setMode] = useState<boolean>(false);
   const [foodConcern, set7] = useState<string>(heathIssue.foodConcern);
+  const [foodLimit, set8] = useState<FoodLimit>(heathIssue.foodLimit);
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-medium"
-      style={{
-        color:"#961A1D"
-      }}
-      >ปัญหาสุขภาพ</div>
+      <div
+        className="text-4xl font-medium"
+        style={{
+          color: "#961A1D",
+        }}
+      >
+        ปัญหาสุขภาพ
+      </div>
 
-      <form className="w-[70%] items-center  p-10 rounded-3xl"
-      style={{
-        backgroundColor:"#961A1D"
-      }}
+      <form
+        className="w-[70%] items-center  p-10 rounded-3xl"
+        style={{
+          backgroundColor: "#961A1D",
+        }}
       >
         <div className="flex flex-row items-center">
-          <label className="w-2/5 text-2xl text-white">
-            แพ้อาหารอะไรบ้าง
-          </label>
+          <label className="w-2/5 text-2xl text-white">แพ้อาหารอะไรบ้าง</label>
           <TextField
             name="Name"
             id="Name"
             className="w-3/5 bg-white rounded-2xl shadow-inner"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => set1(e.target.value)}
             defaultValue={food}
@@ -68,19 +71,19 @@ export default function HeathIssueClient({
             id="LastName"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => set2(e.target.value)}
             defaultValue={medicine}
@@ -95,24 +98,78 @@ export default function HeathIssueClient({
             id="Nickname"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => set3(e.target.value)}
             defaultValue={chronicDisease}
           />
         </div>
+        <div className="flex flex-row items-center">
+          <label className="w-2/5 text-2xl text-white">
+            ต้องการเน้นย้ำเรื่องอาหารว่าอะไรบ้าง
+          </label>
+          <TextField
+            name="Nickname"
+            id="Nickname"
+            className="w-3/5 bg-white rounded-2xl border-gray-200"
+            sx={{
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
+            }}
+            onChange={(e) => set7(e.target.value)}
+            defaultValue={foodConcern}
+          />
+        </div>
+        <label
+          className="w-2/5 text-2xl mb-5 text-white"
+          style={{
+            textAlign: "left",
+          }}
+        >
+          ข้อจำกัดด้านความเชื่อ
+        </label>
+        <Select
+          variant="standard"
+          name="location"
+          id="location"
+          className="h-[2em] w-[200px] mb-5 mx-3 text-white"
+        >
+          {foodLimits.map((value) => {
+            return (
+              <MenuItem
+                onClick={() => {
+                  set8(value);
+                }}
+                value={value}
+              >
+                {value}
+              </MenuItem>
+            );
+          })}
+        </Select>
         <div>
           <label className="w-2/5 text-2xl text-white">
             กินเผ็ดไม่ได้ใช่หรือไม่
@@ -141,19 +198,19 @@ export default function HeathIssueClient({
                 id="Email"
                 className="w-3/5 bg-white rounded-2xl border-gray-200"
                 sx={{
-                  backgroundColor: '#f5f5f5',
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderRadius: ' 1rem',
-                      borderColor: 'transparent', 
+                  backgroundColor: "#f5f5f5",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderRadius: " 1rem",
+                      borderColor: "transparent",
                     },
-                    '&:hover fieldset': {
-                      borderColor: '#5479FF',     
+                    "&:hover fieldset": {
+                      borderColor: "#5479FF",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#5479FF',      
-                    }
-                  }
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                  },
                 }}
                 onChange={(e) => set5(e.target.value)}
                 defaultValue={extra}
@@ -202,6 +259,7 @@ export default function HeathIssueClient({
                 extra,
                 isWearing,
                 foodConcern,
+                foodLimit,
               },
               token
             );
