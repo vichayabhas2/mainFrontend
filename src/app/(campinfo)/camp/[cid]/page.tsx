@@ -50,7 +50,7 @@ export default async function HospitalDetailPage({
     const partMap: MyMap[] = [];
     var i = 0;
     while (i < campDetail.partIds.length) {
-      const part = await getPart(campDetail.partIds[i++], token);
+      const part = await getPart(campDetail.partIds[i++]);
 
       partMap.push({ key: part._id, value: part.partName });
     }
@@ -165,7 +165,7 @@ export default async function HospitalDetailPage({
       );
       const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
       const baan = await getBaan(peeCamp.baanId);
-      const part = await getPart(peeCamp.partId, token);
+      const part = await getPart(peeCamp.partId);
       const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
       const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
@@ -280,7 +280,7 @@ export default async function HospitalDetailPage({
       );
       const petoCamp = await getPetoCamp(campMemberCard.campModelId, token);
 
-      const part = await getPart(petoCamp.partId, token);
+      const part = await getPart(petoCamp.partId);
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
       const peto = await getUserFromCamp("getPetosFromPartId", petoCamp.partId);
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;

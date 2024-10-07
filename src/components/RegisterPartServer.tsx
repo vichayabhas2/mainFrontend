@@ -32,7 +32,7 @@ export default async function RegisterPartServer({
   }
   i = 0;
   while (i < camp.partIds.length) {
-    const part = await getPart(camp.partIds[i++], token);
+    const part = await getPart(camp.partIds[i++]);
     regisParts.push({
       part,
       pees: await getUserFromCamp("getPeesFromPartId", part._id),
@@ -42,7 +42,7 @@ export default async function RegisterPartServer({
   const partMap: MyMap[] = [];
   var i = 0;
   while (i < camp.partIds.length) {
-    const part = await getPart(camp.partIds[i++], token);
+    const part = await getPart(camp.partIds[i++]);
 
     partMap.push({ key: part._id, value: part.partName });
   }

@@ -27,12 +27,12 @@ export default async function HospitalDetailPage({
     new mongoose.Types.ObjectId(params.wid),
     session.user.token
   );
-  const part = await getPart(workingItem.partId, session.user.token);
+  const part = await getPart(workingItem.partId);
   const camp = await getCamp(part.campId);
   var i = 0;
   const parts: InterPartFront[] = [];
   while (i < camp.partIds.length) {
-    const buf = await getPart(camp.partIds[i++], session.user.token);
+    const buf = await getPart(camp.partIds[i++]);
     parts.push(buf);
   }
   const auth = await bcrypt.compare(user.linkHash, workingItem.password);
@@ -43,7 +43,7 @@ export default async function HospitalDetailPage({
     <PasswordLock token={session.user.token} bypass={user.mode=='pee'}>
       <EditWorkingItem
         token={session.user.token}
-        worlingItem={workingItem}
+        workingItem={workingItem}
         parts={parts}
         auth={auth}
       />

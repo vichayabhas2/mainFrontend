@@ -22,7 +22,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
   const partId = new mongoose.Types.ObjectId(params.pid);
   const user = await getUserProfile(session.user.token);
 
-  const part = await getPart(partId, session.user.token);
+  const part = await getPart(partId);
   const camp = await getCamp(part.campId);
   const campMemberCard = await getCampMemberCardByCampId(part.campId, token);
 

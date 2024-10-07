@@ -13,12 +13,10 @@ export default function TopMenuCamp({
   role: RoleCamp;
   mode: Mode;
 }) {
- 
   switch (role) {
     case "nong":
       return (
         <div className={styles.menucontainerCamp}>
-        
           <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
             <TopMenuItem
               title="คุยส่วนตัวกับพี่"
@@ -40,7 +38,6 @@ export default function TopMenuCamp({
         case "nong":
           return (
             <div className={styles.menucontainerCamp}>
-              
               <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
                 <TopMenuItem
                   title="คุยส่วนตัวกับน้อง"
@@ -64,7 +61,6 @@ export default function TopMenuCamp({
         case "pee":
           return (
             <div className={styles.menucontainerCamp}>
-           
               <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
                 <TopMenuItem
                   title="คุยส่วนตัวกับน้อง"
@@ -83,6 +79,10 @@ export default function TopMenuCamp({
                   pageRef={`/camp/${campId}/peebaanChat`}
                 />
                 <TopMenuItem
+                  title="คุยกันในฝ่าย"
+                  pageRef={`/camp/${campId}/part`}
+                />
+                <TopMenuItem
                   title="อ่านแชตทั้งหมด"
                   pageRef={`/camp/${campId}/baan/nongChat`}
                 />
@@ -96,7 +96,6 @@ export default function TopMenuCamp({
         case "nong":
           return (
             <div className={styles.menucontainerCamp}>
-            
               <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
                 <TopMenuItem
                   title="พี่บ้านคุยกัน"
@@ -112,11 +111,14 @@ export default function TopMenuCamp({
         case "pee":
           return (
             <div className={styles.menucontainerCamp}>
-         
               <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
                 <TopMenuItem
                   title="พี่บ้านคุยกัน"
                   pageRef={`/camp/${campId}/peebaanChat`}
+                />
+                <TopMenuItem
+                  title="คุยกันในฝ่าย"
+                  pageRef={`/camp/${campId}/part`}
                 />
                 <TopMenuItem
                   title="อ่านแชตทั้งหมด"
