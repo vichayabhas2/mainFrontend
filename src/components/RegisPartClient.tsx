@@ -378,6 +378,7 @@ export default function RegisterPartClient({
                 <th className=" border border-x-black">ขนาดเสื้อ</th>
                 <th className=" border border-x-black">กรุปของนิสิต</th>
                 <th className=" border border-x-black">ปัญหาสุขภาพ</th>
+                <th className=" border border-x-black">select</th>
               </tr>
               {regisBaan.nongs.map((user: ShowMember) => (
                 <tr>
@@ -404,16 +405,16 @@ export default function RegisterPartClient({
                   </td>
                   <td className=" border border-x-black">{user.shirtSize}</td>
                   <td className=" border border-x-black">{user.group}</td>
-                  {user.heathIssueId ? (
+                  {user.healthIssueId ? (
                     <td
                       className=" border border-x-black"
                       onClick={() => {
                         router.push(
-                          `/helthIshue/${user.heathIssueId?.toString()}`
+                          `/healthIssue/${user.healthIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.heathIssueId.toString()}
+                      {user.healthIssueId.toString()}
                     </td>
                   ) : (
                     <td className=" border border-x-black">-</td>
@@ -450,6 +451,7 @@ export default function RegisterPartClient({
                 <th className=" border border-x-black">ขนาดเสื้อ</th>
                 <th className=" border border-x-black">กรุ๊ปของนิสิต</th>
                 <th className=" border border-x-black">ปัญหาสุขภาพ</th>
+                <th className=" border border-x-black">select</th>
               </tr>
               {regisBaan.pees.map((user: ShowMember) => (
                 <tr>
@@ -476,16 +478,16 @@ export default function RegisterPartClient({
                   </td>
                   <td className=" border border-x-black">{user.shirtSize}</td>
                   <td className=" border border-x-black">{user.group}</td>
-                  {user.heathIssueId ? (
+                  {user.healthIssueId ? (
                     <td
                       className=" border border-x-black"
                       onClick={() => {
                         router.push(
-                          `/helthIshue/${user.heathIssueId?.toString()}`
+                          `/healthIssue/${user.healthIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.heathIssueId.toString()}
+                      {user.healthIssueId.toString()}
                     </td>
                   ) : (
                     <td className=" border border-x-black">-</td>
@@ -540,7 +542,7 @@ export default function RegisterPartClient({
                     <td className=" border border-x-black">{user.lastname}</td>
                     <td className=" border border-x-black">{user.gender}</td>
                     <td className=" border border-x-black">
-                      {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}{" "}
+                      {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}
                     </td>
                     <td
                       className=" border border-x-black"
@@ -558,16 +560,16 @@ export default function RegisterPartClient({
                     </td>
                     <td className=" border border-x-black">{user.shirtSize}</td>
                     <td className=" border border-x-black">{user.group}</td>
-                    {user.heathIssueId ? (
+                    {user.healthIssueId ? (
                       <td
                         className=" border border-x-black"
                         onClick={() => {
                           router.push(
-                            `/helthIshue/${user.heathIssueId?.toString()}`
+                            `/healthIssue/${user.healthIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.heathIssueId.toString()}
+                        {user.healthIssueId.toString()}
                       </td>
                     ) : (
                       <td className=" border border-x-black">-</td>
@@ -613,7 +615,7 @@ export default function RegisterPartClient({
                     <td className=" border border-x-black">{user.lastname}</td>
                     <td className=" border border-x-black">{user.gender}</td>
                     <td className=" border border-x-black">
-                      {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}{" "}
+                      {user.sleep ? <>ค้างคืน</> : <>ไม่ค้างคืน</>}
                     </td>
                     <td
                       className=" border border-x-black"
@@ -631,16 +633,16 @@ export default function RegisterPartClient({
                     </td>
                     <td className=" border border-x-black">{user.shirtSize}</td>
                     <td className=" border border-x-black">{user.group}</td>
-                    {user.heathIssueId ? (
+                    {user.healthIssueId ? (
                       <td
                         className=" border border-x-black"
                         onClick={() => {
                           router.push(
-                            `/helthIshue/${user.heathIssueId?.toString()}`
+                            `/healthIssue/${user.healthIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.heathIssueId.toString()}
+                        {user.healthIssueId.toString()}
                       </td>
                     ) : (
                       <td className=" border border-x-black">-</td>

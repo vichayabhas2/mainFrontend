@@ -129,13 +129,13 @@ export default function PartClient({
               <td>{user.haveBottle.toString()}</td>
               <td>{user.shirtSize}</td>
               <td>{user.group}</td>
-              {user.heathIssueId ? (
+              {user.healthIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/heathIssue/${user.heathIssueId?.toString()}`);
+                    router.push(`/healthIssue/${user.healthIssueId?.toString()}`);
                   }}
                 >
-                  {user.heathIssueId.toString()}
+                  {user.healthIssueId.toString()}
                 </td>
               ) : (
                 <td> null</td>
@@ -183,13 +183,13 @@ export default function PartClient({
               <td>{user.haveBottle.toString()}</td>
               <td>{user.shirtSize}</td>
               <td>{user.group}</td>
-              {user.heathIssueId ? (
+              {user.healthIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/heathIssue/${user.heathIssueId?.toString()}`);
+                    router.push(`/healthIssue/${user.healthIssueId?.toString()}`);
                   }}
                 >
-                  {user.heathIssueId.toString()}
+                  {user.healthIssueId.toString()}
                 </td>
               ) : (
                 <td> null</td>

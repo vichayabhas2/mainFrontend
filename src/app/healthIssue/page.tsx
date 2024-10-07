@@ -13,8 +13,8 @@ export default async function name() {
   }
   const user = await getUserProfile(session.user.token);
   var heathIssue: HeathIssueBody;
-  if (user.heathIssueId) {
-    heathIssue = await getHeathIssue(user.heathIssueId);
+  if (user.healthIssueId) {
+    heathIssue = await getHeathIssue(user.healthIssueId);
   } else {
     heathIssue = {
       food: "",

@@ -33,7 +33,7 @@ export default function BaanMembers({
     }}
     >
       <div>
-        <div 
+        <div
         className="text-4xl font-bold"
         style={{
           color:"white",
@@ -84,7 +84,6 @@ export default function BaanMembers({
             ) : null}
           </tr>
           {nongs.map((user: ShowMember) => {
-            console.log(user)
             return (
               <tr style={{border:"solid", borderColor:"white"}}>
                 <td>{user.nickname}</td>
@@ -101,15 +100,15 @@ export default function BaanMembers({
                     <td>{user.haveBottle.toString()}</td>
                     <td>{user.shirtSize}</td>
                     <td>{user.group}</td>
-                    {user.heathIssueId ? (
+                    {user.healthIssueId ? (
                       <td
                         onClick={() => {
                           router.push(
-                            `/heathIssue/${user.heathIssueId?.toString()}`
+                            `/healthIssue/${user.healthIssueId?.toString()}`
                           );
                         }}
                       >
-                        {user.heathIssueId.toString()}
+                        {user.healthIssueId.toString()}
                       </td>
                     ) : (
                       <td> null</td>
@@ -189,15 +188,15 @@ export default function BaanMembers({
                   <td>{user.haveBottle.toString()}</td>
                   <td>{user.shirtSize}</td>
                   <td>{user.group}</td>
-                  {user.heathIssueId ? (
+                  {user.healthIssueId ? (
                     <td
                       onClick={() => {
                         router.push(
-                          `/heathIssue/${user.heathIssueId?.toString()}`
+                          `/healthIssue/${user.healthIssueId?.toString()}`
                         );
                       }}
                     >
-                      {user.heathIssueId.toString()}
+                      {user.healthIssueId.toString()}
                     </td>
                   ) : (
                     <td> null</td>

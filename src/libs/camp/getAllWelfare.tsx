@@ -1,12 +1,12 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { CampSizeContainer } from "../../../interface";
+import { CampWelfarePack } from "../../../interface";
 
-export default async function getAllCampSize(
+export default async function getAllWelfare(
   campId: mongoose.Types.ObjectId
-): Promise<CampSizeContainer> {
+): Promise<CampWelfarePack> {
   const response = await fetch(
-    `${getBackendUrl()}/camp/getAllCampSize/params/${campId}`,
+    `${getBackendUrl()}/camp/getAllWelfare/params/${campId}`,
     { cache: "no-store" }
   );
   if (!response.ok) {
