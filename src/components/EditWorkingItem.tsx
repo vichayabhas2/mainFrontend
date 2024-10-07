@@ -78,7 +78,7 @@ export default function EditWorkingItem({
           </div>
         ) : null}
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">link รูปภาพ</label>
+          <label className="w-2/5 text-2xl text-slate-200">ทำอะไร</label>
           <TextField
             name="Tel"
             id="Tel"

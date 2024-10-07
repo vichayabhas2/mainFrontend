@@ -4,30 +4,28 @@ import { useState } from "react";
 import {
   AllPlaceData,
   InterBaanFront,
-  InterBuilding,
   InterCampFront,
   InterPlace,
 } from "../../interface";
-import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
-import { MenuItem, Select, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { TextField } from "@mui/material";
 import updateBaan from "@/libs/admin/updateBaan";
 import BackToHome from "./BackToHome";
+import PlaceSelect from "./PlaceSelect";
 export default function UpdateBaanClient({
   baan,
   boy,
   girl,
   normal,
   camp,
-  allPlaceData
+  allPlaceData,
 }: {
   baan: InterBaanFront;
   boy: InterPlace | null;
   girl: InterPlace | null;
   normal: InterPlace | null;
   camp: InterCampFront;
-  allPlaceData:AllPlaceData
+  allPlaceData: AllPlaceData;
 }) {
   // dispatch = useDispatch<AppDispatch>();
   //const update = useAppSelector((state) => state.bookSlice.bookItem);
@@ -35,29 +33,11 @@ export default function UpdateBaanClient({
   const [bP, setBP] = useState<InterPlace | null>(boy);
   const [gP, setGP] = useState<InterPlace | null>(girl);
   const [nP, setNP] = useState<InterPlace | null>(normal);
-  const [bB, setBB] = useState<string | null>(
-    allPlaceData.allBuildings.get(boy?.buildingId as mongoose.Types.ObjectId)?.name as
-      | string
-      | null
-  );
-  const [gB, setGB] = useState<string | null>(
-    allPlaceData.allBuildings.get(girl?.buildingId as mongoose.Types.ObjectId)?.name as
-      | string
-      | null
-  );
-  const [nB, setNB] = useState<string | null>(
-    allPlaceData.allBuildings.get(normal?.buildingId as mongoose.Types.ObjectId)?.name as
-      | string
-      | null
-  );
-  const bC = bB ? (allPlaceData.allPlace.get(bB) as InterPlace[]) : [];
-  const gC = gB ? (allPlaceData.allPlace.get(gB) as InterPlace[]) : [];
-  const nC = nB ? (allPlaceData.allPlace.get(nB) as InterPlace[]) : [];
   const [name, setName] = useState<string>(baan.name);
   const [fullName, setFullName] = useState<string | null>(baan.fullName);
   const [link, setLink] = useState<string | null>(baan.link);
   const buildings: string[] = [];
-  const [nongSendMessage, setNongSendmessage] = useState<boolean>(
+  const [nongSendMessage, setNongSendMessage] = useState<boolean>(
     baan.nongSendMessage
   );
   allPlaceData.allPlace.forEach((e, input: string) => {
@@ -105,140 +85,35 @@ export default function UpdateBaanClient({
 
         {camp.nongSleepModel == "ไม่มีการค้างคืน" ? null : (
           <>
-            <div className="flex flex-row items-center my-5">
-              <label className="w-2/5 text-2xl text-slate-200">
-                เลือกตึกที่ใช้เป็นห้องนอนน้องผู้ชาย
-              </label>
-              <Select
-                variant="standard"
-                name="location"
-                id="location"
-                className="h-[2em] w-[200px]"
-                defaultValue={bB}
-              >
-                {buildings.map((choice: string) => {
-                  return (
-                    <MenuItem value={choice} onClick={() => setBB(choice)}>
-                      {choice}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
-
-            <div className="flex flex-row items-center my-5">
-              <label className="w-2/5 text-2xl text-slate-200">
-                เลือกชั้นและห้องที่ใช้เป็นห้องนอนน้องผู้ชาย
-              </label>
-              <Select
-                variant="standard"
-                name="location"
-                id="location"
-                className="h-[2em] w-[200px]"
-                defaultValue={`${bP?.floor} ${bP?.room}`}
-              >
-                {bC?.map((choice: InterPlace) => {
-                  return (
-                    <MenuItem
-                      value={`${choice.floor} ${choice.room}`}
-                      onClick={() => setBP(choice)}
-                    >
-                      {choice.floor} {choice.room}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
-
-            <div className="flex flex-row items-center my-5">
-              <label className="w-2/5 text-2xl text-slate-200">
-                เลือกตึกที่ใช้เป็นห้องนอนน้องผู้หญิง
-              </label>
-              <Select
-                variant="standard"
-                name="location"
-                id="location"
-                className="h-[2em] w-[200px]"
-                defaultValue={gB}
-              >
-                {buildings.map((choice: string) => {
-                  return (
-                    <MenuItem value={choice} onClick={() => setGB(choice)}>
-                      {choice}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
-            <div className="flex flex-row items-center my-5">
-              <label className="w-2/5 text-2xl text-slate-200">
-                เลือกชั้นและห้องที่ใช้เป็นห้องนอนน้องผู้หญิง
-              </label>
-              <Select
-                variant="standard"
-                name="location"
-                id="location"
-                className="h-[2em] w-[200px]"
-                defaultValue={`${gP?.floor} ${gP?.room}`}
-              >
-                {gC?.map((choice: InterPlace) => {
-                  return (
-                    <MenuItem
-                      value={`${choice.floor} ${choice.room}`}
-                      onClick={() => setGP(choice)}
-                    >
-                      {choice.floor} {choice.room}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
+            <PlaceSelect
+              buildingText="เลือกตึกที่ใช้เป็นห้องนอนน้องผู้ชาย"
+              placeText="เลือกชั้นและห้องที่ใช้เป็นห้องนอนน้องผู้ชาย"
+              allPlaceData={allPlaceData}
+              place={boy}
+              onClick={(place) => {
+                setBP(place);
+              }}
+            />
+            <PlaceSelect
+              buildingText="เลือกตึกที่ใช้เป็นห้องนอนน้องผู้หญิง"
+              placeText="เลือกชั้นและห้องที่ใช้เป็นห้องนอนน้องผู้หญิง"
+              place={girl}
+              onClick={(place) => {
+                setGP(place);
+              }}
+              allPlaceData={allPlaceData}
+            />
           </>
         )}
-        <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            เลือกตึกที่ใช้เป็นห้องบ้าน
-          </label>
-          <Select
-            variant="standard"
-            name="location"
-            id="location"
-            className="h-[2em] w-[200px]"
-            defaultValue={nB}
-          >
-            {buildings.map((choice: string) => {
-              return (
-                <MenuItem value={choice} onClick={() => setNB(choice)}>
-                  {choice}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
-        <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">
-            เลือกชั้นและห้องที่ใช้เป็นห้องบ้าน
-          </label>
-          <Select
-            variant="standard"
-            name="location"
-            id="location"
-            className="h-[2em] w-[200px]"
-            defaultValue={`${nP?.floor} ${nP?.room}`}
-          >
-            {nC?.map((choice: InterPlace) => {
-              return (
-                <MenuItem
-                  value={`${choice.floor} ${choice.room}`}
-                  onClick={() => setNP(choice)}
-                >
-                  {choice.floor} {choice.room}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
-
+        <PlaceSelect
+          buildingText="เลือกตึกที่ใช้เป็นห้องบ้าน"
+          placeText="เลือกชั้นและห้องที่ใช้เป็นห้องบ้าน"
+          allPlaceData={allPlaceData}
+          place={normal}
+          onClick={(place) => {
+            setNP(place);
+          }}
+        />
         <div className="flex flex-row justify-end">
           <button
             className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"

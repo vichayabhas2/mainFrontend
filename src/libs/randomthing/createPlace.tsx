@@ -2,7 +2,7 @@ import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
 
 export default async function createPlace(
-  flore: string,
+  floor: string,
   room: string,
   buildingId: mongoose.Types.ObjectId,
   token: string
@@ -15,7 +15,7 @@ export default async function createPlace(
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      flore,
+      floor,
       room,
       buildingId,
     }),
