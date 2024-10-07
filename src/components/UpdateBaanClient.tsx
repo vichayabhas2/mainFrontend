@@ -8,7 +8,7 @@ import {
   InterPlace,
 } from "../../interface";
 import { useSession } from "next-auth/react";
-import { TextField } from "@mui/material";
+import { Checkbox, TextField } from "@mui/material";
 import updateBaan from "@/libs/admin/updateBaan";
 import BackToHome from "./BackToHome";
 import PlaceSelect from "./PlaceSelect";
@@ -114,6 +114,22 @@ export default function UpdateBaanClient({
             setNP(place);
           }}
         />
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-white">
+            อนุญาตให้น้องส่งข้อขวามในห้องบ้านหรือไม่
+          </label>
+          <Checkbox
+            onChange={(e, state) => {
+              setNongSendMessage(state);
+            }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
+            defaultChecked={nongSendMessage}
+          />
+        </div>
         <div className="flex flex-row justify-end">
           <button
             className="bg-pink-300 p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
