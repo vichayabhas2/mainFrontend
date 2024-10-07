@@ -64,6 +64,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
         <>
           <UpdateCampServer campId={camp._id} token={token} />
           <RegisterPartServer campId={camp._id} token={token} isBoard={true} />
+          <WelfareServer campId={camp._id} token={token}/>
         </>
       );
     }
