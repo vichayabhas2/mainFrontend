@@ -22,23 +22,24 @@ export default function UpdateModeRaw({
   camps: InterCampFront[];
 }) {
   const router = useRouter();
-  
 
   if (!session || !user || user.role == "nong") {
     router.push("/");
     return <></>;
   }
-  const [linkHash,setLinkHash]=useState<string>(user.linkHash)
+  const [linkHash, setLinkHash] = useState<string>(user.linkHash);
   const [mode, setMode] = useState<"pee" | "nong" | null>(null);
-  const [fillterIds, setFillterIds] = useState<mongoose.Types.ObjectId[]>(
+  const [filterIds, setFilterIds] = useState<mongoose.Types.ObjectId[]>(
     user.filterIds
   );
+  console.log(filterIds);
+  //alert(filterIds.length)
 
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div className="text-4xl font-medium">update</div>
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-      <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center">
           <label className="w-2/5 text-2xl text-slate-200">รหัส</label>
           <TextField
             name="Name"
@@ -72,7 +73,7 @@ export default function UpdateModeRaw({
             text="update mode"
             onClick={() => {
               if (mode) {
-                peeUpdateMode(session.user.token, mode, [],linkHash);
+                peeUpdateMode(session.user.token, mode, filterIds, linkHash);
               }
             }}
           />
@@ -82,13 +83,13 @@ export default function UpdateModeRaw({
             <div className="text-2xl my-10">
               <Checkbox
                 onChange={(v) => {
-                  if (v.target.checked) {
-                    setFillterIds(swop(camp._id, null, fillterIds));
+                  if (!v.target.checked) {
+                    setFilterIds(swop(camp._id, null, filterIds));
                   } else {
-                    setFillterIds(swop(null, camp._id, fillterIds));
+                    setFilterIds(swop(null, camp._id, filterIds));
                   }
                 }}
-                defaultChecked={fillterIds.includes(camp._id)}
+                defaultChecked={filterIds.includes(camp._id)}
               />
               {camp.campName}
             </div>

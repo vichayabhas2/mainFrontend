@@ -29,19 +29,18 @@ export default function EditActionPland({
   petos,
   actionPlan,
   pls,
-  allPlaceData
-
+  allPlaceData,
 }: {
   pees: ShowMember[];
   petos: ShowMember[];
   actionPlan: showActionPlan;
-  pls:InterPlace[]
-  allPlaceData:AllPlaceData
+  pls: InterPlace[];
+  allPlaceData: AllPlaceData;
 }) {
-    const {data:session}=useSession()
-    if(!session){
-        return<BackToHome/>
-    }
+  const { data: session } = useSession();
+  if (!session) {
+    return <BackToHome />;
+  }
   const [action, setAction] = useState<string | null>(actionPlan.action);
   const [places, setPlaces] = useState<(InterPlace | null)[]>(pls);
   const [start, setStart] = useState<Dayjs | null>(dayjs(actionPlan.start));
@@ -71,85 +70,114 @@ export default function EditActionPland({
   }
 
   return (
-    <>
-      <div className=" rounded-lg ">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            className="bg-white m-10"
-            value={start}
-            onChange={(newValue) => {
-              setStart(newValue);
-              console.log(newValue);
+    <main
+      className="text-center p-5  rounded-3xl"
+      style={{
+        border: "solid",
+        color: "#373737",
+        borderColor: "#373737",
+        borderWidth: "2px",
+        width: "80%",
+        marginLeft: "10%",
+        marginTop: "20px",
+      }}
+    >
+      <div
+        className="w-[70%] items-center p-10 rounded-3xl"
+        style={{
+          backgroundColor: "#961A1D",
+        }}
+      >
+        <div className=" rounded-lg ">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              className="bg-white m-10"
+              value={start}
+              onChange={(newValue) => {
+                setStart(newValue);
+                console.log(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+        <div className=" rounded-lg ">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              className="bg-white m-10"
+              value={end}
+              onChange={(newValue) => {
+                setEnd(newValue);
+                console.log(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+        <FinishButton text={"add"} onClick={add} />
+        <FinishButton text={"remove"} onClick={remove} />
+        {places.map((v, i) => (
+          <PlaceSelect
+            place={v}
+            allPlaceData={allPlaceData}
+            onClick={(ouuPut) => {
+              places[i] = ouuPut;
+              setPlaces(places);
             }}
+            buildingText={`ตึกที่${i + 1}`}
+            placeText={`ชั้นและห้องที่${i + 1}`}
           />
-        </LocalizationProvider>
-      </div>
-      <div className=" rounded-lg ">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            className="bg-white m-10"
-            value={end}
-            onChange={(newValue) => {
-              setEnd(newValue);
-              console.log(newValue);
-            }}
+        ))}
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">
+            ทำอะไร กริยาขึ้นก่อน
+          </label>
+          <TextField
+            name="Tel"
+            id="Tel"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setAction(e.target.value)}
+            defaultValue={action}
           />
-        </LocalizationProvider>
-      </div>
-      <FinishButton text={"add"} onClick={add} />
-      <FinishButton text={"remove"} onClick={remove} />
-      {places.map((v, i) => (
-        <PlaceSelect
-          place={v}
-          allPlaceData={allPlaceData}
-          onClick={(ouuPut) => {
-            places[i] = ouuPut;
-            setPlaces(places);
-          } } buildingText={`ตึกที่${i+1}`} placeText={`ชั้นและห้องที่${i+1}`}        />
-      ))}
-      <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">
-          ทำอะไร กริยาขึ้นก่อน
-        </label>
-        <TextField
-          name="Tel"
-          id="Tel"
-          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-          onChange={(e) => setAction(e.target.value)}
-          defaultValue={action}
-        />
-      </div>
-      <div className="flex flex-row items-center my-5">
-        <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
-        <TextField
-          name="Email"
-          id="Email"
-          className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
-          onChange={(e) => setBody(e.target.value)}
-          defaultValue={body}
-        />
-      </div>
-      <SelectTemplate
-        mapIn={maps}
-        select={(headId) => {
-          if (headId && body && action && start && end) {
-            updateActionPlan(
-              {
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-slate-200">รายละเอียด</label>
+          <TextField
+            name="Email"
+            id="Email"
+            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            onChange={(e) => setBody(e.target.value)}
+            defaultValue={body}
+          />
+        </div>
+        <SelectTemplate
+          mapIn={maps}
+          select={(headId) => {
+            if (headId && body && action && start && end) {
+              updateActionPlan(
+                {
                   action,
                   placeIds: places.filter(notEmpty).map((e) => e._id),
-                  start:start.toDate(),
-                  end:end.toDate(),
+                  start: start.toDate(),
+                  end: end.toDate(),
                   headId,
-                  body
-              },
-              actionPlan._id,
+                  body,
+                },
+                actionPlan._id,
+                session.user.token
+              );
+            }
+          }}
+          buttonText={"update"}
+        />
+        <FinishButton
+          onClick={() =>
+            deleteActionPlan(
+              new mongoose.Types.ObjectId(actionPlan._id),
               session.user.token
-            );
+            )
           }
-        }}
-        buttonText={"สร้าง action plan"}
-      />
-      <FinishButton onClick={() => deleteActionPlan(new mongoose.Types.ObjectId(actionPlan._id), session.user.token)} text={"delete"} />
-    </>
+          text={"delete"}
+        />
+      </div>
+    </main>
   );
 }
