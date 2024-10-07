@@ -14,7 +14,7 @@ export default async function UpdateCampServer({campId,token}:{campId:mongoose.T
   var i = 0;
   const parts: InterPartFront[] = [];
   while (i < camp.partIds.length) {
-    const part = await getPart(camp.partIds[i++], token);
+    const part = await getPart(camp.partIds[i++]);
     parts.push(part);
   }
 

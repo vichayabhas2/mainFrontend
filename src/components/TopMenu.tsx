@@ -84,7 +84,7 @@ export default async function TopMenu() {
             />
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+              <TopMenuItem title="Lost & Found" pageRef="/lostAndFound" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
               <TopMenuItem title="โซนพี่" pageRef="/peeOnly" />
@@ -110,7 +110,7 @@ export default async function TopMenu() {
             />
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+              <TopMenuItem title="Lost & Found" pageRef="/lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />
@@ -135,7 +135,7 @@ export default async function TopMenu() {
             />
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
-              <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
+              <TopMenuItem title="Lost & Found" pageRef="/lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
               <TopMenuItem title="checkTel" pageRef="/tel" />

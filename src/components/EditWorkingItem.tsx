@@ -13,13 +13,13 @@ import updateWorkingItem from "@/libs/camp/updateWorkingItem";
 import deleteWorkingItem from "@/libs/camp/deleteWorkingItem";
 
 export default function EditWorkingItem({
-  worlingItem,
+  workingItem,
   parts,
   token,
   auth,
 }: {
   token: string;
-  worlingItem: InterWorkingItem;
+  workingItem: InterWorkingItem;
   parts: InterPartFront[];
   auth: boolean;
 }) {
@@ -33,11 +33,10 @@ export default function EditWorkingItem({
   const [password, setPassword] = useState<string>("null");
   const [newName, setNewName] = useState<string | null>(null);
   const [newLink, setNewLink] = useState<string | null>(null);
-  const router = useRouter();
-  const [link, setLink] = useState<string | null>(worlingItem.link);
-  const [name, setName] = useState<string>(worlingItem.name);
+  const [link, setLink] = useState<string | null>(workingItem.link);
+  const [name, setName] = useState<string>(workingItem.name);
   const [status, setStatus] = useState<"not start" | "in process" | "done">(
-    worlingItem.status
+    workingItem.status
   );
   return (
     <div>
@@ -52,17 +51,17 @@ export default function EditWorkingItem({
           <th>งานถัดไป</th>
         </tr>
         <tr>
-          <td>{worlingItem._id.toString()}</td>
-          <td>{worlingItem.name}</td>
-          <td>{worlingItem.status}</td>
+          <td>{workingItem._id.toString()}</td>
+          <td>{workingItem.name}</td>
+          <td>{workingItem.status}</td>
           <td>
-            {worlingItem.link ? (
-              <Link href={worlingItem.link}>{worlingItem.link}</Link>
+            {workingItem.link ? (
+              <Link href={workingItem.link}>{workingItem.link}</Link>
             ) : null}
           </td>
-          <td>{worlingItem.partName}</td>
-          <td>{worlingItem.fromId?.toString()}</td>
-          <td>{worlingItem.linkOutIds.map((o) => o.toString()).toString()}</td>
+          <td>{workingItem.partName}</td>
+          <td>{workingItem.fromId?.toString()}</td>
+          <td>{workingItem.linkOutIds.map((o) => o.toString()).toString()}</td>
         </tr>
       </table>
       <div className="w-[100%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
@@ -108,13 +107,13 @@ export default function EditWorkingItem({
         <FinishButton
           text="Update"
           onClick={() => {
-            updateWorkingItem({ name, link, status }, worlingItem._id, token);
+            updateWorkingItem({ name, link, status }, workingItem._id, token);
           }}
         />
         <FinishButton
           text="Delete"
           onClick={() => {
-            deleteWorkingItem(worlingItem._id, token);
+            deleteWorkingItem(workingItem._id, token);
           }}
         />
       </div>
@@ -156,7 +155,7 @@ export default function EditWorkingItem({
                   name: newName,
                   link: newLink,
                   partId,
-                  fromId: worlingItem._id,
+                  fromId: workingItem._id,
                   password: password ? password : "null",
                 },
                 token

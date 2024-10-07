@@ -60,8 +60,6 @@ export default function HospitalDetailPage({}: {}) {
               color:"#961A1D"
             }}
             onClick={() => {
-              console.log(tel);
-              console.log("hhhhhhhjmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
               if (tel) {
                 router.push(`/tel/${tel}`);
 

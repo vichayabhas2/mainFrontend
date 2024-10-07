@@ -19,7 +19,7 @@ export default async function page() {
   const parts: InterPartFront[] = [];
   var i = 0;
   while (i < user.authPartIds.length) {
-    const part = await getPart(user.authPartIds[i++], session.user.token);
+    const part = await getPart(user.authPartIds[i++]);
     parts.push(part);
   }
   return (

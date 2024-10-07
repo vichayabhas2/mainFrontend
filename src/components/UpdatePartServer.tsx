@@ -11,7 +11,7 @@ export default async function UpdatePartServer({
   partId: mongoose.Types.ObjectId;
   token:string
 }) {
-  const part = await getPart(partId, token);
+  const part = await getPart(partId);
   const place = part.placeId ? await getPlace(part.placeId) : null;
   const allPlaceData=await getAllPlaceData()
 
