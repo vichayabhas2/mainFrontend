@@ -16,9 +16,20 @@ export default function ActionPlanClient({
 }) {
   const router = useRouter();
   return (
-    <div>
-      <table>
-        <tr>
+    <div className="text-center p-5 text-white rounded-3xl"
+    style={{
+      backgroundColor:"#961A1D",
+      width:"80%",
+      marginLeft:"10%",
+      padding:"10px",
+    }}
+    >
+      <table
+      style={{
+        width:"100%",
+      }}
+      >
+        <tr style={{border:"solid", borderColor:"white"}}>
           <th>id</th>
           <th>start</th>
           <th>end</th>
@@ -33,7 +44,7 @@ export default function ActionPlanClient({
           //console.log(actionPlan);
 
           return (
-            <tr>
+            <tr  style={{border:"solid", borderColor:"white"}}>
               <td
                 onClick={() => {
                   router.push(`/actionPlan/${actionPlan._id}`);

@@ -47,6 +47,9 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
+          sx={{
+            color:"white"
+          }}
           defaultValue={nB}
         >
           {buildings.map((choice: string) => {
@@ -65,6 +68,9 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
+          sx={{
+            color:"white"
+          }}
           defaultValue={`${nP?.floor} ${nP?.room}`}
         >
           {nC?.map((choice: InterPlace) => {

@@ -58,8 +58,17 @@ export default function RegisterPartClient({
       e.key.toString() !== camp.partRegisterId.toString()
   );
   return (
-    <div>
-      <div>น้องที่สมัครเข้ามา</div>
+    <div 
+    style={{
+      marginLeft:"5%"
+    }}>
+      <div
+      style={{
+         color:"#961A1D",
+         fontWeight:"bold",
+         marginTop:"30px"
+      }}
+      >น้องที่สมัครเข้ามา</div>
       <table className="table-auto border border-x-black border-separate">
         <th className=" border border-x-black">รหัส</th>
         <th className=" border border-x-black">link</th>
@@ -93,6 +102,15 @@ export default function RegisterPartClient({
       </table>
       {camp.registerModel === "all" ? (
         <>
+        <div 
+        style={{
+          backgroundColor:"#961A1D",
+          display:"inline-block",
+          padding:"10px",
+          borderRadius:"15px",
+          marginTop:"5px"
+        }}
+        >
           <FinishButton
             text="ผ่านรอบเอกสาร"
             onClick={() => {
@@ -115,7 +133,14 @@ export default function RegisterPartClient({
               set1([]);
             }}
           />
-          <div>ผ่านการสัมภาส</div>
+          </div>
+          <div
+            style={{
+              color:"#961A1D",
+              fontWeight:"bold",
+              marginTop:"30px"
+           }}
+          >ผ่านการสัมภาส</div>
           <table className="table-auto border border-x-blackborder-separate">
             <th className=" border border-x-black">รหัส</th>
             <th className=" border border-x-black">link</th>
@@ -147,6 +172,15 @@ export default function RegisterPartClient({
               </tr>
             ))}
           </table>
+          <div 
+        style={{
+          backgroundColor:"#961A1D",
+          display:"inline-block",
+          padding:"10px",
+          borderRadius:"15px",
+          marginTop:"5px"
+        }}
+        >
           <FinishButton
             text="ผ่านการสัมภาส"
             onClick={() => {
@@ -169,9 +203,19 @@ export default function RegisterPartClient({
               set1([]);
             }}
           />
+          </div>
         </>
       ) : (
         <>
+           <div 
+        style={{
+          backgroundColor:"#961A1D",
+          display:"inline-block",
+          padding:"10px",
+          borderRadius:"15px",
+          marginTop:"5px"
+        }}
+        >
           <FinishButton
             text="ผ่านการคัดเลือก"
             onClick={() => {
@@ -194,9 +238,16 @@ export default function RegisterPartClient({
               set1([]);
             }}
           />
+          </div>
         </>
       )}
-      <div>
+      <div 
+        style={{
+          color:"#961A1D",
+          fontWeight:"bold",
+          marginTop:"30px"
+       }}
+      >
         {camp.registerModel === "all" ? (
           <>น้องที่ผ่านการสัมภาส</>
         ) : (
@@ -224,7 +275,13 @@ export default function RegisterPartClient({
       </table>
       {camp.registerModel !== "noPaid" ? (
         <>
-          <div>น้องที่จ่ายเงินแล้ว</div>
+          <div
+            style={{
+              color:"#961A1D",
+              fontWeight:"bold",
+              marginTop:"30px"
+           }}
+          >น้องที่จ่ายเงินแล้ว</div>
           <table className="table-auto border border-x-black border-separate">
             <th className=" border border-x-black">รหัส</th>
             <th className=" border border-x-black">link</th>
@@ -258,6 +315,15 @@ export default function RegisterPartClient({
                 </tr>
               ))}
           </table>
+        <div 
+        style={{
+          backgroundColor:"#961A1D",
+          display:"inline-block",
+          padding:"10px",
+          borderRadius:"15px",
+          marginTop:"5px"
+        }}
+        >
           <FinishButton
             text="ยืนยันการจ่ายเงิน"
             onClick={() => {
@@ -280,9 +346,16 @@ export default function RegisterPartClient({
               set1([]);
             }}
           />
+          </div>
         </>
       ) : null}
-      <div>น้องที่มั่นใจว่าเข้าค่ายแน่นอน</div>
+      <div
+        style={{
+          color:"#961A1D",
+          fontWeight:"bold",
+          marginTop:"30px"
+       }}
+      >น้องที่มั่นใจว่าเข้าค่ายแน่นอน</div>
       <table>
         <th className=" border border-x-black">รหัส</th>
 
@@ -312,7 +385,13 @@ export default function RegisterPartClient({
           </tr>
         ))}
       </table>
-      <div>พี่ที่สมัครเข้ามา</div>
+      <div
+        style={{
+          color:"#961A1D",
+          fontWeight:"bold",
+          marginTop:"30px"
+       }}
+      >พี่ที่สมัครเข้ามา</div>
       <table className="table-auto border border-x-black border-separate">
         <th className=" border border-x-black">รหัส</th>
         <th className=" border border-x-black">link</th>
@@ -362,7 +441,13 @@ export default function RegisterPartClient({
       {regisBaans.map((regisBaan) => (
         <>
           <div>
-            <div>รายชื่อน้องบ้าน{regisBaan.baan.fullName}</div>
+            <div
+              style={{
+                color:"#961A1D",
+                fontWeight:"bold",
+                marginTop:"30px"
+             }}
+            >รายชื่อน้องบ้าน{regisBaan.baan.fullName}</div>
             <table className="table-auto border border-x-black border-separate">
               <tr>
                 <th className=" border border-x-black">ชือเล่น</th>
@@ -435,7 +520,13 @@ export default function RegisterPartClient({
             </table>
           </div>
           <div>
-            <div>รายชื่อพี่บ้าน{regisBaan.baan.fullName}</div>
+            <div
+              style={{
+                color:"#961A1D",
+                fontWeight:"bold",
+                marginTop:"30px"
+             }}
+            >รายชื่อพี่บ้าน{regisBaan.baan.fullName}</div>
             <table className="table-auto border border-x-black border-separate">
               <tr>
                 <th className=" border border-x-black">ชือเล่น</th>
@@ -517,7 +608,13 @@ export default function RegisterPartClient({
         return (
           <>
             <div>
-              <div>รายชื่อปีโตฝ่าย{regisPart.part.partName}</div>
+              <div
+                style={{
+                  color:"#961A1D",
+                  fontWeight:"bold",
+                  marginTop:"30px"
+               }}
+              >รายชื่อปีโตฝ่าย{regisPart.part.partName}</div>
               <table className="table-auto border border-x-black border-separate">
                 <tr>
                   <th className=" border border-x-black">ชือเล่น</th>
@@ -590,7 +687,13 @@ export default function RegisterPartClient({
               </table>
             </div>
             <div>
-              <div>รายชื่อพี่บ้าน{regisPart.part.partName}</div>
+              <div
+                style={{
+                  color:"#961A1D",
+                  fontWeight:"bold",
+                  marginTop:"30px"
+               }}
+              >รายชื่อพี่บ้าน{regisPart.part.partName}</div>
               <table className="table-auto border border-x-black border-separate">
                 <tr>
                   <th className=" border border-x-black">ชือเล่น</th>

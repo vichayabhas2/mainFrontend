@@ -116,7 +116,7 @@ export default function HeathIssueClient({
             defaultValue={chronicDisease}
           />
         </div>
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">
             ต้องการเน้นย้ำเรื่องอาหารว่าอะไรบ้าง
           </label>
@@ -157,6 +157,9 @@ export default function HeathIssueClient({
           id="location"
           className="h-[2em] w-[200px] mb-5 mx-3 text-white"
           defaultValue={foodLimit}
+          sx={{
+            color:"white"
+          }}
         >
           {foodLimits.map((value) => {
             return (

@@ -43,6 +43,9 @@ export default function LostAndFoundClient({
           name="location"
           id="location"
           className="h-[2em] w-[200px] ml-20 text-white"
+          sx={{
+            color:"white"
+          }}
         >
           <MenuItem
             onClick={() => {
@@ -126,6 +129,9 @@ export default function LostAndFoundClient({
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
+          sx={{
+            color:"white"
+          }}
         >
           {mapIn.map((choice: MyMap) => {
             return (

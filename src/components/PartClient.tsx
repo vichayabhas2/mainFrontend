@@ -230,6 +230,11 @@ export default function PartClient({
                 console.log(newValue);
               }}
             />
+            <div
+            style={{
+              height:"10px"
+            }}
+            ></div>
           </LocalizationProvider>
         </div>
         <div className=" rounded-lg ">
@@ -257,6 +262,11 @@ export default function PartClient({
                 console.log(newValue);
               }}
             />
+               <div
+            style={{
+              height:"10px"
+            }}
+            ></div>
           </LocalizationProvider>
         </div>
         <FinishButton text={"add"} onClick={add} />
