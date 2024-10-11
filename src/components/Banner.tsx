@@ -20,7 +20,7 @@ export default function Banner() {
     "/img/cover4.jpg",
   ];
   const { data: session } = useSession();
-  console.log(session?.user.token);
+
   return (
     /*
      */
