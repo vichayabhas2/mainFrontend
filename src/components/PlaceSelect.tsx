@@ -48,7 +48,7 @@ export default function PlaceSelect({
           id="location"
           className="h-[2em] w-[200px] text-white"
           sx={{
-            color:"white"
+            color: "white",
           }}
           defaultValue={nB}
         >
@@ -69,7 +69,7 @@ export default function PlaceSelect({
           id="location"
           className="h-[2em] w-[200px] text-white"
           sx={{
-            color:"white"
+            color: "white",
           }}
           defaultValue={`${nP?.floor} ${nP?.room}`}
         >

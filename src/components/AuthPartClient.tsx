@@ -6,13 +6,14 @@ import FinishButton from "./FinishButton";
 export default function AuthPartClient({ parts }: { parts: InterPartFront[] }) {
   const router = useRouter();
   return (
-    <div className="text-center p-5 text-white rounded-3xl"
-    style={{
-      backgroundColor:"#961A1D",
-      width:"70%",
-      marginLeft:"15%",
-      marginTop:"100px"
-    }}
+    <div
+      className="text-center p-5 text-white rounded-3xl"
+      style={{
+        backgroundColor: "#961A1D",
+        width: "70%",
+        marginLeft: "15%",
+        marginTop: "100px",
+      }}
     >
       {parts.map((part) => (
         <FinishButton

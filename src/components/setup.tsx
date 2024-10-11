@@ -343,3 +343,9 @@ export const zeroTimeOffset: InterTimeOffset = {
   day: 0,
   _id: new mongoose.Types.ObjectId(),
 };
+export function getId(input: { _id: mongoose.Types.ObjectId } | null) {
+  if (input) {
+    return input._id;
+  }
+  return null;
+}

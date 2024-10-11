@@ -58,17 +58,20 @@ export default function RegisterPartClient({
       e.key.toString() !== camp.partRegisterId.toString()
   );
   return (
-    <div 
-    style={{
-      marginLeft:"5%"
-    }}>
-      <div
+    <div
       style={{
-         color:"#961A1D",
-         fontWeight:"bold",
-         marginTop:"30px"
+        marginLeft: "5%",
       }}
-      >น้องที่สมัครเข้ามา</div>
+    >
+      <div
+        style={{
+          color: "#961A1D",
+          fontWeight: "bold",
+          marginTop: "30px",
+        }}
+      >
+        น้องที่สมัครเข้ามา
+      </div>
       <table className="table-auto border border-x-black border-separate">
         <th className=" border border-x-black">รหัส</th>
         <th className=" border border-x-black">link</th>
@@ -102,45 +105,47 @@ export default function RegisterPartClient({
       </table>
       {camp.registerModel === "all" ? (
         <>
-        <div 
-        style={{
-          backgroundColor:"#961A1D",
-          display:"inline-block",
-          padding:"10px",
-          borderRadius:"15px",
-          marginTop:"5px"
-        }}
-        >
-          <FinishButton
-            text="ผ่านรอบเอกสาร"
-            onClick={() => {
-              admission(
-                { members: nongPendingIds, campId: camp._id },
-                "interview",
-                token
-              );
-              set1([]);
+          <div
+            style={{
+              backgroundColor: "#961A1D",
+              display: "inline-block",
+              padding: "10px",
+              borderRadius: "15px",
+              marginTop: "5px",
             }}
-          />
-          <FinishButton
-            text="ตกรอบเอกสาร"
-            onClick={() => {
-              admission(
-                { members: nongPendingIds, campId: camp._id },
-                "kick/nong",
-                token
-              );
-              set1([]);
-            }}
-          />
+          >
+            <FinishButton
+              text="ผ่านรอบเอกสาร"
+              onClick={() => {
+                admission(
+                  { members: nongPendingIds, campId: camp._id },
+                  "interview",
+                  token
+                );
+                set1([]);
+              }}
+            />
+            <FinishButton
+              text="ตกรอบเอกสาร"
+              onClick={() => {
+                admission(
+                  { members: nongPendingIds, campId: camp._id },
+                  "kick/nong",
+                  token
+                );
+                set1([]);
+              }}
+            />
           </div>
           <div
             style={{
-              color:"#961A1D",
-              fontWeight:"bold",
-              marginTop:"30px"
-           }}
-          >ผ่านการสัมภาส</div>
+              color: "#961A1D",
+              fontWeight: "bold",
+              marginTop: "30px",
+            }}
+          >
+            ผ่านการสัมภาส
+          </div>
           <table className="table-auto border border-x-blackborder-separate">
             <th className=" border border-x-black">รหัส</th>
             <th className=" border border-x-black">link</th>
@@ -172,81 +177,81 @@ export default function RegisterPartClient({
               </tr>
             ))}
           </table>
-          <div 
-        style={{
-          backgroundColor:"#961A1D",
-          display:"inline-block",
-          padding:"10px",
-          borderRadius:"15px",
-          marginTop:"5px"
-        }}
-        >
-          <FinishButton
-            text="ผ่านการสัมภาส"
-            onClick={() => {
-              admission(
-                { members: nongInterviewIds, campId: camp._id },
-                "pass",
-                token
-              );
-              set2([]);
+          <div
+            style={{
+              backgroundColor: "#961A1D",
+              display: "inline-block",
+              padding: "10px",
+              borderRadius: "15px",
+              marginTop: "5px",
             }}
-          />
-          <FinishButton
-            text="ตกรอบสัมภาส"
-            onClick={() => {
-              admission(
-                { members: nongInterviewIds, campId: camp._id },
-                "kick/nong",
-                token
-              );
-              set1([]);
-            }}
-          />
+          >
+            <FinishButton
+              text="ผ่านการสัมภาส"
+              onClick={() => {
+                admission(
+                  { members: nongInterviewIds, campId: camp._id },
+                  "pass",
+                  token
+                );
+                set2([]);
+              }}
+            />
+            <FinishButton
+              text="ตกรอบสัมภาส"
+              onClick={() => {
+                admission(
+                  { members: nongInterviewIds, campId: camp._id },
+                  "kick/nong",
+                  token
+                );
+                set1([]);
+              }}
+            />
           </div>
         </>
       ) : (
         <>
-           <div 
-        style={{
-          backgroundColor:"#961A1D",
-          display:"inline-block",
-          padding:"10px",
-          borderRadius:"15px",
-          marginTop:"5px"
-        }}
-        >
-          <FinishButton
-            text="ผ่านการคัดเลือก"
-            onClick={() => {
-              admission(
-                { members: nongPendingIds, campId: camp._id },
-                "pass",
-                token
-              );
-              set2([]);
+          <div
+            style={{
+              backgroundColor: "#961A1D",
+              display: "inline-block",
+              padding: "10px",
+              borderRadius: "15px",
+              marginTop: "5px",
             }}
-          />
-          <FinishButton
-            text="ไม่ผ่านการคัดเลือก"
-            onClick={() => {
-              admission(
-                { members: nongPendingIds, campId: camp._id },
-                "kick/nong",
-                token
-              );
-              set1([]);
-            }}
-          />
+          >
+            <FinishButton
+              text="ผ่านการคัดเลือก"
+              onClick={() => {
+                admission(
+                  { members: nongPendingIds, campId: camp._id },
+                  "pass",
+                  token
+                );
+                set2([]);
+              }}
+            />
+            <FinishButton
+              text="ไม่ผ่านการคัดเลือก"
+              onClick={() => {
+                admission(
+                  { members: nongPendingIds, campId: camp._id },
+                  "kick/nong",
+                  token
+                );
+                set1([]);
+              }}
+            />
           </div>
         </>
       )}
-      <div 
+      <div
         style={{
-          color:"#961A1D",
-          fontWeight:"bold",
-          marginTop:"30px"
-       }}
+          color: "#961A1D",
+          fontWeight: "bold",
+          marginTop: "30px",
+        }}
       >
         {camp.registerModel === "all" ? (
           <>น้องที่ผ่านการสัมภาส</>
@@ -277,11 +282,13 @@ export default function RegisterPartClient({
         <>
           <div
             style={{
-              color:"#961A1D",
-              fontWeight:"bold",
-              marginTop:"30px"
-           }}
-          >น้องที่จ่ายเงินแล้ว</div>
+              color: "#961A1D",
+              fontWeight: "bold",
+              marginTop: "30px",
+            }}
+          >
+            น้องที่จ่ายเงินแล้ว
+          </div>
           <table className="table-auto border border-x-black border-separate">
             <th className=" border border-x-black">รหัส</th>
             <th className=" border border-x-black">link</th>
@@ -315,47 +322,49 @@ export default function RegisterPartClient({
                 </tr>
               ))}
           </table>
-        <div 
-        style={{
-          backgroundColor:"#961A1D",
-          display:"inline-block",
-          padding:"10px",
-          borderRadius:"15px",
-          marginTop:"5px"
-        }}
-        >
-          <FinishButton
-            text="ยืนยันการจ่ายเงิน"
-            onClick={() => {
-              admission(
-                { members: nongPaidIds, campId: camp._id },
-                "sure",
-                token
-              );
-              set4([]);
+          <div
+            style={{
+              backgroundColor: "#961A1D",
+              display: "inline-block",
+              padding: "10px",
+              borderRadius: "15px",
+              marginTop: "5px",
             }}
-          />
-          <FinishButton
-            text="ไม่ยืนยันการจ่ายเงิน"
-            onClick={() => {
-              admission(
-                { members: nongPaidIds, campId: camp._id },
-                "kick/nong",
-                token
-              );
-              set1([]);
-            }}
-          />
+          >
+            <FinishButton
+              text="ยืนยันการจ่ายเงิน"
+              onClick={() => {
+                admission(
+                  { members: nongPaidIds, campId: camp._id },
+                  "sure",
+                  token
+                );
+                set4([]);
+              }}
+            />
+            <FinishButton
+              text="ไม่ยืนยันการจ่ายเงิน"
+              onClick={() => {
+                admission(
+                  { members: nongPaidIds, campId: camp._id },
+                  "kick/nong",
+                  token
+                );
+                set1([]);
+              }}
+            />
           </div>
         </>
       ) : null}
       <div
         style={{
-          color:"#961A1D",
-          fontWeight:"bold",
-          marginTop:"30px"
-       }}
-      >น้องที่มั่นใจว่าเข้าค่ายแน่นอน</div>
+          color: "#961A1D",
+          fontWeight: "bold",
+          marginTop: "30px",
+        }}
+      >
+        น้องที่มั่นใจว่าเข้าค่ายแน่นอน
+      </div>
       <table>
         <th className=" border border-x-black">รหัส</th>
 
@@ -387,11 +396,13 @@ export default function RegisterPartClient({
       </table>
       <div
         style={{
-          color:"#961A1D",
-          fontWeight:"bold",
-          marginTop:"30px"
-       }}
-      >พี่ที่สมัครเข้ามา</div>
+          color: "#961A1D",
+          fontWeight: "bold",
+          marginTop: "30px",
+        }}
+      >
+        พี่ที่สมัครเข้ามา
+      </div>
       <table className="table-auto border border-x-black border-separate">
         <th className=" border border-x-black">รหัส</th>
         <th className=" border border-x-black">link</th>
@@ -443,11 +454,13 @@ export default function RegisterPartClient({
           <div>
             <div
               style={{
-                color:"#961A1D",
-                fontWeight:"bold",
-                marginTop:"30px"
-             }}
-            >รายชื่อน้องบ้าน{regisBaan.baan.fullName}</div>
+                color: "#961A1D",
+                fontWeight: "bold",
+                marginTop: "30px",
+              }}
+            >
+              รายชื่อน้องบ้าน{regisBaan.baan.fullName}
+            </div>
             <table className="table-auto border border-x-black border-separate">
               <tr>
                 <th className=" border border-x-black">ชือเล่น</th>
@@ -522,11 +535,13 @@ export default function RegisterPartClient({
           <div>
             <div
               style={{
-                color:"#961A1D",
-                fontWeight:"bold",
-                marginTop:"30px"
-             }}
-            >รายชื่อพี่บ้าน{regisBaan.baan.fullName}</div>
+                color: "#961A1D",
+                fontWeight: "bold",
+                marginTop: "30px",
+              }}
+            >
+              รายชื่อพี่บ้าน{regisBaan.baan.fullName}
+            </div>
             <table className="table-auto border border-x-black border-separate">
               <tr>
                 <th className=" border border-x-black">ชือเล่น</th>
@@ -610,11 +625,13 @@ export default function RegisterPartClient({
             <div>
               <div
                 style={{
-                  color:"#961A1D",
-                  fontWeight:"bold",
-                  marginTop:"30px"
-               }}
-              >รายชื่อปีโตฝ่าย{regisPart.part.partName}</div>
+                  color: "#961A1D",
+                  fontWeight: "bold",
+                  marginTop: "30px",
+                }}
+              >
+                รายชื่อปีโตฝ่าย{regisPart.part.partName}
+              </div>
               <table className="table-auto border border-x-black border-separate">
                 <tr>
                   <th className=" border border-x-black">ชือเล่น</th>
@@ -689,11 +706,13 @@ export default function RegisterPartClient({
             <div>
               <div
                 style={{
-                  color:"#961A1D",
-                  fontWeight:"bold",
-                  marginTop:"30px"
-               }}
-              >รายชื่อพี่บ้าน{regisPart.part.partName}</div>
+                  color: "#961A1D",
+                  fontWeight: "bold",
+                  marginTop: "30px",
+                }}
+              >
+                รายชื่อพี่บ้าน{regisPart.part.partName}
+              </div>
               <table className="table-auto border border-x-black border-separate">
                 <tr>
                   <th className=" border border-x-black">ชือเล่น</th>

@@ -44,16 +44,20 @@ export default function UpdateProfileRaw({
   //console.log(user)
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
-      <div className="text-4xl font-bold"
-      style={{
-        color:"#961A1D"
-      }}
-      >Update Profile </div>
+      <div
+        className="text-4xl font-bold"
+        style={{
+          color: "#961A1D",
+        }}
+      >
+        Update Profile{" "}
+      </div>
 
-      <form className="w-[70%] items-center p-10 rounded-3xl"
-      style={{
-        backgroundColor:"#961A1D"
-      }}
+      <form
+        className="w-[70%] items-center p-10 rounded-3xl"
+        style={{
+          backgroundColor: "#961A1D",
+        }}
       >
         <div className="flex flex-row items-center">
           <label className="w-2/5 text-2xl text-white">ชื่อจริง</label>
@@ -63,19 +67,19 @@ export default function UpdateProfileRaw({
             defaultValue={name}
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setName(e.target.value)}
             required
@@ -89,19 +93,19 @@ export default function UpdateProfileRaw({
             defaultValue={lastname}
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setLastname(e.target.value)}
             required
@@ -115,19 +119,19 @@ export default function UpdateProfileRaw({
             defaultValue={nickname}
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setNickname(e.target.value)}
             required
@@ -141,19 +145,19 @@ export default function UpdateProfileRaw({
             type="email"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setEmail(e.target.value)}
             defaultValue={email}
@@ -169,19 +173,19 @@ export default function UpdateProfileRaw({
             type="number"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setTel(e.target.value)}
             defaultValue={tel}
@@ -200,27 +204,25 @@ export default function UpdateProfileRaw({
             defaultValue={citizenId}
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setCitizenId(e.target.value)}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-white">
-            เลือกขนาดเสื้อ
-          </label>
+          <label className="w-2/5 text-2xl text-white">เลือกขนาดเสื้อ</label>
 
           <SelectSize select={setShirtSize} def={user.shirtSize} />
         </div>
@@ -263,7 +265,7 @@ export default function UpdateProfileRaw({
           <button
             className="bg-white p-3 mx-2 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700"
             style={{
-              color:"#961A1D"
+              color: "#961A1D",
             }}
             onClick={() => {
               alert(user._id);
@@ -274,7 +276,7 @@ export default function UpdateProfileRaw({
           <button
             className="bg-white p-3 mx-2 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700"
             style={{
-              color:"#961A1D"
+              color: "#961A1D",
             }}
             onClick={() => {
               console.log(tel);
@@ -313,19 +315,19 @@ export default function UpdateProfileRaw({
                 id="citizenId"
                 className="w-3/5 bg-white rounded-2xl border-gray-200"
                 sx={{
-                  backgroundColor: '#f5f5f5',
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderRadius: ' 1rem',
-                      borderColor: 'transparent', 
+                  backgroundColor: "#f5f5f5",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderRadius: " 1rem",
+                      borderColor: "transparent",
                     },
-                    '&:hover fieldset': {
-                      borderColor: '#5479FF',     
+                    "&:hover fieldset": {
+                      borderColor: "#5479FF",
                     },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#5479FF',      
-                    }
-                  }
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                  },
                 }}
                 onChange={(e) => setKey(e.target.value)}
               />

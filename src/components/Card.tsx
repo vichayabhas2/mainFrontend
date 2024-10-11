@@ -193,7 +193,7 @@ export default function Card({
 
             <div className="text-2xl my-10">
               <ClockIcon className="mr-5" />
-              {camp.open?<>เปิดรับสมัคร</>:<>ปิดรับสมัครแล้ว</>}
+              {camp.open ? <>เปิดรับสมัคร</> : <>ปิดรับสมัครแล้ว</>}
             </div>
           </div>
         </div>

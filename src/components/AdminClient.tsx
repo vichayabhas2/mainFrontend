@@ -8,7 +8,7 @@ import { useState } from "react";
 import createCamp from "@/libs/admin/createCamp";
 import addCampName from "@/libs/admin/addCampName";
 import mongoose from "mongoose";
-console.log(mongoose)
+
 import {
   InterNameContainer,
   CreateCamp,
@@ -58,24 +58,28 @@ export default function AdminClient({
   >(null);
   const [newPartName, setNewPartName] = useState<string | null>(null);
   return (
-    <form className="w-[70%] items-center p-10 rounded-3xl "
-    style={{
-      backgroundColor:"#961A1D"
-    }}
+    <form
+      className="w-[70%] items-center p-10 rounded-3xl "
+      style={{
+        backgroundColor: "#961A1D",
+      }}
     >
       <div className=" flex flex-row items-center ">
-        <label className="w-2/5 text-2xl text-white"
-        style={{
-          textAlign:"left"
-        }}
-        >เลือกชื่อค่าย</label>
+        <label
+          className="w-2/5 text-2xl text-white"
+          style={{
+            textAlign: "left",
+          }}
+        >
+          เลือกชื่อค่าย
+        </label>
         <Select
           variant="standard"
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           {campNameContainers.map((choice: InterNameContainer) => {
@@ -96,11 +100,14 @@ export default function AdminClient({
 
       <div className=" rounded-lg ">
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-white"
+          <label
+            className="w-2/5 text-2xl text-white"
             style={{
-              textAlign:"left"
+              textAlign: "left",
             }}
-          >ครั้งที่</label>
+          >
+            ครั้งที่
+          </label>
           <Input
             type="number"
             id="name"
@@ -114,28 +121,31 @@ export default function AdminClient({
         </div>
       </div>
       <div className=" flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-white"
+        <label
+          className="w-2/5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
-        >วันเริ่มค่าย</label>
+        >
+          วันเริ่มค่าย
+        </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             className="bg-white m-10 rounded-2xl"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             value={dateStart}
             onChange={(newValue) => {
@@ -147,28 +157,31 @@ export default function AdminClient({
         </LocalizationProvider>
       </div>
       <div className=" flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-white"
+        <label
+          className="w-2/5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
-        >วันจบค่าย</label>
+        >
+          วันจบค่าย
+        </label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             className="bg-white m-10 rounded-2xl"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             value={dateEnd}
             onChange={(newValue) => {
@@ -180,9 +193,10 @@ export default function AdminClient({
         </LocalizationProvider>
       </div>
       <div className=" flex flex-row items-center ">
-        <label className="w-2/5 mb-5 text-2xl text-white"
+        <label
+          className="w-2/5 mb-5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           รูปแบบสมาชิกค่าย
@@ -236,9 +250,10 @@ export default function AdminClient({
         </Select>
       </div>
       <div className=" flex flex-row items-center">
-        <label className="w-2/5 text-2xl mb-5 text-white"
+        <label
+          className="w-2/5 text-2xl mb-5 text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           รูปแบบการลงทะเบียนค่าย
@@ -276,9 +291,10 @@ export default function AdminClient({
         </Select>
       </div>
       <div className=" flex flex-row items-center ">
-        <label className="w-2/5 text-2xl mb-5 text-white"
+        <label
+          className="w-2/5 text-2xl mb-5 text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           รูปแบบการค้างคืนของพี่ค่าย
@@ -309,9 +325,10 @@ export default function AdminClient({
             }
           )}
         </Select>
-        <label className="w-2/5 text-2xl mb-5 text-white"
+        <label
+          className="w-2/5 text-2xl mb-5 text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           รูปแบบการค้างคืนของน้องค่าย
@@ -345,9 +362,10 @@ export default function AdminClient({
       </div>
 
       <div className="flex flex-row items-center mt-4">
-        <label className="w-2/5 text-2xl text-white"
+        <label
+          className="w-2/5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
         >
           บอร์ดค่าย userId ให้ใส่ , ห้ามเว้นวรรค
@@ -356,19 +374,19 @@ export default function AdminClient({
           name="Name"
           id="Name"
           sx={{
-            backgroundColor: '#f5f5f5',
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderRadius: ' 1rem',
-                borderColor: 'transparent', 
+            backgroundColor: "#f5f5f5",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderRadius: " 1rem",
+                borderColor: "transparent",
               },
-              '&:hover fieldset': {
-                borderColor: '#5479FF',     
+              "&:hover fieldset": {
+                borderColor: "#5479FF",
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#5479FF',      
-              }
-            }
+              "&.Mui-focused fieldset": {
+                borderColor: "#5479FF",
+              },
+            },
           }}
           className="w-3/5 bg-white rounded-2xl shadow-inner"
           onChange={(e) => setBoardIds(e.target.value)}
@@ -378,7 +396,7 @@ export default function AdminClient({
         <button
           className="bg-white p-3 mt-2  mb-4 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
           style={{
-            color:"#961A1D"
+            color: "#961A1D",
           }}
           onClick={() => {
             if (
@@ -408,7 +426,7 @@ export default function AdminClient({
                 };
                 createCamp(reddy, session.user.token);
               } catch (error) {
-                alert (error)
+                alert(error);
                 console.log(error);
               }
             } else {
@@ -441,28 +459,31 @@ export default function AdminClient({
         </label>
       ))}
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-white"
+        <label
+          className="w-2/5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
-        >เพิ่มชื่อค่าย</label>
+        >
+          เพิ่มชื่อค่าย
+        </label>
         <TextField
           name="Name"
           id="Name"
           sx={{
-            backgroundColor: '#f5f5f5',
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderRadius: ' 1rem',
-                borderColor: 'transparent', 
+            backgroundColor: "#f5f5f5",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderRadius: " 1rem",
+                borderColor: "transparent",
               },
-              '&:hover fieldset': {
-                borderColor: '#5479FF',     
+              "&:hover fieldset": {
+                borderColor: "#5479FF",
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#5479FF',      
-              }
-            }
+              "&.Mui-focused fieldset": {
+                borderColor: "#5479FF",
+              },
+            },
           }}
           className="w-3/5 bg-white rounded-2xl shadow-inner"
           onChange={(e) => setNewName(e.target.value)}
@@ -471,7 +492,7 @@ export default function AdminClient({
       <button
         className="bg-white mt-2  mb-4  p-3 font-medium rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
         style={{
-          color:"#961A1D",
+          color: "#961A1D",
         }}
         onClick={() => {
           if (newName) {
@@ -490,20 +511,21 @@ export default function AdminClient({
 
       {partNameContainers.map((nameContainer: InterPartNameContainer) => (
         <div>
-          <label className="text-2xl text-white"
-          style={{textAlign:"left"}}
-          >
+          <label className="text-2xl text-white" style={{ textAlign: "left" }}>
             {nameContainer.name}
           </label>
         </div>
       ))}
 
       <div className="flex flex-row items-center">
-        <label className="w-2/5 text-2xl text-white"
+        <label
+          className="w-2/5 text-2xl text-white"
           style={{
-            textAlign:"left"
+            textAlign: "left",
           }}
-        >เพิ่มชื่อฝ่าย</label>
+        >
+          เพิ่มชื่อฝ่าย
+        </label>
         <TextField
           name="Name"
           id="Name"
@@ -514,8 +536,8 @@ export default function AdminClient({
       <button
         className=" p-3 bg-white rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
         style={{
-          color:"#961A1D",
-          marginTop:"20px"
+          color: "#961A1D",
+          marginTop: "20px",
         }}
         onClick={() => {
           if (newPartName) {

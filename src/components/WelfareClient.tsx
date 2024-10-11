@@ -195,38 +195,45 @@ export default function WelfareClient({
           ))}
           {showPart
             ? welfare.partWelfares.map((part) => (
-                <>{welfare.isHavePeto?
-                  part.petoHealths.map((peto) => (
-                    <tr>
-                      <td>{peto.user.nickname}</td>
-                      <td>{peto.user.name}</td>
-                      <td>{peto.user.lastname}</td>
-                      <td>{peto.user.name}</td>
-                      <td>ปีโต</td>
-                      <td>{peto.heathIssue.food}</td>
-                      <td>{peto.heathIssue.foodConcern}</td>
-                      <td>{peto.heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
-                      {welfareMode == "ขั้นสูง" ? (
-                        <td>{peto.heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}</td>
-                      ) : null}
-                    </tr>
-                  )):null}
-                  {welfareMode!='ซ่อนปัญหาสุขภาพพี่บ้านในฝ่าย'?
-                  part.peeHealths.map((pee) => (
-                    <tr>
-                      <td>{pee.user.nickname}</td>
-                      <td>{pee.user.name}</td>
-                      <td>{pee.user.lastname}</td>
-                      <td>{part.name}</td>
-                      <td>พี่{welfare.groupName}</td>
-                      <td>{pee.heathIssue.food}</td>
-                      <td>{pee.heathIssue.foodConcern}</td>
-                      <td>{pee.heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
-                      {welfareMode == "ขั้นสูง" ? (
-                        <td>{pee.heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}</td>
-                      ) : null}
-                    </tr>
-                  )):null}
+                <>
+                  {welfare.isHavePeto
+                    ? part.petoHealths.map((peto) => (
+                        <tr>
+                          <td>{peto.user.nickname}</td>
+                          <td>{peto.user.name}</td>
+                          <td>{peto.user.lastname}</td>
+                          <td>{peto.user.name}</td>
+                          <td>ปีโต</td>
+                          <td>{peto.heathIssue.food}</td>
+                          <td>{peto.heathIssue.foodConcern}</td>
+                          <td>{peto.heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
+                          {welfareMode == "ขั้นสูง" ? (
+                            <td>
+                              {peto.heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}
+                            </td>
+                          ) : null}
+                        </tr>
+                      ))
+                    : null}
+                  {welfareMode != "ซ่อนปัญหาสุขภาพพี่บ้านในฝ่าย"
+                    ? part.peeHealths.map((pee) => (
+                        <tr>
+                          <td>{pee.user.nickname}</td>
+                          <td>{pee.user.name}</td>
+                          <td>{pee.user.lastname}</td>
+                          <td>{part.name}</td>
+                          <td>พี่{welfare.groupName}</td>
+                          <td>{pee.heathIssue.food}</td>
+                          <td>{pee.heathIssue.foodConcern}</td>
+                          <td>{pee.heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
+                          {welfareMode == "ขั้นสูง" ? (
+                            <td>
+                              {pee.heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}
+                            </td>
+                          ) : null}
+                        </tr>
+                      ))
+                    : null}
                 </>
               ))
             : null}

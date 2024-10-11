@@ -10,5 +10,5 @@ export default async function WelfareServer({
   token: string;
 }) {
   const welfare = await getAllWelfare(campId);
-  return <WelfareClient welfare={welfare}/>
+  return <WelfareClient welfare={welfare} />;
 }

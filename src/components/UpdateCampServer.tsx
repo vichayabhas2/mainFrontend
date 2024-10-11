@@ -6,8 +6,13 @@ import mongoose from "mongoose";
 import { InterPartFront } from "../../interface";
 import UpdateCampClient from "./UpdateCampClient";
 
-export default async function UpdateCampServer({campId,token}:{campId:mongoose.Types.ObjectId,token:string}){
-    
+export default async function UpdateCampServer({
+  campId,
+  token,
+}: {
+  campId: mongoose.Types.ObjectId;
+  token: string;
+}) {
   const baans = await getBaans(campId);
   const camp = await getCamp(campId);
   const remainPartName = await getAllRemainPartName(campId, token);

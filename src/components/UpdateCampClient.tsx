@@ -89,17 +89,21 @@ export default function UpdateCampClient({
         );
       })}
 
-      <div className="text-4xl font-bold"
-       style={{
-        color:"#961A1D"
-      }}
-      >Update Camp</div>
-      <form className="w-[30%] items-center p-10 rounded-3xl "
-       style={{
-        backgroundColor:"#961A1D",
-        width:"70%",
-        marginTop:"20px"
-      }}
+      <div
+        className="text-4xl font-bold"
+        style={{
+          color: "#961A1D",
+        }}
+      >
+        Update Camp
+      </div>
+      <form
+        className="w-[30%] items-center p-10 rounded-3xl "
+        style={{
+          backgroundColor: "#961A1D",
+          width: "70%",
+          marginTop: "20px",
+        }}
       >
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">ชื่อบ้านใหม่</label>
@@ -108,19 +112,19 @@ export default function UpdateCampClient({
             id="Tel"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setNewBaanName(e.target.value)}
             defaultValue={null}
@@ -159,47 +163,45 @@ export default function UpdateCampClient({
             type="url"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setRegisterSheetLink(e.target.value)}
             defaultValue={camp.registerSheetLink}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-white">
-            link frontend รอง
-          </label>
+          <label className="w-2/5 text-2xl text-white">link frontend รอง</label>
           <TextField
             name="Email"
             id="Email"
             type="url"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setLink(e.target.value)}
             defaultValue={camp.link}
@@ -214,19 +216,19 @@ export default function UpdateCampClient({
             type="url"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setPictureUrls(e.target.value.split(","))}
             defaultValue={camp.pictureUrls.toLocaleString()}
@@ -240,46 +242,44 @@ export default function UpdateCampClient({
             type="url"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setLogoUrl(e.target.value)}
             defaultValue={camp.logoUrl}
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-white">
-            คำเรียกชื่อกลุ่ม
-          </label>
+          <label className="w-2/5 text-2xl text-white">คำเรียกชื่อกลุ่ม</label>
           <TextField
             name="Tel"
             id="Tel"
             className="w-3/5 bg-white rounded-2xl "
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',      
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setGroupName(e.target.value)}
             defaultValue={groupName}
@@ -290,11 +290,11 @@ export default function UpdateCampClient({
             ล็อกข้อมูลน้องหรือไม่
           </label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setDataLock(state);
             }}
@@ -306,28 +306,29 @@ export default function UpdateCampClient({
             ล็อกข้อมูลพี่บ้านหรือไม่
           </label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setPeeDataLock(state);
             }}
             defaultChecked={peeDataLock}
           />
         </div>
-        {camp.memberStructure === "nong->highSchool,pee->1year,peto->2upYear" ? (
+        {camp.memberStructure ===
+        "nong->highSchool,pee->1year,peto->2upYear" ? (
           <div className="flex flex-row items-center my-5">
             <label className="w-2/5 text-2xl text-white">
               ล็อกข้อมูลปีโตหรือไม่
             </label>
             <Checkbox
-             sx={{
-              "&.Mui-checked": {
-                color: "#FFFFFF", // Custom color when checked
-              },
-            }}
+              sx={{
+                "&.Mui-checked": {
+                  color: "#FFFFFF", // Custom color when checked
+                },
+              }}
               onChange={(e, state) => {
                 setPetoDataLock(state);
               }}
@@ -341,11 +342,11 @@ export default function UpdateCampClient({
             เปิดให้น้องค่ายลงทะเบียนหรือไม่
           </label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setOpen(state);
             }}
@@ -357,11 +358,11 @@ export default function UpdateCampClient({
             เปิดให้น้องค่ายลงทะเบียนหรือไม่
           </label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setPeeLock(state);
             }}
@@ -375,11 +376,11 @@ export default function UpdateCampClient({
             ล็อกข้อมูลการรับเสื้อของพี่บ้านหรือไม่
           </label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setLockChangePickup(state);
             }}
@@ -387,15 +388,13 @@ export default function UpdateCampClient({
           />
         </div>
         <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-white">
-            ค่ายเสร็จหรือยัง
-          </label>
+          <label className="w-2/5 text-2xl text-white">ค่ายเสร็จหรือยัง</label>
           <Checkbox
-           sx={{
-            "&.Mui-checked": {
-              color: "#FFFFFF", // Custom color when checked
-            },
-          }}
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
             onChange={(e, state) => {
               setAllDone(state);
             }}
@@ -404,28 +403,30 @@ export default function UpdateCampClient({
         </div>
         <div className=" rounded-lg ">
           <div
-          style={{
-            color:"white"
-          }}
-          >วันเริ่มค่าย</div>
+            style={{
+              color: "white",
+            }}
+          >
+            วันเริ่มค่าย
+          </div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
-               className="bg-white m-10 rounded-2xl"
-               sx={{
-                 backgroundColor: '#f5f5f5',
-                 '& .MuiOutlinedInput-root': {
-                   '& fieldset': {
-                     borderRadius: ' 1rem',
-                     borderColor: 'transparent', 
-                   },
-                   '&:hover fieldset': {
-                     borderColor: '#5479FF',      
-                   },
-                   '&.Mui-focused fieldset': {
-                     borderColor: '#5479FF',      
-                   }
-                 }
-               }}
+              className="bg-white m-10 rounded-2xl"
+              sx={{
+                backgroundColor: "#f5f5f5",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderRadius: " 1rem",
+                    borderColor: "transparent",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#5479FF",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#5479FF",
+                  },
+                },
+              }}
               value={dateStart}
               onChange={(newValue) => {
                 setDateStart(newValue);
@@ -438,26 +439,28 @@ export default function UpdateCampClient({
         <div className=" rounded-lg ">
           <div
             style={{
-              color:"white"
+              color: "white",
             }}
-          >วันจบค่าย</div>
+          >
+            วันจบค่าย
+          </div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               className="bg-white m-10 rounded-2xl"
               sx={{
-                backgroundColor: '#f5f5f5',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderRadius: ' 1rem',
-                    borderColor: 'transparent', 
+                backgroundColor: "#f5f5f5",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderRadius: " 1rem",
+                    borderColor: "transparent",
                   },
-                  '&:hover fieldset': {
-                    borderColor: '#5479FF',      
+                  "&:hover fieldset": {
+                    borderColor: "#5479FF",
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#5479FF',      
-                  }
-                }
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#5479FF",
+                  },
+                },
               }}
               value={dateEnd}
               onChange={(newValue) => {
@@ -472,7 +475,7 @@ export default function UpdateCampClient({
           <button
             className="bg-white p-3 font-bold rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
             style={{
-              color:"#961A1D"
+              color: "#961A1D",
             }}
             onClick={() => {
               if (dateStart && dateEnd && dateStart.isBefore(dateEnd)) {

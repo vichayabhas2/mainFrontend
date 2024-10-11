@@ -5,15 +5,15 @@ import UpdatePartClient from "./UpdatePartClient";
 import { getAllPlaceData } from "./placeSetUp";
 
 export default async function UpdatePartServer({
-    token,
+  token,
   partId,
 }: {
   partId: mongoose.Types.ObjectId;
-  token:string
+  token: string;
 }) {
   const part = await getPart(partId);
   const place = part.placeId ? await getPlace(part.placeId) : null;
-  const allPlaceData=await getAllPlaceData()
+  const allPlaceData = await getAllPlaceData();
 
   //const camp = await getCamp(part.campId);
   return (

@@ -4,18 +4,18 @@ import mongoose from "mongoose";
 import { useRef, useState } from "react";
 import { MyMap } from "../../interface";
 
-export default function SelectTemplate({
+export default function SelectTemplate<T>({
   mapIn,
   select,
   buttonText,
 }: {
-  mapIn: MyMap[];
-  select: (output: mongoose.Types.ObjectId) => void;
+  mapIn: {key:T,value:string}[]
+  select: (output: T) => void;
   buttonText: string;
 }) {
   const userRef = useRef("");
 
-  const [chose, setChose] = useState<mongoose.Types.ObjectId | null>(null);
+  const [chose, setChose] = useState<T | null>(null);
   return (
     <div className=" rounded-lg ">
       <Select
@@ -24,7 +24,7 @@ export default function SelectTemplate({
         id="location"
         className="h-[2em] w-[200px]"
       >
-        {mapIn.map((choice: MyMap) => {
+        {mapIn.map((choice: {key:T,value:string}) => {
           return (
             <MenuItem
               value={choice.value}
@@ -40,7 +40,7 @@ export default function SelectTemplate({
       <button
         className="bg-white font-bold p-3 rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
         style={{
-          color:"#961A1D"
+          color: "#961A1D",
         }}
         onClick={async () => {
           console.log(userRef);

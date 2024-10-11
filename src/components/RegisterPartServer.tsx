@@ -10,11 +10,11 @@ import RegisterPartClient from "./RegisPartClient";
 export default async function RegisterPartServer({
   campId,
   token,
-  isBoard
+  isBoard,
 }: {
   campId: mongoose.Types.ObjectId;
   token: string;
-  isBoard:boolean
+  isBoard: boolean;
 }) {
   const camp = await getCamp(campId);
   const baans = await getBaans(campId);

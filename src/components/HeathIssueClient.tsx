@@ -158,7 +158,7 @@ export default function HeathIssueClient({
           className="h-[2em] w-[200px] mb-5 mx-3 text-white"
           defaultValue={foodLimit}
           sx={{
-            color:"white"
+            color: "white",
           }}
         >
           {foodLimits.map((value) => {

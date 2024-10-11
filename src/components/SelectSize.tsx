@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 export default function SelectSize({
   select,
-  def
+  def,
 }: {
   select: Function;
   def: "S" | "M" | "L" | "XL" | "XXL" | "3XL" | null;
@@ -29,7 +29,7 @@ export default function SelectSize({
         className="h-[2em] w-[200px]"
         defaultValue={def}
         style={{
-          color:"white"
+          color: "white",
         }}
       >
         {choices.map((choice: "S" | "M" | "L" | "XL" | "XXL" | "3XL") => {

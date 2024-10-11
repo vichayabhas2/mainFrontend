@@ -13,7 +13,8 @@ async function getAllPlace() {
   //console.log(out);
   return out;
 }
-export const placeReady = await getAllPlace(); async function getAllBuildings() {
+export const placeReady = await getAllPlace();
+async function getAllBuildings() {
   const out = new Map<mongoose.Types.ObjectId, InterBuilding>();
   const buildings = await getAllBuilding();
   var i = 0;

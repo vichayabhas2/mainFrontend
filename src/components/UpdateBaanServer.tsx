@@ -23,8 +23,8 @@ export default async function UpdateBaanServer({
   const camp = await getCamp(baan.campId);
   const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
-  const allPlaceData=await getAllPlaceData()
-  
+  const allPlaceData = await getAllPlaceData();
+
   return (
     <>
       <UpdateBaanClient
@@ -35,7 +35,13 @@ export default async function UpdateBaanServer({
         camp={camp}
         allPlaceData={allPlaceData}
       />
-      <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} camp={camp} />
+      <BaanMembers
+        baan={baan}
+        campRole={"pee"}
+        nongs={nongs}
+        pees={pees}
+        camp={camp}
+      />
     </>
   );
 }

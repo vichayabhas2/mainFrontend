@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import { ClockIcon } from "@mui/x-date-pickers";
 import link from "next/link";

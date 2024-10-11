@@ -85,9 +85,9 @@ export default function NongRegisterPage({
                 try {
                   console.log("ffffffffffffffffffffffffffff");
                   nongRegisterCamp(camp._id, link, token);
-                  updateBottle(haveBottle,token)
-                  updateSleep(likeToSleepAtCamp,token)
-                  updateSize(shirtSize,token)
+                  updateBottle(haveBottle, token);
+                  updateSleep(likeToSleepAtCamp, token);
+                  updateSize(shirtSize, token);
                 } catch (error) {
                   console.log(error);
                 }

@@ -24,22 +24,23 @@ export default function BaanMembers({
 }) {
   const router = useRouter();
   return (
-    <main className="text-center p-5 text-white rounded-3xl"
-    style={{
-      backgroundColor:"#961A1D",
-      width:"80%",
-      marginLeft:"10%",
-      marginTop:"20px"
-    }}
+    <main
+      className="text-center p-5 text-white rounded-3xl"
+      style={{
+        backgroundColor: "#961A1D",
+        width: "80%",
+        marginLeft: "10%",
+        marginTop: "20px",
+      }}
     >
       <div>
         <div
-        className="text-4xl font-bold"
-        style={{
-          color:"white",
-          marginTop:"30px",
-          marginBottom:"10px"
-        }}
+          className="text-4xl font-bold"
+          style={{
+            color: "white",
+            marginTop: "30px",
+            marginBottom: "10px",
+          }}
         >
           รายชื่อน้อง{camp.groupName} {baan.fullName}
         </div>
@@ -59,12 +60,14 @@ export default function BaanMembers({
             }
           }}
         />
-        <table style={{
-          marginTop:"10px",
-          marginBottom:"10px",
-          width:"100%"
-        }}>
-          <tr style={{border:"solid", borderColor:"white"}}>
+        <table
+          style={{
+            marginTop: "10px",
+            marginBottom: "10px",
+            width: "100%",
+          }}
+        >
+          <tr style={{ border: "solid", borderColor: "white" }}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -85,7 +88,7 @@ export default function BaanMembers({
           </tr>
           {nongs.map((user: ShowMember) => {
             return (
-              <tr style={{border:"solid", borderColor:"white"}}>
+              <tr style={{ border: "solid", borderColor: "white" }}>
                 <td>{user.nickname}</td>
                 <td>{user.name}</td>
                 <td>{user.lastname}</td>
@@ -121,12 +124,13 @@ export default function BaanMembers({
         </table>
       </div>
       <div>
-        <div className="text-4xl font-bold"
-        style={{
-          color:"white",
-          marginTop:"40px",
-          marginBottom:"10px"
-        }}
+        <div
+          className="text-4xl font-bold"
+          style={{
+            color: "white",
+            marginTop: "40px",
+            marginBottom: "10px",
+          }}
         >
           รายชื่อพี่{camp.groupName} {baan.fullName}
         </div>
@@ -147,13 +151,13 @@ export default function BaanMembers({
           }}
         />
         <table
-        style={{
-          marginTop:"10px",
-          marginBottom:"10px",
-          width:"100%"
-        }}
+          style={{
+            marginTop: "10px",
+            marginBottom: "10px",
+            width: "100%",
+          }}
         >
-          <tr style={{border:"solid", borderColor:"white"}}>
+          <tr style={{ border: "solid", borderColor: "white" }}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -173,7 +177,7 @@ export default function BaanMembers({
             ) : null}
           </tr>
           {pees.map((user: ShowMember) => (
-            <tr style={{border:"solid", borderColor:"white"}}>
+            <tr style={{ border: "solid", borderColor: "white" }}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>

@@ -8,10 +8,10 @@ import createBuilding from "@/libs/randomthing/createBuilding";
 
 export default function BuildingClient({
   buildings,
-  token
+  token,
 }: {
   buildings: InterBuilding[];
-  token:string
+  token: string;
 }) {
   const [newName, setNewName] = useState<string | null>(null);
   const router = useRouter();
@@ -48,18 +48,17 @@ export default function BuildingClient({
         onClick={() => {
           if (newName) {
             try {
-                createBuilding(newName,token)
-
+              createBuilding(newName, token);
             } catch (error) {
               console.log(error);
             }
           } else {
-            alert("Please type in all the detavdtrjbyfugjunils!");
+            alert("Please type in all the detail!");
           }
         }}
       >
         สร้างตึก
       </button>
     </>
-  ); 
+  );
 }
