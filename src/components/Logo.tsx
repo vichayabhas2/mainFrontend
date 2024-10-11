@@ -21,8 +21,7 @@ export default function Logo() {
       <Image
         src={logoImage}
         alt="Logo"
-        style={{ width: "74px" }}
-        objectFit="contain"
+        style={{ width: "74px", objectFit: "contain" }}
       />
     </div>
   );
