@@ -167,6 +167,7 @@ export default async function TopMenu() {
         />
         <div>{systemMode}</div>
         <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+          <TopMenuItem title="Sign In" pageRef="/api/auth/signin" />
           <TopMenuItem title="Register" pageRef="/signup" />
           <TopMenuItem title="Home" pageRef="/" />
         </div>
