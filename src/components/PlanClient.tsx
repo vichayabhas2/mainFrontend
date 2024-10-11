@@ -30,7 +30,16 @@ export default function PlanClient({
     data.partDatas.map((part) => part.place)
   );
   return (
-    <div>
+    <div
+    style={{
+      color:"white",
+      backgroundColor:"gray",
+      width:"80%",
+      marginLeft:"10%",
+      padding:"20px",
+      borderRadius:"30px"
+    }}
+    >
       <table>
         <tr>
           <th>{data.groupName}ทั้งหมด</th>
