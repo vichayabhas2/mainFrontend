@@ -26,6 +26,7 @@ import { getAllPlaceData } from "@/components/placeSetUp";
 import TopMenuCamp from "@/components/TopMenuCamp";
 import WelfareServer from "@/components/WelfareServer";
 import chatStyle from "@/components/chat.module.css";
+import AllInOneLock from "@/components/AllInOneLock";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -77,76 +78,114 @@ export default async function HospitalDetailPage({
       return (
         <>
           <TopMenuCamp role="nong" mode={user.mode} campId={campDetail._id} />
-          <div style={{height:"80px"}}></div>
+          <div style={{ height: "80px" }}></div>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
           <div
-          style={{
-            overflow:"hidden",
-            borderRadius:"25px",
-            padding:"20px",
-            backgroundColor:"#961A1D",
-            width:"80%",
-            marginLeft:"10%"
-          }}
+            style={{
+              overflow: "hidden",
+              borderRadius: "25px",
+              padding: "20px",
+              backgroundColor: "#961A1D",
+              width: "80%",
+              marginLeft: "10%",
+            }}
           >
-          <table style={{
-            width:"80%",
-            marginLeft:"10%",
-          }}>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>สถานที่</td>
-              <td className={chatStyle.cell2}>ห้อง</td>
-              <td className={chatStyle.cell1}>ชั้น</td>
-              <td className={chatStyle.cell2}>ตึก</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้อง{campDetail.groupName}
-                {baan.name}
-              </td>
-              <td className={chatStyle.cell2}>{normal?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{normal?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{normal?.buildingName.toString()}</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้องนอน{campDetail.groupName}
-                {baan.name}น้องผู้ชาย
-              </td>
-              <td className={chatStyle.cell2}>{boy?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{boy?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{boy?.buildingName.toString()}</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้องนอน{campDetail.groupName}
-                {baan.name}น้องผู้หญิง
-              </td>
-              <td className={chatStyle.cell2}>{girl?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{girl?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{girl?.buildingName.toString()}</td>
-            </tr>
-          </table>
+            <table
+              style={{
+                width: "80%",
+                marginLeft: "10%",
+              }}
+            >
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <th
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  สถานที่
+                </th>
+                <td className={chatStyle.cell2}>ห้อง</td>
+
+                <th className={chatStyle.cell1}>ชั้น</th>
+                <th className={chatStyle.cell2}>ตึก</th>
+              </tr>
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <td
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  ห้อง{campDetail.groupName}
+                  {baan.name}
+                </td>
+                <td className={chatStyle.cell2}>{normal?.room.toString()}</td>
+                <td className={chatStyle.cell1}>{normal?.floor.toString()}</td>
+                <td className={chatStyle.cell2}>
+                  {normal?.buildingName.toString()}
+                </td>
+              </tr>
+              <AllInOneLock
+                mode={user.mode}
+                role={campMemberCard.role}
+                bypass={campMemberCard.sleepAtCamp}
+                lock={campDetail.nongSleepModel == "ไม่มีการค้างคืน"}
+              >
+                <tr
+                  style={{
+                    border: "solid",
+                    borderColor: "white",
+                  }}
+                >
+                  <td
+                    style={{
+                      textAlign: "left",
+                    }}
+                    className={chatStyle.cell1}
+                  >
+                    ห้องนอน{campDetail.groupName}
+                    {baan.name}น้องผู้ชาย
+                  </td>
+                  <td className={chatStyle.cell2}>{boy?.room.toString()}</td>
+                  <td className={chatStyle.cell1}>{boy?.floor.toString()}</td>
+                  <td className={chatStyle.cell2}>
+                    {boy?.buildingName.toString()}
+                  </td>
+                </tr>
+                <tr
+                  style={{
+                    border: "solid",
+                    borderColor: "white",
+                  }}
+                >
+                  <td
+                    style={{
+                      textAlign: "left",
+                    }}
+                    className={chatStyle.cell1}
+                  >
+                    ห้องนอน{campDetail.groupName}
+                    {baan.name}น้องผู้หญิง
+                  </td>
+                  <td className={chatStyle.cell2}>{girl?.room.toString()}</td>
+                  <td className={chatStyle.cell1}>{girl?.floor.toString()}</td>
+                  <td className={chatStyle.cell2}>
+                    {girl?.buildingName.toString()}
+                  </td>
+                </tr>
+              </AllInOneLock>
+            </table>
           </div>
           <BaanMembers
             baan={baan}
@@ -183,76 +222,138 @@ export default async function HospitalDetailPage({
       return (
         <>
           <TopMenuCamp role="pee" mode={user.mode} campId={campDetail._id} />
-          <div style={{height:"80px"}}></div>
+          <div style={{ height: "80px" }}></div>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
           <div
-          style={{
-            overflow:"hidden",
-            borderRadius:"25px",
-            padding:"20px",
-            backgroundColor:"#961A1D",
-            width:"80%",
-            marginLeft:"10%"
-          }}
+            style={{
+              overflow: "hidden",
+              borderRadius: "25px",
+              padding: "20px",
+              backgroundColor: "#961A1D",
+              width: "80%",
+              marginLeft: "10%",
+            }}
           >
-          <table style={{
-            width:"100%",
-          }}>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-  
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1} >สถานที่</td>
-              <td className={chatStyle.cell2}>ห้อง</td>
-              <td className={chatStyle.cell1}>ชั้น</td>
-              <td className={chatStyle.cell2}>ตึก</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้อง{campDetail.groupName}
-                {baan.name}
-              </td>
-              <td className={chatStyle.cell2}>{normal?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{normal?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{normal?.buildingName.toString()}</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้องนอนน้องผู้ชาย{campDetail.groupName}
-                {baan.name}
-              </td>
-              <td className={chatStyle.cell2}>{boy?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{boy?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{boy?.buildingName.toString()}</td>
-            </tr>
-            <tr style={{
-              border:"solid",
-              borderColor:"white"
-            }}>
-              <td style={{
-                textAlign:"left"
-              }} className={chatStyle.cell1}>
-                ห้องนอนน้องผู้หญิง{campDetail.groupName}
-                {baan.name}
-              </td>
-              <td className={chatStyle.cell2}>{girl?.room.toString()}</td>
-              <td className={chatStyle.cell1}>{girl?.floor.toString()}</td>
-              <td className={chatStyle.cell2}>{girl?.buildingName.toString()}</td>
-            </tr>
-          </table>
+            <table
+              style={{
+                width: "100%",
+              }}
+            >
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <td
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  สถานที่
+                </td>
+                <td className={chatStyle.cell2}>ห้อง</td>
+                <td className={chatStyle.cell1}>ชั้น</td>
+                <td className={chatStyle.cell2}>ตึก</td>
+              </tr>
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <td
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  ห้อง{campDetail.groupName}
+                  {baan.name}
+                </td>
+                <td className={chatStyle.cell2}>{normal?.room.toString()}</td>
+                <td className={chatStyle.cell1}>{normal?.floor.toString()}</td>
+                <td className={chatStyle.cell2}>
+                  {normal?.buildingName.toString()}
+                </td>
+              </tr>
+              <AllInOneLock
+                mode={user.mode}
+                role={campMemberCard.role}
+                bypass={campMemberCard.sleepAtCamp}
+                lock={campDetail.nongSleepModel == "ไม่มีการค้างคืน"}
+              >
+                <tr
+                  style={{
+                    border: "solid",
+                    borderColor: "white",
+                  }}
+                >
+                  <td
+                    style={{
+                      textAlign: "left",
+                    }}
+                    className={chatStyle.cell1}
+                  >
+                    ห้องนอนน้องผู้ชาย{campDetail.groupName}
+                    {baan.name}
+                  </td>
+                  <td className={chatStyle.cell2}>{boy?.room.toString()}</td>
+                  <td className={chatStyle.cell1}>{boy?.floor.toString()}</td>
+                  <td className={chatStyle.cell2}>
+                    {boy?.buildingName.toString()}
+                  </td>
+                </tr>
+                <tr
+                  style={{
+                    border: "solid",
+                    borderColor: "white",
+                  }}
+                >
+                  <td
+                    style={{
+                      textAlign: "left",
+                    }}
+                    className={chatStyle.cell1}
+                  >
+                    ห้องนอนน้องผู้หญิง{campDetail.groupName}
+                    {baan.name}
+                  </td>
+                  <td className={chatStyle.cell2}>{girl?.room.toString()}</td>
+                  <td className={chatStyle.cell1}>{girl?.floor.toString()}</td>
+                  <td className={chatStyle.cell2}>
+                    {girl?.buildingName.toString()}
+                  </td>
+                </tr>
+              </AllInOneLock>
+              <AllInOneLock mode={user.mode}>
+                <tr
+                  style={{
+                    border: "solid",
+                    borderColor: "white",
+                  }}
+                >
+                  <td
+                    style={{
+                      textAlign: "left",
+                    }}
+                    className={chatStyle.cell1}
+                  >
+                    ห้องฝ่าย{part.partName}
+                  </td>
+                  <td className={chatStyle.cell2}>
+                    {partPlace?.room.toString()}
+                  </td>
+                  <td className={chatStyle.cell1}>
+                    {partPlace?.floor.toString()}
+                  </td>
+                  <td className={chatStyle.cell2}>
+                    {partPlace?.buildingName.toString()}
+                  </td>
+                </tr>
+              </AllInOneLock>
+            </table>
           </div>
           <BaanMembers
             baan={baan}
@@ -287,8 +388,58 @@ export default async function HospitalDetailPage({
       return (
         <>
           <TopMenuCamp role="peto" mode={user.mode} campId={campDetail._id} />
-          <div style={{height:"80px"}}></div>
+          <div style={{ height: "80px" }}></div>
           <ImagesFromUrl urls={campDetail.pictureUrls} />
+          <AllInOneLock mode={user.mode}>
+            <table
+              style={{
+                width: "100%",
+              }}
+            >
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <td
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  สถานที่
+                </td>
+                <td className={chatStyle.cell2}>ห้อง</td>
+                <td className={chatStyle.cell1}>ชั้น</td>
+                <td className={chatStyle.cell2}>ตึก</td>
+              </tr>
+              <tr
+                style={{
+                  border: "solid",
+                  borderColor: "white",
+                }}
+              >
+                <td
+                  style={{
+                    textAlign: "left",
+                  }}
+                  className={chatStyle.cell1}
+                >
+                  ห้องฝ่าย{part.partName}
+                </td>
+                <td className={chatStyle.cell2}>
+                  {partPlace?.room.toString()}
+                </td>
+                <td className={chatStyle.cell1}>
+                  {partPlace?.floor.toString()}
+                </td>
+                <td className={chatStyle.cell2}>
+                  {partPlace?.buildingName.toString()}
+                </td>
+              </tr>
+            </table>
+          </AllInOneLock>
           <PartClient
             pees={PeeParts}
             petos={peto}
