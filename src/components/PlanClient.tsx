@@ -1,13 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { AllPlaceData, GetAllPlanData, InterPlace } from "../../interface";
+import {
+  AllPlaceData,
+  GetAllPlanData,
+  InterPlace,
+  InterUser,
+} from "../../interface";
 import AllInOneLock from "./AllInOneLock";
 import PlaceSelect from "./PlaceSelect";
 import FinishButton from "./FinishButton";
 import planUpdateCamp from "@/libs/camp/planUpdateCamp";
-import { getId } from "./setup";
-
+import { getId, peeLookupNong } from "./setup";
+import CampNumberTable from "./CampNumberTable";
+interface BundleRoleAndUser {
+  role: "พี่" | "น้อง" | "ปีโต";
+  user: InterUser;
+}
 export default function PlanClient({
   data,
   token,
@@ -29,16 +38,25 @@ export default function PlanClient({
   const [partPlaces, setPartPlaces] = useState<(InterPlace | null)[]>(
     data.partDatas.map((part) => part.place)
   );
+  function peeToBundle(user: InterUser): BundleRoleAndUser {
+    return { user, role: "พี่" };
+  }
+  function nongToBundle(user: InterUser): BundleRoleAndUser {
+    return { user, role: "น้อง" };
+  }
+  function petoToBundle(user: InterUser): BundleRoleAndUser {
+    return { user, role: "ปีโต" };
+  }
   return (
     <div
-    style={{
-      color:"white",
-      backgroundColor:"gray",
-      width:"80%",
-      marginLeft:"10%",
-      padding:"20px",
-      borderRadius:"30px"
-    }}
+      style={{
+        color: "white",
+        backgroundColor: "gray",
+        width: "80%",
+        marginLeft: "10%",
+        padding: "20px",
+        borderRadius: "30px",
+      }}
     >
       <table>
         <tr>
@@ -141,6 +159,114 @@ export default function PlanClient({
           )
         }
       />
+      <AllInOneLock lock={!data.isOverNightCamp}>
+        จำนวนสมาชิกชายที่ค้างคืน
+        <CampNumberTable
+          isHavePeto={data.isHavePeto}
+          main={data.boySleepNumber}
+          baanNumbers={data.baanBoySleeps}
+          partNumbers={data.partBoySleeps}
+          groupName={data.groupName}
+        />
+        จำนวนสมาชิกหญิงที่ค้างคืน
+        <CampNumberTable
+          isHavePeto={data.isHavePeto}
+          main={data.girlSleepNumber}
+          baanNumbers={data.baanGirlSleeps}
+          partNumbers={data.partGirlSleeps}
+          groupName={data.groupName}
+        />
+        {data.baanSleepDatas.map((baan) => (
+          <div>
+            รายชื่อ{data.groupName}
+            {baan.name}ผู้ชายที่นอนค้างคืน
+            <table>
+              <tr>
+                <th>ชือเล่น</th>
+                <th>ชื่อจริง</th>
+                <th>นามสกุล</th>
+                <th>พี่หรือน้อง</th>
+              </tr>
+              {peeLookupNong(
+                baan.peeBoys.map(peeToBundle),
+                baan.nongBoys.map(nongToBundle)
+              ).map((user) => (
+                <tr>
+                  <td>{user.user.nickname}</td>
+                  <td>{user.user.name}</td>
+                  <td>{user.user.lastname}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
+            </table>
+            รายชื่อ{data.groupName}
+            {baan.name}ผู้หญิงที่นอนค้างคืน
+            <table>
+              <tr>
+                <th>ชือเล่น</th>
+                <th>ชื่อจริง</th>
+                <th>นามสกุล</th>
+                <th>พี่หรือน้อง</th>
+              </tr>
+              {peeLookupNong(
+                baan.peeGirls.map(peeToBundle),
+                baan.nongGirls.map(nongToBundle)
+              ).map((user) => (
+                <tr>
+                  <td>{user.user.nickname}</td>
+                  <td>{user.user.name}</td>
+                  <td>{user.user.lastname}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
+            </table>
+          </div>
+        ))}
+        {data.partSleepDatas.map((part) => (
+          <div>
+            รายชื่อฝ่าย{part.name}ผู้ชายที่นอนค้างคืน
+            <table>
+              <tr>
+                <th>ชือเล่น</th>
+                <th>ชื่อจริง</th>
+                <th>นามสกุล</th>
+                <th>พี่หรือน้อง</th>
+              </tr>
+              {part.peeBoys
+                .map(peeToBundle)
+                .concat(part.petoBoys.map(petoToBundle))
+                .map((user) => (
+                  <tr>
+                    <td>{user.user.nickname}</td>
+                    <td>{user.user.name}</td>
+                    <td>{user.user.lastname}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))}
+            </table>
+            รายชื่อฝ่าย{part.name}ผู้หญิงที่นอนค้างคืน
+            <table>
+              <tr>
+                <th>ชือเล่น</th>
+                <th>ชื่อจริง</th>
+                <th>นามสกุล</th>
+                <th>พี่หรือน้อง</th>
+              </tr>
+              {part.peeGirls
+                .map(peeToBundle)
+                .concat(part.petoGirls.map(petoToBundle))
+                .map((user) => (
+                  <tr>
+                    <td>{user.user.nickname}</td>
+                    <td>{user.user.name}</td>
+                    <td>{user.user.lastname}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))}
+            </table>
+          </div>
+        ))}
+      </AllInOneLock>
     </div>
   );
 }

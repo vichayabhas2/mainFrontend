@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CampWelfarePack } from "../../interface";
 import { MenuItem, Select } from "@mui/material";
+import CampNumberTable from "./CampNumberTable";
 
 export default function WelfareClient({
   welfare,
@@ -65,27 +66,27 @@ export default function WelfareClient({
           ) : null}
         </tr>
         <tr>
-          <td>{welfare.name}</td>
-          <td>{welfare.nongSize.sizeS}</td>
-          <td>{welfare.nongSize.sizeM}</td>
-          <td>{welfare.nongSize.sizeL}</td>
-          <td>{welfare.nongSize.sizeXL}</td>
-          <td>{welfare.nongSize.sizeXXL}</td>
-          <td>{welfare.nongSize.size3XL}</td>
-          <td>{welfare.peeSize.sizeS}</td>
-          <td>{welfare.peeSize.sizeM}</td>
-          <td>{welfare.peeSize.sizeL}</td>
-          <td>{welfare.peeSize.sizeXL}</td>
-          <td>{welfare.peeSize.sizeXXL}</td>
-          <td>{welfare.peeSize.size3XL}</td>
+          <td>{welfare.campWelfare.name}</td>
+          <td>{welfare.campWelfare.nongSize.sizeS}</td>
+          <td>{welfare.campWelfare.nongSize.sizeM}</td>
+          <td>{welfare.campWelfare.nongSize.sizeL}</td>
+          <td>{welfare.campWelfare.nongSize.sizeXL}</td>
+          <td>{welfare.campWelfare.nongSize.sizeXXL}</td>
+          <td>{welfare.campWelfare.nongSize.size3XL}</td>
+          <td>{welfare.campWelfare.peeSize.sizeS}</td>
+          <td>{welfare.campWelfare.peeSize.sizeM}</td>
+          <td>{welfare.campWelfare.peeSize.sizeL}</td>
+          <td>{welfare.campWelfare.peeSize.sizeXL}</td>
+          <td>{welfare.campWelfare.peeSize.sizeXXL}</td>
+          <td>{welfare.campWelfare.peeSize.size3XL}</td>
           {welfare.isHavePeto ? (
             <>
-              <td>{welfare.petoSize.sizeS}</td>
-              <td>{welfare.petoSize.sizeM}</td>
-              <td>{welfare.petoSize.sizeL}</td>
-              <td>{welfare.petoSize.sizeXL}</td>
-              <td>{welfare.petoSize.sizeXXL}</td>
-              <td>{welfare.petoSize.size3XL}</td>
+              <td>{welfare.campWelfare.petoSize.sizeS}</td>
+              <td>{welfare.campWelfare.petoSize.sizeM}</td>
+              <td>{welfare.campWelfare.petoSize.sizeL}</td>
+              <td>{welfare.campWelfare.petoSize.sizeXL}</td>
+              <td>{welfare.campWelfare.petoSize.sizeXXL}</td>
+              <td>{welfare.campWelfare.petoSize.size3XL}</td>
             </>
           ) : null}
         </tr>
@@ -239,6 +240,14 @@ export default function WelfareClient({
             : null}
         </table>
       )}
+      จำนวนสมาชิกที่มีกระติกน้ำ
+      <CampNumberTable
+        isHavePeto={welfare.isHavePeto}
+        main={welfare.campBottleNumber}
+        baanNumbers={welfare.baanHaveBottles}
+        partNumbers={welfare.partHaveBottles}
+        groupName={welfare.groupName}
+      />
     </>
   );
 }

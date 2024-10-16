@@ -27,7 +27,7 @@ export default async function HelthIshuePage({
               <th>แพ้ยาอะไรบ้าง</th>
               <th>เพิ่มเติม</th>
               <th>กินเผ็ดได้หรือไม่</th>
-              <th>ใส่แพมเพิสหรือไม่</th>
+              {heathIssue.isWearing ? <th>ใส่แพมเพิสหรือไม่</th> : null}
             </tr>
             <tr>
               <td>{user.nickname}</td>
@@ -38,7 +38,7 @@ export default async function HelthIshuePage({
               <td>{heathIssue.medicine}</td>
               <td>{heathIssue.extra}</td>
               <td>{heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
-              <td>{heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}</td>
+              {heathIssue.isWearing ? <td> ใส่ </td> : null}
             </tr>
           </table>
           <div className="text-2xl my-10"></div>

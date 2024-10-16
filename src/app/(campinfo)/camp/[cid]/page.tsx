@@ -11,7 +11,7 @@ import getUserProfile from "@/libs/user/getUserProfile";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import mongoose from "mongoose";
-import { hasKey } from "@/components/setup";
+import { emptyHealthIssue, hasKey } from "@/components/setup";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
 import NongPendingPage from "@/components/NongPendingPage";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
@@ -24,9 +24,10 @@ import getTimeOffset from "@/libs/user/getTimeOffset";
 import getShowPlace from "@/libs/randomthing/getShowPlace";
 import { getAllPlaceData } from "@/components/placeSetUp";
 import TopMenuCamp from "@/components/TopMenuCamp";
-import WelfareServer from "@/components/WelfareServer";
 import chatStyle from "@/components/chat.module.css";
 import AllInOneLock from "@/components/AllInOneLock";
+import ShowOwnCampData from "@/components/ShowOwnCampData";
+import getHeathIssue from "@/libs/user/getHeathIssue";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -40,9 +41,7 @@ export default async function HospitalDetailPage({
     const token = session.user.token;
 
     const user = await getUserProfile(token);
-    //console.log(user);
     if (!user) {
-      //alert("ghggg");
       return <PushToCamps />;
     }
     var campRole: "nong" | "pee" | "peto" | null = null;
@@ -75,6 +74,9 @@ export default async function HospitalDetailPage({
       const normal = baan.normalPlaceId
         ? await getShowPlace(baan.normalPlaceId)
         : null;
+      const healthIssue = campMemberCard.healthIssueId
+        ? await getHeathIssue(campMemberCard.healthIssueId)
+        : emptyHealthIssue;
       return (
         <>
           <TopMenuCamp role="nong" mode={user.mode} campId={campDetail._id} />
@@ -194,6 +196,12 @@ export default async function HospitalDetailPage({
             nongs={nongs}
             camp={campDetail}
           />
+          <ShowOwnCampData
+            token={token}
+            user={user}
+            campMemberCard={campMemberCard}
+            healthIssue={healthIssue}
+          />
         </>
       );
     } else if (campDetail.peeIds.includes(userId)) {
@@ -219,6 +227,9 @@ export default async function HospitalDetailPage({
         ? await getShowPlace(baan.normalPlaceId)
         : null;
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
+      const healthIssue = campMemberCard.healthIssueId
+        ? await getHeathIssue(campMemberCard.healthIssueId)
+        : emptyHealthIssue;
       return (
         <>
           <TopMenuCamp role="pee" mode={user.mode} campId={campDetail._id} />
@@ -371,6 +382,12 @@ export default async function HospitalDetailPage({
             timeOffset={timeOffset}
             camp={campDetail}
           />
+          <ShowOwnCampData
+            token={token}
+            user={user}
+            campMemberCard={campMemberCard}
+            healthIssue={healthIssue}
+          />
         </>
       );
     } else if (campDetail.petoIds.includes(userId)) {
@@ -385,6 +402,9 @@ export default async function HospitalDetailPage({
       const PeeParts = await getUserFromCamp("getPeesFromPartId", part._id);
       const peto = await getUserFromCamp("getPetosFromPartId", petoCamp.partId);
       const partPlace = part.placeId ? await getShowPlace(part.placeId) : null;
+      const healthIssue = campMemberCard.healthIssueId
+        ? await getHeathIssue(campMemberCard.healthIssueId)
+        : emptyHealthIssue;
       return (
         <>
           <TopMenuCamp role="peto" mode={user.mode} campId={campDetail._id} />
@@ -448,6 +468,12 @@ export default async function HospitalDetailPage({
             allPlaceData={allPlaceData}
             timeOffset={timeOffset}
             camp={campDetail}
+          />
+          <ShowOwnCampData
+            token={token}
+            user={user}
+            campMemberCard={campMemberCard}
+            healthIssue={healthIssue}
           />
         </>
       );

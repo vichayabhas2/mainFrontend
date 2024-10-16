@@ -8,6 +8,7 @@ import {
   InterTimeOffset,
   ShowMember,
   ShowNong,
+  HeathIssueBody,
 } from "../../interface";
 import dayjs from "dayjs";
 
@@ -254,6 +255,14 @@ export function peeLookupNong<TValue>(
   pees: TValue[],
   nongs: TValue[]
 ): TValue[] {
+  if (pees.length == 0) {
+    return nongs;
+  }
+  if (pees.length == 1) {
+    const outs: TValue[] = pees;
+    nongs.forEach((nong) => outs.push(nong));
+    return outs;
+  }
   const mp = pees.length;
   const mn = nongs.length;
   var n = 0;
@@ -262,7 +271,6 @@ export function peeLookupNong<TValue>(
   var i = 0;
   if (mp > mn) {
     var count = mp / (mn + 1);
-    console.log(count);
     const exc = mp % (mn + 1);
     if (exc) {
       outs.push(pees[p++]);
@@ -286,7 +294,6 @@ export function peeLookupNong<TValue>(
     }
   } else {
     var count = mn / (mp - 1);
-    console.log(count);
     const exc = mn % (mp - 1);
     outs.push(pees[p++]);
     if (exc) {
@@ -349,3 +356,13 @@ export function getId(input: { _id: mongoose.Types.ObjectId } | null) {
   }
   return null;
 }
+export const emptyHealthIssue: HeathIssueBody = {
+  food: "",
+  chronicDisease: "",
+  medicine: "",
+  extra: "",
+  isWearing: false,
+  spicy: false,
+  foodConcern: "",
+  foodLimit: "ไม่มีข้อจำกัดด้านความเชื่อ",
+};
