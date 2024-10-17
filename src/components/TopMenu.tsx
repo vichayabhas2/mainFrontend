@@ -28,7 +28,7 @@ export default async function TopMenu() {
   ];
 
   const session = await getServerSession(authOptions);
-  const { systemMode } = await getSystemInfo();
+  const { systemMode, endEmail } = await getSystemInfo();
   if (session) {
     const user = await getUserProfile(session.user.token);
     const timeOffset = await getTimeOffset(user.displayOffsetId);
@@ -58,7 +58,7 @@ export default async function TopMenu() {
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-              {user.email.split("@")[1].localeCompare("student.chula.ac.th") ||
+              {!endEmail.split(",").includes(user.email.split("@")[1]) ||
               user.fridayActEn ? null : (
                 <TopMenuItem title="verify" pageRef="/verify" />
               )}
