@@ -18,7 +18,7 @@ export default function signupPage() {
     "S" | "M" | "L" | "XL" | "XXL" | "3XL" | null
   >(null);
   const [gender, setGender] = useState<"Male" | "Female" | null>(null);
-  const [haveBottle, setHaveBottle] = useState<boolean | null>(null);
+  const [haveBottle, setHaveBottle] = useState<boolean >(false);
   const [citizenId, setCitizenId] = useState<string | null>(null);
   const [likeToSleepAtCamp, setLikeToSleepAtCamp] = useState<boolean>(false);
   return (
@@ -266,11 +266,6 @@ export default function signupPage() {
               color:"#961A1D"
             }}
             onClick={async () => {
-              console.log(name);
-              console.log(tel);
-              console.log(email);
-              console.log(password);
-              console.log(userRef);
               if (
                 name &&
                 tel &&
@@ -280,7 +275,6 @@ export default function signupPage() {
                 gender &&
                 lastname &&
                 nickname &&
-                haveBottle != null &&
                 citizenId
               ) {
                 try {
