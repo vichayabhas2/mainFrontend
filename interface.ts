@@ -856,10 +856,10 @@ export interface CampWelfarePack {
     partWelfares: WelfarePack[],
     isHavePeto: boolean,
     groupName: string,
-    campWelfare:WelfarePack
+    campWelfare: WelfarePack
     baanHaveBottles: CampNumberData[],
     partHaveBottles: CampNumberData[],
-    campBottleNumber:CampNumberData
+    campBottleNumber: CampNumberData
 }
 export interface WelfarePack {
     nongHealths: HeathIssuePack[],
@@ -894,8 +894,8 @@ export interface GetAllPlanData {
     baanGirlSleeps: CampNumberData[],
     partBoySleeps: CampNumberData[],
     partGirlSleeps: CampNumberData[],
-    boySleepNumber:CampNumberData,
-    girlSleepNumber:CampNumberData,
+    boySleepNumber: CampNumberData,
+    girlSleepNumber: CampNumberData,
     isHavePeto: boolean,
     baanSleepDatas: CampSleepDataContainer[],
     partSleepDatas: CampSleepDataContainer[],

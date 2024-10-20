@@ -366,3 +366,6 @@ export const emptyHealthIssue: HeathIssueBody = {
   foodConcern: "",
   foodLimit: "ไม่มีข้อจำกัดด้านความเชื่อ",
 };
+export function getDifferentMinute(start: Date, end: Date) {
+  return dayjs(end).diff(start, "minute");
+}

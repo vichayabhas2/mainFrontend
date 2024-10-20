@@ -1,11 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  InterTimeOffset,
-  showActionPlan,
-} from "../../interface";
+import { InterTimeOffset, showActionPlan } from "../../interface";
 import GetTimeHtml from "./GetTimeHtml";
+import { getDifferentMinute } from "./setup";
 
 export default function ActionPlanClient({
   actionPlans,
@@ -16,23 +14,25 @@ export default function ActionPlanClient({
 }) {
   const router = useRouter();
   return (
-    <div className="text-center p-5 text-white rounded-3xl"
-    style={{
-      backgroundColor:"#961A1D",
-      width:"80%",
-      marginLeft:"10%",
-      padding:"10px",
-    }}
+    <div
+      className="text-center p-5 text-white rounded-3xl"
+      style={{
+        backgroundColor: "#961A1D",
+        width: "80%",
+        marginLeft: "10%",
+        padding: "10px",
+      }}
     >
       <table
-      style={{
-        width:"100%",
-      }}
+        style={{
+          width: "100%",
+        }}
       >
-        <tr style={{border:"solid", borderColor:"white"}}>
+        <tr style={{ border: "solid", borderColor: "white" }}>
           <th>id</th>
           <th>start</th>
           <th>end</th>
+          <th>ใช้เวลา</th>
           <th>partName</th>
           <th>action</th>
           <th>สถานที่</th>
@@ -44,7 +44,7 @@ export default function ActionPlanClient({
           //console.log(actionPlan);
 
           return (
-            <tr  style={{border:"solid", borderColor:"white"}}>
+            <tr style={{ border: "solid", borderColor: "white" }}>
               <td
                 onClick={() => {
                   router.push(`/actionPlan/${actionPlan._id}`);
@@ -58,6 +58,7 @@ export default function ActionPlanClient({
               <td>
                 <GetTimeHtml offset={timeOffset} input={actionPlan.end} />
               </td>
+              <td>{getDifferentMinute(actionPlan.start, actionPlan.end)}</td>
               <td
                 onClick={() => {
                   router.push(`/actionPlan/part/${actionPlan.partId}`);
