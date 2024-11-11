@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { InterActionPlan, showActionPlan } from "../../../interface";
+import { Id, InterActionPlan, showActionPlan } from "../../../interface";
 import { getBackendUrl } from "@/components/setup";
 
 export default async function getActionPlanByPartId(
-  partId: mongoose.Types.ObjectId,
+  partId: Id,
   token: string
 ): Promise<showActionPlan[]> {
   const response = await fetch(

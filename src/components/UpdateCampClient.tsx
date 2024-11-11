@@ -1,11 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { InterCampFront, InterPartFront, MyMap } from "../../interface";
+import {
+  Choice,
+  GetAllQuestion,
+  Id,
+  InterCampFront,
+  InterPartFront,
+  MyMap,
+} from "../../interface";
 import { InterBaanFront } from "../../interface";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useSession } from "next-auth/react";
-import { TextField, Checkbox } from "@mui/material";
+import { TextField, Checkbox, Select, MenuItem } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import updateCamp from "@/libs/admin/updateCamp";
@@ -14,31 +21,35 @@ import dayjs, { Dayjs } from "dayjs";
 import FinishButton from "./FinishButton";
 import addBaan from "@/libs/admin/addBaan";
 import SelectTemplate from "./SelectTemplate";
-import mongoose from "mongoose";
 import addPart from "@/libs/admin/addPart";
 import createBaanByGroup from "@/libs/admin/createBaanByGroup";
 import saveDeleteCamp from "@/libs/admin/saveDeleteCamp";
-//import initBaan from "./initBaan";
+import TypingImageSource from "./TypingImageSource";
+import { notEmpty } from "./setup";
+import editQuestion from "@/libs/camp/editQuestion";
 
 export default function UpdateCampClient({
   baans,
   camp,
   parts,
   remainPartName,
+  questions,
 }: {
   baans: InterBaanFront[];
   camp: InterCampFront;
   parts: InterPartFront[];
   remainPartName: MyMap[];
+  questions: GetAllQuestion;
 }) {
-  // alert(baans.length)
   const router = useRouter();
   const [newBaanName, setNewBaanName] = useState<string | null>(null);
   const [registerSheetLink, setRegisterSheetLink] = useState<string | null>(
     camp.registerSheetLink
   );
   const [link, setLink] = useState<string | null>(camp.link);
-  const [pictureUrls, setPictureUrls] = useState<string[]>(camp.pictureUrls);
+  const [pictureUrls, setPictureUrls] = useState<(string | null)[]>(
+    camp.pictureUrls
+  );
   const [logoUrl, setLogoUrl] = useState<string | null>(camp.logoUrl);
   const [dataLock, setDataLock] = useState<boolean>(camp.dataLock);
   const [open, setOpen] = useState<boolean>(camp.open);
@@ -55,6 +66,95 @@ export default function UpdateCampClient({
   const [peeDataLock, setPeeDataLock] = useState<boolean>(camp.peeDataLock);
   const [petoDataLock, setPetoDataLock] = useState<boolean>(camp.petoDataLock);
   const [haveCloth, setHaveCloth] = useState<boolean>(camp.haveCloth);
+  const [showCorrectAnswerAndScore, setShowCorrectAnswerAndScore] = useState(
+    camp.showCorrectAnswerAndScore
+  );
+  const choiceIds: [Id | null, Dispatch<SetStateAction<Id | null>>][] =
+    questions.choices.map((choice) => useState<Id | null>(choice._id));
+  const choiceQuestions: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.question));
+  const as: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.a));
+  const bs: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.b));
+  const cs: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.c));
+  const ds: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.d));
+  const es: [string, Dispatch<SetStateAction<string>>][] =
+    questions.choices.map((choice) => useState<string>(choice.e));
+  const scoreAs: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.scoreA));
+  const scoreBs: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.scoreB));
+  const scoreCs: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.scoreC));
+  const scoreDs: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.scoreD));
+  const scoreEs: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.scoreE));
+  const corrects: [Choice | "-", Dispatch<SetStateAction<Choice | "-">>][] =
+    questions.choices.map((choice) => useState<Choice | "-">(choice.correct));
+  const choiceOrder: [number, Dispatch<SetStateAction<number>>][] =
+    questions.choices.map((choice) => useState<number>(choice.order));
+  const textQuestions: [string, Dispatch<SetStateAction<string>>][] =
+    questions.texts.map((text) => useState<string>(text.question));
+  const textIds: [Id | null, Dispatch<SetStateAction<Id | null>>][] =
+    questions.texts.map((text) => useState<Id | null>(text._id));
+  const scores: [number, Dispatch<SetStateAction<number>>][] =
+    questions.texts.map((text) => useState<number>(text.score));
+  const textOrder: [number, Dispatch<SetStateAction<number>>][] =
+    questions.texts.map((text) => useState<number>(text.score));
+  function safeToDeleteTextQuestion() {
+    if (textIds[textIds.length - 1][0]) {
+      return;
+    }
+    textQuestions.pop();
+    textIds.pop();
+    scores.pop();
+    textOrder.pop();
+  }
+  function safeToDeleteChoiceQuestion() {
+    if (choiceIds[choiceIds.length - 1][0]) {
+      return;
+    }
+    choiceIds.push(useState<Id | null>(null));
+    choiceQuestions.pop();
+    as.pop();
+    bs.pop();
+    cs.pop();
+    ds.pop();
+    es.pop();
+    scoreAs.pop();
+    scoreBs.pop();
+    scoreCs.pop();
+    scoreDs.pop();
+    scoreEs.pop();
+    corrects.pop();
+    choiceOrder.pop();
+  }
+  function addTextQuestion() {
+    textQuestions.push(useState("-"));
+    textIds.push(useState<Id | null>(null));
+    scores.push(useState<number>(0));
+    textOrder.push(useState<number>(0));
+  }
+  function addChoiceQuestion() {
+    choiceIds.push(useState<Id | null>(null));
+    choiceQuestions.push(useState<string>("-"));
+    as.push(useState<string>("-"));
+    bs.push(useState<string>("-"));
+    cs.push(useState<string>("-"));
+    ds.push(useState<string>("-"));
+    es.push(useState<string>("-"));
+    scoreAs.push(useState<number>(0));
+    scoreBs.push(useState<number>(0));
+    scoreCs.push(useState<number>(0));
+    scoreDs.push(useState<number>(0));
+    scoreEs.push(useState<number>(0));
+    corrects.push(useState<Choice | "-">("-"));
+    choiceOrder.push(useState<number>(0));
+  }
 
   const { data: session } = useSession();
   if (!session) {
@@ -97,7 +197,7 @@ export default function UpdateCampClient({
       >
         Update Camp
       </div>
-      <form
+      <div
         className="w-[30%] items-center p-10 rounded-3xl "
         style={{
           backgroundColor: "#961A1D",
@@ -147,7 +247,7 @@ export default function UpdateCampClient({
         />
         <SelectTemplate
           mapIn={remainPartName}
-          select={(e: mongoose.Types.ObjectId) => {
+          select={(e: Id) => {
             addPart(e, camp._id, session.user.token);
           }}
           buttonText="สร้างฝ่าย"
@@ -210,55 +310,19 @@ export default function UpdateCampClient({
 
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link รูปภาพ</label>
-          <TextField
-            name="Tel"
-            id="Tel"
-            type="url"
-            className="w-3/5 bg-white rounded-2xl "
-            sx={{
-              backgroundColor: "#f5f5f5",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderRadius: " 1rem",
-                  borderColor: "transparent",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#5479FF",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#5479FF",
-                },
-              },
-            }}
-            onChange={(e) => setPictureUrls(e.target.value.split(","))}
-            defaultValue={camp.pictureUrls.toLocaleString()}
-          />
+          {pictureUrls.map((pictureUrl, i) => (
+            <TypingImageSource
+              onChange={function (imgSrc: string | null): void {
+                pictureUrls[i] = imgSrc;
+                setPictureUrls(pictureUrls);
+              }}
+              defaultSrc={pictureUrl}
+            />
+          ))}
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link logo</label>
-          <TextField
-            name="Tel"
-            id="Tel"
-            type="url"
-            className="w-3/5 bg-white rounded-2xl "
-            sx={{
-              backgroundColor: "#f5f5f5",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderRadius: " 1rem",
-                  borderColor: "transparent",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#5479FF",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#5479FF",
-                },
-              },
-            }}
-            onChange={(e) => setLogoUrl(e.target.value)}
-            defaultValue={camp.logoUrl}
-          />
+          <TypingImageSource defaultSrc={logoUrl} onChange={setLogoUrl} />
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">คำเรียกชื่อกลุ่ม</label>
@@ -369,6 +433,36 @@ export default function UpdateCampClient({
             defaultChecked={peeLock}
           />
         </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-white">มีเสื้อแจกหรือไม่</label>
+          <Checkbox
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
+            onChange={(e, state) => {
+              setHaveCloth(state);
+            }}
+            defaultChecked={haveCloth}
+          />
+        </div>
+        <div className="flex flex-row items-center my-5">
+          <label className="w-2/5 text-2xl text-white">
+            เปิดเฉลยและคะแนนหรือไม่
+          </label>
+          <Checkbox
+            sx={{
+              "&.Mui-checked": {
+                color: "#FFFFFF", // Custom color when checked
+              },
+            }}
+            onChange={(e, state) => {
+              setShowCorrectAnswerAndScore(state);
+            }}
+            defaultChecked={showCorrectAnswerAndScore}
+          />
+        </div>
 
         <div className="flex flex-row justify-end"></div>
         <div className="flex flex-row items-center my-5">
@@ -471,6 +565,534 @@ export default function UpdateCampClient({
             />
           </LocalizationProvider>
         </div>
+
+        {choiceIds.map((v, i) => {
+          function getChooseChoice(input:Choice|'-'):string {
+            var chooseChoice: string;
+            switch (input) {
+              case "A": {
+                chooseChoice = as[i][0];
+                break;
+              }
+              case "B": {
+                chooseChoice = bs[i][0];
+                break;
+              }
+              case "C": {
+                chooseChoice = cs[i][0];
+                break;
+              }
+              case "D": {
+                chooseChoice = ds[i][0];
+                break;
+              }
+              case "E": {
+                chooseChoice = es[i][0];
+                break;
+              }
+              case "-": {
+                chooseChoice = "-";
+                break;
+              }
+            }
+            return chooseChoice
+          }
+
+          return (
+            <>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">
+                  คำถามข้อที่ {i + 1}
+                </label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    choiceQuestions[i][1](e.target.value);
+                  }}
+                  defaultValue={choiceQuestions[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">A</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    as[i][1](e.target.value);
+                  }}
+                  defaultValue={as[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">B</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    bs[i][1](e.target.value);
+                  }}
+                  defaultValue={bs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">C</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    cs[i][1](e.target.value);
+                  }}
+                  defaultValue={cs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">D</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    ds[i][1](e.target.value);
+                  }}
+                  defaultValue={ds[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">E</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    es[i][1](e.target.value);
+                  }}
+                  defaultValue={es[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">คะแนน A</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    scoreAs[i][1](parseFloat(e.target.value));
+                  }}
+                  defaultValue={scoreAs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">คะแนน B</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    scoreBs[i][1](parseFloat(e.target.value));
+                  }}
+                  defaultValue={scoreBs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">คะแนน C</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    scoreCs[i][1](parseFloat(e.target.value));
+                  }}
+                  defaultValue={scoreCs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">คะแนน D</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    scoreDs[i][1](parseFloat(e.target.value));
+                  }}
+                  defaultValue={scoreDs[i][0]}
+                />
+              </div>
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">คะแนน E</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    scoreEs[i][1](parseFloat(e.target.value));
+                  }}
+                  defaultValue={scoreEs[i][0]}
+                />
+              </div>
+              <div>เลือกตัวเลือกที่ถูกต้อง</div>
+              <Select
+                defaultValue={getChooseChoice(corrects[i][0])}
+                variant="standard"
+                name="location"
+                id="location"
+                className="h-[2em] w-[200px] mb-5 text-white"
+              >
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("A");
+                  }}
+                  value={`A ${as[i][0]}`}
+                >
+                  A {as[i][0]}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("B");
+                  }}
+                  value={`B ${bs[i][0]}`}
+                >
+                  B {bs[i][0]}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("C");
+                  }}
+                  value={`C ${cs[i][0]}`}
+                >
+                  C {cs[i][0]}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("D");
+                  }}
+                  value={`D ${ds[i][0]}`}
+                >
+                  D {ds[i][0]}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("E");
+                  }}
+                  value={`E ${es[i]}`}
+                >
+                  E {es[i][0]}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    corrects[i][1]("-");
+                  }}
+                  value={"-"}
+                >
+                  -
+                </MenuItem>
+              </Select>
+              {corrects[i]}
+              <div className="flex flex-row items-center my-5">
+                <label className="w-2/5 text-2xl text-white">ลำดับ</label>
+                <TextField
+                  name="Email"
+                  id="Email"
+                  type="number"
+                  className="w-3/5 bg-white rounded-2xl "
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: " 1rem",
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#5479FF",
+                      },
+                    },
+                  }}
+                  onChange={(e) => {
+                    choiceOrder[i][1](parseInt(e.target.value));
+                  }}
+                  defaultValue={as[i]}
+                />
+              </div>
+            </>
+          );
+        })}
+        <FinishButton
+          text="เพิ่มคำถามที่เป็นตัวเลือก"
+          onClick={addChoiceQuestion}
+        />
+        <FinishButton
+          text="ลบคำถามที่เป็นตัวเลือก"
+          onClick={safeToDeleteChoiceQuestion}
+        />
+        {textIds.map((v, i) => (
+          <>
+            <div className="flex flex-row items-center my-5">
+              <label className="w-2/5 text-2xl text-white">คำถาม</label>
+              <TextField
+                name="Email"
+                id="Email"
+                className="w-3/5 bg-white rounded-2xl "
+                sx={{
+                  backgroundColor: "#f5f5f5",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderRadius: " 1rem",
+                      borderColor: "transparent",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                  },
+                }}
+                onChange={(e) => {
+                  textQuestions[i][1](e.target.value);
+                }}
+                defaultValue={textQuestions[i][0]}
+              />
+            </div>
+            <div className="flex flex-row items-center my-5">
+              <label className="w-2/5 text-2xl text-white">คะแนน</label>
+              <TextField
+                name="Email"
+                id="Email"
+                type="number"
+                className="w-3/5 bg-white rounded-2xl "
+                sx={{
+                  backgroundColor: "#f5f5f5",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderRadius: " 1rem",
+                      borderColor: "transparent",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                  },
+                }}
+                onChange={(e) => {
+                  scores[i][1](parseFloat(e.target.value));
+                }}
+                defaultValue={scores[i][0]}
+              />
+            </div>
+            <div className="flex flex-row items-center my-5">
+              <label className="w-2/5 text-2xl text-white">ลำดับ</label>
+              <TextField
+                name="Email"
+                id="Email"
+                type="number"
+                className="w-3/5 bg-white rounded-2xl "
+                sx={{
+                  backgroundColor: "#f5f5f5",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderRadius: " 1rem",
+                      borderColor: "transparent",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#5479FF",
+                    },
+                  },
+                }}
+                onChange={(e) => {
+                  textOrder[i][1](parseInt(e.target.value));
+                }}
+                defaultValue={textOrder[i]}
+              />
+            </div>
+          </>
+        ))}
+        <FinishButton text="เพิ่มคำถามที่พิมพ์ตอบ" onClick={addTextQuestion} />
+        <FinishButton
+          text="ลบคำถามที่พิมพ์ตอบ"
+          onClick={safeToDeleteTextQuestion}
+        />
         <div className="flex flex-row justify-end">
           <button
             className="bg-white p-3 font-bold rounded-lg shadow-[10px_10px_10px_-10px_rgba(0,0,0,0.5)] hover:bg-rose-700 hover:text-pink-50"
@@ -489,7 +1111,7 @@ export default function UpdateCampClient({
                       dataLock,
                       dateEnd: dateEnd.toDate(),
                       dateStart: dateStart.toDate(),
-                      pictureUrls,
+                      pictureUrls: pictureUrls.filter(notEmpty),
                       open,
                       allDone,
                       registerSheetLink,
@@ -497,8 +1119,37 @@ export default function UpdateCampClient({
                       peeDataLock,
                       petoDataLock,
                       haveCloth,
+                      showCorrectAnswerAndScore,
                     },
                     camp._id,
+                    session.user.token
+                  );
+                  editQuestion(
+                    {
+                      texts: textIds.map((id, i) => ({
+                        _id: id[0],
+                        question: textQuestions[i][0],
+                        score: scores[i][0],
+                        order: textOrder[i][0],
+                      })),
+                      choices: choiceIds.map((id, i) => ({
+                        _id: id[0],
+                        question: choiceQuestions[i][0],
+                        a: as[i][0],
+                        b: bs[i][0],
+                        c: cs[i][0],
+                        d: ds[i][0],
+                        e: es[i][0],
+                        scoreA: scoreAs[i][0],
+                        scoreB: scoreBs[i][0],
+                        scoreC: scoreCs[i][0],
+                        scoreD: scoreDs[i][0],
+                        scoreE: scoreEs[i][0],
+                        correct: corrects[i][0],
+                        order: choiceOrder[i][0],
+                      })),
+                      campId: camp._id,
+                    },
                     session.user.token
                   );
                 } catch (error) {
@@ -516,7 +1167,8 @@ export default function UpdateCampClient({
             onClick={() => saveDeleteCamp(camp._id, session.user.token)}
           />
         </div>
-      </form>
+        {choiceIds.length}
+      </div>
     </div>
   );
 }

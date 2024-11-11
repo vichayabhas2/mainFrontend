@@ -1,23 +1,17 @@
 import { getBackendUrl } from "@/components/setup";
-import mongoose from "mongoose";
 import { Id } from "../../../interface";
 
-export default async function saveDeleteCamp(
-  id: Id,
-  token: string
-) {
+export default async function deleteChoiceQuestion(id: Id, token: string) {
   const response = await fetch(
-    `${getBackendUrl()}/admin/saveDeleteCamp/params/${id}`,
+    `${getBackendUrl()}/camp/deleteChoiceQuestion/params/${id}`,
     {
       method: "DELETE",
       cache: "no-store",
       headers: {
+        "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
     }
   );
-  if (!response.ok) {
-    throw new Error("Fail");
-  }
   return await response.json();
 }

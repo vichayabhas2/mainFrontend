@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
+import { stringToId } from "@/components/setup";
 import getPlace from "@/libs/randomthing/getPlace";
 import getPlaces from "@/libs/randomthing/getPlaces";
 import getUserProfile from "@/libs/user/getUserProfile";
@@ -20,7 +21,7 @@ export default async function PlacePage({
     if(user.role==='nong'){
         return <BackToHome/>
     }
-  const place = await getPlace(new mongoose.Types.ObjectId(params.pid));
+  const place = await getPlace(stringToId(params.pid));
   //const building=await getBuild
   return (
     <div>

@@ -1,8 +1,8 @@
 import { getBackendUrl, userPath } from "@/components/setup";
-import { InterCampMemberCard } from "../../../interface";
+import { Id, InterCampMemberCard } from "../../../interface";
 import mongoose from "mongoose";
 export default async function getCampMemberCardByCampId(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ): Promise<InterCampMemberCard> {
   const response = await fetch(

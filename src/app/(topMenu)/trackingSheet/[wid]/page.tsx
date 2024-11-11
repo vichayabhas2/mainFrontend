@@ -10,6 +10,7 @@ import getPart from "@/libs/camp/getPart";
 import getCamp from "@/libs/camp/getCamp";
 import EditWorkingItem from "@/components/EditWorkingItem";
 import PasswordLock from "@/components/PasswordLock";
+import { stringToId } from "@/components/setup";
 export default async function HospitalDetailPage({
   params,
 }: {
@@ -24,7 +25,7 @@ export default async function HospitalDetailPage({
     return <BackToHome />;
   }
   const workingItem = await getWorkingItem(
-    new mongoose.Types.ObjectId(params.wid),
+    stringToId(params.wid),
     session.user.token
   );
   const part = await getPart(workingItem.partId);

@@ -1,3 +1,4 @@
+import { stringToId } from "@/components/setup";
 import getHeathIssue from "@/libs/user/getHeathIssue";
 import getUser from "@/libs/user/getUser";
 import mongoose from "mongoose";
@@ -7,7 +8,7 @@ export default async function HelthIshuePage({
 }: {
   params: { hid: string };
 }) {
-  const healthIssueId = new mongoose.Types.ObjectId(params.hid);
+  const healthIssueId = stringToId(params.hid);
   const heathIssue = await getHeathIssue(healthIssueId);
   const user = await getUser(heathIssue.userId);
   return (

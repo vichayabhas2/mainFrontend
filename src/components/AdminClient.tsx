@@ -13,10 +13,11 @@ import {
   InterNameContainer,
   CreateCamp,
   InterPartNameContainer,
+  Id,
 } from "../../interface";
 import addPartName from "@/libs/admin/addPartName";
 import FinishButton from "./FinishButton";
-import { getBackendUrl } from "./setup";
+import { getBackendUrl, stringToId } from "./setup";
 //import { InterNameContainer, CreateCamp } from "../../interface";
 
 export default function AdminClient({
@@ -33,7 +34,7 @@ export default function AdminClient({
     | "เลือกได้ว่าจะค้างคืนหรือไม่"
     | "ไม่มีการค้างคืน"
   )[] = ["นอนทุกคน", "เลือกได้ว่าจะค้างคืนหรือไม่", "ไม่มีการค้างคืน"];
-  const [chose, setChose] = useState<mongoose.Types.ObjectId | null>(null);
+  const [chose, setChose] = useState<Id | null>(null);
   const [round, setRound] = useState<number | null>(null);
   const [dateStart, setDateStart] = useState<Date | null>(null);
   const [dateEnd, setDateEnd] = useState<Date | null>(null);
@@ -415,7 +416,7 @@ export default function AdminClient({
                   nameId: chose,
                   boardIds: boardIds
                     .split(",")
-                    .map((input: string) => new mongoose.Types.ObjectId(input)),
+                    .map((input: string) => stringToId(input)),
                   registerModel,
                   round,
                   dateEnd,

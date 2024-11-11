@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { GetAllPlanData } from "../../../interface";
+import { GetAllPlanData, Id } from "../../../interface";
 
 export default async function getAllPlanData(
-  id: mongoose.Types.ObjectId,
+  id: Id,
 ):Promise<GetAllPlanData> {
   const response = await fetch(
     `${getBackendUrl()}/camp/getAllPlanData/params/${id.toString()}`,

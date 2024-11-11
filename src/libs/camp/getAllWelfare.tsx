@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { CampWelfarePack } from "../../../interface";
+import { CampWelfarePack, Id } from "../../../interface";
 
 export default async function getAllWelfare(
-  campId: mongoose.Types.ObjectId
+  campId: Id
 ): Promise<CampWelfarePack> {
   const response = await fetch(
     `${getBackendUrl()}/camp/getAllWelfare/params/${campId}`,

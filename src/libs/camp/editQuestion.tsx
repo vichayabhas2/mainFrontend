@@ -1,13 +1,12 @@
 import { getBackendUrl } from "@/components/setup";
-import mongoose from "mongoose";
-import { Id } from "../../../interface";
+import { EditQuestionPack } from "../../../interface";
 
-export default async function plusActionPlan(
-  input: { campId: Id; plus: number },
+export default async function editQuestion(
+  input: EditQuestionPack,
   token: string
 ) {
-  const response = await fetch(`${getBackendUrl()}/camp/plusActionPlan`, {
-    method: "POST",
+  const response = await fetch(`${getBackendUrl()}/camp/editQuestion/`, {
+    method: "PUT",
     cache: "no-store",
     headers: {
       "Content-Type": "application/json",

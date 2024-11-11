@@ -9,6 +9,7 @@ import {
   ShowMember,
   ShowNong,
   HeathIssueBody,
+  Id,
 } from "../../interface";
 import dayjs from "dayjs";
 
@@ -32,10 +33,10 @@ export function startSize(): Map<
   return size;
 }
 export function swop(
-  olds: mongoose.Types.ObjectId | null,
-  news: mongoose.Types.ObjectId | null,
-  array: mongoose.Types.ObjectId[]
-): mongoose.Types.ObjectId[] {
+  olds: Id | null,
+  news: Id | null,
+  array: Id[]
+): Id[] {
   if (!olds) {
     if (news) {
       array.push(news);
@@ -95,10 +96,10 @@ export function sizeJsonMod(
 }
 
 export function mapBoolToArray(
-  input: Map<mongoose.Types.ObjectId, boolean>
-): mongoose.Types.ObjectId[] {
-  var out: mongoose.Types.ObjectId[] = [];
-  input.forEach((v: boolean, k: mongoose.Types.ObjectId) => {
+  input: Map<Id, boolean>
+): Id[] {
+  var out: Id[] = [];
+  input.forEach((v: boolean, k: Id) => {
     if (v) {
       out.push(k);
     }
@@ -106,20 +107,20 @@ export function mapBoolToArray(
   return out;
 }
 export function mapStringToMyMap(
-  input: Map<mongoose.Types.ObjectId, string>
+  input: Map<Id, string>
 ): MyMap[] {
   var out: MyMap[] = [];
-  input.forEach((value: string, key: mongoose.Types.ObjectId) => {
+  input.forEach((value: string, key: Id) => {
     out.push({ key, value });
   });
   return out;
 }
 export function mapObjectIdToMyMap(
-  input: Map<mongoose.Types.ObjectId, mongoose.Types.ObjectId>
+  input: Map<Id, Id>
 ): MapObjectId[] {
   var out: MapObjectId[] = [];
   input.forEach(
-    (value: mongoose.Types.ObjectId, key: mongoose.Types.ObjectId) => {
+    (value: Id, key: Id) => {
       out.push({ key, value });
     }
   );
@@ -173,7 +174,7 @@ export function getBackendUrl() {
 export const userPath = "api/v1/auth";
 export function hasKey(
   input: MyMap[] | MapObjectId[],
-  id: mongoose.Types.ObjectId
+  id: Id
 ): boolean {
   var i = 0;
   while (i < input.length) {
@@ -183,7 +184,7 @@ export function hasKey(
   }
   return false;
 }
-export function getValue(input: MyMap[], id: mongoose.Types.ObjectId): string {
+export function getValue(input: MyMap[], id: Id): string {
   var i = 0;
   while (i < input.length) {
     if (!input[i++].key.toString().localeCompare(id.toString())) {
@@ -220,11 +221,11 @@ export function addTime(input: Date, add: InterTimeOffset): Date {
     .toDate();
 }
 const removeDups = (
-  arr: mongoose.Types.ObjectId[]
-): mongoose.Types.ObjectId[] => {
-  let unique: mongoose.Types.ObjectId[] = arr.reduce(function (
-    acc: mongoose.Types.ObjectId[],
-    curr: mongoose.Types.ObjectId
+  arr: Id[]
+): Id[] => {
+  let unique: Id[] = arr.reduce(function (
+    acc: Id[],
+    curr: Id
   ) {
     if (!acc.includes(curr)) acc.push(curr);
     return acc;
@@ -251,15 +252,12 @@ export function downToShowNong({
   return { name, nickname, lastname, gender, id };
 }
 ////////////////////////////////////////////////////////////////////////////////////
-export function peeLookupNong<TValue>(
-  pees: TValue[],
-  nongs: TValue[]
-): TValue[] {
+export function peeLookupNong<P, N>(pees: P[], nongs: N[]): (P | N)[] {
   if (pees.length == 0) {
     return nongs;
   }
   if (pees.length == 1) {
-    const outs: TValue[] = pees;
+    const outs: (P | N)[] = pees;
     nongs.forEach((nong) => outs.push(nong));
     return outs;
   }
@@ -267,7 +265,7 @@ export function peeLookupNong<TValue>(
   const mn = nongs.length;
   var n = 0;
   var p = 0;
-  const outs: TValue[] = [];
+  const outs: (P | N)[] = [];
   var i = 0;
   if (mp > mn) {
     var count = mp / (mn + 1);
@@ -350,7 +348,7 @@ export const zeroTimeOffset: InterTimeOffset = {
   day: 0,
   _id: new mongoose.Types.ObjectId(),
 };
-export function getId(input: { _id: mongoose.Types.ObjectId } | null) {
+export function getId(input: { _id: Id } | null) {
   if (input) {
     return input._id;
   }
@@ -368,4 +366,7 @@ export const emptyHealthIssue: HeathIssueBody = {
 };
 export function getDifferentMinute(start: Date, end: Date) {
   return dayjs(end).diff(start, "minute");
+}
+export function stringToId(input: string) {
+  return new mongoose.Types.ObjectId(input)
 }

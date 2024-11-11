@@ -1,10 +1,11 @@
 import { getBackendUrl } from "@/components/setup";
-import mongoose from "mongoose";
+import { AnswerPack, Id } from "../../../interface";
 
 export default async function nongRegisterCamp(
-  campId: mongoose.Types.ObjectId,
+  campId: Id,
   link: string,
-  token: string
+  token: string,
+  answer:AnswerPack
 ) {
   const res = await fetch(`${getBackendUrl()}/camp/nongRegisterCamp`, {
     method: "POST",
@@ -16,6 +17,7 @@ export default async function nongRegisterCamp(
     body: JSON.stringify({
       campId,
       link,
+      answer,
     }),
   });
 }

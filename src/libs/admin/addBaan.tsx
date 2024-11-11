@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
-import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function addBaan(
   name: string,
-  campId: mongoose.Types.ObjectId,
+  campId: Id,
   token: string
 ) {
   const res = await fetch(`${getBackendUrl()}/admin/addBaan`, {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { InterPlace } from "../../interface";
 import createPlace from "@/libs/randomthing/createPlace";
 import mongoose from "mongoose";
+import { stringToId } from "./setup";
 
 export default function PlaceClient({
   places,
@@ -81,7 +82,7 @@ export default function PlaceClient({
               createPlace(
                 floor,
                 room,
-                new mongoose.Types.ObjectId(buildingId),
+                stringToId(buildingId),
                 token
               );
             } catch (error) {

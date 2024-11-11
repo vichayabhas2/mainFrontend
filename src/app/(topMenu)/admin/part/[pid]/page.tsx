@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
+import { stringToId } from "@/components/setup";
 import UpdatePartServer from "@/components/UpdatePartServer";
 import getCamp from "@/libs/camp/getCamp";
 import getPart from "@/libs/camp/getPart";
@@ -12,7 +13,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
   if (!session) {
     return <BackToHome />;
   }
-  const partId = new mongoose.Types.ObjectId(params.pid);
+  const partId = stringToId(params.pid);
   const user = await getUserProfile(session.user.token);
   if (user.role === "admin") {
     return <UpdatePartServer partId={partId} token={session.user.token} />;

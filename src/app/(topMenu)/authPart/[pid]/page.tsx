@@ -3,6 +3,7 @@ import AllInOneLock from "@/components/AllInOneLock";
 import BackToHome from "@/components/BackToHome";
 import PlanServer from "@/components/PlanServer";
 import RegisterPartServer from "@/components/RegisterPartServer";
+import { stringToId } from "@/components/setup";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import UpdateCampServer from "@/components/UpdateCampServer";
 import WelfareServer from "@/components/WelfareServer";
@@ -20,7 +21,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
     return <BackToHome />;
   }
   const token = session.user.token;
-  const partId = new mongoose.Types.ObjectId(params.pid);
+  const partId = stringToId(params.pid);
   const user = await getUserProfile(session.user.token);
 
   const part = await getPart(partId);
@@ -45,7 +46,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
         case "pee": {
           const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
           return (
-            <AllInOneLock token={token} lock={user.mode == "nong"}>
+            <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
               <UpdateBaanServer baanId={peeCamp.baanId} />
             </AllInOneLock>
           );

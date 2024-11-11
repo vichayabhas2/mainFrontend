@@ -53,15 +53,3 @@ export default function WorkingItemClient({
     </div>
   );
 }
-/**export interface InterWorkingItem {
-
-    name: string,
-    link: string|null,
-    status: 'not start' | 'in process' | 'done',
-    partId: mongoose.Types.ObjectId,
-    linkOutIds: mongoose.Types.ObjectId[],
-    fromId: mongoose.Types.ObjectId | null,
-    createBy: mongoose.Types.ObjectId,
-    _id: mongoose.Types.ObjectId,
-    password:string
-} */

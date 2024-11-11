@@ -1,9 +1,9 @@
 import { getBackendUrl, userPath } from "@/components/setup";
 import mongoose from "mongoose";
-import { InterTimeOffset } from "../../../interface";
+import { Id, InterTimeOffset } from "../../../interface";
 
 export default async function getTimeOffset(
-  id: mongoose.Types.ObjectId
+  id: Id
 ): Promise<InterTimeOffset> {
   const response = await fetch(
     `${getBackendUrl()}/${userPath}/getTimeOffset/params/${id}`,

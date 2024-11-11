@@ -1,9 +1,10 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function updatePart(
-  partId: mongoose.Types.ObjectId,
-  placeId: mongoose.Types.ObjectId,
+  partId: Id,
+  placeId: Id,
   token: string
 ) {
   const response = await fetch(`${getBackendUrl()}/admin/updatePart`, {

@@ -2,18 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import {
+  Id,
   InterCampFront,
-  Mode,
   MyMap,
   RegisBaan,
   RegisPart,
-  RoleCamp,
   ShowMember,
   ShowRegister,
 } from "../../interface";
 import Link from "next/link";
 import { useState } from "react";
-import mongoose from "mongoose";
 import { Checkbox } from "@mui/material";
 import { getValue, swop } from "./setup";
 import SelectTemplate from "./SelectTemplate";
@@ -41,13 +39,13 @@ export default function RegisterPartClient({
   partMap: MyMap[];
 }) {
   const router = useRouter();
-  const [nongPendingIds, set1] = useState<mongoose.Types.ObjectId[]>([]);
-  const [nongInterviewIds, set2] = useState<mongoose.Types.ObjectId[]>([]);
-  const [nongPaidIds, set4] = useState<mongoose.Types.ObjectId[]>([]);
-  const [nongSureIds, set5] = useState<mongoose.Types.ObjectId[]>([]);
-  const [peePassIds, set6] = useState<mongoose.Types.ObjectId[]>([]);
-  const [members, set7] = useState<mongoose.Types.ObjectId[]>([]);
-  const [userIds, set8] = useState<mongoose.Types.ObjectId[]>([]);
+  const [nongPendingIds, set1] = useState<Id[]>([]);
+  const [nongInterviewIds, set2] = useState<Id[]>([]);
+  const [nongPaidIds, set4] = useState<Id[]>([]);
+  const [nongSureIds, set5] = useState<Id[]>([]);
+  const [peePassIds, set6] = useState<Id[]>([]);
+  const [members, set7] = useState<Id[]>([]);
+  const [userIds, set8] = useState<Id[]>([]);
   const mapIn: MyMap[] = regisBaans.map((regisBaan) => ({
     key: regisBaan.baan._id,
     value: regisBaan.baan.name,

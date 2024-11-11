@@ -1,6 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import PlaceClient from "@/components/PlaceClient";
+import { stringToId } from "@/components/setup";
 import getPlaces from "@/libs/randomthing/getPlaces";
 import getUserProfile from "@/libs/user/getUserProfile";
 import mongoose from "mongoose";
@@ -12,7 +13,7 @@ export default async function PlacePage({
 }: {
   params: { bid: string };
 }) {
-  const places = await getPlaces(new mongoose.Types.ObjectId(params.bid));
+  const places = await getPlaces(stringToId(params.bid));
   //console.log(places)
   const session=await getServerSession(authOptions)
     if(!session){

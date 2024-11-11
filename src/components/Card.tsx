@@ -140,7 +140,7 @@ import { Button } from "@mui/material";
 import getCamp from "@/libs/camp/getCamp";
 import { getServerSession } from "next-auth";
 import mongoose from "mongoose";
-import { InterCampFront } from "../../interface";
+import { Id, InterCampFront } from "../../interface";
 //import { Router } from "next/router";
 //import { useRouter } from "next/navigation";
 
@@ -158,7 +158,7 @@ export default function Card({
   value?: number | null;
   link: string;
   imgSrc: string | null;
-  id: mongoose.Types.ObjectId;
+  id: Id;
   camp: InterCampFront;
   //onCarSelected :Function
 }) {

@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { UpdateCamp } from "../../../interface";
+import { Id, UpdateCamp } from "../../../interface";
 import { getBackendUrl } from "@/components/setup";
 
 export default async function updateCamp(
   update: UpdateCamp,
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ) {
   const response = await fetch(

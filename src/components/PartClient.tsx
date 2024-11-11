@@ -499,19 +499,3 @@ export default function PartClient({
     </main>
   );
 }
-/**export interface InterActionPlan {
-
-    action: string,
-    partId: mongoose.Types.ObjectId,*
-    placeIds: mongoose.Types.ObjectId[],
-    start: Date,
-    end: Date,
-    headId: mongoose.Types.ObjectId,
-    body: string,
-
-
-    start: Date,
-    end: Date,
-    headId: mongoose.Types.ObjectId,
-    body: string,
-} */

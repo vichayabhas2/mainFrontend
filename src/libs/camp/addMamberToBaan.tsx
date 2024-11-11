@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { Mode } from "../../../interface";
+import { Id, Mode } from "../../../interface";
 import { getBackendUrl } from "@/components/setup";
 
 export default async function addMemberToBaan(
   input: {
-    members: mongoose.Types.ObjectId[];
-    baanId: mongoose.Types.ObjectId;
+    members: Id[];
+    baanId: Id;
   },
   mode: Mode,
   token: string,

@@ -171,7 +171,7 @@ export default function EditActionPland({
         <FinishButton
           onClick={() =>
             deleteActionPlan(
-              new mongoose.Types.ObjectId(actionPlan._id),
+              actionPlan._id,
               session.user.token
             )
           }

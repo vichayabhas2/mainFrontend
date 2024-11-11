@@ -3,6 +3,7 @@
 import mongoose from "mongoose";
 import {
   AllPlaceData,
+  Id,
   InterBuilding,
   InterPlace,
   MyMap,
@@ -24,8 +25,8 @@ export default function LostAndFoundClient({
 }) {
   const userRef = useRef("");
 
-  const [chose, setChose] = useState<mongoose.Types.ObjectId | null>(null);
-  const [placeId, setPlaceId] = useState<mongoose.Types.ObjectId | null>(null);
+  const [chose, setChose] = useState<Id | null>(null);
+  const [placeId, setPlaceId] = useState<Id | null>(null);
   const [detail, setDetail] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
   const [type, setType] = useState<"lost" | "found" | null>(null);

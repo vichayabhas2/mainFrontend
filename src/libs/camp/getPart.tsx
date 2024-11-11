@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
-import { InterPartFront } from "../../../interface";
+import { Id, InterPartFront } from "../../../interface";
 import mongoose from "mongoose";
 
 export default async function getPart(
-  id: mongoose.Types.ObjectId,
+  id: Id,
 ): Promise<InterPartFront> {
   const response = await fetch(`${getBackendUrl()}/camp/part/params/${id}`, {
     method: "GET",cache: "no-store",

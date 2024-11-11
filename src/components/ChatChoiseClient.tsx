@@ -1,7 +1,7 @@
 "use client";
 
 import mongoose from "mongoose";
-import { ShowMember } from "../../interface";
+import { Id, ShowMember } from "../../interface";
 import FinishButton from "./FinishButton";
 import { useRouter } from "next/navigation";
 import chatStyle from "./chat.module.css";
@@ -11,7 +11,7 @@ export default function ChatChoiseClient({
   campId,
 }: {
   nongs: ShowMember[];
-  campId: mongoose.Types.ObjectId;
+  campId: Id;
 }) {
   const router = useRouter();
   return (

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AllPlaceData, InterPlace } from "../../interface";
-import mongoose from "mongoose";
+import { AllPlaceData, Id, InterPlace } from "../../interface";
 import { useSession } from "next-auth/react";
 import { MenuItem, Select } from "@mui/material";
 import BackToHome from "./BackToHome";
@@ -13,7 +12,7 @@ export default function UpdatePartClient({
   allPlaceData,
 }: {
   place: InterPlace | null;
-  partId: mongoose.Types.ObjectId;
+  partId: Id;
   allPlaceData: AllPlaceData;
 }) {
   // dispatch = useDispatch<AppDispatch>();
@@ -23,7 +22,7 @@ export default function UpdatePartClient({
   const [nP, setNP] = useState<InterPlace | null>(place);
 
   const [nB, setNB] = useState<string | null>(
-    allPlaceData.allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)
+    allPlaceData.allBuildings.get(place?.buildingId as Id)
       ?.name as string | null
   );
 

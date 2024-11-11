@@ -2,14 +2,14 @@
 import styles from "./topmenu.module.css";
 import TopMenuItem from "./TopMenuItem";
 import mongoose from "mongoose";
-import { Mode, RoleCamp } from "../../interface";
+import { Id, Mode, RoleCamp } from "../../interface";
 
 export default function TopMenuCamp({
   campId,
   role,
   mode,
 }: {
-  campId: mongoose.Types.ObjectId;
+  campId: Id;
   role: RoleCamp;
   mode: Mode;
 }) {

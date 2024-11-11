@@ -1,15 +1,11 @@
 "use client";
 import { Session } from "next-auth";
-import { InterCampFront, InterUser } from "../../interface";
+import { Id, InterCampFront, InterUser } from "../../interface";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FinishButton from "./FinishButton";
 import peeUpdateMode from "@/libs/user/peeUpdateMode";
 import { Checkbox, Input, TextField } from "@mui/material";
-import mongoose from "mongoose";
-import { ClockIcon } from "@mui/x-date-pickers";
-import link from "next/link";
-import InteractiveCard from "./InteractiveCard";
 import { swop } from "./setup";
 
 export default function UpdateModeRaw({
@@ -29,7 +25,7 @@ export default function UpdateModeRaw({
   }
   const [linkHash, setLinkHash] = useState<string>(user.linkHash);
   const [mode, setMode] = useState<"pee" | "nong" | null>(null);
-  const [filterIds, setFilterIds] = useState<mongoose.Types.ObjectId[]>(
+  const [filterIds, setFilterIds] = useState<Id[]>(
     user.filterIds
   );
   console.log(filterIds);

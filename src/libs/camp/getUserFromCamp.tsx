@@ -1,6 +1,6 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { ShowMember } from "../../../interface";
+import { Id, ShowMember } from "../../../interface";
 
 export default async function getUserFromCamp(
   mode:
@@ -8,7 +8,7 @@ export default async function getUserFromCamp(
     | "getPeesFromBaanId"
     | "getPeesFromPartId"
     | "getPetosFromPartId",
-  id: mongoose.Types.ObjectId
+  id: Id
 ): Promise<ShowMember[]> {
   const res = await fetch(`${getBackendUrl()}/camp/${mode}/params/${id}`, {
     cache: "no-store",

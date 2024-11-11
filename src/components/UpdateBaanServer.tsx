@@ -6,11 +6,12 @@ import mongoose from "mongoose";
 import BaanMembers from "./BaanMembers";
 import UpdateBaanClient from "./UpdateBaanClient";
 import { getAllPlaceData } from "./placeSetUp";
+import { Id } from "../../interface";
 
 export default async function UpdateBaanServer({
   baanId,
 }: {
-  baanId: mongoose.Types.ObjectId;
+  baanId: Id;
 }) {
   const baan = await getBaan(baanId);
   const boy = baan.boySleepPlaceId

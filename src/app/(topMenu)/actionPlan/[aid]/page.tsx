@@ -8,6 +8,7 @@ import getPlace from "@/libs/randomthing/getPlace";
 import EditActionPland from "@/components/EditActionPland";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import { getAllPlaceData } from "@/components/placeSetUp";
+import { stringToId } from "@/components/setup";
 
 export default async function HospitalDetailPage({
   params,
@@ -19,7 +20,7 @@ export default async function HospitalDetailPage({
     return <BackToHome />;
   }
   const actionPlan = await getActionPlan(
-    new mongoose.Types.ObjectId(params.aid),
+    stringToId(params.aid),
     session.user.token
   );
   var i = 0;
