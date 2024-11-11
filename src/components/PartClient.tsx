@@ -12,7 +12,7 @@ import {
   MyMap,
   ShowMember,
 } from "../../interface";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import mongoose from "mongoose";
 import PlaceSelect from "./PlaceSelect";
 import FinishButton from "./FinishButton";
@@ -50,14 +50,17 @@ export default function PartClient({
   const [name, setName] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
   const [action, setAction] = useState<string | null>(null);
-  const [places, setPlaces] = useState<(InterPlace | null)[]>([]);
+  const places: [
+    InterPlace | null,
+    Dispatch<SetStateAction<InterPlace | null>>
+  ][] = [];
   const [start, setStart] = useState<Date | null>(null);
   const [end, setEnd] = useState<Date | null>(null);
   const [body, setBody] = useState<string | null>(null);
   const [plus, setPlus] = useState<number>(0);
   const router = useRouter();
   function add() {
-    places.push(null);
+    places.push(useState<InterPlace | null>(null));
     //setPlaces(places);
     router.refresh();
   }
@@ -283,10 +286,9 @@ export default function PartClient({
         <FinishButton text={"remove"} onClick={remove} />
         {places.map((v, i) => (
           <PlaceSelect
-            place={v}
+            place={v[0]}
             onClick={(ouuPut) => {
-              places[i] = ouuPut;
-              setPlaces(places);
+              v[1](ouuPut);
             }}
             buildingText={`ตึกที่${i + 1}`}
             placeText={`ชั้นและห้องที่${i + 1}`}
@@ -351,7 +353,10 @@ export default function PartClient({
                 {
                   action,
                   partId: part._id,
-                  placeIds: places.filter(notEmpty).map((e) => e._id),
+                  placeIds: places
+                    .map((e) => e[0])
+                    .filter(notEmpty)
+                    .map((e) => e._id),
                   start: addTime(start, timeOffset),
                   end: addTime(end, timeOffset),
                   headId,

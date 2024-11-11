@@ -47,8 +47,11 @@ export default function UpdateCampClient({
     camp.registerSheetLink
   );
   const [link, setLink] = useState<string | null>(camp.link);
-  const [pictureUrls, setPictureUrls] = useState<(string | null)[]>(
-    camp.pictureUrls
+  const pictureUrls: [
+    string | null,
+    Dispatch<SetStateAction<string | null>>
+  ][] = camp.pictureUrls.map((pictureUrl) =>
+    useState<string | null>(pictureUrl)
   );
   const [logoUrl, setLogoUrl] = useState<string | null>(camp.logoUrl);
   const [dataLock, setDataLock] = useState<boolean>(camp.dataLock);
@@ -313,13 +316,24 @@ export default function UpdateCampClient({
           {pictureUrls.map((pictureUrl, i) => (
             <TypingImageSource
               onChange={function (imgSrc: string | null): void {
-                pictureUrls[i] = imgSrc;
-                setPictureUrls(pictureUrls);
+                pictureUrl[1](imgSrc);
               }}
-              defaultSrc={pictureUrl}
+              defaultSrc={pictureUrl[0]}
             />
           ))}
         </div>
+        <FinishButton
+          text="add photo"
+          onClick={() => {
+            pictureUrls.push(useState<string | null>(null));
+          }}
+        />
+        <FinishButton
+          text="remove photo"
+          onClick={() => {
+            pictureUrls.pop();
+          }}
+        />
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link logo</label>
           <TypingImageSource defaultSrc={logoUrl} onChange={setLogoUrl} />
@@ -567,7 +581,7 @@ export default function UpdateCampClient({
         </div>
 
         {choiceIds.map((v, i) => {
-          function getChooseChoice(input:Choice|'-'):string {
+          function getChooseChoice(input: Choice | "-"): string {
             var chooseChoice: string;
             switch (input) {
               case "A": {
@@ -595,7 +609,7 @@ export default function UpdateCampClient({
                 break;
               }
             }
-            return chooseChoice
+            return chooseChoice;
           }
 
           return (
@@ -1111,7 +1125,9 @@ export default function UpdateCampClient({
                       dataLock,
                       dateEnd: dateEnd.toDate(),
                       dateStart: dateStart.toDate(),
-                      pictureUrls: pictureUrls.filter(notEmpty),
+                      pictureUrls: pictureUrls
+                        .map((v) => v[0])
+                        .filter(notEmpty),
                       open,
                       allDone,
                       registerSheetLink,

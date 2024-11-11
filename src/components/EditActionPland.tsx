@@ -3,10 +3,9 @@
 import { TextField } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   AllPlaceData,
-  InterBuilding,
   InterPlace,
   MyMap,
   ShowMember,
@@ -17,7 +16,6 @@ import PlaceSelect from "./PlaceSelect";
 import SelectTemplate from "./SelectTemplate";
 import { notEmpty } from "./setup";
 import { useRouter } from "next/navigation";
-import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
 import updateActionPlan from "@/libs/camp/updateActionPlan";
 import BackToHome from "./BackToHome";
@@ -42,19 +40,20 @@ export default function EditActionPland({
     return <BackToHome />;
   }
   const [action, setAction] = useState<string | null>(actionPlan.action);
-  const [places, setPlaces] = useState<(InterPlace | null)[]>(pls);
+  const places: [
+    InterPlace | null,
+    Dispatch<SetStateAction<InterPlace | null>>
+  ][] = pls.map((pl) => useState<InterPlace | null>(pl));
   const [start, setStart] = useState<Dayjs | null>(dayjs(actionPlan.start));
   const [end, setEnd] = useState<Dayjs | null>(dayjs(actionPlan.end));
   const [body, setBody] = useState<string | null>(actionPlan.body);
   const router = useRouter();
   function add() {
-    places.push(null);
-    //setPlaces(places);
+    places.push(useState<InterPlace | null>(null));
     router.refresh();
   }
   function remove() {
     places.pop();
-    //setPlaces(places);
     router.refresh();
   }
   const maps: MyMap[] = [];
@@ -116,11 +115,10 @@ export default function EditActionPland({
         <FinishButton text={"remove"} onClick={remove} />
         {places.map((v, i) => (
           <PlaceSelect
-            place={v}
+            place={v[0]}
             allPlaceData={allPlaceData}
             onClick={(ouuPut) => {
-              places[i] = ouuPut;
-              setPlaces(places);
+              v[1](ouuPut);
             }}
             buildingText={`ตึกที่${i + 1}`}
             placeText={`ชั้นและห้องที่${i + 1}`}
@@ -155,7 +153,10 @@ export default function EditActionPland({
               updateActionPlan(
                 {
                   action,
-                  placeIds: places.filter(notEmpty).map((e) => e._id),
+                  placeIds: places
+                    .map((v) => v[0])
+                    .filter(notEmpty)
+                    .map((e) => e._id),
                   start: start.toDate(),
                   end: end.toDate(),
                   headId,
@@ -169,12 +170,7 @@ export default function EditActionPland({
           buttonText={"update"}
         />
         <FinishButton
-          onClick={() =>
-            deleteActionPlan(
-              actionPlan._id,
-              session.user.token
-            )
-          }
+          onClick={() => deleteActionPlan(actionPlan._id, session.user.token)}
           text={"delete"}
         />
       </div>
