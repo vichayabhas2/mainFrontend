@@ -125,7 +125,6 @@ export default function NongPendingPage({
                 -
               </MenuItem>
             </Select>
-            {choice.answerId}
           </>
         ),
         order: choice.order,
@@ -167,7 +166,6 @@ export default function NongPendingPage({
               }}
               defaultValue={textAnswers[i][0]}
             />
-            {text.answerId?.toString()}
           </div>
         ),
         order: text.order,

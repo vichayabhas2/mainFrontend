@@ -125,7 +125,6 @@ export default function NongRegisterPage({
                 -
               </MenuItem>
             </Select>
-            {choice._id.toString()}
           </>
         ),
         order: choice.order,
@@ -167,7 +166,6 @@ export default function NongRegisterPage({
               }}
               defaultValue={textAnswers[i][0]}
             />
-            {text._id.toString()}
           </div>
         ),
         order: text.order,
