@@ -158,13 +158,10 @@ export default function UpdateCampClient({
     corrects.push(useState<Choice | "-">("-"));
     choiceOrder.push(useState<number>(0));
   }
-
   const { data: session } = useSession();
   if (!session) {
     return <BackToHome />;
   }
-  //alert(camp.registerSheetLink)
-  /** */
   return (
     <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">
       <div>บ้าน</div>
@@ -191,7 +188,6 @@ export default function UpdateCampClient({
           </div>
         );
       })}
-
       <div
         className="text-4xl font-bold"
         style={{
@@ -310,7 +306,6 @@ export default function UpdateCampClient({
             defaultValue={camp.link}
           />
         </div>
-
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link รูปภาพ</label>
           {pictureUrls.map((pictureUrl, i) => (
@@ -414,7 +409,6 @@ export default function UpdateCampClient({
             />
           </div>
         ) : null}
-
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">
             เปิดให้น้องค่ายลงทะเบียนหรือไม่
@@ -477,7 +471,6 @@ export default function UpdateCampClient({
             defaultChecked={showCorrectAnswerAndScore}
           />
         </div>
-
         <div className="flex flex-row justify-end"></div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">
@@ -579,7 +572,6 @@ export default function UpdateCampClient({
             />
           </LocalizationProvider>
         </div>
-
         {choiceIds.map((v, i) => {
           function getChooseChoice(input: Choice | "-"): string {
             var chooseChoice: string;
@@ -611,7 +603,6 @@ export default function UpdateCampClient({
             }
             return chooseChoice;
           }
-
           return (
             <>
               <div className="flex flex-row items-center my-5">
