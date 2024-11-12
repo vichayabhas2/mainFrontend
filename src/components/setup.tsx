@@ -10,6 +10,7 @@ import {
   ShowNong,
   HeathIssueBody,
   Id,
+  UpdateTimeOffsetRaw,
 } from "../../interface";
 import dayjs from "dayjs";
 
@@ -32,11 +33,7 @@ export function startSize(): Map<
   });
   return size;
 }
-export function swop(
-  olds: Id | null,
-  news: Id | null,
-  array: Id[]
-): Id[] {
+export function swop(olds: Id | null, news: Id | null, array: Id[]): Id[] {
   if (!olds) {
     if (news) {
       array.push(news);
@@ -95,9 +92,7 @@ export function sizeJsonMod(
   return input;
 }
 
-export function mapBoolToArray(
-  input: Map<Id, boolean>
-): Id[] {
+export function mapBoolToArray(input: Map<Id, boolean>): Id[] {
   var out: Id[] = [];
   input.forEach((v: boolean, k: Id) => {
     if (v) {
@@ -106,24 +101,18 @@ export function mapBoolToArray(
   });
   return out;
 }
-export function mapStringToMyMap(
-  input: Map<Id, string>
-): MyMap[] {
+export function mapStringToMyMap(input: Map<Id, string>): MyMap[] {
   var out: MyMap[] = [];
   input.forEach((value: string, key: Id) => {
     out.push({ key, value });
   });
   return out;
 }
-export function mapObjectIdToMyMap(
-  input: Map<Id, Id>
-): MapObjectId[] {
+export function mapObjectIdToMyMap(input: Map<Id, Id>): MapObjectId[] {
   var out: MapObjectId[] = [];
-  input.forEach(
-    (value: Id, key: Id) => {
-      out.push({ key, value });
-    }
-  );
+  input.forEach((value: Id, key: Id) => {
+    out.push({ key, value });
+  });
   return out;
 }
 /*export function myMapToMapString(input: MyMap[]): Map<string, string> {
@@ -172,10 +161,7 @@ export function getBackendUrl() {
   return process.env.NEXT_PUBLIC_BACKEND_URL;
 }
 export const userPath = "api/v1/auth";
-export function hasKey(
-  input: MyMap[] | MapObjectId[],
-  id: Id
-): boolean {
+export function hasKey(input: MyMap[] | MapObjectId[], id: Id): boolean {
   var i = 0;
   while (i < input.length) {
     if (input[i++].key === id) {
@@ -220,17 +206,11 @@ export function addTime(input: Date, add: InterTimeOffset): Date {
     .add(-add.minute, "minutes")
     .toDate();
 }
-const removeDups = (
-  arr: Id[]
-): Id[] => {
-  let unique: Id[] = arr.reduce(function (
-    acc: Id[],
-    curr: Id
-  ) {
+const removeDups = (arr: Id[]): Id[] => {
+  let unique: Id[] = arr.reduce(function (acc: Id[], curr: Id) {
     if (!acc.includes(curr)) acc.push(curr);
     return acc;
-  },
-  []);
+  }, []);
   return unique;
 };
 export function generateExcelData(data: any, fileName: string) {
@@ -341,12 +321,10 @@ export const departures = [
   "วิศวกรรมสารสนเทศและการสื่อสาร (นานาชาติ)** (Information and Communication Engineering)",
   "วิศวกรรมหุ่นยนต์และปัญญาประดิษฐ์ (นานาชาติ)** (Robotics and Artificial Intelligence Engineering)",
 ] as const;
-export const zeroTimeOffset: InterTimeOffset = {
-  userId: new mongoose.Types.ObjectId(),
+export const zeroTimeOffset: UpdateTimeOffsetRaw = {
   minute: 0,
   hour: 0,
   day: 0,
-  _id: new mongoose.Types.ObjectId(),
 };
 export function getId(input: { _id: Id } | null) {
   if (input) {
@@ -368,5 +346,17 @@ export function getDifferentMinute(start: Date, end: Date) {
   return dayjs(end).diff(start, "minute");
 }
 export function stringToId(input: string) {
-  return new mongoose.Types.ObjectId(input)
+  return new mongoose.Types.ObjectId(input);
+}
+export function removeElementInUseStateArray(v: any, i: number, a: any[]) {
+  return i < a.length - 1;
+}
+export function modifyElementInUseStateArray<T>(v: T, i: number) {
+  return (v2: T, i2: number) => {
+    if (i == i2) {
+      return v;
+    } else {
+      return v2;
+    }
+  };
 }

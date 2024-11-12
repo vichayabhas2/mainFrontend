@@ -25,7 +25,11 @@ import addPart from "@/libs/admin/addPart";
 import createBaanByGroup from "@/libs/admin/createBaanByGroup";
 import saveDeleteCamp from "@/libs/admin/saveDeleteCamp";
 import TypingImageSource from "./TypingImageSource";
-import { notEmpty } from "./setup";
+import {
+  modifyElementInUseStateArray,
+  notEmpty,
+  removeElementInUseStateArray,
+} from "./setup";
 import editQuestion from "@/libs/camp/editQuestion";
 
 export default function UpdateCampClient({
@@ -47,12 +51,7 @@ export default function UpdateCampClient({
     camp.registerSheetLink
   );
   const [link, setLink] = useState<string | null>(camp.link);
-  const pictureUrls: [
-    string | null,
-    Dispatch<SetStateAction<string | null>>
-  ][] = camp.pictureUrls.map((pictureUrl) =>
-    useState<string | null>(pictureUrl)
-  );
+  const pictureUrls = useState<(string | null)[]>(camp.pictureUrls);
   const [logoUrl, setLogoUrl] = useState<string | null>(camp.logoUrl);
   const [dataLock, setDataLock] = useState<boolean>(camp.dataLock);
   const [open, setOpen] = useState<boolean>(camp.open);
@@ -72,91 +71,83 @@ export default function UpdateCampClient({
   const [showCorrectAnswerAndScore, setShowCorrectAnswerAndScore] = useState(
     camp.showCorrectAnswerAndScore
   );
-  const choiceIds: [Id | null, Dispatch<SetStateAction<Id | null>>][] =
-    questions.choices.map((choice) => useState<Id | null>(choice._id));
-  const choiceQuestions: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.question));
-  const as: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.a));
-  const bs: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.b));
-  const cs: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.c));
-  const ds: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.d));
-  const es: [string, Dispatch<SetStateAction<string>>][] =
-    questions.choices.map((choice) => useState<string>(choice.e));
-  const scoreAs: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.scoreA));
-  const scoreBs: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.scoreB));
-  const scoreCs: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.scoreC));
-  const scoreDs: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.scoreD));
-  const scoreEs: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.scoreE));
-  const corrects: [Choice | "-", Dispatch<SetStateAction<Choice | "-">>][] =
-    questions.choices.map((choice) => useState<Choice | "-">(choice.correct));
-  const choiceOrder: [number, Dispatch<SetStateAction<number>>][] =
-    questions.choices.map((choice) => useState<number>(choice.order));
-  const textQuestions: [string, Dispatch<SetStateAction<string>>][] =
-    questions.texts.map((text) => useState<string>(text.question));
-  const textIds: [Id | null, Dispatch<SetStateAction<Id | null>>][] =
-    questions.texts.map((text) => useState<Id | null>(text._id));
-  const scores: [number, Dispatch<SetStateAction<number>>][] =
-    questions.texts.map((text) => useState<number>(text.score));
-  const textOrder: [number, Dispatch<SetStateAction<number>>][] =
-    questions.texts.map((text) => useState<number>(text.score));
+  const [choiceIds, setChoiceIds] = useState<(Id | null)[]>(
+    questions.choices.map((choice) => choice._id)
+  );
+  const [choiceQuestions, setChoiceQuestions] = useState(
+    questions.choices.map((choice) => choice.question)
+  );
+  const [as, setAs] = useState(questions.choices.map((choice) => choice.a));
+  const [bs, setBs] = useState(questions.choices.map((choice) => choice.b));
+  const [cs, setCs] = useState(questions.choices.map((choice) => choice.c));
+  const [ds, setDs] = useState(questions.choices.map((choice) => choice.d));
+  const [es, setEs] = useState(questions.choices.map((choice) => choice.e));
+  const scoreAs = useState(questions.choices.map((choice) => choice.scoreA));
+  const scoreBs = useState(questions.choices.map((choice) => choice.scoreB));
+  const scoreCs = useState(questions.choices.map((choice) => choice.scoreC));
+  const scoreDs = useState(questions.choices.map((choice) => choice.scoreD));
+  const scoreEs = useState(questions.choices.map((choice) => choice.scoreE));
+  const [corrects, setCorrect] = useState<(Choice | "-")[]>(
+    questions.choices.map((choice) => choice.correct)
+  );
+  const [choiceOrder, setChoiceOrder] = useState(
+    questions.choices.map((choice) => choice.order)
+  );
+  const textQuestions = useState(questions.texts.map((text) => text.question));
+  const textIds = useState<(Id | null)[]>(
+    questions.texts.map((text) => text._id)
+  );
+  const scores = useState(questions.texts.map((text) => text.score));
+  const textOrder = useState(questions.texts.map((text) => text.score));
   function safeToDeleteTextQuestion() {
-    if (textIds[textIds.length - 1][0]) {
+    if (textIds[0][textIds.length - 1]) {
       return;
     }
-    textQuestions.pop();
-    textIds.pop();
-    scores.pop();
-    textOrder.pop();
+    textQuestions[1](textQuestions[0].filter(removeElementInUseStateArray));
+    textIds[1](textIds[0].filter(removeElementInUseStateArray));
+    scores[1](scores[0].filter(removeElementInUseStateArray));
+    textOrder[1](textOrder[0].filter(removeElementInUseStateArray));
   }
   function safeToDeleteChoiceQuestion() {
-    if (choiceIds[choiceIds.length - 1][0]) {
+    if (choiceIds[choiceIds.length - 1]) {
       return;
     }
-    choiceIds.push(useState<Id | null>(null));
-    choiceQuestions.pop();
-    as.pop();
-    bs.pop();
-    cs.pop();
-    ds.pop();
-    es.pop();
-    scoreAs.pop();
-    scoreBs.pop();
-    scoreCs.pop();
-    scoreDs.pop();
-    scoreEs.pop();
-    corrects.pop();
-    choiceOrder.pop();
+    setChoiceIds(choiceIds.filter(removeElementInUseStateArray));
+    setChoiceQuestions(choiceQuestions.filter(removeElementInUseStateArray));
+    setAs(as.filter(removeElementInUseStateArray));
+    setBs(bs.filter(removeElementInUseStateArray));
+    setCs(cs.filter(removeElementInUseStateArray));
+    setDs(ds.filter(removeElementInUseStateArray));
+    setEs(es.filter(removeElementInUseStateArray));
+    scoreAs[1](scoreAs[0].filter(removeElementInUseStateArray));
+    scoreBs[1](scoreBs[0].filter(removeElementInUseStateArray));
+    scoreCs[1](scoreCs[0].filter(removeElementInUseStateArray));
+    scoreDs[1](scoreDs[0].filter(removeElementInUseStateArray));
+    scoreEs[1](scoreEs[0].filter(removeElementInUseStateArray));
+    setCorrect(corrects.filter(removeElementInUseStateArray));
+    setChoiceOrder(choiceOrder.filter(removeElementInUseStateArray));
   }
   function addTextQuestion() {
-    textQuestions.push(useState("-"));
-    textIds.push(useState<Id | null>(null));
-    scores.push(useState<number>(0));
-    textOrder.push(useState<number>(0));
+    textIds[1]([...textIds[0], null]);
+    textQuestions[1]([...textQuestions[0], "-"]);
+    scores[1]([...scores[0], 0]);
+    textOrder[1]([...textOrder[0], 0]);
   }
   function addChoiceQuestion() {
-    choiceIds.push(useState<Id | null>(null));
-    choiceQuestions.push(useState<string>("-"));
-    as.push(useState<string>("-"));
-    bs.push(useState<string>("-"));
-    cs.push(useState<string>("-"));
-    ds.push(useState<string>("-"));
-    es.push(useState<string>("-"));
-    scoreAs.push(useState<number>(0));
-    scoreBs.push(useState<number>(0));
-    scoreCs.push(useState<number>(0));
-    scoreDs.push(useState<number>(0));
-    scoreEs.push(useState<number>(0));
-    corrects.push(useState<Choice | "-">("-"));
-    choiceOrder.push(useState<number>(0));
+    setChoiceIds([...choiceIds, null]);
+    setChoiceQuestions([...choiceQuestions, "-"]);
+    setAs([...as, "-"]);
+    setBs([...bs, "-"]);
+    setCs([...cs, "-"]);
+    setDs([...ds, "-"]);
+    setEs([...es, "-"]);
+    scoreAs[1]([...scoreAs[0], 0]);
+    scoreBs[1]([...scoreBs[0], 0]);
+    scoreCs[1]([...scoreCs[0], 0]);
+    scoreDs[1]([...scoreDs[0], 0]);
+    scoreEs[1]([...scoreEs[0], 0]);
+    setCorrect([...corrects, "-"]);
+    setChoiceOrder([...choiceOrder, 0]);
   }
   const { data: session } = useSession();
   if (!session) {
@@ -308,25 +299,27 @@ export default function UpdateCampClient({
         </div>
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link รูปภาพ</label>
-          {pictureUrls.map((pictureUrl, i) => (
+          {pictureUrls[0].map((pictureUrl, i) => (
             <TypingImageSource
               onChange={function (imgSrc: string | null): void {
-                pictureUrl[1](imgSrc);
+                pictureUrls[1](
+                  pictureUrls[0].map(modifyElementInUseStateArray(imgSrc, i))
+                );
               }}
-              defaultSrc={pictureUrl[0]}
+              defaultSrc={pictureUrl}
             />
           ))}
         </div>
         <FinishButton
           text="add photo"
           onClick={() => {
-            pictureUrls.push(useState<string | null>(null));
+            pictureUrls[1]([...pictureUrls[0]]);
           }}
         />
         <FinishButton
           text="remove photo"
           onClick={() => {
-            pictureUrls.pop();
+            pictureUrls[1](pictureUrls[0].filter(removeElementInUseStateArray));
           }}
         />
         <div className="flex flex-row items-center my-5">
@@ -577,23 +570,23 @@ export default function UpdateCampClient({
             var chooseChoice: string;
             switch (input) {
               case "A": {
-                chooseChoice = as[i][0];
+                chooseChoice = as[i];
                 break;
               }
               case "B": {
-                chooseChoice = bs[i][0];
+                chooseChoice = bs[i];
                 break;
               }
               case "C": {
-                chooseChoice = cs[i][0];
+                chooseChoice = cs[i];
                 break;
               }
               case "D": {
-                chooseChoice = ds[i][0];
+                chooseChoice = ds[i];
                 break;
               }
               case "E": {
-                chooseChoice = es[i][0];
+                chooseChoice = es[i];
                 break;
               }
               case "-": {
@@ -629,9 +622,13 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    choiceQuestions[i][1](e.target.value);
+                    setChoiceQuestions(
+                      choiceQuestions.map(
+                        modifyElementInUseStateArray(e.target.value, i)
+                      )
+                    );
                   }}
-                  defaultValue={choiceQuestions[i][0]}
+                  defaultValue={choiceQuestions[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -656,9 +653,11 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    as[i][1](e.target.value);
+                    setAs(
+                      as.map(modifyElementInUseStateArray(e.target.value, i))
+                    );
                   }}
-                  defaultValue={as[i][0]}
+                  defaultValue={as[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -683,9 +682,11 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    bs[i][1](e.target.value);
+                    setBs(
+                      bs.map(modifyElementInUseStateArray(e.target.value, i))
+                    );
                   }}
-                  defaultValue={bs[i][0]}
+                  defaultValue={bs[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -710,9 +711,11 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    cs[i][1](e.target.value);
+                    setCs(
+                      cs.map(modifyElementInUseStateArray(e.target.value, i))
+                    );
                   }}
-                  defaultValue={cs[i][0]}
+                  defaultValue={cs[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -737,9 +740,11 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    ds[i][1](e.target.value);
+                    setDs(
+                      ds.map(modifyElementInUseStateArray(e.target.value, i))
+                    );
                   }}
-                  defaultValue={ds[i][0]}
+                  defaultValue={ds[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -764,9 +769,11 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    es[i][1](e.target.value);
+                    setEs(
+                      es.map(modifyElementInUseStateArray(e.target.value, i))
+                    );
                   }}
-                  defaultValue={es[i][0]}
+                  defaultValue={es[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -792,9 +799,16 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    scoreAs[i][1](parseFloat(e.target.value));
+                    scoreAs[1](
+                      scoreAs[0].map(
+                        modifyElementInUseStateArray(
+                          parseFloat(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
-                  defaultValue={scoreAs[i][0]}
+                  defaultValue={scoreAs[0][i].toString()}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -820,9 +834,16 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    scoreBs[i][1](parseFloat(e.target.value));
+                    scoreBs[1](
+                      scoreBs[0].map(
+                        modifyElementInUseStateArray(
+                          parseFloat(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
-                  defaultValue={scoreBs[i][0]}
+                  defaultValue={scoreBs[0][i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -848,9 +869,16 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    scoreCs[i][1](parseFloat(e.target.value));
+                    scoreCs[1](
+                      scoreCs[0].map(
+                        modifyElementInUseStateArray(
+                          parseFloat(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
-                  defaultValue={scoreCs[i][0]}
+                  defaultValue={scoreCs[0][i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -876,9 +904,16 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    scoreDs[i][1](parseFloat(e.target.value));
+                    scoreDs[1](
+                      scoreDs[0].map(
+                        modifyElementInUseStateArray(
+                          parseFloat(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
-                  defaultValue={scoreDs[i][0]}
+                  defaultValue={scoreDs[i]}
                 />
               </div>
               <div className="flex flex-row items-center my-5">
@@ -904,14 +939,21 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    scoreEs[i][1](parseFloat(e.target.value));
+                    scoreEs[1](
+                      scoreEs[0].map(
+                        modifyElementInUseStateArray(
+                          parseFloat(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
-                  defaultValue={scoreEs[i][0]}
+                  defaultValue={scoreEs[0][i]}
                 />
               </div>
               <div>เลือกตัวเลือกที่ถูกต้อง</div>
               <Select
-                defaultValue={getChooseChoice(corrects[i][0])}
+                defaultValue={getChooseChoice(corrects[i])}
                 variant="standard"
                 name="location"
                 id="location"
@@ -919,47 +961,71 @@ export default function UpdateCampClient({
               >
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("A");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("A", i)
+                      )
+                    );
                   }}
-                  value={`A ${as[i][0]}`}
+                  value={`A ${as[i]}`}
                 >
-                  A {as[i][0]}
+                  A {as[i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("B");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("B", i)
+                      )
+                    );
                   }}
-                  value={`B ${bs[i][0]}`}
+                  value={`B ${bs[i]}`}
                 >
-                  B {bs[i][0]}
+                  B {bs[i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("C");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("C", i)
+                      )
+                    );
                   }}
-                  value={`C ${cs[i][0]}`}
+                  value={`C ${cs[i]}`}
                 >
-                  C {cs[i][0]}
+                  C {cs[i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("D");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("D", i)
+                      )
+                    );
                   }}
-                  value={`D ${ds[i][0]}`}
+                  value={`D ${ds[i]}`}
                 >
-                  D {ds[i][0]}
+                  D {ds[i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("E");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("E", i)
+                      )
+                    );
                   }}
                   value={`E ${es[i]}`}
                 >
-                  E {es[i][0]}
+                  E {es[i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    corrects[i][1]("-");
+                    setCorrect(
+                      corrects.map(
+                        modifyElementInUseStateArray<Choice | "-">("-", i)
+                      )
+                    );
                   }}
                   value={"-"}
                 >
@@ -990,7 +1056,14 @@ export default function UpdateCampClient({
                     },
                   }}
                   onChange={(e) => {
-                    choiceOrder[i][1](parseInt(e.target.value));
+                    setChoiceOrder(
+                      choiceOrder.map(
+                        modifyElementInUseStateArray(
+                          parseInt(e.target.value),
+                          i
+                        )
+                      )
+                    );
                   }}
                   defaultValue={as[i]}
                 />
@@ -1006,10 +1079,12 @@ export default function UpdateCampClient({
           text="ลบคำถามที่เป็นตัวเลือก"
           onClick={safeToDeleteChoiceQuestion}
         />
-        {textIds.map((v, i) => (
+        {textIds[0].map((v, i) => (
           <>
             <div className="flex flex-row items-center my-5">
-              <label className="w-2/5 text-2xl text-white">คำถาม</label>
+              <label className="w-2/5 text-2xl text-white">
+                คำถามข้อที่ {i + 1}
+              </label>
               <TextField
                 name="Email"
                 id="Email"
@@ -1030,9 +1105,13 @@ export default function UpdateCampClient({
                   },
                 }}
                 onChange={(e) => {
-                  textQuestions[i][1](e.target.value);
+                  textQuestions[1](
+                    textQuestions[0].map(
+                      modifyElementInUseStateArray(e.target.value, i)
+                    )
+                  );
                 }}
-                defaultValue={textQuestions[i][0]}
+                defaultValue={textQuestions[0][i]}
               />
             </div>
             <div className="flex flex-row items-center my-5">
@@ -1058,9 +1137,16 @@ export default function UpdateCampClient({
                   },
                 }}
                 onChange={(e) => {
-                  scores[i][1](parseFloat(e.target.value));
+                  scores[1](
+                    scores[0].map(
+                      modifyElementInUseStateArray(
+                        parseFloat(e.target.value),
+                        i
+                      )
+                    )
+                  );
                 }}
-                defaultValue={scores[i][0]}
+                defaultValue={scores[0][i]}
               />
             </div>
             <div className="flex flex-row items-center my-5">
@@ -1086,9 +1172,13 @@ export default function UpdateCampClient({
                   },
                 }}
                 onChange={(e) => {
-                  textOrder[i][1](parseInt(e.target.value));
+                  textOrder[1](
+                    textOrder[0].map(
+                      modifyElementInUseStateArray(parseInt(e.target.value), i)
+                    )
+                  );
                 }}
-                defaultValue={textOrder[i]}
+                defaultValue={textOrder[0][i]}
               />
             </div>
           </>
@@ -1116,9 +1206,7 @@ export default function UpdateCampClient({
                       dataLock,
                       dateEnd: dateEnd.toDate(),
                       dateStart: dateStart.toDate(),
-                      pictureUrls: pictureUrls
-                        .map((v) => v[0])
-                        .filter(notEmpty),
+                      pictureUrls: pictureUrls[0].filter(notEmpty),
                       open,
                       allDone,
                       registerSheetLink,
@@ -1133,27 +1221,27 @@ export default function UpdateCampClient({
                   );
                   editQuestion(
                     {
-                      texts: textIds.map((id, i) => ({
-                        _id: id[0],
-                        question: textQuestions[i][0],
-                        score: scores[i][0],
-                        order: textOrder[i][0],
+                      texts: textIds[0].map((_id, i) => ({
+                        _id,
+                        question: textQuestions[0][i],
+                        score: scores[0][i],
+                        order: textOrder[0][i],
                       })),
-                      choices: choiceIds.map((id, i) => ({
-                        _id: id[0],
-                        question: choiceQuestions[i][0],
-                        a: as[i][0],
-                        b: bs[i][0],
-                        c: cs[i][0],
-                        d: ds[i][0],
-                        e: es[i][0],
-                        scoreA: scoreAs[i][0],
-                        scoreB: scoreBs[i][0],
-                        scoreC: scoreCs[i][0],
-                        scoreD: scoreDs[i][0],
-                        scoreE: scoreEs[i][0],
-                        correct: corrects[i][0],
-                        order: choiceOrder[i][0],
+                      choices: choiceIds.map((_id, i) => ({
+                        _id,
+                        question: choiceQuestions[i],
+                        a: as[i],
+                        b: bs[i],
+                        c: cs[i],
+                        d: ds[i],
+                        e: es[i],
+                        scoreA: scoreAs[0][i],
+                        scoreB: scoreBs[0][i],
+                        scoreC: scoreCs[0][i],
+                        scoreD: scoreDs[0][i],
+                        scoreE: scoreEs[0][i],
+                        correct: corrects[i],
+                        order: choiceOrder[i],
                       })),
                       campId: camp._id,
                     },
@@ -1174,7 +1262,6 @@ export default function UpdateCampClient({
             onClick={() => saveDeleteCamp(camp._id, session.user.token)}
           />
         </div>
-        {choiceIds.length}
       </div>
     </div>
   );

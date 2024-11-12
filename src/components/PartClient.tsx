@@ -22,7 +22,12 @@ import SelectTemplate from "./SelectTemplate";
 import { TextField } from "@mui/material";
 import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
-import { addTime, notEmpty } from "./setup";
+import {
+  addTime,
+  modifyElementInUseStateArray,
+  notEmpty,
+  removeElementInUseStateArray,
+} from "./setup";
 import createWorkingItem from "@/libs/camp/createWorkingItem";
 import plusActionPlan from "@/libs/camp/plusActionPlan";
 export default function PartClient({
@@ -50,25 +55,12 @@ export default function PartClient({
   const [name, setName] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
   const [action, setAction] = useState<string | null>(null);
-  const places: [
-    InterPlace | null,
-    Dispatch<SetStateAction<InterPlace | null>>
-  ][] = [];
+  const [places, setPlaces] = useState<(InterPlace | null)[]>([]);
   const [start, setStart] = useState<Date | null>(null);
   const [end, setEnd] = useState<Date | null>(null);
   const [body, setBody] = useState<string | null>(null);
   const [plus, setPlus] = useState<number>(0);
   const router = useRouter();
-  function add() {
-    places.push(useState<InterPlace | null>(null));
-    //setPlaces(places);
-    router.refresh();
-  }
-  function remove() {
-    places.pop();
-    //setPlaces(places);
-    router.refresh();
-  }
   const maps: MyMap[] = [];
   var i = 0;
   while (i < pees.length) {
@@ -282,13 +274,27 @@ export default function PartClient({
             ></div>
           </LocalizationProvider>
         </div>
-        <FinishButton text={"add"} onClick={add} />
-        <FinishButton text={"remove"} onClick={remove} />
+        <FinishButton
+          text={"add"}
+          onClick={() => {
+            setPlaces([...places, null]);
+          }}
+        />
+        <FinishButton
+          text={"remove"}
+          onClick={() => {
+            setPlaces(places.filter(removeElementInUseStateArray));
+          }}
+        />
         {places.map((v, i) => (
           <PlaceSelect
-            place={v[0]}
-            onClick={(ouuPut) => {
-              v[1](ouuPut);
+            place={v}
+            onClick={(outPut) => {
+              setPlaces(
+                places.map(
+                  modifyElementInUseStateArray<InterPlace | null>(outPut, i)
+                )
+              );
             }}
             buildingText={`ตึกที่${i + 1}`}
             placeText={`ชั้นและห้องที่${i + 1}`}
@@ -353,10 +359,7 @@ export default function PartClient({
                 {
                   action,
                   partId: part._id,
-                  placeIds: places
-                    .map((e) => e[0])
-                    .filter(notEmpty)
-                    .map((e) => e._id),
+                  placeIds: places.filter(notEmpty).map((e) => e._id),
                   start: addTime(start, timeOffset),
                   end: addTime(end, timeOffset),
                   headId,

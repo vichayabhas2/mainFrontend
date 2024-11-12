@@ -3,7 +3,7 @@
 import { TextField } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import {
   AllPlaceData,
   InterPlace,
@@ -14,8 +14,7 @@ import {
 import FinishButton from "./FinishButton";
 import PlaceSelect from "./PlaceSelect";
 import SelectTemplate from "./SelectTemplate";
-import { notEmpty } from "./setup";
-import { useRouter } from "next/navigation";
+import { modifyElementInUseStateArray, notEmpty, removeElementInUseStateArray } from "./setup";
 import { useSession } from "next-auth/react";
 import updateActionPlan from "@/libs/camp/updateActionPlan";
 import BackToHome from "./BackToHome";
@@ -40,22 +39,10 @@ export default function EditActionPland({
     return <BackToHome />;
   }
   const [action, setAction] = useState<string | null>(actionPlan.action);
-  const places: [
-    InterPlace | null,
-    Dispatch<SetStateAction<InterPlace | null>>
-  ][] = pls.map((pl) => useState<InterPlace | null>(pl));
+  const [places, setPlaces] = useState<(InterPlace | null)[]>(pls);
   const [start, setStart] = useState<Dayjs | null>(dayjs(actionPlan.start));
   const [end, setEnd] = useState<Dayjs | null>(dayjs(actionPlan.end));
   const [body, setBody] = useState<string | null>(actionPlan.body);
-  const router = useRouter();
-  function add() {
-    places.push(useState<InterPlace | null>(null));
-    router.refresh();
-  }
-  function remove() {
-    places.pop();
-    router.refresh();
-  }
   const maps: MyMap[] = [];
   var i = 0;
   while (i < pees.length) {
@@ -111,14 +98,22 @@ export default function EditActionPland({
             />
           </LocalizationProvider>
         </div>
-        <FinishButton text={"add"} onClick={add} />
-        <FinishButton text={"remove"} onClick={remove} />
+        <FinishButton
+          text={"add"}
+          onClick={() => {
+            setPlaces([...places, null]);
+          }}
+        />
+        <FinishButton
+          text={"remove"}
+          onClick={() => setPlaces(places.filter(removeElementInUseStateArray))}
+        />
         {places.map((v, i) => (
           <PlaceSelect
-            place={v[0]}
+            place={v}
             allPlaceData={allPlaceData}
-            onClick={(ouuPut) => {
-              v[1](ouuPut);
+            onClick={(outPut) => {
+              setPlaces(places.map(modifyElementInUseStateArray<InterPlace|null>(outPut,i)))
             }}
             buildingText={`ตึกที่${i + 1}`}
             placeText={`ชั้นและห้องที่${i + 1}`}
@@ -154,7 +149,6 @@ export default function EditActionPland({
                 {
                   action,
                   placeIds: places
-                    .map((v) => v[0])
                     .filter(notEmpty)
                     .map((e) => e._id),
                   start: start.toDate(),
