@@ -100,7 +100,7 @@ export default function UpdateCampClient({
   const scores = useState(questions.texts.map((text) => text.score));
   const textOrder = useState(questions.texts.map((text) => text.score));
   function safeToDeleteTextQuestion() {
-    if (textIds[0][textIds.length - 1]) {
+    if (textIds[0][textIds[0].length - 1]) {
       return;
     }
     textQuestions[1](textQuestions[0].filter(removeElementInUseStateArray));
@@ -300,20 +300,22 @@ export default function UpdateCampClient({
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-white">link รูปภาพ</label>
           {pictureUrls[0].map((pictureUrl, i) => (
-            <TypingImageSource
-              onChange={function (imgSrc: string | null): void {
-                pictureUrls[1](
-                  pictureUrls[0].map(modifyElementInUseStateArray(imgSrc, i))
-                );
-              }}
-              defaultSrc={pictureUrl}
-            />
+            <div>
+              <TypingImageSource
+                onChange={function (imgSrc: string | null): void {
+                  pictureUrls[1](
+                    pictureUrls[0].map(modifyElementInUseStateArray(imgSrc, i))
+                  );
+                }}
+                defaultSrc={pictureUrl}
+              />
+            </div>
           ))}
         </div>
         <FinishButton
           text="add photo"
           onClick={() => {
-            pictureUrls[1]([...pictureUrls[0]]);
+            pictureUrls[1]([...pictureUrls[0], null]);
           }}
         />
         <FinishButton
@@ -524,7 +526,6 @@ export default function UpdateCampClient({
               value={dateStart}
               onChange={(newValue) => {
                 setDateStart(newValue);
-                console.log(newValue);
               }}
               disablePast
             />
@@ -559,7 +560,6 @@ export default function UpdateCampClient({
               value={dateEnd}
               onChange={(newValue) => {
                 setDateEnd(newValue);
-                console.log(newValue);
               }}
               disablePast
             />
@@ -570,23 +570,23 @@ export default function UpdateCampClient({
             var chooseChoice: string;
             switch (input) {
               case "A": {
-                chooseChoice = as[i];
+                chooseChoice = `${as[i]} คะแนน ${scoreAs[0][i]}`;
                 break;
               }
               case "B": {
-                chooseChoice = bs[i];
+                chooseChoice = `${bs[i]} คะแนน ${scoreBs[0][i]}`;
                 break;
               }
               case "C": {
-                chooseChoice = cs[i];
+                chooseChoice = `${cs[i]} คะแนน ${scoreCs[0][i]}`;
                 break;
               }
               case "D": {
-                chooseChoice = ds[i];
+                chooseChoice = `${ds[i]} คะแนน ${scoreDs[0][i]}`;
                 break;
               }
               case "E": {
-                chooseChoice = es[i];
+                chooseChoice = `${es[i]} คะแนน ${scoreEs[0][i]}`;
                 break;
               }
               case "-": {
@@ -953,11 +953,12 @@ export default function UpdateCampClient({
               </div>
               <div>เลือกตัวเลือกที่ถูกต้อง</div>
               <Select
-                defaultValue={getChooseChoice(corrects[i])}
+                defaultValue={`${corrects[i]} ${getChooseChoice(corrects[i])}`}
                 variant="standard"
                 name="location"
                 id="location"
                 className="h-[2em] w-[200px] mb-5 text-white"
+                value={`${corrects[i]} ${getChooseChoice(corrects[i])}`}
               >
                 <MenuItem
                   onClick={() => {
@@ -967,9 +968,9 @@ export default function UpdateCampClient({
                       )
                     );
                   }}
-                  value={`A ${as[i]}`}
+                  value={`A ${as[i]} คะแนน ${scoreAs[0][i]}`}
                 >
-                  A {as[i]}
+                  A {as[i]} คะแนน {scoreAs[0][i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -979,9 +980,9 @@ export default function UpdateCampClient({
                       )
                     );
                   }}
-                  value={`B ${bs[i]}`}
+                  value={`B ${bs[i]} คะแนน ${scoreBs[0][i]}`}
                 >
-                  B {bs[i]}
+                  B {bs[i]} คะแนน {scoreBs[0][i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -991,9 +992,9 @@ export default function UpdateCampClient({
                       )
                     );
                   }}
-                  value={`C ${cs[i]}`}
+                  value={`C ${cs[i]} คะแนน ${scoreCs[0][i]}`}
                 >
-                  C {cs[i]}
+                  C {cs[i]} คะแนน {scoreCs[0][i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -1003,9 +1004,9 @@ export default function UpdateCampClient({
                       )
                     );
                   }}
-                  value={`D ${ds[i]}`}
+                  value={`D ${ds[i]} คะแนน ${scoreDs[0][i]}`}
                 >
-                  D {ds[i]}
+                  D {ds[i]} คะแนน {scoreDs[0][i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -1015,9 +1016,9 @@ export default function UpdateCampClient({
                       )
                     );
                   }}
-                  value={`E ${es[i]}`}
+                  value={`E ${es[i]} คะแนน ${scoreEs[0][i]}`}
                 >
-                  E {es[i]}
+                  E {es[i]} คะแนน {scoreEs[0][i]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -1032,7 +1033,6 @@ export default function UpdateCampClient({
                   -
                 </MenuItem>
               </Select>
-              {corrects[i]}
               <div className="flex flex-row items-center my-5">
                 <label className="w-2/5 text-2xl text-white">ลำดับ</label>
                 <TextField
