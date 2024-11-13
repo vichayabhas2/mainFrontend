@@ -1,8 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import ChatClient from "@/components/ChatClient";
+import { stringToId } from "@/components/setup";
 import getChat from "@/libs/randomthing/getChat";
-import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 
 export default async function NongChat({
@@ -10,13 +10,13 @@ export default async function NongChat({
 }: {
   params: { sid: string };
 }) {
-  const shirtmanageId = new mongoose.Types.ObjectId(params.sid);
+  const campMemberCardId = stringToId(params.sid);
   const session = await getServerSession(authOptions);
   if (!session) {
     return <BackToHome />;
   }
   const token = session.user.token;
-  const data = await getChat(shirtmanageId, "getNongChat", token);
+  const data = await getChat(campMemberCardId, "getNongChat", token);
   if (!data.success) {
     return <BackToHome />;
   }

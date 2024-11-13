@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { ShowPlace } from "../../../interface";
+import { Id, ShowPlace } from "../../../interface";
 
 export default async function getShowPlace(
-  id: mongoose.Types.ObjectId
+  id: Id
 ): Promise<ShowPlace> {
   const res = await fetch(
     `${getBackendUrl()}/randomthing/getShowPlace/params/${id}`,

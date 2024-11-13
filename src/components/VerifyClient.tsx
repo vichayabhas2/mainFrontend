@@ -13,13 +13,15 @@ export default function VerifileClient({ token }: { token: string }) {
       <div className="text-4xl font-medium">Verify</div>
 
       <div className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-        <div className="flex flex-row items-center my-5">
-          <label className="w-2/5 text-2xl text-slate-200">Password</label>
+        <div className="flex flex-col items-center my-5 w-full space-y-2">
+          <label className="w-full text-2xl text-slate-200">
+            Token from Email
+          </label>
           <TextField
             name="Password"
             id="Password"
             type="password"
-            className="w-3/5 bg-slate-100 rounded-2xl border-gray-200"
+            className="w-full bg-slate-100 rounded-2xl border-gray-200"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
@@ -41,7 +43,7 @@ export default function VerifileClient({ token }: { token: string }) {
               }
             }}
           >
-            Verifile
+            Verify
           </button>
         </div>
       </div>

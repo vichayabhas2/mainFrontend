@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
-import { InterTimeOffset } from "../../interface";
+import { InterTimeOffset, UpdateTimeOffsetRaw } from "../../interface";
 import DateConv from "./Dateconv";
 
 export default function GetTimeHtml({
   input,
   offset,
 }: {
-  input: Date;
-  offset: InterTimeOffset;
+  input: dayjs.ConfigType;
+  offset: UpdateTimeOffsetRaw;
 }) {
   const monthArray = [
     "Jan.",

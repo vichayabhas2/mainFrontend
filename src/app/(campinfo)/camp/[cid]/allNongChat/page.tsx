@@ -5,16 +5,16 @@ import getPeeCamp from "@/libs/camp/getPeeCamp";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import getChat from "@/libs/randomthing/getChat";
 import getCampMemberCardByCampId from "@/libs/user/getCampMemberCardByCampId";
-import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import ChatChoiseClient from "@/components/ChatChoiseClient";
+import { stringToId } from "@/components/setup";
 
 export default async function NongChatChoise({
   params,
 }: {
   params: { cid: string };
 }) {
-  const campId = new mongoose.Types.ObjectId(params.cid);
+  const campId = stringToId(params.cid);
   const session = await getServerSession(authOptions);
   if (!session) {
     return <BackToHome />;

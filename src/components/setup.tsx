@@ -8,6 +8,9 @@ import {
   InterTimeOffset,
   ShowMember,
   ShowNong,
+  HeathIssueBody,
+  Id,
+  UpdateTimeOffsetRaw,
 } from "../../interface";
 import dayjs from "dayjs";
 
@@ -30,11 +33,7 @@ export function startSize(): Map<
   });
   return size;
 }
-export function swop(
-  olds: mongoose.Types.ObjectId | null,
-  news: mongoose.Types.ObjectId | null,
-  array: mongoose.Types.ObjectId[]
-): mongoose.Types.ObjectId[] {
+export function swop(olds: Id | null, news: Id | null, array: Id[]): Id[] {
   if (!olds) {
     if (news) {
       array.push(news);
@@ -93,35 +92,27 @@ export function sizeJsonMod(
   return input;
 }
 
-export function mapBoolToArray(
-  input: Map<mongoose.Types.ObjectId, boolean>
-): mongoose.Types.ObjectId[] {
-  var out: mongoose.Types.ObjectId[] = [];
-  input.forEach((v: boolean, k: mongoose.Types.ObjectId) => {
+export function mapBoolToArray(input: Map<Id, boolean>): Id[] {
+  var out: Id[] = [];
+  input.forEach((v: boolean, k: Id) => {
     if (v) {
       out.push(k);
     }
   });
   return out;
 }
-export function mapStringToMyMap(
-  input: Map<mongoose.Types.ObjectId, string>
-): MyMap[] {
+export function mapStringToMyMap(input: Map<Id, string>): MyMap[] {
   var out: MyMap[] = [];
-  input.forEach((value: string, key: mongoose.Types.ObjectId) => {
+  input.forEach((value: string, key: Id) => {
     out.push({ key, value });
   });
   return out;
 }
-export function mapObjectIdToMyMap(
-  input: Map<mongoose.Types.ObjectId, mongoose.Types.ObjectId>
-): MapObjectId[] {
+export function mapObjectIdToMyMap(input: Map<Id, Id>): MapObjectId[] {
   var out: MapObjectId[] = [];
-  input.forEach(
-    (value: mongoose.Types.ObjectId, key: mongoose.Types.ObjectId) => {
-      out.push({ key, value });
-    }
-  );
+  input.forEach((value: Id, key: Id) => {
+    out.push({ key, value });
+  });
   return out;
 }
 /*export function myMapToMapString(input: MyMap[]): Map<string, string> {
@@ -170,10 +161,7 @@ export function getBackendUrl() {
   return process.env.NEXT_PUBLIC_BACKEND_URL;
 }
 export const userPath = "api/v1/auth";
-export function hasKey(
-  input: MyMap[] | MapObjectId[],
-  id: mongoose.Types.ObjectId
-): boolean {
+export function hasKey(input: MyMap[] | MapObjectId[], id: Id): boolean {
   var i = 0;
   while (i < input.length) {
     if (input[i++].key === id) {
@@ -182,7 +170,7 @@ export function hasKey(
   }
   return false;
 }
-export function getValue(input: MyMap[], id: mongoose.Types.ObjectId): string {
+export function getValue(input: MyMap[], id: Id): string {
   var i = 0;
   while (i < input.length) {
     if (!input[i++].key.toString().localeCompare(id.toString())) {
@@ -218,17 +206,11 @@ export function addTime(input: Date, add: InterTimeOffset): Date {
     .add(-add.minute, "minutes")
     .toDate();
 }
-const removeDups = (
-  arr: mongoose.Types.ObjectId[]
-): mongoose.Types.ObjectId[] => {
-  let unique: mongoose.Types.ObjectId[] = arr.reduce(function (
-    acc: mongoose.Types.ObjectId[],
-    curr: mongoose.Types.ObjectId
-  ) {
+const removeDups = (arr: Id[]): Id[] => {
+  let unique: Id[] = arr.reduce(function (acc: Id[], curr: Id) {
     if (!acc.includes(curr)) acc.push(curr);
     return acc;
-  },
-  []);
+  }, []);
   return unique;
 };
 export function generateExcelData(data: any, fileName: string) {
@@ -250,19 +232,23 @@ export function downToShowNong({
   return { name, nickname, lastname, gender, id };
 }
 ////////////////////////////////////////////////////////////////////////////////////
-export function peeLookupNong<TValue>(
-  pees: TValue[],
-  nongs: TValue[]
-): TValue[] {
+export function peeLookupNong<P, N>(pees: P[], nongs: N[]): (P | N)[] {
+  if (pees.length == 0) {
+    return nongs;
+  }
+  if (pees.length == 1) {
+    const outs: (P | N)[] = pees;
+    nongs.forEach((nong) => outs.push(nong));
+    return outs;
+  }
   const mp = pees.length;
   const mn = nongs.length;
   var n = 0;
   var p = 0;
-  const outs: TValue[] = [];
+  const outs: (P | N)[] = [];
   var i = 0;
   if (mp > mn) {
     var count = mp / (mn + 1);
-    console.log(count);
     const exc = mp % (mn + 1);
     if (exc) {
       outs.push(pees[p++]);
@@ -286,7 +272,6 @@ export function peeLookupNong<TValue>(
     }
   } else {
     var count = mn / (mp - 1);
-    console.log(count);
     const exc = mn % (mp - 1);
     outs.push(pees[p++]);
     if (exc) {
@@ -336,10 +321,42 @@ export const departures = [
   "วิศวกรรมสารสนเทศและการสื่อสาร (นานาชาติ)** (Information and Communication Engineering)",
   "วิศวกรรมหุ่นยนต์และปัญญาประดิษฐ์ (นานาชาติ)** (Robotics and Artificial Intelligence Engineering)",
 ] as const;
-export const zeroTimeOffset: InterTimeOffset = {
-  userId: new mongoose.Types.ObjectId(),
+export const zeroTimeOffset: UpdateTimeOffsetRaw = {
   minute: 0,
   hour: 0,
   day: 0,
-  _id: new mongoose.Types.ObjectId(),
 };
+export function getId(input: { _id: Id } | null) {
+  if (input) {
+    return input._id;
+  }
+  return null;
+}
+export const emptyHealthIssue: HeathIssueBody = {
+  food: "",
+  chronicDisease: "",
+  medicine: "",
+  extra: "",
+  isWearing: false,
+  spicy: false,
+  foodConcern: "",
+  foodLimit: "ไม่มีข้อจำกัดด้านความเชื่อ",
+};
+export function getDifferentMinute(start: Date, end: Date) {
+  return dayjs(end).diff(start, "minute");
+}
+export function stringToId(input: string) {
+  return new mongoose.Types.ObjectId(input);
+}
+export function removeElementInUseStateArray(v: any, i: number, a: any[]) {
+  return i < a.length - 1;
+}
+export function modifyElementInUseStateArray<T>(v: T, i: number) {
+  return (v2: T, i2: number) => {
+    if (i == i2) {
+      return v;
+    } else {
+      return v2;
+    }
+  };
+}

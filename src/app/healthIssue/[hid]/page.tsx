@@ -1,3 +1,4 @@
+import { stringToId } from "@/components/setup";
 import getHeathIssue from "@/libs/user/getHeathIssue";
 import getUser from "@/libs/user/getUser";
 import mongoose from "mongoose";
@@ -7,7 +8,7 @@ export default async function HelthIshuePage({
 }: {
   params: { hid: string };
 }) {
-  const healthIssueId = new mongoose.Types.ObjectId(params.hid);
+  const healthIssueId = stringToId(params.hid);
   const heathIssue = await getHeathIssue(healthIssueId);
   const user = await getUser(heathIssue.userId);
   return (
@@ -27,7 +28,7 @@ export default async function HelthIshuePage({
               <th>แพ้ยาอะไรบ้าง</th>
               <th>เพิ่มเติม</th>
               <th>กินเผ็ดได้หรือไม่</th>
-              <th>ใส่แพมเพิสหรือไม่</th>
+              {heathIssue.isWearing ? <th>ใส่แพมเพิสหรือไม่</th> : null}
             </tr>
             <tr>
               <td>{user.nickname}</td>
@@ -38,7 +39,7 @@ export default async function HelthIshuePage({
               <td>{heathIssue.medicine}</td>
               <td>{heathIssue.extra}</td>
               <td>{heathIssue.spicy ? "ไม่ได้" : "ได้"}</td>
-              <td>{heathIssue.isWearing ? "ใส่" : "ไม่ใส่"}</td>
+              {heathIssue.isWearing ? <td> ใส่ </td> : null}
             </tr>
           </table>
           <div className="text-2xl my-10"></div>

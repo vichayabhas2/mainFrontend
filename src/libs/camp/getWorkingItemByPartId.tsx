@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { InterWorkingItem } from "../../../interface";
+import { Id, InterWorkingItem } from "../../../interface";
 import { getBackendUrl } from "@/components/setup";
 
 export default async function getWorkingItemByPartId(
-  partId: mongoose.Types.ObjectId,
+  partId: Id,
   token: string
 ): Promise<InterWorkingItem[]> {
   const response = await fetch(

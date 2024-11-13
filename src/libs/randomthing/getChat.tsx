@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { ChatReady, GetChat } from "../../../interface";
+import { ChatReady, GetChat, Id } from "../../../interface";
 import { getBackendUrl } from "@/components/setup";
 
 export default async function getChat(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   mode: GetChat,
   token: string
 ): Promise<ChatReady> {

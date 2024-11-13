@@ -1,16 +1,17 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function updateActionPlan(
   input: {
     action: string;
-    placeIds: mongoose.Types.ObjectId[];
+    placeIds: Id[];
     start: Date;
     end: Date;
-    headId: mongoose.Types.ObjectId;
+    headId: Id;
     body: string;
   },
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ) {
   const response = await fetch(

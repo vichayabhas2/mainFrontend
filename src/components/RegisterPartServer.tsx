@@ -2,7 +2,7 @@ import getBaans from "@/libs/camp/getBaans";
 import getCamp from "@/libs/camp/getCamp";
 import getShowRegisters from "@/libs/camp/getShowRegisters";
 import mongoose from "mongoose";
-import { MyMap, RegisBaan, RegisPart } from "../../interface";
+import { Id, MyMap, RegisBaan, RegisPart } from "../../interface";
 import getUserFromCamp from "@/libs/camp/getUserFromCamp";
 import getPart from "@/libs/camp/getPart";
 import RegisterPartClient from "./RegisPartClient";
@@ -10,11 +10,11 @@ import RegisterPartClient from "./RegisPartClient";
 export default async function RegisterPartServer({
   campId,
   token,
-  isBoard
+  isBoard,
 }: {
-  campId: mongoose.Types.ObjectId;
+  campId: Id;
   token: string;
-  isBoard:boolean
+  isBoard: boolean;
 }) {
   const camp = await getCamp(campId);
   const baans = await getBaans(campId);

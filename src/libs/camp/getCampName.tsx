@@ -1,11 +1,11 @@
 import { getBackendUrl } from "@/components/setup";
-import { InterCampFront, InterNameContainer } from "../../../interface";
+import { Id, InterCampFront, InterNameContainer } from "../../../interface";
 import mongoose from "mongoose";
 
 export default function getCampName(
   camps: InterCampFront[]
-): Map<mongoose.Types.ObjectId, string> {
-  const out: Map<mongoose.Types.ObjectId, string> = new Map();
+): Map<Id, string> {
+  const out: Map<Id, string> = new Map();
 
   camps.forEach((camp: InterCampFront) => {
     //const nameContainer = await getName(camp.nameId);

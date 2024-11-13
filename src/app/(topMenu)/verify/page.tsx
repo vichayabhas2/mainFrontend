@@ -1,6 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import VerifileClient from "@/components/VerifyClient";
+import getSystemInfo from "@/libs/randomthing/getSystemInfo";
 import getUserProfile from "@/libs/user/getUserProfile";
 import signId from "@/libs/user/signId";
 import { getServerSession } from "next-auth";
@@ -11,12 +12,13 @@ export default async function page() {
     return <BackToHome />;
   }
   const user = await getUserProfile(session.user.token);
-  if (user.email.split("@")[1].localeCompare("student.chula.ac.th")) {
+  const info = await getSystemInfo();
+  if (!info.endEmail.split(",").includes(user.email.split("@")[1])) {
     return <BackToHome />;
   }
   const { success } = await signId(session.user.token);
   if (!success) {
     return <BackToHome />;
   }
-  return<VerifileClient token={session.user.token}/>
+  return <VerifileClient token={session.user.token} />;
 }

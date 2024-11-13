@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AllPlaceData, InterBuilding, InterPlace } from "../../interface";
+import { AllPlaceData, Id, InterBuilding, InterPlace } from "../../interface";
 import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
 import { MenuItem, Select } from "@mui/material";
@@ -26,7 +26,7 @@ export default function PlaceSelect({
   const [nP, setNP] = useState<InterPlace | null>(place);
 
   const [nB, setNB] = useState<string | null>(
-    allPlaceData.allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)
+    allPlaceData.allBuildings.get(place?.buildingId as Id)
       ?.name as string | null
   );
 
@@ -47,6 +47,9 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
+          sx={{
+            color: "white",
+          }}
           defaultValue={nB}
         >
           {buildings.map((choice: string) => {
@@ -65,6 +68,9 @@ export default function PlaceSelect({
           name="location"
           id="location"
           className="h-[2em] w-[200px] text-white"
+          sx={{
+            color: "white",
+          }}
           defaultValue={`${nP?.floor} ${nP?.room}`}
         >
           {nC?.map((choice: InterPlace) => {

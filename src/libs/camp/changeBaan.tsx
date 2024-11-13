@@ -1,10 +1,11 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function changeBaan(
   input: {
-    userIds: mongoose.Types.ObjectId[];
-    baanId: mongoose.Types.ObjectId;
+    userIds: Id[];
+    baanId: Id;
   },
   token: string
 ) {

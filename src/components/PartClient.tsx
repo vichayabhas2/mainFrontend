@@ -12,7 +12,7 @@ import {
   MyMap,
   ShowMember,
 } from "../../interface";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import mongoose from "mongoose";
 import PlaceSelect from "./PlaceSelect";
 import FinishButton from "./FinishButton";
@@ -22,7 +22,12 @@ import SelectTemplate from "./SelectTemplate";
 import { TextField } from "@mui/material";
 import createActionPlan from "@/libs/camp/createActionPlan";
 import { useSession } from "next-auth/react";
-import { addTime, notEmpty } from "./setup";
+import {
+  addTime,
+  modifyElementInUseStateArray,
+  notEmpty,
+  removeElementInUseStateArray,
+} from "./setup";
 import createWorkingItem from "@/libs/camp/createWorkingItem";
 import plusActionPlan from "@/libs/camp/plusActionPlan";
 export default function PartClient({
@@ -56,16 +61,6 @@ export default function PartClient({
   const [body, setBody] = useState<string | null>(null);
   const [plus, setPlus] = useState<number>(0);
   const router = useRouter();
-  function add() {
-    places.push(null);
-    //setPlaces(places);
-    router.refresh();
-  }
-  function remove() {
-    places.pop();
-    //setPlaces(places);
-    router.refresh();
-  }
   const maps: MyMap[] = [];
   var i = 0;
   while (i < pees.length) {
@@ -78,28 +73,31 @@ export default function PartClient({
     maps.push({ key: _id, value: `${nickname} ${name} ${lastname}` });
   }
   return (
-    <main className="text-center p-5  rounded-3xl"
-    style={{
-      border:"solid",
-      color:"#373737",
-      borderColor:"#373737",
-      borderWidth:"2px",
-      width:"80%",
-      marginLeft:"10%",
-      marginTop:"20px"
-    }}
+    <main
+      className="text-center p-5  rounded-3xl"
+      style={{
+        border: "solid",
+        color: "#373737",
+        borderColor: "#373737",
+        borderWidth: "2px",
+        width: "80%",
+        marginLeft: "10%",
+        marginTop: "20px",
+      }}
     >
       <div>
         <div
-         className="text-4xl font-bold"
-         style={{
-           color:"#373737",
-           marginTop:"30px",
-           marginBottom:"10px"
-         }}
-        >รายชื่อพี่บ้านฝ่าย{part.partName}</div>
+          className="text-4xl font-bold"
+          style={{
+            color: "#373737",
+            marginTop: "30px",
+            marginBottom: "10px",
+          }}
+        >
+          รายชื่อพี่บ้านฝ่าย{part.partName}
+        </div>
         <table>
-          <tr style={{border:"solid", borderColor:"#373737"}}>
+          <tr style={{ border: "solid", borderColor: "#373737" }}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -116,7 +114,7 @@ export default function PartClient({
             <th>ปัญหาสุขภาพ</th>
           </tr>
           {pees.map((user: ShowMember) => (
-            <tr style={{border:"solid", borderColor:"#373737"}}>
+            <tr style={{ border: "solid", borderColor: "#373737" }}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>
@@ -132,7 +130,9 @@ export default function PartClient({
               {user.healthIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/healthIssue/${user.healthIssueId?.toString()}`);
+                    router.push(
+                      `/healthIssue/${user.healthIssueId?.toString()}`
+                    );
                   }}
                 >
                   {user.healthIssueId.toString()}
@@ -146,15 +146,17 @@ export default function PartClient({
       </div>
       <div>
         <div
-         className="text-4xl font-bold"
-         style={{
-           color:"#373737",
-           marginTop:"30px",
-           marginBottom:"10px"
-         }}
-        >รายชื่อปีโตฝ่าย{part.partName}</div>
+          className="text-4xl font-bold"
+          style={{
+            color: "#373737",
+            marginTop: "30px",
+            marginBottom: "10px",
+          }}
+        >
+          รายชื่อปีโตฝ่าย{part.partName}
+        </div>
         <table>
-          <tr style={{border:"solid", borderColor:"#373737"}}>
+          <tr style={{ border: "solid", borderColor: "#373737" }}>
             <th>ชือเล่น</th>
             <th>ชื่อจริง</th>
             <th>นามสกุล</th>
@@ -170,7 +172,7 @@ export default function PartClient({
             <th>ปัญหาสุขภาพ</th>
           </tr>
           {petos.map((user: ShowMember) => (
-            <tr style={{border:"solid", borderColor:"#373737"}}>
+            <tr style={{ border: "solid", borderColor: "#373737" }}>
               <td>{user.nickname}</td>
               <td>{user.name}</td>
               <td>{user.lastname}</td>
@@ -186,7 +188,9 @@ export default function PartClient({
               {user.healthIssueId ? (
                 <td
                   onClick={() => {
-                    router.push(`/healthIssue/${user.healthIssueId?.toString()}`);
+                    router.push(
+                      `/healthIssue/${user.healthIssueId?.toString()}`
+                    );
                   }}
                 >
                   {user.healthIssueId.toString()}
@@ -198,31 +202,32 @@ export default function PartClient({
           ))}
         </table>
       </div>
-      <div className="w-[80%] items-center] p-10 rounded-3xl "
-      style={{
-      backgroundColor:"#961A1D",
-      marginLeft:"10%",
-      marginTop:"10px"
-      }}
+      <div
+        className="w-[80%] items-center] p-10 rounded-3xl "
+        style={{
+          backgroundColor: "#961A1D",
+          marginLeft: "10%",
+          marginTop: "10px",
+        }}
       >
         <div className=" rounded-lg ">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               className="bg-white m-10 rounded-2xl"
               sx={{
-                backgroundColor: '#f5f5f5',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderRadius: ' 1rem',
-                    borderColor: 'transparent', 
+                backgroundColor: "#f5f5f5",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderRadius: " 1rem",
+                    borderColor: "transparent",
                   },
-                  '&:hover fieldset': {
-                    borderColor: '#5479FF',      
+                  "&:hover fieldset": {
+                    borderColor: "#5479FF",
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#5479FF',      
-                  }
-                }
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#5479FF",
+                  },
+                },
               }}
               value={start}
               onChange={(newValue) => {
@@ -230,6 +235,11 @@ export default function PartClient({
                 console.log(newValue);
               }}
             />
+            <div
+              style={{
+                height: "10px",
+              }}
+            ></div>
           </LocalizationProvider>
         </div>
         <div className=" rounded-lg ">
@@ -237,19 +247,19 @@ export default function PartClient({
             <DateTimePicker
               className="bg-white m-10 rounded-2xl"
               sx={{
-                backgroundColor: '#f5f5f5',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderRadius: ' 1rem',
-                    borderColor: 'transparent', 
+                backgroundColor: "#f5f5f5",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderRadius: " 1rem",
+                    borderColor: "transparent",
                   },
-                  '&:hover fieldset': {
-                    borderColor: '#5479FF',      
+                  "&:hover fieldset": {
+                    borderColor: "#5479FF",
                   },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#5479FF',      
-                  }
-                }
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#5479FF",
+                  },
+                },
               }}
               value={end}
               onChange={(newValue) => {
@@ -257,16 +267,34 @@ export default function PartClient({
                 console.log(newValue);
               }}
             />
+            <div
+              style={{
+                height: "10px",
+              }}
+            ></div>
           </LocalizationProvider>
         </div>
-        <FinishButton text={"add"} onClick={add} />
-        <FinishButton text={"remove"} onClick={remove} />
+        <FinishButton
+          text={"add"}
+          onClick={() => {
+            setPlaces([...places, null]);
+          }}
+        />
+        <FinishButton
+          text={"remove"}
+          onClick={() => {
+            setPlaces(places.filter(removeElementInUseStateArray));
+          }}
+        />
         {places.map((v, i) => (
           <PlaceSelect
             place={v}
-            onClick={(ouuPut) => {
-              places[i] = ouuPut;
-              setPlaces(places);
+            onClick={(outPut) => {
+              setPlaces(
+                places.map(
+                  modifyElementInUseStateArray<InterPlace | null>(outPut, i)
+                )
+              );
             }}
             buildingText={`ตึกที่${i + 1}`}
             placeText={`ชั้นและห้องที่${i + 1}`}
@@ -282,19 +310,19 @@ export default function PartClient({
             id="Tel"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setAction(e.target.value)}
           />
@@ -306,19 +334,19 @@ export default function PartClient({
             id="Email"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setBody(e.target.value)}
           />
@@ -353,19 +381,19 @@ export default function PartClient({
             type="number"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setPlus(parseInt(e.target.value))}
           />
@@ -377,11 +405,12 @@ export default function PartClient({
           />
         </div>
       </div>
-      <div className="w-[80%] items-center  p-10 rounded-3xl "
-       style={{
-        backgroundColor:"#961A1D",
-        marginLeft:"10%",
-        marginTop:"10px"
+      <div
+        className="w-[80%] items-center  p-10 rounded-3xl "
+        style={{
+          backgroundColor: "#961A1D",
+          marginLeft: "10%",
+          marginTop: "10px",
         }}
       >
         <div className="flex flex-row items-center my-5">
@@ -391,19 +420,19 @@ export default function PartClient({
             id="Tel"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setName(e.target.value)}
           />
@@ -415,19 +444,19 @@ export default function PartClient({
             id="Email"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setLink(e.target.value)}
           />
@@ -439,19 +468,19 @@ export default function PartClient({
             id="Email"
             className="w-3/5 bg-white rounded-2xl border-gray-200"
             sx={{
-              backgroundColor: '#f5f5f5',
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderRadius: ' 1rem',
-                  borderColor: 'transparent', 
+              backgroundColor: "#f5f5f5",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderRadius: " 1rem",
+                  borderColor: "transparent",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#5479FF',     
+                "&:hover fieldset": {
+                  borderColor: "#5479FF",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#5479FF',      
-                }
-              }
+                "&.Mui-focused fieldset": {
+                  borderColor: "#5479FF",
+                },
+              },
             }}
             onChange={(e) => setPassword(e.target.value)}
             defaultValue={password}
@@ -478,19 +507,3 @@ export default function PartClient({
     </main>
   );
 }
-/**export interface InterActionPlan {
-
-    action: string,
-    partId: mongoose.Types.ObjectId,*
-    placeIds: mongoose.Types.ObjectId[],
-    start: Date,
-    end: Date,
-    headId: mongoose.Types.ObjectId,
-    body: string,
-
-
-    start: Date,
-    end: Date,
-    headId: mongoose.Types.ObjectId,
-    body: string,
-} */

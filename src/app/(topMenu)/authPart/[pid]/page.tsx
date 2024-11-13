@@ -1,7 +1,9 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import AllInOneLock from "@/components/AllInOneLock";
 import BackToHome from "@/components/BackToHome";
-import PasswordLock from "@/components/PasswordLock";
+import PlanServer from "@/components/PlanServer";
 import RegisterPartServer from "@/components/RegisterPartServer";
+import { stringToId } from "@/components/setup";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import UpdateCampServer from "@/components/UpdateCampServer";
 import WelfareServer from "@/components/WelfareServer";
@@ -19,7 +21,7 @@ export default async function Baan({ params }: { params: { pid: string } }) {
     return <BackToHome />;
   }
   const token = session.user.token;
-  const partId = new mongoose.Types.ObjectId(params.pid);
+  const partId = stringToId(params.pid);
   const user = await getUserProfile(session.user.token);
 
   const part = await getPart(partId);
@@ -30,7 +32,8 @@ export default async function Baan({ params }: { params: { pid: string } }) {
     !user.authPartIds.includes(camp.partBoardId) &&
     !user.authPartIds.includes(camp.partCoopId) &&
     !user.authPartIds.includes(camp.partRegisterId) &&
-    !user.authPartIds.includes(camp.partWelfareId)
+    !user.authPartIds.includes(camp.partWelfareId) &&
+    !user.authPartIds.includes(camp.partPlanId)
   ) {
     return <BackToHome />;
   }
@@ -43,38 +46,52 @@ export default async function Baan({ params }: { params: { pid: string } }) {
         case "pee": {
           const peeCamp = await getPeeCamp(campMemberCard.campModelId, token);
           return (
-            <PasswordLock token={token} bypass={user.mode == "pee"}>
+            <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
               <UpdateBaanServer baanId={peeCamp.baanId} />
-            </PasswordLock>
+            </AllInOneLock>
           );
         }
         case "peto": {
           return (
-            <PasswordLock token={token} bypass={user.mode == "pee"}>
+            <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
               {camp.baanIds.map((baanId) => (
                 <UpdateBaanServer baanId={baanId} />
               ))}
-            </PasswordLock>
+            </AllInOneLock>
           );
         }
       }
     }
     case camp.partBoardId.toString(): {
       return (
-        <>
+        <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
           <UpdateCampServer campId={camp._id} token={token} />
           <RegisterPartServer campId={camp._id} token={token} isBoard={true} />
-          <WelfareServer campId={camp._id} token={token}/>
-        </>
+          <WelfareServer campId={camp._id} token={token} />
+          <PlanServer campId={camp._id} token={token} />
+        </AllInOneLock>
       );
     }
     case camp.partRegisterId.toString(): {
       return (
-        <RegisterPartServer campId={camp._id} token={token} isBoard={false} />
+        <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
+          <RegisterPartServer campId={camp._id} token={token} isBoard={false} />
+        </AllInOneLock>
       );
     }
     case camp.partWelfareId.toString(): {
-      return <WelfareServer campId={camp._id} token={token} />;
+      return (
+        <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
+          <WelfareServer campId={camp._id} token={token} />
+        </AllInOneLock>
+      );
+    }
+    case camp.partPlanId.toString(): {
+      return (
+        <AllInOneLock token={token} lock={user.mode == "nong"} pushToHome>
+          <PlanServer campId={camp._id} token={token} />
+        </AllInOneLock>
+      );
     }
   }
 }

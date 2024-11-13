@@ -6,11 +6,12 @@ import mongoose from "mongoose";
 import BaanMembers from "./BaanMembers";
 import UpdateBaanClient from "./UpdateBaanClient";
 import { getAllPlaceData } from "./placeSetUp";
+import { Id } from "../../interface";
 
 export default async function UpdateBaanServer({
   baanId,
 }: {
-  baanId: mongoose.Types.ObjectId;
+  baanId: Id;
 }) {
   const baan = await getBaan(baanId);
   const boy = baan.boySleepPlaceId
@@ -23,8 +24,8 @@ export default async function UpdateBaanServer({
   const camp = await getCamp(baan.campId);
   const pees = await getUserFromCamp("getPeesFromBaanId", baan._id);
   const nongs = await getUserFromCamp("getNongsFromBaanId", baan._id);
-  const allPlaceData=await getAllPlaceData()
-  
+  const allPlaceData = await getAllPlaceData();
+
   return (
     <>
       <UpdateBaanClient
@@ -35,7 +36,13 @@ export default async function UpdateBaanServer({
         camp={camp}
         allPlaceData={allPlaceData}
       />
-      <BaanMembers baan={baan} campRole={"pee"} nongs={nongs} pees={pees} camp={camp} />
+      <BaanMembers
+        baan={baan}
+        campRole={"pee"}
+        nongs={nongs}
+        pees={pees}
+        camp={camp}
+      />
     </>
   );
 }

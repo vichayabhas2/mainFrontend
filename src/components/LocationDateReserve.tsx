@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import staffRegisterCamp from "@/libs/camp/staffRegister";
 import SelectTemplate from "./SelectTemplate";
 import mongoose from "mongoose";
-import { InterUser, MyMap, Size } from "../../interface";
+import { Id, InterUser, MyMap, Size } from "../../interface";
 import { Checkbox } from "@mui/material";
 import SelectSize from "./SelectSize";
 import { updateBottle } from "@/libs/user/updateBottle";
@@ -60,7 +60,7 @@ export default function LocationDateReserve({
       </div>
       <SelectTemplate
         mapIn={partMap}
-        select={(partId: mongoose.Types.ObjectId) => {
+        select={(partId: Id) => {
           staffRegisterCamp(partId, token);
           updateBottle(haveBottle, token);
           updateSleep(likeToSleepAtCamp, token);

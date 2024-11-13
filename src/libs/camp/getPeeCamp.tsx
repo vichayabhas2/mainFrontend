@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
-import { InterPeeCamp } from "../../../interface";
+import { Id, InterPeeCamp } from "../../../interface";
 import mongoose from "mongoose";
 
 export default async function getPeeCamp(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ): Promise<InterPeeCamp> {
   const response = await fetch(`${getBackendUrl()}/camp/peeCamp/params/${id}`, {

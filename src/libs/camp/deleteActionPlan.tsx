@@ -1,8 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function deleteActionPlan(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ) {
   const response = await fetch(

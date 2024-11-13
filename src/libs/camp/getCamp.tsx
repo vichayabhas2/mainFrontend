@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
-import { InterCampFront } from "../../../interface";
+import { Id, InterCampFront } from "../../../interface";
 import mongoose from "mongoose";
 
 export default async function getCamp(
-  id: mongoose.Types.ObjectId
+  id: Id
 ): Promise<InterCampFront> {
   const response = await fetch(
     `${getBackendUrl()}/camp/getCamp/params/${id.toString()}`,

@@ -12,13 +12,14 @@ import getShertmanage from "@/libs/user/getCampMemberCard";
 import getPeeCamp from "@/libs/camp/getPeeCamp";
 import getPetoCamp from "@/libs/camp/getPetoCamp";
 import getUser from "@/libs/user/getUser";
+import { stringToId } from "@/components/setup";
 
 export default async function page({ params }: { params: { uid: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return <BackToHome />;
   }
-  const user = await getUser(new mongoose.Types.ObjectId(params.uid));
+  const user = await getUser(stringToId(params.uid));
   //console.log(user)
   interface Out {
     campName: string;

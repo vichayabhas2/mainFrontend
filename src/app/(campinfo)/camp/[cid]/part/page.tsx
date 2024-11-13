@@ -3,9 +3,10 @@ import getPart from "@/libs/camp/getPart"
 import mongoose from "mongoose"
 import { InterPartFront } from "../../../../../../interface"
 import ChoicePartChatClient from "@/components/ChoicePartChatClient"
+import { stringToId } from "@/components/setup"
 
 export default async function PartChoice({params}:{params:{cid:string}}){
-    const camp=await getCamp(new mongoose.Types.ObjectId(params.cid))
+    const camp=await getCamp(stringToId(params.cid))
     const parts:InterPartFront[]=[]
     var i=0
     while(i<camp.partIds.length){

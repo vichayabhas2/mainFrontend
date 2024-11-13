@@ -1,8 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 
 export default async function plusActionPlan(
-  input: { campId: mongoose.Types.ObjectId; plus: number },
+  input: { campId: Id; plus: number },
   token: string
 ) {
   const response = await fetch(`${getBackendUrl()}/camp/plusActionPlan`, {

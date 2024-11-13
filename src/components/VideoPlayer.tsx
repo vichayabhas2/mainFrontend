@@ -1,38 +1,29 @@
+"use client";
+import { useWindowListener } from "@/hooks/useWindowListener";
+import { useRef, useEffect, useState } from "react";
 
-'use client'
-import { useWindowListener } from "@/hooks/useWindowListener"
-import { useRef ,useEffect, useState} from "react"
+export default function VideoPlayer({
+  vdoSrc,
+  isPlaying,
+}: {
+  vdoSrc: string;
+  isPlaying: boolean;
+}) {
+  const vdoRef = useRef<HTMLVideoElement>(null);
 
-
-export default function VideoPlayer({vdoSrc,isPlaying}:{vdoSrc:string,isPlaying:boolean}){
-
-
-
-
-    const vdoRef =useRef<HTMLVideoElement>(null)
-
-
-
-
-    useEffect(()=>{
-        if(isPlaying){
-        vdoRef.current?.play()
-    }else{
-        vdoRef.current?.pause()
+  useEffect(() => {
+    if (isPlaying) {
+      vdoRef.current?.play();
+    } else {
+      vdoRef.current?.pause();
     }
-    },[isPlaying])
+  }, [isPlaying]);
 
+  useWindowListener("contextmenu", (e) => {
+    e.preventDefault();
+  });
 
-useWindowListener("contextmenu",(e)=> {e.preventDefault()})
-
-
- 
-
-
-
-
-
-    return(
-        <video  className="w-[40%]" src={vdoSrc} ref={vdoRef} controls loop muted/>
-    )
+  return (
+    <video className="w-[40%]" src={vdoSrc} ref={vdoRef} controls loop muted />
+  );
 }

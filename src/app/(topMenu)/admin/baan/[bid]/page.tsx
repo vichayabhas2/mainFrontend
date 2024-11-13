@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
+import { stringToId } from "@/components/setup";
 import UpdateBaanServer from "@/components/UpdateBaanServer";
 import getBaan from "@/libs/camp/getBaan";
 import getCamp from "@/libs/camp/getCamp";
@@ -18,7 +19,7 @@ export default async function Baan({ params }: { params: { bid: string } }) {
 
   const user = await getUserProfile(session.user.token);
   
-const baanId = new mongoose.Types.ObjectId(params.bid);
+const baanId = stringToId(params.bid);
 if(user.role==='admin'){
   return <UpdateBaanServer baanId={baanId} />;
 }

@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { InterBaanFront } from "../../../interface";
+import { Id, InterBaanFront } from "../../../interface";
 
 export default async function getBaans(
-  campId: mongoose.Types.ObjectId
+  campId: Id
 ): Promise<InterBaanFront[]> {
   const res = await fetch(`${getBackendUrl()}/camp/getBaans/params/${campId}`, {
     cache: "no-store",

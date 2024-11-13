@@ -41,7 +41,7 @@ export default async function adminPage() {
         >
           <HospitalCatalog
             hospitalsJson={camps}
-            univercity={true}
+            university={true}
             url="admin/camp"
           />
           <div className="w-[100%] flex flex-col items-center pt-20 space-y-10">

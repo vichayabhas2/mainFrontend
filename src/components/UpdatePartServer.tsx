@@ -3,17 +3,18 @@ import getPlace from "@/libs/randomthing/getPlace";
 import mongoose from "mongoose";
 import UpdatePartClient from "./UpdatePartClient";
 import { getAllPlaceData } from "./placeSetUp";
+import { Id } from "../../interface";
 
 export default async function UpdatePartServer({
-    token,
+  token,
   partId,
 }: {
-  partId: mongoose.Types.ObjectId;
-  token:string
+  partId: Id;
+  token: string;
 }) {
   const part = await getPart(partId);
   const place = part.placeId ? await getPlace(part.placeId) : null;
-  const allPlaceData=await getAllPlaceData()
+  const allPlaceData = await getAllPlaceData();
 
   //const camp = await getCamp(part.campId);
   return (

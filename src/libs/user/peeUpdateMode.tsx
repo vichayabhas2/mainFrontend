@@ -1,9 +1,10 @@
 import { getBackendUrl, userPath } from "@/components/setup";
 import mongoose from "mongoose";
+import { Id } from "../../../interface";
 export default async function peeUpdateMode(
   token: string,
   mode: "pee" | "nong",
-  filterIds: mongoose.Types.ObjectId[],
+  filterIds: Id[],
   linkHash:string
 ) {
   const response = await fetch(`${getBackendUrl()}/${userPath}/updateMode`, {

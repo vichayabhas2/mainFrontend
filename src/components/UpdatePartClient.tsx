@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  AllPlaceData,
-  InterPlace,
-} from "../../interface";
-import mongoose from "mongoose";
+import { AllPlaceData, Id, InterPlace } from "../../interface";
 import { useSession } from "next-auth/react";
 import { MenuItem, Select } from "@mui/material";
 import BackToHome from "./BackToHome";
@@ -13,26 +9,23 @@ import updatePart from "@/libs/admin/updatePart";
 export default function UpdatePartClient({
   place,
   partId,
-  allPlaceData
-
+  allPlaceData,
 }: {
   place: InterPlace | null;
-  partId:mongoose.Types.ObjectId,
-  allPlaceData:AllPlaceData
-
+  partId: Id;
+  allPlaceData: AllPlaceData;
 }) {
   // dispatch = useDispatch<AppDispatch>();
   //const update = useAppSelector((state) => state.bookSlice.bookItem);
   const { data: session } = useSession();
 
   const [nP, setNP] = useState<InterPlace | null>(place);
-  
+
   const [nB, setNB] = useState<string | null>(
-    allPlaceData.allBuildings.get(place?.buildingId as mongoose.Types.ObjectId)?.name as
-      | string
-      | null
+    allPlaceData.allBuildings.get(place?.buildingId as Id)
+      ?.name as string | null
   );
-  
+
   const nC = nB ? (allPlaceData.allPlace.get(nB) as InterPlace[]) : [];
   const buildings: string[] = [];
   allPlaceData.allPlace.forEach((e, input: string) => {
@@ -46,9 +39,6 @@ export default function UpdatePartClient({
       <div className="text-4xl font-medium">Update Part</div>
 
       <form className="w-[30%] items-center bg-slate-600 p-10 rounded-3xl shadow-[25px_25px_40px_-10px_rgba(0,0,0,0.7)]">
-        
-
-        
         <div className="flex flex-row items-center my-5">
           <label className="w-2/5 text-2xl text-slate-200">
             เลือกตึกที่ใช้เป็นห้องฝ่าย
@@ -99,8 +89,7 @@ export default function UpdatePartClient({
             onClick={() => {
               if (nP) {
                 try {
-                    updatePart(partId,nP._id,session.user.token)
-                  
+                  updatePart(partId, nP._id, session.user.token);
                 } catch (error) {
                   console.log(error);
                 }

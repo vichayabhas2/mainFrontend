@@ -28,7 +28,7 @@ export default async function TopMenu() {
   ];
 
   const session = await getServerSession(authOptions);
-  const { systemMode } = await getSystemInfo();
+  const { systemMode, endEmail } = await getSystemInfo();
   if (session) {
     const user = await getUserProfile(session.user.token);
     const timeOffset = await getTimeOffset(user.displayOffsetId);
@@ -47,7 +47,7 @@ export default async function TopMenu() {
         return (
           //น้องจริง
           <div className={styles.menucontainer}>
-             <Logo/>
+            <Logo />
             <DateConv
               day={day}
               minutes={minutes}
@@ -58,7 +58,7 @@ export default async function TopMenu() {
             <div>{systemMode}</div>
             <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="lostAndFound" />
-              {user.email.split("@")[1].localeCompare("student.chula.ac.th") ||
+              {!endEmail.split(",").includes(user.email.split("@")[1]) ||
               user.fridayActEn ? null : (
                 <TopMenuItem title="verify" pageRef="/verify" />
               )}
@@ -74,7 +74,7 @@ export default async function TopMenu() {
         // พี่ และ admin mode น้อง
         return (
           <div className={styles.menucontainer}>
-             <Logo/>
+            <Logo />
             <DateConv
               day={day}
               minutes={minutes}
@@ -100,7 +100,7 @@ export default async function TopMenu() {
         // admin mode พี่
         return (
           <div className={styles.menucontainer}>
-            <Logo/>
+            <Logo />
             <DateConv
               day={day}
               minutes={minutes}
@@ -109,8 +109,7 @@ export default async function TopMenu() {
               hours={hours}
             />
             <div>{systemMode}</div>
-            <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center"
-            >
+            <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
               <TopMenuItem title="Lost & Found" pageRef="/lostAndFound" />
               <TopMenuItem title="เมนูพี่" pageRef="/menuPee" />
               <TopMenuItem title="ปัญหาสุขภาพ" pageRef="/healthIssue" />
@@ -126,7 +125,7 @@ export default async function TopMenu() {
         return (
           // พี่ mode พี่
           <div className={styles.menucontainer}>
-             <Logo/>
+            <Logo />
             <DateConv
               day={day}
               minutes={minutes}
@@ -158,7 +157,7 @@ export default async function TopMenu() {
     return (
       // not login
       <div className={styles.menucontainer}>
-         <Logo/>
+        <Logo />
         <DateConv
           day={day}
           minutes={minutes}
@@ -168,6 +167,7 @@ export default async function TopMenu() {
         />
         <div>{systemMode}</div>
         <div className="flex flex-row absolute right-10 top-0 h-full py-2 text-center">
+          <TopMenuItem title="Sign In" pageRef="/api/auth/signin" />
           <TopMenuItem title="Register" pageRef="/signup" />
           <TopMenuItem title="Home" pageRef="/" />
         </div>

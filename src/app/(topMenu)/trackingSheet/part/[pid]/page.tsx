@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import bcrypt from "bcrypt";
 import PasswordLock from "@/components/PasswordLock";
+import { stringToId } from "@/components/setup";
 
 export default async function HospitalDetailPage({
   params,
@@ -23,7 +24,7 @@ export default async function HospitalDetailPage({
   }
   var i = 0;
   const workingItems = await getWorkingItemByPartId(
-    new mongoose.Types.ObjectId(params.pid),
+    stringToId(params.pid),
     session.user.token
   );
   while (i < workingItems.length) {

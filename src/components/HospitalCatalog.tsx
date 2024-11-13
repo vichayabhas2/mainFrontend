@@ -9,12 +9,12 @@ export default function HospitalCatalog({
   hospitalsJson,
   url,
 
-  univercity,
+  university,
 }: {
   hospitalsJson: InterCampFront[];
   url: string;
 
-  univercity: boolean;
+  university: boolean;
 }) {
   const router = useRouter();
   const hospitalsJsonReady = hospitalsJson;
@@ -34,14 +34,13 @@ export default function HospitalCatalog({
           if (
             (camp.memberStructure == "nong->1year,pee->2upYear" ||
               camp.memberStructure == "allYearMix") &&
-            !univercity
+            !university
           ) {
             return null;
           }
           //console.log(camp);
           return (
-            <div className={`w-[70%] h-auto my-${5}`}
-            >
+            <div className={`w-[70%] h-auto my-${5}`}>
               {/* <Link href={`/hospital/${hospitalItem._id}`}> */}
               <Card
                 hospitalName={camp.campName}

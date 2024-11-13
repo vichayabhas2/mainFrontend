@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import getUserProfile from "@/libs/user/getUserProfile";
 import UpdateCampServer from "@/components/UpdateCampServer";
+import { stringToId } from "@/components/setup";
 
 export default async function HospitalDetailPage({
   params,
@@ -18,7 +19,7 @@ export default async function HospitalDetailPage({
   if (user.role !== "admin") {
     return <BackToHome />;
   }
-  const campId = new mongoose.Types.ObjectId(params.cid);
+  const campId = stringToId(params.cid);
   return <UpdateCampServer token={session.user.token} campId={campId} />;
 
   //สร้างบ้าน

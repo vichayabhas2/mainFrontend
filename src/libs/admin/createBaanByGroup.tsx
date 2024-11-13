@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 import { getBackendUrl } from "@/components/setup";
+import { Id } from "../../../interface";
 
 export default async function createBaanByGroup(
-  campId: mongoose.Types.ObjectId,
+  campId: Id,
   token: string
 ) {
   await fetch(`${getBackendUrl()}/admin/createBaanByGroup/params/${campId}`, {

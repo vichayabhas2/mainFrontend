@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
 import mongoose from "mongoose";
-import { ShowRegister } from "../../../interface";
+import { Id, ShowRegister } from "../../../interface";
 
 export default async function getShowRegisters(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ): Promise<ShowRegister[]> {
   const response = await fetch(

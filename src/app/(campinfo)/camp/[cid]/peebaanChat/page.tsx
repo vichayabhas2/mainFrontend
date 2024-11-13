@@ -2,12 +2,13 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BackToHome from "@/components/BackToHome";
 import ChatClient from "@/components/ChatClient";
 import PasswordLock from "@/components/PasswordLock";
+import { stringToId } from "@/components/setup";
 import getChat from "@/libs/randomthing/getChat";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 
 export default async function AllChat({ params }: { params: { cid: string } }) {
-  const campId = new mongoose.Types.ObjectId(params.cid);
+  const campId = stringToId(params.cid);
   const session = await getServerSession(authOptions);
   if (!session) {
     return <BackToHome />;

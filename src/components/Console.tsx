@@ -1,4 +1,3 @@
-
-export function consoleServer(input:any){
-    console.log(input)
+export function consoleServer(input: any) {
+  console.log(input);
 }

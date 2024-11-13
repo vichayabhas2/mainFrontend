@@ -1,9 +1,9 @@
 import { getBackendUrl } from "@/components/setup";
-import { InterPartNameContainer } from "../../../interface";
+import { Id, InterPartNameContainer } from "../../../interface";
 import mongoose from "mongoose";
 
 export default async function getPartName(
-  id: mongoose.Types.ObjectId,
+  id: Id,
   token: string
 ): Promise<InterPartNameContainer> {
   const response = await fetch(
